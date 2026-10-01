@@ -1,0 +1,22 @@
+{
+ "path": "/raffle_feed_thu",
+ "title": "",
+ "description": "",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "",
+ "h1_all": [],
+ "h2": [],
+ "og_title": "",
+ "og_description": "",
+ "og_image": "",
+ "jsonld": [],
+ "copy": [
+  {
+   "selector": "maincontent",
+   "words": 264,
+   "html": "<p>2026-06-25<br/>Thursday<br/>6<br/><br/><br/><br/><br/>\n{\n    \"draw_info\": {\n        \"shares_per_ticket\": 10,\n        \"ticket_series\": 6\n    },\n    \"main_draw\": [\n        {\n            \"label\": \"First Prize\",\n            \"prize\": 300000,\n            \"prize_count\": 1,\n            \"result\": [\n                \"31608\"\n            ]\n        },\n        {\n            \"label\": \"Second Prize\",\n            \"prize\": 60000,\n            \"prize_count\": 1,\n            \"result\": [\n                \"39275\"\n            ]\n        },\n        {\n            \"label\": \"First Prize Approximations\",\n            \"prize\": 12000,\n            \"prize_count\": 2,\n            \"result\": [\n                \"31607\",\n                \"31609\"\n            ]\n        },\n        {\n            \"label\": \"Match first 3 digits of First Prize\",\n            \"prize\": 300,\n            \"prize_count\": 99,\n            \"result\": [\n                \"316**\"\n            ]\n        },\n        {\n            \"label\": \"Last 4 digits of First Prize\",\n            \"prize\": 750,\n            \"prize_count\": 9,\n            \"result\": [\n                \"*1608\"\n            ]\n        },\n        {\n            \"label\": \"Last 3 digits of First Prize\",\n            \"prize\": 150,\n            \"prize_count\": 99,\n            \"result\": [\n                \"**608\"\n            ]\n        },\n        {\n            \"label\": \"Last 2 digits of First Prize\",\n            \"prize\": 60,\n            \"prize_count\": 999,\n            \"result\": [\n                \"***08\"\n            ]\n        },\n        {\n            \"label\": \"Match last digit of First Prize\",\n            \"prize\": 30,\n            \"prize_count\": 9999,\n            \"result\": [\n                \"****8\"\n            ]\n        },\n        {\n            \"label\": \"Second Prize Approximations\",\n            \"prize\": 7470,\n            \"prize_count\": 2,\n            \"result\": [\n                \"39274\",\n                \"39276\"\n            ]\n        },\n        {\n            \"label\": \"Match first 3 digits of Second Prize\",\n            \"prize\": 150,\n            \"prize_count\": 99,\n            \"result\": [\n                \"392**\"\n            ]\n        },\n        {\n            \"label\": \"Match last 4 digits of chosen numbers\",\n            \"prize\": 750,\n            \"prize_count\": 40,\n            \"result\": [\n                \"*2228\",\n                \"*2765\",\n                \"*6969\",\n                \"*9120\"\n            ]\n        },\n        {\n            \"label\": \"Match last 3 digits of chosen numbers\",\n            \"prize\": 150,\n            \"prize_count\": 700,\n            \"result\": [\n                \"**205\",\n                \"**215\",\n                \"**578\",\n                \"**648\",\n                \"**767\",\n                \"**772\",\n                \"**806\"\n            ]\n        },\n        {\n            \"label\": \"Match last 2 digits of chosen numbers\",\n            \"prize\": 60,\n            \"prize_count\": 9000,\n            \"result\": [\n                \"***03\",\n                \"***08\",\n                \"***16\",\n                \"***30\",\n                \"***35\",\n                \"***40\",\n                \"***57\",\n                \"***77\",\n                \"***82\"\n            ]\n        },\n        {\n            \"label\": \"Match last digit of chosen numbers\",\n            \"prize\": 30,\n            \"prize_count\": 20000,\n            \"result\": [\n                \"****3\",\n                \"****9\"\n            ]\n        }\n    ]\n}\n</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

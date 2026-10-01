@@ -1,0 +1,37 @@
+{# /lottery-tickets: the play hub. H1 "Buy Lottery Tickets Online" and the editorial copy are the live
+   page's; the jackpot table is rendered fresh from the CRM. #}
+{% extends "lo/base.html" %}
+{% set breadcrumbs = [("Home", "/"), ("Play Lottos", "/lottery-tickets")] %}
+{% block content %}
+<section class="lo-pagehead">
+  <div class="lo-wrap">
+    <nav class="lo-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Play Lottos</span></nav>
+    <h1>{{ (page.h1 if page else None) or "Buy Lottery Tickets Online" }}</h1>
+  </div>
+</section>
+<section class="lo-section">
+  <div class="lo-wrap">
+    <table class="lo-lottable">
+      <thead><tr><th scope="col">Lottery</th><th scope="col">Next jackpot</th><th scope="col">Time left to play</th><th scope="col"><span class="lo-sr">Play</span></th></tr></thead>
+      <tbody>
+      {% for r in rows %}
+        <tr>
+          <td><a class="lo-lottable__name" href="/lottery-tickets/{{ r.lottery.slug }}"><img src="{{ lo_ball(r.lottery) }}" alt="" width="40" height="40" loading="lazy">{{ r.lottery.name }}</a></td>
+          <td>
+            {% if r.jp and r.jp.display %}<span class="lo-lottable__jackpot">{{ r.jp.display }}</span>{% else %}<span class="lo-muted">Results Pending</span>{% endif %}
+            {% if r.jp and r.jp.rise_pct %}<span class="lo-lottable__rise">🔥 {{ r.jp.rise_pct }}% higher than base jackpot</span>{% endif %}
+          </td>
+          <td>{% if r.jp and r.jp.cutoff_iso %}<span class="lo-countdown" data-until="{{ r.jp.cutoff_iso }}">&nbsp;</span>{% endif %}</td>
+          <td><a class="lo-btn lo-btn--sm" href="/lottery-tickets/{{ r.lottery.slug }}">Play Now</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% if page %}
+<section class="lo-section" style="padding-top:0">
+  <div class="lo-wrap"><article class="lo-panel lo-prose">{% for block in page['copy'] %}{{ block.html|safe }}{% endfor %}</article></div>
+</section>
+{% endif %}
+{% endblock %}

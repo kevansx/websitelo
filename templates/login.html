@@ -1,66 +1,36 @@
-{% extends "base.html" %}
-{% block global_flash %}{% endblock %}
+{# /login (6,200 search clicks in 16 months). H1 "Login" and the "Or... OPEN FREE ACCOUNT" panel are the
+   live page's wording. Form fields and endpoints are the engine's (email, password, next -> login_post). #}
+{% extends "lo/base.html" %}
+{% set page = lo_page("/login") %}
 {% block content %}
-<div class="container">
-  <div class="row lePages">
-    <div id="signInFormContent">
-      <h1 class="pageHeading">Sign In to Your Account</h1>
-
-      {# Prefer inline legacy-style messaging on this page. #}
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <p class="{% if category == 'error' %}regSigninError{% elif category == 'success' %}successCopy{% else %}warningText{% endif %}">
-              {{ message }}
-            </p>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-
-      <form id="signInForm" method="post" action="{{ url_for('login_post') }}">
-        <input type="hidden" name="next" value="{{ next or '' }}" />
-
-        <p class="formLabels">
-          Email <span class="inputRequiredStar">*</span>
-        </p>
-        <input
-          type="email"
-          name="email"
-          id="signInEmail"
-          class="required"
-          placeholder="example@expl.com"
-          required
-          autofocus
-        >
-
-        <p class="formLabels">
-          Password <span class="inputRequiredStar">*</span>
-        </p>
-        <div class="showPassword">
-          <input type="password" name="password" id="signInPassword" class="required" required>
-          <img
-            id="signInPasswordImage"
-            src="/resources/images/eye_u25.svg"
-            onclick="showSignInPassword()"
-            width="22"
-            height="15"
-            alt="Show password"
-          >
+<section class="lo-pagehead">
+  <div class="lo-wrap"><h1>{{ (page.h1 if page else None) or "Login" }}</h1></div>
+</section>
+<section class="lo-section">
+  <div class="lo-wrap lo-authgrid">
+    <div class="lo-panel">
+      <form id="signInForm" class="lo-form" method="post" action="{{ url_for('login_post') }}" novalidate>
+        <input type="hidden" name="next" value="{{ next or '' }}">
+        <div class="lo-field">
+          <label class="lo-field__label" for="signInEmail">Email</label>
+          <input class="lo-input" type="email" name="email" id="signInEmail" autocomplete="email" inputmode="email" required autofocus>
         </div>
-
-        <a id="forgotPassword" class="forgotPasswordLink tertiaryLink" href="{{ url_for('forgot_password') }}">Forgot your password?</a>
-
-        <input type="submit" value="Sign-In" id="signInSubmit">
+        <div class="lo-field">
+          <label class="lo-field__label" for="signInPassword">Password</label>
+          <div class="lo-pw">
+            <input class="lo-input" type="password" name="password" id="signInPassword" autocomplete="current-password" required>
+            <button class="lo-pw__toggle" type="button" data-pw-toggle="signInPassword" aria-label="Show password" aria-pressed="false">Show</button>
+          </div>
+        </div>
+        <p style="margin:0"><a class="lo-link" href="{{ url_for('forgot_password') }}">Forgot your password?</a></p>
+        <button class="lo-btn lo-btn--block lo-btn--lg" type="submit" id="signInSubmit">Login</button>
       </form>
-
-      <div id="notYetAMemberSection">
-        <p id="registrationFormText">Not a member yet?</p>
-        <a href="{{ url_for('register') }}" id="registrationFormButton" class="registrationFormLink secondaryFormButton">
-          Register Here
-        </a>
-      </div>
     </div>
+    <aside class="lo-panel lo-authside">
+      <h2>Or...</h2>
+      <a class="lo-btn lo-btn--secondary lo-btn--block" href="/create-account">Open Free Account</a>
+      <p>It's easy! Enter your favourite lottery today. Qualify for discounts and special offers.</p>
+    </aside>
   </div>
-</div>
+</section>
 {% endblock %}
-

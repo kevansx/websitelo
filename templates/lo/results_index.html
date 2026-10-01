@@ -1,0 +1,36 @@
+{# /winning-lottery-numbers: latest result for every lottery. H1 and intro are the live page's. #}
+{% extends "lo/base.html" %}
+{% set breadcrumbs = [("Home", "/"), ("Results & Winnings", "/winning-lottery-numbers")] %}
+{% block content %}
+<section class="lo-pagehead">
+  <div class="lo-wrap">
+    <nav class="lo-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Results &amp; Winnings</span></nav>
+    <h1>{{ (page.h1 if page else None) or "Lottery Results & Winning Numbers" }}</h1>
+    {% if page %}{% for block in page['copy'] %}<div style="position:relative;z-index:1;color:var(--ink-on-brand-muted)">{{ block.html|safe }}</div>{% endfor %}{% endif %}
+  </div>
+</section>
+<section class="lo-section">
+  <div class="lo-wrap">
+    <table class="lo-lottable lo-resultstable">
+      <thead><tr><th scope="col">Lottery</th><th scope="col">Last draw date</th><th scope="col">Winning numbers</th><th scope="col"><span class="lo-sr">Results</span></th></tr></thead>
+      <tbody>
+      {% for r in rows %}
+        <tr>
+          <td><a class="lo-lottable__name" href="/winning-lottery-numbers/{{ r.lottery.slug }}"><img src="{{ lo_ball(r.lottery) }}" alt="" width="40" height="40" loading="lazy">{{ r.lottery.name }}</a></td>
+          <td>{% if r.last_draw_pending %}<span class="lo-muted">Results Pending</span>{% else %}{{ r.last_draw_label }}{% endif %}</td>
+          <td>
+            {% if r.last_main_numbers %}
+              <span class="lo-balls" aria-label="Winning numbers">
+                {% for n in r.last_main_numbers %}<span class="lo-ball">{{ n }}</span>{% endfor %}
+                {% for n in r.last_bonus_numbers %}<span class="lo-ball lo-ball--bonus">{{ n }}</span>{% endfor %}
+              </span>
+            {% endif %}
+          </td>
+          <td><a class="lo-btn lo-btn--sm lo-btn--secondary" href="/winning-lottery-numbers/{{ r.lottery.slug }}">Results</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

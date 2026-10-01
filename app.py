@@ -166,9 +166,9 @@ _WEEKDAY_ORDER = ("monday", "tuesday", "wednesday", "thursday", "friday", "satur
 
 # WhatsApp, Facebook and X crop a link preview towards 1.91:1, and to a square
 # thumbnail in small layouts, so the card is 1200x630 with the logo centred.
-SHARE_CARD_PATH = "brands/lottoexpress/images/share-card.png"
+SHARE_CARD_PATH = "brands/lottosonline/img/og-default.png"  # the old site's og:image (logolarge.png)
 # The header's own raster logo, for structured data that names the publisher.
-BRAND_LOGO_PATH = "brands/lottoexpress/images/LELogo.png"
+BRAND_LOGO_PATH = "brands/lottosonline/img/logo-square.png"
 
 # Pages of draw results one pass of the background sync will pull before
 # handing back to the loop. At 500 draws a page this is a large catch-up in a
@@ -343,9 +343,9 @@ def create_app() -> Flask:
     app.config["WALLET_TOPUP_PROCESSOR_OVERRIDE"] = topup_processor_override
 
     cache_db_path = os.environ.get("CRM_CACHE_DB_PATH", "./data/crm_cache.sqlite")
-    cache_brand = os.environ.get("WEBSITE_BRAND", "lottoexpress").strip() or "lottoexpress"
+    cache_brand = os.environ.get("WEBSITE_BRAND", "lottosonline").strip() or "lottosonline"
     app.config["CRM_CACHE"] = CRMCache(CacheConfig(db_path=cache_db_path, brand=cache_brand))
-    app.config["LEGACY_RESOURCES_DIR"] = os.path.join(app.static_folder, "brands", "lottoexpress")
+    app.config["LEGACY_RESOURCES_DIR"] = os.path.join(app.static_folder, "brands", "engine")
 
     # Assets asked for by version (`?v=<build_id>`) can be held indefinitely,
     # because a new build changes the URL. Images and fonts are stable enough to
@@ -2766,7 +2766,8 @@ def create_app() -> Flask:
                 game = _catalog_game(code)
                 crm_name = (game or {}).get("game_name")
                 meta = seo.play_seo(code, crm_name) if endpoint == "play" else seo.results_seo(code, crm_name)
-                share_image = str(_find_local_logo(code, seo.game_display_name(code, crm_name)) or "")
+                _lot = lo_lotteries.by_game_code(code)
+                share_image = f"/images/lottery-assets/logo_main_{_lot.legacy_code}.png" if _lot else ""
             else:
                 meta = seo.page_seo(endpoint)
         except Exception:
@@ -3738,8 +3739,8 @@ def create_app() -> Flask:
 
     @app.get("/lottery-tickets")
     def catalog():
-        games = store_games_cached()
-        return render_template("catalog.html", games=games)
+        return render_template("lo/lottery_tickets.html", rows=app.config["LO_HOME_ROWS"](),
+                               page=app.config["LO_LEGACY_PAGES"].get("/lottery-tickets"))
 
     @app.get("/lottery-tickets/<lo_play:game_code>")
     def play(game_code: str):
@@ -6837,10 +6838,10 @@ def create_app() -> Flask:
         jackpots, _ = _get_jackpots_live_or_cache(timeout_seconds=_layout_timeout_seconds())
         cache = get_cache()
         rows: list[dict[str, Any]] = []
-        for g_ in games:
-            code = str(g_.get("game_code") or "").strip().lower()
-            if not code:
-                continue
+        # LottosOnline: the lotteries the old results page listed, in the site's order, whether or not the
+        # brand sells them (UK Lotto is results-only).
+        for _lot in [l for l in lo_lotteries.LOTTERIES if l.results]:
+            code = _lot.game_code
             meta = _results_game_meta(code, games, jackpots)
             latest = None
             try:
@@ -6859,10 +6860,10 @@ def create_app() -> Flask:
                     "last_draw_pending": bool(latest_model.get("is_pending")) if latest_model else True,
                     "last_main_numbers": latest_model.get("main_numbers") if latest_model else [],
                     "last_bonus_numbers": latest_model.get("bonus_numbers") if latest_model else [],
+                    "lottery": _lot,
                 }
             )
-        rows.sort(key=lambda r: str((r.get("game") or {}).get("game_name") or ""))
-        return render_template("results_index.html", rows=rows)
+        return render_template("lo/results_index.html", rows=rows, page=app.config["LO_LEGACY_PAGES"].get("/winning-lottery-numbers"))
 
     @app.get("/winning-lottery-numbers/<lo_results:game_code>")
     def results_game(game_code: str):
@@ -7758,7 +7759,7 @@ def create_app() -> Flask:
     # page it claims to be posting from, and it fills in fields a person cannot
     # see.
 
-    _SIGNUP_FORM_SALT = "lottoexpress:register-form"
+    _SIGNUP_FORM_SALT = "lottosonline:register-form"
     # And nobody is punished for being slow. Someone can open this form, take a
     # phone call, make a cup of tea and come back to it, so this is long enough
     # that it only ever catches a token being replayed days later - never a
@@ -11033,56 +11034,25 @@ def create_app() -> Flask:
     # --- Static pages (new canonical routes) ---
     @app.get("/contact-us")
     def contact():
-        recaptcha_enable = str(os.environ.get("RECAPTCHA_ENABLE") or "").strip() == "1"
+        # LottosOnline's contact page: the old page's copy (phone, email, office) plus, when an account flow
+        # sends the customer here about a withdrawal or refund, a pre-filled email. The inherited contact
+        # form is gone: its handler acknowledged messages without sending them anywhere.
         topic = (request.args.get("topic") or "").strip().lower()
-        order_id = (request.args.get("order_id") or "").strip()
-        amount = (request.args.get("amount") or "").strip()
-        message = (request.args.get("message") or "").strip()
-
-        topic_labels = {
-            "withdrawal": "Withdrawal request support",
-            "refund": "Refund request support",
-            "email_verify": "Email verification support",
-        }
-        subject = topic_labels.get(topic) or "Website support request"
-        if topic == "refund" and order_id:
-            subject = f"{subject} (Order #{order_id})"
-        if topic == "withdrawal" and amount:
-            subject = f"{subject} (Amount: {amount})"
-
-        customer = session.get("customer") if isinstance(session.get("customer"), dict) else {}
-        prefill = {
-            "first_name": (customer.get("first_name") or "").strip() if isinstance(customer, dict) else "",
-            "last_name": (customer.get("last_name") or "").strip() if isinstance(customer, dict) else "",
-            "email": (customer.get("email") or "").strip() if isinstance(customer, dict) else "",
-            "topic": topic,
-            "order_id": order_id,
-            "subject": subject,
-            "message": message,
-        }
-        return render_template("contact.html", recaptcha_enable=recaptcha_enable, prefill=prefill)
-
-    @app.post("/contact-us")
-    def contact_post():
-        # Legacy PHP used a server-side mailer + reCAPTCHA.
-        # For now, we keep the same UI and accept submissions, but only acknowledge receipt.
-        # (We can later wire to a real ticketing/email integration.)
-        _ = (request.form.get("firstname") or "").strip()
-        _ = (request.form.get("lastname") or "").strip()
-        _ = (request.form.get("email") or "").strip()
-        _ = (request.form.get("phone") or "").strip()
-        _ = (request.form.get("message") or "").strip()
-        topic = (request.form.get("topic") or "").strip().lower()
-        order_id = (request.form.get("order_id") or "").strip()
-        subject = (request.form.get("subject") or "").strip()
+        order_id = (request.args.get("order_id") or "").strip()[:32]
+        amount = (request.args.get("amount") or "").strip()[:32]
+        subjects = {"withdrawal": "Withdrawal request", "refund": "Refund request", "email_verify": "Email verification"}
+        subject = subjects.get(topic)
+        if subject and order_id:
+            subject += f" (order {order_id})"
+        if subject and amount:
+            subject += f" (amount {amount})"
         if topic in {"withdrawal", "refund"}:
             emit_marketing_event(
                 "click",
                 stable_key=f"{uuid.uuid4().hex}:{topic}:support",
-                metadata={"topic": topic, "order_id": order_id or None, "subject": subject or None},
+                metadata={"topic": topic, "order_id": order_id or None},
             )
-        flash("Thank you for your submission. We will be in contact with you shortly.", "success")
-        return redirect(url_for("contact"))
+        return render_template("lo/contact.html", page=app.config["LO_LEGACY_PAGES"].get("/contact-us"), subject=subject)
 
     # Lotto Express blog and legacy-URL layers removed: LottosOnline public URLs live in lo_routes.py.
 
@@ -11180,7 +11150,7 @@ def create_app() -> Flask:
                 "GITHUB_USER",
                 "GITHUB_USERNAME",
             )
-            or "lottoexpress-bot"
+            or "lottosonline-bot"
         )
 
     def _lotto_default_github_template() -> str:

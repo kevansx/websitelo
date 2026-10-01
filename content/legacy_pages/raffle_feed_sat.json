@@ -1,0 +1,22 @@
+{
+ "path": "/raffle_feed_sat",
+ "title": "",
+ "description": "",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "",
+ "h1_all": [],
+ "h2": [],
+ "og_title": "",
+ "og_description": "",
+ "og_image": "",
+ "jsonld": [],
+ "copy": [
+  {
+   "selector": "maincontent",
+   "words": 250,
+   "html": "<p>2026-06-27<br/>Saturday<br/>10<br/><br/><br/><br/><br/>\n{\n    \"draw_info\": {\n        \"shares_per_ticket\": 10,\n        \"ticket_series\": 10\n    },\n    \"main_draw\": [\n        {\n            \"label\": \"First Prize\",\n            \"prize\": 600000,\n            \"prize_count\": 1,\n            \"result\": [\n                \"33478\"\n            ]\n        },\n        {\n            \"label\": \"Second Prize\",\n            \"prize\": 120000,\n            \"prize_count\": 1,\n            \"result\": [\n                \"18619\"\n            ]\n        },\n        {\n            \"label\": \"First Prize Approximations\",\n            \"prize\": 10000,\n            \"prize_count\": 2,\n            \"result\": [\n                \"33477\",\n                \"33479\"\n            ]\n        },\n        {\n            \"label\": \"Match first 3 digits of First Prize\",\n            \"prize\": 300,\n            \"prize_count\": 99,\n            \"result\": [\n                \"334**\"\n            ]\n        },\n        {\n            \"label\": \"Last 3 digits of First Prize\",\n            \"prize\": 300,\n            \"prize_count\": 99,\n            \"result\": [\n                \"**478\"\n            ]\n        },\n        {\n            \"label\": \"Last 2 digits of First Prize\",\n            \"prize\": 120,\n            \"prize_count\": 999,\n            \"result\": [\n                \"***78\"\n            ]\n        },\n        {\n            \"label\": \"Match last digit of First Prize\",\n            \"prize\": 60,\n            \"prize_count\": 9999,\n            \"result\": [\n                \"****8\"\n            ]\n        },\n        {\n            \"label\": \"Second Prize Approximations\",\n            \"prize\": 5540,\n            \"prize_count\": 2,\n            \"result\": [\n                \"18618\",\n                \"18620\"\n            ]\n        },\n        {\n            \"label\": \"Match first 3 digits of Second Prize\",\n            \"prize\": 300,\n            \"prize_count\": 99,\n            \"result\": [\n                \"186**\"\n            ]\n        },\n        {\n            \"label\": \"Match last 4 digits of chosen numbers\",\n            \"prize\": 1500,\n            \"prize_count\": 40,\n            \"result\": [\n                \"*1751\",\n                \"*2543\",\n                \"*4990\",\n                \"*7458\"\n            ]\n        },\n        {\n            \"label\": \"Match last 3 digits of chosen numbers\",\n            \"prize\": 300,\n            \"prize_count\": 1000,\n            \"result\": [\n                \"**069\",\n                \"**240\",\n                \"**386\",\n                \"**471\",\n                \"**538\",\n                \"**843\",\n                \"**945\",\n                \"**953\",\n                \"**960\",\n                \"**994\"\n            ]\n        },\n        {\n            \"label\": \"Match last 2 digits of chosen numbers\",\n            \"prize\": 120,\n            \"prize_count\": 9000,\n            \"result\": [\n                \"***00\",\n                \"***18\",\n                \"***67\",\n                \"***73\",\n                \"***83\",\n                \"***84\",\n                \"***90\",\n                \"***92\",\n                \"***99\"\n            ]\n        },\n        {\n            \"label\": \"Match last digit of chosen numbers\",\n            \"prize\": 60,\n            \"prize_count\": 20000,\n            \"result\": [\n                \"****6\",\n                \"****7\"\n            ]\n        }\n    ]\n}\n</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

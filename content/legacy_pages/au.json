@@ -1,0 +1,64 @@
+{
+ "path": "/au",
+ "title": "How to Play Lottery Online at LottosOnline",
+ "description": "Learn which lottery to play, how to pick your lotto numbers, pay for tickets and claim your winnings with our online lottery ticket concierge service.",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "How to Play the Lottery Online",
+ "h1_all": [
+  "How to Play the Lottery Online"
+ ],
+ "h2": [
+  "Safe and Secure - Register, It's free!",
+  "Start playing and make your dreams come true",
+  "No hassle payment methods",
+  "Official physical lottery tickets",
+  "Winners notified",
+  "Quick and easy payouts!"
+ ],
+ "og_title": "How to Play Lottery Online at LottosOnline",
+ "og_description": "Learn which lottery to play, how to pick your lotto numbers, pay for tickets and claim your winnings with our online lottery ticket concierge service.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/au",
+     "name": "How to Play"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".leftcontent",
+   "words": 345,
+   "html": "<p>Welcome to LottosOnline.com, bringing you the very best of all your favourite international lotteries. Whether you just want a one-time ticket entry or to play every draw with a subscription purchase, LottosOnline.com is the best way to play these exciting lotteries from anywhere in the world.</p>\n<img alt=\"\" src=\"/images/how-to-play-step1.png\"/>\n<h2>Safe and Secure - Register, It's free!</h2>\n<p>\n\t\t\t\t\t\t\t\tThe first step to playing any of our lotteries on LottosOnline.com is to create an <a href=\"/create-account\">account</a>, which is <b>FREE</b> to create. Once you have created your account you can login to play for some of the world's biggest lottery jackpots.\n\t\t\t\t\t\t\t</p>\n<img alt=\"\" src=\"/images/how-to-play-step2.png\"/>\n<h2>Start playing and make your dreams come true</h2>\n<p>\n\t\t\t\t\t\t\t\tTo start playing select the lottery in which you would like to enter. Select the number of lines you want to play and choose your winning numbers for each line by filling out the relevant lottery's play form. You also have the option to randomly generate numbers using our Quick Pick button.\n\t\t\t\t\t\t\t</p>\n<img alt=\"\" src=\"/images/how-to-play-step3.png\"/>\n<h2>No hassle payment methods</h2>\n<p>\n\t\t\t\t\t\t\t\tYou can now select your method of payment. Keep in mind that LottosOnline.com lets you use funds in your <a href=\"/VIP-rewards\">Rewards</a> balance to pay for new lottery tickets. Once payment is confirmed we will purchase and enter your selected numbers directly into the official lottery terminal.\n\t\t\t\t\t\t\t</p>\n<img alt=\"\" src=\"/images/how-to-play-step4.png\"/>\n<h2>Official physical lottery tickets</h2>\n<p>\n\t\t\t\t\t\t\t\tYour numbers are printed from the retailer's terminal, double checked and taken to the secure LottosOnline.com office and locked in a safe until after the relevant lottery's draw. You will receive an email to confirm your entry into the draw. We make scanned copies of your tickets available to you in your secure personal account area before the relevant lottery's draw.\n\t\t\t\t\t\t\t</p>\n<img alt=\"\" src=\"/images/how-to-play-step5.png\"/>\n<h2>Winners notified</h2>\n<p>\n\t\t\t\t\t\t\t\tOnce the draw has taken place we'll post the lottery draw results on our website, any winners will be notified by email and their winnings will be reflected in their winnings balance which can be accessed by logging into their LottosOnline.com account.\n\t\t\t\t\t\t\t</p>\n<img alt=\"\" src=\"/images/how-to-play-step6.png\"/>\n<h2>Quick and easy payouts!</h2>\n<p>\n\t\t\t\t\t\t\t   Winners can choose to have the funds transferred to their personal bank account or add their winnings to their Account Balance to be used for future lottery ticket purchases.\n\t\t\t\t\t\t\t</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

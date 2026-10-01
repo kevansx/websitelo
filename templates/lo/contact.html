@@ -1,0 +1,14 @@
+{# /contact-us: the old page's copy word for word (office, phone, hours, support email). #}
+{% extends "lo/legacy_page.html" %}
+{% block content %}
+{% if subject %}
+<div class="lo-wrap" style="padding-top:var(--space-5)">
+  <div class="lo-flash" role="status">
+    To send us your <strong>{{ subject }}</strong>, email
+    <a href="mailto:support@LottosOnline.com?subject={{ subject|urlencode }}">support@LottosOnline.com</a>
+    from the address on your account, or use the chat button. We reply within one working day.
+  </div>
+</div>
+{% endif %}
+{{ super() }}
+{% endblock %}

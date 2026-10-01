@@ -1,16 +1,14 @@
 {
- "path": "/winning-lottery-numbers",
- "title": "Lottery winning numbers and latest lottery results",
- "description": "Get the latest lotto results and winning lottery numbers for the lottery games we offer - get euromillions results, mega millions results and many more.",
+ "path": "/direct-opt-in",
+ "title": "LottosOnline Direct Opt In",
+ "description": "Read the privacy policy for LottosOnline. All information is provided for the security and privacy of the LottosOnline lottery player.",
  "keywords": "",
  "canonical_old": "",
- "h1": "Lottery Results & Winning Numbers",
- "h1_all": [
-  "Lottery Results & Winning Numbers"
- ],
+ "h1": "",
+ "h1_all": [],
  "h2": [],
- "og_title": "Lottery winning numbers and latest lottery results",
- "og_description": "Get the latest lotto results and winning lottery numbers for the lottery games we offer - get euromillions results, mega millions results and many more.",
+ "og_title": "LottosOnline Direct Opt In",
+ "og_description": "Read the privacy policy for LottosOnline. All information is provided for the security and privacy of the LottosOnline lottery player.",
  "og_image": "https://www.lottosonline.com/images/logolarge.png",
  "jsonld": [
   {
@@ -26,8 +24,8 @@
     {
      "@type": "ListItem",
      "position": 2,
-     "item": "https://www.lottosonline.com/winning-lottery-numbers",
-     "name": "Lottery Results"
+     "item": "https://www.lottosonline.com/direct-opt-in",
+     "name": "Direct Opt In"
     }
    ]
   },
@@ -48,9 +46,9 @@
  ],
  "copy": [
   {
-   "selector": "intro",
-   "words": 12,
-   "html": "<p>Find all the results for your favourite lotteries right here on LottosOnline!</p>"
+   "selector": ".fullwidthcontent",
+   "words": 36,
+   "html": ""
   }
  ],
  "captured": "2026-10-01"

@@ -1,0 +1,27 @@
+{# Third-party tags carried over from the old site, loaded the same way so analytics, ad attribution and
+   chat continue unchanged after cut-over (captured from the live home page, 1 Oct 2026):
+   - Google Tag Manager GTM-TZZNV5S through the first-party server-side loader at gtm.lottosonline.com
+   - Mixpanel (same project token; the live site had debug: true left on, dropped here)
+   - Facebook pixel noscript fallback (the live script block is empty; the pixel itself runs inside GTM)
+   - Zendesk chat widget
+   Dropped: Universal Analytics UA-61669845-1 (Google switched UA off in 2023; it collects nothing).
+   Every ID can be overridden or blanked by env var (LO_GTM_ID, LO_GTM_LOADER, LO_MIXPANEL_TOKEN,
+   LO_FB_PIXEL_ID, LO_ZENDESK_KEY), so staging can run with tags off. #}
+{% macro head_tags() %}
+{% if lo_tags.gtm_id %}
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='{{ lo_tags.gtm_loader }}?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{ lo_tags.gtm_id }}');</script>
+{% endif %}
+{% if lo_tags.mixpanel_token %}
+<script type="text/javascript">
+(function (f, b) { if (!b.__SV) { var e, g, i, h; window.mixpanel = b; b._i = []; b.init = function (e, f, c) { function g(a, d) { var b = d.split("."); 2 == b.length && ((a = a[b[0]]), (d = b[1])); a[d] = function () { a.push([d].concat(Array.prototype.slice.call(arguments, 0))); }; } var a = b; "undefined" !== typeof c ? (a = b[c] = []) : (c = "mixpanel"); a.people = a.people || []; a.toString = function (a) { var d = "mixpanel"; "mixpanel" !== c && (d += "." + c); a || (d += " (stub)"); return d; }; a.people.toString = function () { return a.toString(1) + ".people (stub)"; }; i = "disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split( " "); for (h = 0; h < i.length; h++) g(a, i[h]); var j = "set set_once union unset remove delete".split(" "); a.get_group = function () { function b(c) { d[c] = function () { call2_args = arguments; call2 = [c].concat(Array.prototype.slice.call(call2_args, 0)); a.push([e, call2]); }; } for ( var d = {}, e = ["get_group"].concat( Array.prototype.slice.call(arguments, 0)), c = 0; c < j.length; c++) b(j[c]); return d; }; b._i.push([e, f, c]); }; b.__SV = 1.2; e = f.createElement("script"); e.type = "text/javascript"; e.async = !0; e.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === f.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"; g = f.getElementsByTagName("script")[0]; g.parentNode.insertBefore(e, g); } })(document, window.mixpanel || []);
+</script>
+<script>mixpanel.init('{{ lo_tags.mixpanel_token }}', { persistence: 'localStorage', autocapture: true });</script>
+{% endif %}
+{% endmacro %}
+{% macro body_open_tags() %}
+{% if lo_tags.gtm_id %}<noscript><iframe src="{{ lo_tags.gtm_noscript }}?id={{ lo_tags.gtm_id }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>{% endif %}
+{% endmacro %}
+{% macro body_close_tags() %}
+{% if lo_tags.fb_pixel_id %}<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ lo_tags.fb_pixel_id }}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>{% endif %}
+{% if lo_tags.zendesk_key %}<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key={{ lo_tags.zendesk_key }}" async></script>{% endif %}
+{% endmacro %}

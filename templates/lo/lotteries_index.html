@@ -13,10 +13,10 @@
     <div class="lo-lotgrid">
       {% for l in lotteries %}
         {% set jp = lo_jackpot(l.game_code) %}
-        <a class="lo-lot" href="/lotteries/{{ l.slug }}" style="text-decoration:none">
-          <div class="lo-lot__top"><img class="lo-lot__ball" src="{{ lo_ball(l) }}" alt="{{ l.name }}" width="72" height="72" loading="lazy"><h2 class="lo-lot__name">{{ l.name }}</h2></div>
-          <div class="lo-lot__body">{% if jp and jp.display %}<span class="lo-lot__jackpot">{{ jp.display }}</span>{% endif %}</div>
-          <div class="lo-lot__foot"><span class="lo-btn lo-btn--secondary lo-btn--sm">{{ l.name }} information</span></div>
+        <a class="lo-game" href="/lotteries/{{ l.slug }}" style="text-decoration:none">
+          <div class="lo-game__top"><img class="lo-game__ball" src="{{ lo_ball(l) }}" alt="{{ l.name }}" width="72" height="72" loading="lazy"><h2 class="lo-game__name">{{ l.name }}</h2></div>
+          <div class="lo-game__body">{% if jp and jp.display %}<span class="lo-game__jackpot">{{ jp.display }}</span>{% endif %}</div>
+          <div class="lo-game__foot"><span class="lo-btn lo-btn--secondary lo-btn--sm">{{ l.name }} information</span></div>
         </a>
       {% endfor %}
     </div>

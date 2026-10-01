@@ -50,17 +50,7 @@
   {
    "selector": ".leftcontent",
    "words": 26,
-   "html": "<p>LottosOnline adheres to Anti-Money Laundering principles. You may request our Anti-Money Laundering And Countering the Financing of Terrorism Policies and Procedures Manual by emailing <a href=\"/cdn-cgi/l/email-protection#295a5c5959465b5d6965465d5d465a66474540474c074a4644\">customer support</a></p>"
-  },
-  {
-   "selector": ".fullwidthcontent",
-   "words": 26,
-   "html": "<p>LottosOnline adheres to Anti-Money Laundering principles. You may request our Anti-Money Laundering And Countering the Financing of Terrorism Policies and Procedures Manual by emailing <a href=\"/cdn-cgi/l/email-protection#295a5c5959465b5d6965465d5d465a66474540474c074a4644\">customer support</a></p>"
-  },
-  {
-   "selector": ".maincontent-inner",
-   "words": 28,
-   "html": "<p>LottosOnline adheres to Anti-Money Laundering principles. You may request our Anti-Money Laundering And Countering the Financing of Terrorism Policies and Procedures Manual by emailing <a href=\"/cdn-cgi/l/email-protection#295a5c5959465b5d6965465d5d465a66474540474c074a4644\">customer support</a></p>"
+   "html": "<p>LottosOnline adheres to Anti-Money Laundering principles. You may request our Anti-Money Laundering And Countering the Financing of Terrorism Policies and Procedures Manual by emailing <a href=\"mailto:support@LottosOnline.com\">support@LottosOnline.com</a></p>"
   }
  ],
  "captured": "2026-10-01"

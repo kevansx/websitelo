@@ -76,19 +76,21 @@ class LegacyPages:
 
 def register(app) -> None:
     redirects: dict[str, str] = _load_json("legacy_redirects.json", {})
+    temporary: dict[str, str] = _load_json("legacy_redirects_temporary.json", {})
     pages = LegacyPages()
     app.config["LO_LEGACY_PAGES"] = pages
 
     # ------------------------------------------------------------------ template helpers
     # Azure Front Door caches by path and ignores query strings, so a ?v= cache-buster would serve stale
     # CSS after a deploy (Live Lottos, 29 Sep). The content hash goes in the path instead.
-    _hashes: dict[str, str] = {}
+    _hashes: dict[tuple, str] = {}
 
     def lo_asset(rel: str) -> str:
-        h = _hashes.get(rel)
-        if h is None or app.debug:
-            data = (BRAND_STATIC / rel).read_bytes().replace(b"\r\n", b"\n")
-            h = _hashes[rel] = hashlib.sha1(data).hexdigest()[:10]
+        f = BRAND_STATIC / rel
+        key = (rel, f.stat().st_mtime_ns)
+        h = _hashes.get(key)
+        if h is None:
+            h = _hashes[key] = hashlib.sha1(f.read_bytes().replace(b"\r\n", b"\n")).hexdigest()[:10]
         return f"/assets/lo/{h}/{rel}"
 
     @app.get("/assets/lo/<h>/<path:rel>")
@@ -119,14 +121,34 @@ def register(app) -> None:
         return json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items},
                           separators=(",", ":"))
 
+    import os as _os
+
+    # Tags fire only in production, so local and staging testing never pollute analytics or ad data.
+    _prod = (_os.environ.get("WEBSITE_ENV") or "").strip().lower() == "production"
+
+    def _tag(name: str, default: str) -> str:
+        v = _os.environ.get(name)
+        return (v if v is not None else default).strip() if _prod else ""
+
+    lo_tags = {
+        "gtm_id": _tag("LO_GTM_ID", "GTM-TZZNV5S"),
+        "gtm_loader": _os.environ.get("LO_GTM_LOADER", "https://gtm.lottosonline.com/jrfugtxg.js"),
+        "gtm_noscript": _os.environ.get("LO_GTM_NOSCRIPT", "https://gtm.lottosonline.com/ns.html"),
+        "mixpanel_token": _tag("LO_MIXPANEL_TOKEN", "9495e8a5218fe9330aecb78fac09e5cc"),
+        "fb_pixel_id": _tag("LO_FB_PIXEL_ID", "1670423983232657"),
+        "zendesk_key": _tag("LO_ZENDESK_KEY", "c313db13-7d37-4ec8-9a85-06f112b0507d"),
+    }
+
     @app.context_processor
     def _lo_context():
         return {
+            "lo_tags": lo_tags,
             "lo_asset": lo_asset,
             "lo_year": datetime.now(timezone.utc).year,
             "lo_org_jsonld": org_json,
             "lo_breadcrumb_jsonld": lo_breadcrumb_jsonld,
             "lo_lotteries": LOTTERIES,
+            "lo_page": pages.get,
         }
 
     # ------------------------------------------------------------------ jackpots + artwork
@@ -195,6 +217,10 @@ def register(app) -> None:
     def lo_ball(lot) -> str:
         return f"/images/lottery-assets/logo_large_round_{lot.legacy_code}.png"
 
+    @app.get("/favicon.ico")
+    def favicon_ico():
+        return send_from_directory(BRAND_STATIC / "img", "favicon.ico", max_age=2592000)
+
     @app.get("/images/<path:rel>")
     def legacy_image(rel: str):
         # The old site's /images/ paths, kept for the artwork the new pages reuse and for the image-search
@@ -208,7 +234,18 @@ def register(app) -> None:
         rows.sort(key=lambda r: (-(r["jp"].get("rise_pct") or -1), -(float(r["jp"].get("amount") or 0))))
         return rows
 
+    def featured_rows(rows: list[dict]) -> list[dict]:
+        # The old home page's four cards were the four biggest jackpots (in euros), not the top of the table.
+        def eur(r):
+            raw = (r["jp"] or {}).get("raw") or {}
+            try:
+                return float(raw.get("jackpot_eur") or 0)
+            except (TypeError, ValueError):
+                return 0.0
+        return sorted(rows, key=eur, reverse=True)[:4]
+
     app.config["LO_HOME_ROWS"] = home_rows
+    app.jinja_env.globals["lo_featured_rows"] = featured_rows
 
     # ------------------------------------------------------------------ redirects + affiliates
     @app.before_request
@@ -221,6 +258,22 @@ def register(app) -> None:
             if qs and "?" not in target and full not in redirects:
                 target = f"{target}?{qs}"
             return redirect(target, code=301)
+        # Old PHP entry points with ?lottery=<slug> that are not in the table: same rule as the contract.
+        section = {"/lottery-info.php": ("/lotteries", "info"), "/play.php": ("/lottery-tickets", "sells"),
+                   "/lottery-results.php": ("/winning-lottery-numbers", "results")}.get(request.path)
+        if section and request.args.get("lottery"):
+            lot = lo_lotteries.by_slug(request.args["lottery"])
+            base_path, wants = section
+            return redirect(f"{base_path}/{lot.slug}" if lot and getattr(lot, wants) else base_path, code=301)
+        tmp = temporary.get(full) or temporary.get(request.path)
+        if tmp is None and request.path.startswith("/my-account/"):
+            tmp = "/login"  # any other old account page: same behaviour as the old site for a logged-out visitor
+        if tmp:
+            if tmp == "/login" and session.get("crm_token"):
+                return redirect(url_for("account"), code=302)
+            if tmp == "/login":
+                return redirect(url_for("login", next=url_for("account")), code=302)
+            return redirect(tmp, code=302)
         return None
 
     @app.before_request

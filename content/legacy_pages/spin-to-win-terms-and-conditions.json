@@ -1,0 +1,57 @@
+{
+ "path": "/spin-to-win-terms-and-conditions",
+ "title": "Terms and Conditions | LottosOnline Spin to Win Wheel Offer",
+ "description": "Please read our Terms and Conditions for participating in the Spin to Win Wheel Offer.",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "Spin to Win Wheel Offer Terms and Conditions",
+ "h1_all": [
+  "Spin to Win Wheel Offer Terms and Conditions"
+ ],
+ "h2": [],
+ "og_title": "Terms and Conditions | LottosOnline Spin to Win Wheel Offer",
+ "og_description": "Please read our Terms and Conditions for participating in the Spin to Win Wheel Offer.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/spin-to-win-terms-and-conditions",
+     "name": "Offer Terms and Conditions"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".fullwidthcontent",
+   "words": 454,
+   "html": "<p>\n<br/>\n</p><ol>\n<li>The LottosOnline.com Spin to Win Wheel Offer is operated by Marvicap Ltd, Archangelou 48, Office 207, 2nd floor, Engomi, 2404, Nicosia, Cyprus. Company Registration Number HE 336864.</li>\n<li>The offer is open to LottosOnline.com account holders only and is not publicly available. Access to the offer is usually but not exclusively open to new account holders only. When other offers are made available on an ad hoc basis (e.g. during Black Friday) then the rewards available during the ad hoc offer will take precedence.</li>\n<li>Existing account holders may be offered access to the offer from time to time on an ad hoc basis. When this occurs the qualification criteria will be made clear in the related promotional correspondence.</li>\n<li>A Reward Spin must be played within 60 days after it is awarded, or it will expire. Any expired Reward Spin can no longer be played and is considered void. Reward Spins awarded, their expiry date, and the outcome of any played spins may be reviewed in your <a href=\"www.lottosonline.com/my-account/reward-spins\">‘My Account’</a> menu at any time. Additionally, all played Reward Spins will trigger a transactional result email detailing the outcome of the spin played.</li>\n<li>Prizes may include free entry into various lottery games or syndicates, discounts, or bonus funds. Discounts may not be used on products that already include a discounted portion (multi-draw products or other special offer packages). Prizes are subject to availability and may vary. Reward Spins are awarded only to the qualifying account holder and they, as well as the prizes that result from them, cannot be exchanged. The full list of potentially available prizes is outlined on the <a href=\"/spin-to-win\">current program page</a>.</li>\n<li>LottosOnline reserves the right to terminate the account of any customer suspected of tampering with or otherwise attempting to abuse the offer or violating these terms and conditions. The decision of the Board of Directors of Marvicap Limited will be final in such incidents.</li>\n<li>LottosOnline reserves the right to modify, suspend, or withdraw the offer at any time for any reason. If the offer is withdrawn, any Reward Spins that have not yet been claimed will be forfeit.</li>\n<li>LottosOnline accepts no responsibility for entries not successfully completed due to a technical fault, technical malfunction, computer hardware or software failure, satellite, network or server failure of any kind whatsoever.</li>\n<li>By participating in the offer, you acknowledge that you have read, understood, and agree to adhere to these terms and conditions.</li>\n<li>These terms and conditions will be governed by the laws of Cyprus and any dispute or interpretation relating to LottosOnline will be determined in accordance with them. Players agree to solve any disagreement or dispute by mediation and thereafter arbitration and exhaust all other remedies before seeking recourse directly in the courts of Cyprus.</li>\n</ol>"
+  }
+ ],
+ "captured": "2026-10-01"
+}
