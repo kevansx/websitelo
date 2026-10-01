@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/eurojackpot",
+ "title": "Eurojackpot Lottery - latest results and winning Numbers",
+ "description": "Review the latest EuroJackpot lottery results and winning numbers. Check your lottery tickets and find out if you picked the right lottery numbers this week.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/eurojackpot",
+ "h1": "EuroJackpot Results & Winning Numbers",
+ "h1_all": [
+  "EuroJackpot Results & Winning Numbers"
+ ],
+ "h2": [
+  "EuroJackpot Results",
+  "Do you have a winning ticket?"
+ ],
+ "og_title": "Eurojackpot Lottery - latest results and winning Numbers",
+ "og_description": "Review the latest EuroJackpot lottery results and winning numbers. Check your lottery tickets and find out if you picked the right lottery numbers this week.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/eurojackpot",
+     "name": "EuroJackpot"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 165,
+   "html": "<h2>EuroJackpot Results</h2> <p>The EuroJackpot lottery is a weekly lotto draw, taking place on a Tuesday and Friday at 21:00 Eastern European Time (19:00 GMT). Are you the lucky winner? Here's where you will find the latest EuroJackpot results. Good luck!</p> <h2>Do you have a winning ticket?</h2> <p>The EuroJackpot has 12 different prize tiers. The minimum starting jackpot size is €10 million, and can reach an impressive €120 million. To win the jackpot, you will need to match all seven numbers - including the five main numbers (from 1 - 50) plus the two Euro Numbers (from 1-12).</p> <p>Lower prizes can be won by matching two main numbers plus one Euro Number. It's always best to double check your ticket! If you are a LottosOnline customer, we will notify you of any lottery winnings - big or small - via email.</p> <p>Are you ready to get the ball rolling and turn your lottery dreams into a reality? Let's play!</p> <p>Draws are conducted every Tuesday and Friday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

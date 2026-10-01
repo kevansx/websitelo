@@ -1,0 +1,66 @@
+{
+ "path": "/uk/lottery-tickets/australia-weekday-lotto",
+ "title": "Play Weekday Windfall Online - Buy Weekday Windfall Lottery Tickets",
+ "description": "Buy Lottery Tickets Online for Weekday Windfall and play the biggest jackpots on LottosOnline",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/lottery-tickets/australia-weekday-lotto",
+ "h1": "",
+ "h1_all": [
+  ""
+ ],
+ "h2": [],
+ "og_title": "Play Weekday Windfall Online - Buy Weekday Windfall Lottery Tickets",
+ "og_description": "Buy Lottery Tickets Online for Weekday Windfall and play the biggest jackpots on LottosOnline",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play Weekday Windfall Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_aumon.png\",\n\n  \"description\": \"Play Weekday Windfall Online - buy official Weekday Windfall online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"AUMON\",\n\n  \"mpn\":\"LottosOnline-AUMON\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Weekday Windfall\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"1.00\",\n\n\t\"priceValidUntil\": \"2026-10-02 07:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"AUMON\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/australia-weekday-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"AUMON-20261002\",\n\n  \"mpn\":\"LottosOnline-AUMON-20261002\",\n\n  \"name\": \"Weekday Windfall AU$1 Million Jackpot - 2nd October 2026 (Friday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_aumon.png\",\n\n  \"description\": \"Play the Weekday Windfall for 2nd October 2026 (Friday) with an estimated jackpot of AU$1 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Weekday Windfall\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"1.00\",\n\n\t\"priceValidUntil\": \"2026-10-02 07:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"AUMON-20261002\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/australia-weekday-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/lottery-tickets/australia-weekday-lotto",
+     "name": "Weekday Windfall"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 348,
+   "html": "<h3>What is the Australia Weekly Windfall lottery?</h3>\n<p>If you want more chances to win when you play the lottery, the Australia Weekly Windfall lottery is the game for you. Up to six tickets each draw could each win a jackpot up to AU$1-Million. Draws for the Australia Weekly Windfall Lotto are held every Monday, Wednesday &amp; Friday around 19:30 AEST.</p>\n<h3>Can I Play Australia Weekly Windfall Lottery online?</h3>\n<p>Yes! Buying lottery tickets for the Australia Weekly Windfall Lottery is easy with LottosOnline. All you need to do is log in to your account, choose the Australia Weekly Windfall Lottery and pick your lotto numbers. If you prefer to leave it entirely in the hands of Fate, you can use the Quick Pick option.</p>\n<h3>What is the cut-off time for purchasing Australia Weekly Windfall Lottery tickets on LottosOnline?</h3>\n<p>You’ll need to buy your tickets at least two and a half hours before each draw takes place in order to get tickets - otherwise you will have the option of entering the next draw instead.</p>\n<h3>How do I claim my winnings if I hit the jackpot?</h3>\n<p>Whether you win the jackpot or one of the smaller prizes, LottosOnline will send you an email with all the details immediately.  For most prizes, once your ticket entries have been checked against the results and verified, your winnings will reflect in your Winnings Balance. You can check your balance and claim your winnings straight away. For jackpot wins, we'll contact you to discuss the next steps. All the latest Australia Weekly Windfall Lottery results are published on the LottosOnline Results page as well.</p>\n<h3>What is the Australia Weekly Windfall Lottery Superdraw?</h3>\n<p>The Australia Weekly Windfall Lottery Superdraw is a special lottery draw that takes place on a Monday night several times throughout the year. For these events the jackpot is bumped up to AU$5-Million.</p>\n<h3>How do I win the Australia Weekly Windfall Lottery?</h3>\n<p>All it takes to win the Australia Weekly Windfall jackpot is matching the six numbers drawn. There are six prize divisions in all where your numbers could win you money.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

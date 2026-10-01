@@ -1,0 +1,66 @@
+{
+ "path": "/uk/lottery-tickets/thunderball",
+ "title": "Play UK Thunderball Online - Buy UK Thunderball Lottery Tickets",
+ "description": "Buy Lottery Tickets Online for UK Thunderball and play the biggest jackpots on LottosOnline",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/lottery-tickets/thunderball",
+ "h1": "",
+ "h1_all": [
+  ""
+ ],
+ "h2": [],
+ "og_title": "Play UK Thunderball Online - Buy UK Thunderball Lottery Tickets",
+ "og_description": "Buy Lottery Tickets Online for UK Thunderball and play the biggest jackpots on LottosOnline",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play UK Thunderball Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_ukthu.png\",\n\n  \"description\": \"Play UK Thunderball Online - buy official UK Thunderball online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"UKTHU\",\n\n  \"mpn\":\"LottosOnline-UKTHU\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"UK Thunderball\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"3.60\",\n\n\t\"priceValidUntil\": \"2026-10-02 17:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"UKTHU\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/thunderball\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"UKTHU-20261002\",\n\n  \"mpn\":\"LottosOnline-UKTHU-20261002\",\n\n  \"name\": \"UK Thunderball £500,000 Jackpot - 2nd October 2026 (Friday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_ukthu.png\",\n\n  \"description\": \"Play the UK Thunderball for 2nd October 2026 (Friday) with an estimated jackpot of £500,000\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"UK Thunderball\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"3.60\",\n\n\t\"priceValidUntil\": \"2026-10-02 17:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"UKTHU-20261002\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/thunderball\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \""
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/lottery-tickets/thunderball",
+     "name": "UK Thunderball"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 331,
+   "html": "<h3>What is the Thunderball Lottery?</h3>\n<p>The Thunderball started in 1999 and is one of the lottery games run by the UK National Lottery. Draws are held every Tuesday, Wednesday, Friday and Saturday. Will you hit the jackpot?</p>\n<h3>Can I play Thunderball online?</h3>\n<p>Buying Thunderball tickets online can be done in a matter of minutes. Simply visit the LottosOnline website, select the Thunderball, choose your lucky numbers and keep your fingers crossed! It's simple, easy and 100% secure.</p>\n<h3>When is the cut off time for purchasing tickets?</h3>\n<p>The deadline for ticket purchases on LottosOnline around two hours before the actual draw takes place, so no later than 6pm in the UK on the days of the draw. If you don't want to miss out, make sure you purchase you tickets in advance.</p>\n<h3>How do I win the Thunderball?</h3>\n<p>To play the game, you need to select five numbers, ranging from 1 to 39, and a Thunderball number ranging from 1 to 14. To win the Thunderball jackpot you need to match five main numbers and the Thunderball itself.</p>\n<h3>How much can I win?</h3>\n<p>The Thunderball jackpot is a very respectable £500000.\n</p><h3>How do I find out if I'm a winner?</h3>\n<p>Whether you've won a few hundred pounds or hit the jackpot, LottosOnline will notify you via email. Alternatively you can check the LottosOnline website for the latest results. Why wait to hear the good news?</p>\n<h3>How do I claim the money on LottosOnline if I win the jackpot?</h3>\n<p>Ready to spend your new fortune? When you win big with LottosOnline claiming your winnings is easy. After LottosOnline has verified your numbers, winnings will reflect in your online winnings balance. It's then yours to use. You can either use the claim option to get our agents to transfer your winnings to a bank account,  or you can transfer it to your Account Balance for future games.</p>\n<p>If you're a jackpot winner, we'll make all the necessary arrangements and collect the winnings for you.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

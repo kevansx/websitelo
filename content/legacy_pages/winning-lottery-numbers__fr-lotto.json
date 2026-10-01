@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/fr-lotto",
+ "title": "French Lotto Results & Winning Numbers | LottosOnline",
+ "description": "Get the latest French Lotto results and winning lottery numbers online",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/fr-lotto",
+ "h1": "French Lotto Results & Winning Numbers",
+ "h1_all": [
+  "French Lotto Results & Winning Numbers"
+ ],
+ "h2": [
+  "French Lotto Results",
+  "Are you a winner?"
+ ],
+ "og_title": "French Lotto Results & Winning Numbers | LottosOnline",
+ "og_description": "Get the latest French Lotto results and winning lottery numbers online",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/fr-lotto",
+     "name": "French Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 160,
+   "html": "<h2>French Lotto Results</h2>\n<p>You could be a millionaire, right now! Here's where you can find the latest French Lotto results.</p>\n<p>The French Lotto draw is held in Paris every Monday, Wednesday and Saturday around 20:30 CET. Are you holding the lucky ticket? It's time to find out.</p>\n<h2>Are you a winner?</h2>\n<p>To bring home the jackpot, you will need to match all five main numbers and the 'Chance' number. If there is no winner, the jackpot will roll over to the next draw, up to a maximum of €36-Million.</p>\n<p>If you haven't matched all the main numbers, you may still be a winner. Five main numbers will still win you a substantial amount! There are in total nine prize tiers for this lottery game, as well as 10 lucky raffle winners of €20,000 per draw!</p>\n<p>We'll let you know via email if you have won a prize in the French Lotto draw.</p>\n<p>Draws are conducted every Monday, Wednesday and Saturday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/mega-millions",
+ "title": "Mega Millions Results - Mega Millions Winning Numbers",
+ "description": "Check your latest Mega Millions lottery results and find out if your tickets match the winning lottery numbers for one of the biggest American lotteries.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/mega-millions",
+ "h1": "Mega Millions Results & Winning Numbers",
+ "h1_all": [
+  "Mega Millions Results & Winning Numbers"
+ ],
+ "h2": [
+  "US Mega Millions Results",
+  "Have you won?"
+ ],
+ "og_title": "Mega Millions Results - Mega Millions Winning Numbers",
+ "og_description": "Check your latest Mega Millions lottery results and find out if your tickets match the winning lottery numbers for one of the biggest American lotteries.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/mega-millions",
+     "name": "Mega Millions"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 214,
+   "html": "<h2>US Mega Millions Results</h2><p>This is where you can find the latest US Mega Millions results - and maybe even discover your life has changed forever!</p><p>The US Mega Millions lottery draw takes place every week on a Tuesday and a Friday at 23:00 Eastern Standard Time (EST). The lottery results are posted here immediately after the lottery draw has occurred.</p><h2>Have you won?</h2><p>To win the Mega Millions jackpot, you'll need to match all five main numbers, plus the Mega Ball number. The minimum starting jackpot is $50,000,000, and the jackpot rolls over each draw if there is no winner. In fact, it's not uncommon for a Mega Millions jackpot to reach more than $200,000,000! Think of the luxuries six matching lotto numbers could bring! What about a trip around the world, a beach house in the Mediterranean or a high-performance supercar? The sky's the limit when you play the lotto online! And don't forget, you can play the US Powerball, EuroMillions and EuroJackpot online too.</p><p>There are nine prize payout tiers for the USA Mega Millions, so double check those lotto numbers to see what you've won. If you need some help, don't worry. Details of your winnings will be sent to you via email.</p> <p>Draws are conducted every Tuesday and Friday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

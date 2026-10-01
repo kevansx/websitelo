@@ -1,0 +1,68 @@
+{
+ "path": "/uk/how-to-play/thunderball",
+ "title": "UK Thunderball Lottery Information | LottosOnline",
+ "description": "Information about the UK Thunderball Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/how-to-play/thunderball",
+ "h1": "The Thunderball Story",
+ "h1_all": [
+  "The Thunderball Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing Thunderball Lottery Online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About Thunderball Lottery"
+ ],
+ "og_title": "UK Thunderball Lottery Information | LottosOnline ",
+ "og_description": "Information about the UK Thunderball Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/thunderball",
+     "name": "UK Thunderball"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 433,
+   "html": "<p>Thunderball is one of the lottery games run by the UK National Lottery, and was launched in 1999. It offers the best chance of winning something out of all the lottery games run by the UK National Lottery, with an overall chance of winning a prize at an amazingly good 1 in 13. Match just the Thunderball to win the minimum prize. Match 5 numbers plus the Thunderball to win the top prize of £500,000.</p> <p>The draw takes place every Tuesday, Wednesday, Friday and Saturday at 20:00 in the UK, and the Thunderball lottery results are updated on our website shortly afterwards. Do you dream of some extra spending money? It's time to play Thunderball lottery online!</p> <h2>How Much Could You Win?</h2> <p>There are a total of nine prize payout tiers for the Thunderball lottery, with set prize payouts. Overall, there is a 1 in 13 chance that you will win money.</p> <h2>Playing Thunderball Lottery Online</h2> <p>A Thunderball ticket has a total of five main numbers (from 1 to 39) plus one Thunderball number (from 1 to 14). To enter, simply log in to LottosOnline, select the Thunderball lottery, and choose your numbers. Alternatively, you can use our Quick Pick random number selector - the choice is yours entirely.</p> <p>Once we have received your entry and payment, our local ticket purchasing agents will buy your official lottery ticket. You will be sent confirmation via email, and can log in to your account to see a scanned copy of your ticket. Your entry will be stored securely until after the draw, when it will be verified against the results.</p> <h2>You've Won! What Happens Next?</h2> <p>Whether it's a life-changing sum or a boost to this month's spare cash, it's always an incredible feeling to win! If the ticket you have bought, via LottosOnline, is a winning entry, you will be informed by email. We won't keep you in suspense! You can also check the latest Thunderball lottery results on our results page.</p> <p>Your winnings will reflect in your LottosOnline Winnings Balance straight away. Just log in to see your balance, and decide how to use it! Either transfer it to your Account Balance to buy more tickets, or use the claim option to get our agents to transfer the funds to your bank account. It really is that simple!</p> <h2>Fun Facts About Thunderball Lottery</h2> <p>Did you know?</p> <ul> <li>As of May 12, 2010, the Thunderball lottery jackpot was doubled from £250000 to £500000, the number of white balls increased from 34 to 39, and a new prize was added for matching the Thunderball.</li> </ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

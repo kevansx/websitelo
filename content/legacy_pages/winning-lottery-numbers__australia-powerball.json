@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/australia-powerball",
+ "title": "Australia Powerball lotto results and lotto winning numbers",
+ "description": "Get the latest Australia Powerball lotto results and winning lottery numbers - check your lottery ticket - see how many lotto winners there were this draw",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/australia-powerball",
+ "h1": "Australia Powerball Results & Winning Numbers",
+ "h1_all": [
+  "Australia Powerball Results & Winning Numbers"
+ ],
+ "h2": [
+  "Australia Powerball Results",
+  "Have you won the jackpot?"
+ ],
+ "og_title": "Australia Powerball lotto results and lotto winning numbers",
+ "og_description": "Get the latest Australia Powerball lotto results and winning lottery numbers - check your lottery ticket - see how many lotto winners there were this draw",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/australia-powerball",
+     "name": "Australia Powerball"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 207,
+   "html": "<h2>Australia Powerball Results</h2> <p>That Australia Powerball jackpot could be yours! So double-check the lottery results to find out how much you've won in this week's Australia Powerball draw</p> <p>Australia Powerball draws happen every Thursday at 8:30 pm Australian Eastern Daylight Time (AEDT). The Australia Powerball results and results for all your favorite lottos are updated right after the draws here on LottosOnline.</p> <h2>Have you won the jackpot?</h2> <p>With nine prize divisions the Australia Powerball always has plenty of lucky winners. You could play EuroMillions or the US Powerball if you're looking for a lottery with more prize tiers.</p> <p>This is how the Australia Powerball draw works:</p> <p>A total of eight numbers are selected including seven main numbers from a field of 1-35 and one Aussie Powerball from 1-20. Matching all eight numbers will make you the latest Australia Powerball jackpot winner! It's just as exciting as winning the US Powerball.</p> <p>When you play Australia Powerball we send the results via email and save you time searching for the latest lottery results online. You can get results for all online lottery USA, European and Spanish games. Play the Australia Powerball or buy EuroMillions online and you could become a millionaire overnight!</p> <p>Australia Powerball draws take place every Thursday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

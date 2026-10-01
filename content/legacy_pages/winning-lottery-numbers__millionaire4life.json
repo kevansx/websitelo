@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/millionaire4life",
+ "title": "Millionaire for Life Results & Winning Numbers | LottosOnline",
+ "description": "Get the latest Millionaire for Life results and winning lottery numbers online",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/millionaire4life",
+ "h1": "Millionaire for Life Results & Winning Numbers",
+ "h1_all": [
+  "Millionaire for Life Results & Winning Numbers"
+ ],
+ "h2": [
+  "Millionaire for Life Results",
+  "Are you a winner?"
+ ],
+ "og_title": "Millionaire for Life Results & Winning Numbers | LottosOnline",
+ "og_description": "Get the latest Millionaire for Life results and winning lottery numbers online",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/millionaire4life",
+     "name": "Millionaire for Life"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 124,
+   "html": "<h2>Millionaire for Life Results</h2> <p>You could be a jackpot winner, right now! Here's where you can find the latest Millionaire for Life results.</p> <p>The Millionaire for Life draw is held every night. Are you holding the lucky ticket? It's time to find out.</p> <h2>Are you a winner?</h2> <p>To bring home the jackpot, you will need to match all five main numbers plus the Millionaire Ball.</p> <p>If you haven't matched all the numbers, you may still have won a prize. Even if you only match one main number and the Millionaire Ball you still win a prize!</p> <p>We'll let you know via email if you have won a prize in the Millionaire for Life lottery draw.</p> <p>Draws are conducted every day at 11.15pm Eastern Time.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

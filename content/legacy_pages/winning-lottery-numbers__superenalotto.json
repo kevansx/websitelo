@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/superenalotto",
+ "title": "SuperEnaLotto Results - SuperEnaLotto Winning Numbers",
+ "description": "Get the latest results for the Italian SuperEnaLotto. Find the latest SuperEnaLotto winning numbers and check to see if you are a lucky lottery winner.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/superenalotto",
+ "h1": "SuperEnaLotto Results & Winning Numbers",
+ "h1_all": [
+  "SuperEnaLotto Results & Winning Numbers"
+ ],
+ "h2": [
+  "SuperEnaLotto Results",
+  "Are you a winner?"
+ ],
+ "og_title": "SuperEnaLotto Results - SuperEnaLotto Winning Numbers",
+ "og_description": "Get the latest results for the Italian SuperEnaLotto. Find the latest SuperEnaLotto winning numbers and check to see if you are a lucky lottery winner.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/superenalotto",
+     "name": "SuperEnaLotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 114,
+   "html": "<h2>SuperEnaLotto Results</h2>\n<p>You could be a jackpot winner, right now! Here's where you can find the latest SuperEnaLotto results.</p>\n<p>The SuperEnaLotto draw is usually held every Tuesday, Thursday, Friday and Saturday. Are you holding the lucky ticket? It's time to find out.</p>\n<h2>Are you a winner?</h2>\n<p>To bring home the jackpot, you will need to match all six main numbers.</p>\n<p>If you haven't matched all the numbers, you may still have won a prize. Even if you only matched two main numbers you still win a prize!</p>\n<p>We'll let you know via email if you have won a prize in the SuperEnaLotto lottery draw.</p> <p>Draws are usually held every Tuesday, Thursday, Friday and Saturday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

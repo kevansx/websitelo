@@ -1,0 +1,33 @@
+{# /lotteries/<slug>: lottery information. H1 and copy are the live page's, word for word; the jackpot
+   panel and the links to play and results are new and come from the CRM. #}
+{% extends "lo/base.html" %}
+{% set breadcrumbs = [("Home", "/"), ("Lottos & Games", "/lotteries"), (page.h1 or lottery.name, page.path)] %}
+{% set jp = lo_jackpot(lottery.game_code) %}
+{% block content %}
+<section class="lo-pagehead">
+  <div class="lo-wrap">
+    <nav class="lo-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/lotteries">Lottos &amp; Games</a> / <span>{{ lottery.name }}</span></nav>
+    <div class="lo-pagehead__row">
+      <span class="lo-pagehead__ball"><img src="{{ lo_ball(lottery) }}" alt="{{ lottery.name }}" width="88" height="88"></span>
+      <div>
+        <h1>{{ page.h1 or lottery.name }}</h1>
+        {% if jp and jp.display %}<p>Next jackpot <strong style="color:var(--gold-400)">{{ jp.display }}</strong>{% if jp.cutoff_iso %} · closes in <span class="lo-countdown lo-countdown--onbrand" data-until="{{ jp.cutoff_iso }}">&nbsp;</span>{% endif %}</p>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+<section class="lo-section">
+  <div class="lo-wrap" style="display:grid;gap:var(--space-6)">
+    <div class="lo-panel" style="display:flex;gap:var(--space-3);flex-wrap:wrap;align-items:center;justify-content:space-between">
+      <div><strong>{{ lottery.name }}</strong><br><span class="lo-muted">Buy official tickets and see every result.</span></div>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+        {% if lottery.sells %}<a class="lo-btn" href="/lottery-tickets/{{ lottery.slug }}">Play {{ lottery.name }}</a>{% endif %}
+        {% if lottery.results %}<a class="lo-btn lo-btn--secondary" href="/winning-lottery-numbers/{{ lottery.slug }}">{{ lottery.name }} results</a>{% endif %}
+      </div>
+    </div>
+    <article class="lo-panel lo-prose">
+      {% for block in page['copy'] %}{{ block.html|safe }}{% endfor %}
+    </article>
+  </div>
+</section>
+{% endblock %}

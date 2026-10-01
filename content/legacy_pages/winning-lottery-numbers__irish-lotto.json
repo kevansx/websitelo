@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/irish-lotto",
+ "title": "Irish Lottery - winning lotto numbers and lotto results",
+ "description": "Check your Irish Lotto ticket numbers - see if there has been a lotto jackpot win and get the latest lottery results and winning lottery numbers",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/irish-lotto",
+ "h1": "Irish Lotto Results & Winning Numbers",
+ "h1_all": [
+  "Irish Lotto Results & Winning Numbers"
+ ],
+ "h2": [
+  "Irish Lotto Results",
+  "Are you a winner?"
+ ],
+ "og_title": "Irish Lottery - winning lotto numbers and lotto results",
+ "og_description": "Check your Irish Lotto ticket numbers - see if there has been a lotto jackpot win and get the latest lottery results and winning lottery numbers",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/irish-lotto",
+     "name": "Irish Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 159,
+   "html": "<h2>Irish Lotto Results</h2>\n<p>You could be a millionaire, right now! Here's where you can find the latest Irish Lotto results.</p>\n<p>The Irish Lotto draw is held every Wednesday and Saturday around 8pm Dublin time. Are you holding the lucky ticket? It's time to find out.</p>\n<h2>Are you a winner?</h2>\n<p>To bring home the jackpot, you will need to match all six main numbers. If there is no winner, the jackpot will roll over to the next draw, there's no limit to the number of rollovers</p>\n<p>If you haven't matched all six main numbers, you may still be a winner. Five main numbers plus the Bonus Ball brings in an extra added prize tier, and so on. The smallest prize, set at €3, is allocated to players who match two main numbers and the bonus ball.</p>\n<p>We'll let you know via email if you have won a prize in the Irish Lotto draw.</p>\n<p>Draws are conducted every Wednesday and Saturday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

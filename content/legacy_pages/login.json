@@ -1,0 +1,59 @@
+{
+ "path": "/login",
+ "title": "Login to your secure personal LottosOnline Account",
+ "description": "Login into your personal LottosOnline account to play the lottery online - buy your lottery tickets online and let LottosOnline do the rest.",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "Login",
+ "h1_all": [
+  "Login"
+ ],
+ "h2": [
+  "Or..."
+ ],
+ "og_title": "Login to your secure personal LottosOnline Account",
+ "og_description": "Login into your personal LottosOnline account to play the lottery online - buy your lottery tickets online and let LottosOnline do the rest.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/login",
+     "name": "Login"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": "maincontent",
+   "words": 30,
+   "html": "<h2>Or...</h2>\n<a href=\"/create-account\">OPEN FREE ACCOUNT</a>\n<br/>\n\t\t\t\t\t\tIt's easy! Enter your favourite lottery today.\n\t\t\t\t\t\tQualify for discounts and special offers."
+  }
+ ],
+ "captured": "2026-10-01"
+}

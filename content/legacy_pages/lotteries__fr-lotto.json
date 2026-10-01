@@ -1,0 +1,68 @@
+{
+ "path": "/lotteries/fr-lotto",
+ "title": "French Lotto Lottery Information | LottosOnline",
+ "description": "Information about the French Lotto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/fr-lotto",
+ "h1": "The French Lotto Story",
+ "h1_all": [
+  "The French Lotto Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Play French Lotto Online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About French Lottery"
+ ],
+ "og_title": "French Lotto Lottery Information | LottosOnline ",
+ "og_description": "Information about the French Lotto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/fr-lotto",
+     "name": "French Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 466,
+   "html": "<p>The first French Lotto draw was held in Paris in 1976, and the game has been popular in France ever since. The French lotto is run by the <em>Française des Jeux</em>, which is a state-owned company that operates all of France's national lottery games.</p>\n<p>The French Lotto draw is held three times a week on Monday, Wednesday, and Saturday at 8:30 PM CET (Central European Time). The draw takes place in Paris, France, and the winning numbers are selected using a mechanical ball machine.</p><p>If you are playing the French Lotto from a different time zone, be sure to check the time difference to ensure that you don't miss the draw.</p>\n<h2>How Much Could You Win?</h2>\n<p>The jackpot for the French lotto starts at €2 million and can roll over up to 34 times, until it reaches a theoretical maximum of €36 million, after which it becomes a roll-down. In addition to the jackpot, there are also eight other prize tiers, and every draw there are 10 random lucky winners of a €20,000 thanks to an accompanying raffle prize.</p>\n<p>All this means that even if you don't hit all the winning lottery numbers there are still plenty of chances to win something.</p>\n<h2>Play French Lotto Online</h2>\n<p>To play, you'll need to choose five numbers from 1 to 49, as well as one additional 'Chance' number from 1 to 10. You can choose your own numbers or opt for a Quick Pick, which randomly generates your numbers for you. The more lines you play, the greater your chances of winning.</p>\n<p>Once you've chosen your numbers, all that's left to do is wait for the draw.</p>\n<h2>You've Won! What Happens Next?</h2>\n<p>Congratulations! Whether your winnings reach the hundreds, thousands or millions, you have plenty of reason to celebrate! If you have purchased a winning ticket via LottosOnline.com, we will notify you immediately via email. Then, it's time for you to enjoy your winnings!</p>\n<p>Simply log in to your LottosOnline account and view your LottosOnline winnings balance. Your winnings will be visible straight away and are ready to be transferred to your Account Balance for more tickets, or we can arrange payment via our agents when you make a claim.</p>\n<h2>Fun Facts About French Lottery</h2>\n<p>Did you know?</p>\n<ul><li>The very first lottery in France was held as far back as the 16th Century. In fact, the very word 'lottery' comes in part from the Old French word of that time <em>'loterie'</em></li>\n<li>The famous French General Napoleon Bonaparte was such a fan of the lottery that he established versions of the French Lottery in many of the countries that he conquered</li>\n<li>The biggest French Lotto jackpot ever won was €30 million, which was won by a single ticket holder on the 4th of December, 2021</li>\n</ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

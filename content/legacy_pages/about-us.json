@@ -1,0 +1,67 @@
+{
+ "path": "/about-us",
+ "title": "Learn more about our lotto ticket messaging service",
+ "description": "Access the world's biggest lottery jackpots and take advantage of our secure and convenient online lottery ticket concierge service at LottosOnline.",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "About Us",
+ "h1_all": [
+  "About Us"
+ ],
+ "h2": [],
+ "og_title": "Learn more about our lotto ticket messaging service",
+ "og_description": "Access the world's biggest lottery jackpots and take advantage of our secure and convenient online lottery ticket concierge service at LottosOnline.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/about-us",
+     "name": "About LottosOnline"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".leftcontent",
+   "words": 230,
+   "html": "<p>At LottosOnline, we believe everyone should have a chance to win the world’s biggest jackpots. That’s why we enable official lottery ticket purchases for people across the globe. From the EuroMillions Lottery to the US Powerball, we have handpicked the biggest lotteries for you to play. People from all over the world play lottos online, so you can boost your luck and turn lottery dreams into reality. </p>\n<h3>Are You Ready to Change Your Life?</h3>\n<p>Winning the lottery is life-changing. With millions in the bank, you can live life exactly on your terms. Take that weekend shopping trip to New York, buy the classic car of your dreams, relax on a luxury spa break for two – the choices are endless. If you thought that winning the lottery jackpot is something that happens to other people, think again. It could happen to you.</p>\n<p>Our online lottery ticket portal is clear and effortless. Simply pick your favourite lottery draw, buy your tickets and wait for the results. If you’re a winner, we’ll let you know straight away. We reflect smaller winnings immediately, and if you win big, we'll help with all the necessary arrangements for you to collect your winning ticket. There are no restrictions. No catches. Just chance after chance to win millions from the best lottery draws on the planet.</p>\n<p>Need more information? We’re here to talk.</p>\n<p>Good luck!\t</p>"
+  },
+  {
+   "selector": ".fullwidthcontent",
+   "words": 230,
+   "html": "<p>At LottosOnline, we believe everyone should have a chance to win the world’s biggest jackpots. That’s why we enable official lottery ticket purchases for people across the globe. From the EuroMillions Lottery to the US Powerball, we have handpicked the biggest lotteries for you to play. People from all over the world play lottos online, so you can boost your luck and turn lottery dreams into reality. </p>\n<h3>Are You Ready to Change Your Life?</h3>\n<p>Winning the lottery is life-changing. With millions in the bank, you can live life exactly on your terms. Take that weekend shopping trip to New York, buy the classic car of your dreams, relax on a luxury spa break for two – the choices are endless. If you thought that winning the lottery jackpot is something that happens to other people, think again. It could happen to you.</p>\n<p>Our online lottery ticket portal is clear and effortless. Simply pick your favourite lottery draw, buy your tickets and wait for the results. If you’re a winner, we’ll let you know straight away. We reflect smaller winnings immediately, and if you win big, we'll help with all the necessary arrangements for you to collect your winning ticket. There are no restrictions. No catches. Just chance after chance to win millions from the best lottery draws on the planet.</p>\n<p>Need more information? We’re here to talk.</p>\n<p>Good luck!\t</p>"
+  },
+  {
+   "selector": ".maincontent-inner",
+   "words": 232,
+   "html": "<p>At LottosOnline, we believe everyone should have a chance to win the world’s biggest jackpots. That’s why we enable official lottery ticket purchases for people across the globe. From the EuroMillions Lottery to the US Powerball, we have handpicked the biggest lotteries for you to play. People from all over the world play lottos online, so you can boost your luck and turn lottery dreams into reality. </p>\n<h3>Are You Ready to Change Your Life?</h3>\n<p>Winning the lottery is life-changing. With millions in the bank, you can live life exactly on your terms. Take that weekend shopping trip to New York, buy the classic car of your dreams, relax on a luxury spa break for two – the choices are endless. If you thought that winning the lottery jackpot is something that happens to other people, think again. It could happen to you.</p>\n<p>Our online lottery ticket portal is clear and effortless. Simply pick your favourite lottery draw, buy your tickets and wait for the results. If you’re a winner, we’ll let you know straight away. We reflect smaller winnings immediately, and if you win big, we'll help with all the necessary arrangements for you to collect your winning ticket. There are no restrictions. No catches. Just chance after chance to win millions from the best lottery draws on the planet.</p>\n<p>Need more information? We’re here to talk.</p>\n<p>Good luck!\t</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

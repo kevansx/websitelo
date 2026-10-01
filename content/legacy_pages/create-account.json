@@ -1,0 +1,66 @@
+{
+ "path": "/create-account",
+ "title": "Create your Account - sign up to play the lotto online",
+ "description": "Create an account today and access the world's biggest lottery jackpots. Sign up with LottosOnline and discover the fun of playing the lotto online.",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "Create Your LottosOnline Account",
+ "h1_all": [
+  "Create Your LottosOnline Account",
+  "Spin to Win Wheel",
+  "Spin to Win Wheel"
+ ],
+ "h2": [
+  "Earn Big with our New Incentive Program",
+  "Win Amazing Prizes!",
+  "Enter Your Details",
+  "Stop Dreaming. Start Playing!",
+  "Earn Big with our New Incentive Program",
+  "Win Amazing Prizes!"
+ ],
+ "og_title": "Create your Account - sign up to play the lotto online",
+ "og_description": "Create an account today and access the world's biggest lottery jackpots. Sign up with LottosOnline and discover the fun of playing the lotto online.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/create-account",
+     "name": "Register"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": "maincontent",
+   "words": 644,
+   "html": "<h2>Earn Big with our New Incentive Program</h2>\n<h4>Deposit now to get Bonuses and Free Spins on our</h4>\n<h2>Win Amazing Prizes!</h2>\n<a href=\"/spin-to-win\">Click Here to Learn More</a>\n<img alt=\"\" src=\"images/wheel.png\"/>\n<h2>Enter Your Details</h2>\n <p>By registering, you agree to LottosOnline.com's <a href=\"/privacy-policy\">Privacy Policy</a> and <a href=\"/terms-and-conditions\">Terms &amp; Conditions</a>.</p>\n<h2>Stop Dreaming. Start Playing!</h2>\n<ul>\n<li> <img alt=\"\" src=\"/images/tickpurple.png\"/>   It's easy to play! Enter your favourite lottery today.</li>\n<li> <img alt=\"\" src=\"/images/tickpurple.png\"/>   Qualify for discounts and special offers.</li>\n<li> <img alt=\"\" src=\"/images/tickpurple.png\"/>   Scanned tickets.</li>\n<li> <img alt=\"\" src=\"/images/tickpurple.png\"/>   No commission!</li>\n</ul>\n<img alt=\"\" src=\"/images/reigsterplay.png\"/>\n<h2>Earn Big with our New Incentive Program</h2>\n<h4>Deposit now to get Bonuses and Free Spins on our</h4>\n<h2>Win Amazing Prizes!</h2>\n<a href=\"/spin-to-win\">Click Here to Learn More</a>\n<img alt=\"\" src=\"images/wheel.png\"/>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

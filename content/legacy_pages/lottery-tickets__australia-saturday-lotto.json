@@ -1,0 +1,66 @@
+{
+ "path": "/lottery-tickets/australia-saturday-lotto",
+ "title": "Play Australia Saturday Lotto Online with LottosOnline.com",
+ "description": "Buy Lottery Tickets Online for the Australia Saturday Lotto - get your tickets for this popular Australian lottery game online with LottosOnline",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lottery-tickets/australia-saturday-lotto",
+ "h1": "Play Australia Saturday Lotto Online",
+ "h1_all": [
+  "Play Australia Saturday Lotto Online"
+ ],
+ "h2": [],
+ "og_title": "Play Australia Saturday Lotto Online with LottosOnline.com",
+ "og_description": "Buy Lottery Tickets Online for the Australia Saturday Lotto - get your tickets for this popular Australian lottery game online with LottosOnline",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play Australia Saturday Lotto Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_autat.png\",\n\n  \"description\": \"Play Australia Saturday Lotto Online - buy official Australia Saturday Lotto online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"AUTAT\",\n\n  \"mpn\":\"LottosOnline-AUTAT\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Australia Saturday Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"1.30\",\n\n\t\"priceValidUntil\": \"2026-10-03 08:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"AUTAT\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/australia-saturday-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"AUTAT-20261003\",\n\n  \"mpn\":\"LottosOnline-AUTAT-20261003\",\n\n  \"name\": \"Australia Saturday Lotto AU$6 Million Jackpot - 3rd October 2026 (Saturday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_autat.png\",\n\n  \"description\": \"Play the Australia Saturday Lotto for 3rd October 2026 (Saturday) with an estimated jackpot of AU$6 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Australia Saturday Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"1.30\",\n\n\t\"priceValidUntil\": \"2026-10-03 08:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"AUTAT-20261003\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/australia-saturday-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lottery-tickets/australia-saturday-lotto",
+     "name": "Australia Saturday Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 382,
+   "html": "<h3>What is the Australia Saturday lottery?</h3> <p>If you want to win more often when you play the lottery, the Australia Saturday lottery is the game for you. You could win a jackpot up to AU$8 000 000. Draws for the Australia Saturday Lotto are held every Saturday at 19:30 AEDT (Australian Eastern Daylight Time).</p> <h3>Can I Play Australia Saturday Lottery online?</h3> <p>Definitely! Buying lottery tickets for the Australia Saturday Lottery is easy with LottosOnline. All you need to do is log in to your account, choose the Australia Saturday Lottery and pick your lotto numbers. If you prefer to let the computer pick your numbers for you, you can use the Quick Pick option.</p> <h3>What is the cut-off time for purchasing Australia Saturday Lottery tickets on LottosOnline?</h3> <p>You’ll need to buy your tickets at least three hours before the draw that takes place on Saturday at 19:30 AEDT (Australian Eastern Daylight Time).</p> <h3>Can I still play Australia Saturday Lottery from outside Australia?</h3> <p>Of course you can, because there are no laws that prevent foreigners from playing the Australia Saturday Lottery. And you can play many other international lotteries from anywhere in the world with LottosOnline.</p> <h3>How do I claim the money on LottosOnline if I win the jackpot?</h3> <p>Whether you win the jackpot or one of the smaller prizes, LottosOnline will send you an email with all the details immediately.  Once your ticket entries have been checked against the results and verified, for lesser prizes your winnings will reflect in your Winnings Balance and you can claim them straight away. For the big wins, we'll contact you to discuss the next steps.  All the latest Australia Saturday Lottery results are published on the LottosOnline Results page as well.</p> <h3>What is the Australia Saturday Lottery Superdraw?</h3> <p>The Australia Saturday Lottery Superdraw is a special lottery draw that takes place several times throughout the year. For these events the jackpot is set to a massive AU$20 000 000 or more, and if it isn’t won, it will roll over until someone picks the winning numbers.</p> <h3>How do I win the Australia Saturday Lottery?</h3> <p>All it takes to win the Australia Saturday draw is matching the six numbers drawn. There are eight prize tiers and your chance of winning any prize is 1 in 85.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

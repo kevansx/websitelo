@@ -1,0 +1,66 @@
+{
+ "path": "/lottery-tickets/german-lotto",
+ "title": "Play German Lotto Online - German Lotto Tickets Online",
+ "description": "The German Lotto (Lotto 6aus49) is a popular European lottery game with jackpots starting at €1-Million and draws held every Wednesday and Friday.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lottery-tickets/german-lotto",
+ "h1": "Play German Lotto Online",
+ "h1_all": [
+  "Play German Lotto Online"
+ ],
+ "h2": [],
+ "og_title": "Play German Lotto Online - German Lotto Tickets Online",
+ "og_description": "The German Lotto (Lotto 6aus49) is a popular European lottery game with jackpots starting at €1-Million and draws held every Wednesday and Friday.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play German Lotto Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_delot.png\",\n\n  \"description\": \"Play German Lotto Online - buy official German Lotto online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"DELOT\",\n\n  \"mpn\":\"LottosOnline-DELOT\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"German Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"2.90\",\n\n\t\"priceValidUntil\": \"2026-10-03 15:30:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"DELOT\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/german-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"DELOT-20261003\",\n\n  \"mpn\":\"LottosOnline-DELOT-20261003\",\n\n  \"name\": \"German Lotto EUR€4 Million Jackpot - 3rd October 2026 (Saturday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_delot.png\",\n\n  \"description\": \"Play the German Lotto for 3rd October 2026 (Saturday) with an estimated jackpot of EUR€4 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"German Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"2.90\",\n\n\t\"priceValidUntil\": \"2026-10-03 15:30:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"DELOT-20261003\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/german-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lottery-tickets/german-lotto",
+     "name": "German Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 583,
+   "html": "<h3>What is the German Lotto?</h3> <p>Dreaming of getting rich quick? German Lotto is a long-running game with yearly prize money topping an eye-watering €1.5 billion. Draws take place on Wednesday's at 18:25 Berlin time, and Saturday's at 19:25. With Wednesday jackpots set at a minimum of €1 million and Saturday jackpots at €2 million, winners are guaranteed a fortune!</p> <h3>Can I play the German Lotto online?</h3> <p>LottosOnline makes playing German Lotto easy. Simply visit the LottosOnline site, select German Lotto and choose your lotto numbers. If you prefer a faster option, the Quick Pick random number generator will choose for you. It's fast, simple and secure!</p> <h3>What's the deadline for purchasing German Lotto tickets online?</h3> <p>The deadline for purchasing German Lotto tickets is approximately two hours before the draw actually takes place. The team at LottoOnline's local ticket buying office in Germany will purchase the official German Lotto tickets on your behalf prior to the draw.</p> <h3>How do I win the German Lotto?</h3> <p>In total, the German Lotto has nine different prize tiers, which means there are plenty of chances to win. Seven numbers are drawn in total. Correctly pick the six main numbers from 1 to 49, plus the Bonus Ball number (known as the Superzahl in the German Lotto) from a pool of 0 to 9 and it's jackpot time! To qualify as a winner must match a minimum of two main numbers plus the Superzahl ball. The different prize tier payouts will vary depending on the total value of the draw's prize fund.</p> <h3>Can I play German Lotto from outside Germany?</h3> <p>You don't have to live in Germany to play German Lotto! With LottosOnline, you can play German Lotto from almost anywhere in the world. LottosOnline will purchase the official lottery tickets on your behalf and any winnings will reflect in your Winnings Balance once your ticket numbers have been verified.</p> <h3>How do I claim the money on LottosOnline if I win the jackpot?</h3> <p>If you're a big winner, your life is about to change forever, so get ready! All you need to do is pick which dream you're going to make into a reality first!</p> <p>Claiming your winnings is easy. After numbers have been checked and winnings are confirmed, funds will reflect in your winnings balance. To access your winnings simply login to your LottosOnline account, view your balance and decide what to do with your new fortune. You can claim your winnings and our agents will transfer funds to a nominated bank account, or you could convert the funds to credit in your Account Balance. If you win the jackpot, LottosOnline will get in touch and help with the necessary arrangements for you to collect your winning ticket.</p> <h3>How do I find out if I'm a winner?</h3> <p>Have you had your fingers crossed? If you're a winner LottosOnline will notify you via email. You can also check the latest German Lotto results on the LottosOnline website.</p> <h3>What is the biggest German Lotto jackpot ever won?</h3> <p>To date, the biggest German Lotto jackpot in history is €45.4 million! Will you be the next German Lotto jackpot winner?</p> <h3>How many German Lotto rollovers can take place?</h3> <p>German Lotto jackpots can roll over up to 13 times. This means jackpots can quickly become enormous! If there is still no winner after 13 draws prize money is distributed between the winners on the next prize tier.</p> <h3>Is there an age limit</h3> <p>To play German Lotto you must be 18 years or older.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

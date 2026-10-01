@@ -1,0 +1,69 @@
+{
+ "path": "/uk/lottery-tickets/euromillions",
+ "title": "Play EuroMillions Online in the UK - Buy Tickets",
+ "description": "Play EuroMillions online in the UK. Buy your tickets with us, we guarantee secure transactions and the best odds!",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/lottery-tickets/euromillions",
+ "h1": "Play EuroMillions Online in the UK",
+ "h1_all": [
+  "Play EuroMillions Online in the UK"
+ ],
+ "h2": [
+  "Buy EuroMillions ticket in the United Kingdom",
+  "Frequently Asked Questions"
+ ],
+ "og_title": "Play EuroMillions Online in the UK - Buy Tickets",
+ "og_description": "Play EuroMillions online in the UK. Buy your tickets with us, we guarantee secure transactions and the best odds!",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play EuroMillions Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_eueur.png\",\n\n  \"description\": \"Play EuroMillions Online - buy official EuroMillions online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"EUEUR\",\n\n  \"mpn\":\"LottosOnline-EUEUR\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"EuroMillions\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"5.90\",\n\n\t\"priceValidUntil\": \"2026-10-02 16:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"EUEUR\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/euromillions\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"EUEUR-20261002\",\n\n  \"mpn\":\"LottosOnline-EUEUR-20261002\",\n\n  \"name\": \"EuroMillions EUR€28 Million Jackpot - 2nd October 2026 (Friday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_eueur.png\",\n\n  \"description\": \"Play the EuroMillions for 2nd October 2026 (Friday) with an estimated jackpot of EUR€28 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"EuroMillions\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"5.90\",\n\n\t\"priceValidUntil\": \"2026-10-02 16:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"EUEUR-20261002\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/euromillions\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \""
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/lottery-tickets/euromillions",
+     "name": "EuroMillions"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".fullwidthcontent",
+   "words": 702,
+   "html": ""
+  }
+ ],
+ "captured": "2026-10-01"
+}

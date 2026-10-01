@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block page_title %}{{ seo.title }}{% endblock %}</title>
+  <meta name="description" content="{{ seo.description }}">
+  <link rel="canonical" href="{{ seo.canonical }}">
+  <meta name="robots" content="{{ noindex if noindex is defined and noindex else seo.robots }}">
+  <meta property="og:site_name" content="LottosOnline">
+  <meta property="og:type" content="{{ seo.og_type or 'website' }}">
+  <meta property="og:title" content="{{ seo.title }}">
+  <meta property="og:description" content="{{ seo.description }}">
+  <meta property="og:url" content="{{ seo.canonical }}">
+  <meta property="og:image" content="{{ seo.og_image }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@LottosOnline">
+  <meta name="twitter:title" content="{{ seo.title }}">
+  <meta name="twitter:description" content="{{ seo.description }}">
+  <meta name="twitter:image" content="{{ seo.og_image }}">
+  <meta name="theme-color" content="#582178">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='brands/lottosonline/img/favicon-196.png') }}" sizes="196x196">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='brands/lottosonline/img/apple-touch-icon.png') }}">
+  <link rel="preload" href="{{ url_for('static', filename='brands/lottosonline/fonts/Montserrat-var-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ url_for('static', filename='brands/lottosonline/fonts/OpenSans-var-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ lo_asset('css/fonts.css') }}">
+  <link rel="stylesheet" href="{{ lo_asset('css/tokens.css') }}">
+  <link rel="stylesheet" href="{{ lo_asset('css/components.css') }}">
+  <link rel="stylesheet" href="{{ lo_asset('css/site.css') }}">
+  <script type="application/ld+json">{{ lo_org_jsonld|safe }}</script>
+  {% if breadcrumbs %}<script type="application/ld+json">{{ lo_breadcrumb_jsonld(breadcrumbs)|safe }}</script>{% endif %}
+  {% block jsonld %}{% endblock %}
+  {% if gtm_id %}
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+  {% endif %}
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="lo{% block body_class %}{% endblock %}">
+{% if gtm_id %}<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>{% endif %}
+<a class="lo-skip" href="#main">Skip to content</a>
+{% include "lo/_header.html" %}
+<main class="lo-main" id="main">
+  {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}
+    <div class="lo-wrap">{% for category, message in messages %}<div class="lo-flash{% if category == 'error' %} lo-flash--error{% elif category == 'success' %} lo-flash--success{% endif %}" role="status">{{ message }}</div>{% endfor %}</div>
+  {% endif %}{% endwith %}
+  {% block content %}{% endblock %}
+</main>
+{% include "lo/_footer.html" %}
+<script src="{{ lo_asset('js/site.js') }}" defer></script>
+{% if not no_analytics %}<script defer src="/resources/js/track.js"></script>{% endif %}
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

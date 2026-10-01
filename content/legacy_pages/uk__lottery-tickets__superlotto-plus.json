@@ -1,0 +1,66 @@
+{
+ "path": "/uk/lottery-tickets/superlotto-plus",
+ "title": "Play California SuperLotto Plus Online - Buy California SuperLotto Plus Lottery Tickets",
+ "description": "Buy Lottery Tickets Online for California SuperLotto Plus and play the biggest jackpots on LottosOnline",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/lottery-tickets/superlotto-plus",
+ "h1": "",
+ "h1_all": [
+  ""
+ ],
+ "h2": [],
+ "og_title": "Play California SuperLotto Plus Online - Buy California SuperLotto Plus Lottery Tickets",
+ "og_description": "Buy Lottery Tickets Online for California SuperLotto Plus and play the biggest jackpots on LottosOnline",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play California SuperLotto Plus Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_uscal.png\",\n\n  \"description\": \"Play California SuperLotto Plus Online - buy official California SuperLotto Plus online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"USCAL\",\n\n  \"mpn\":\"LottosOnline-USCAL\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"California SuperLotto Plus\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"2.20\",\n\n\t\"priceValidUntil\": \"2026-10-04 01:15:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"USCAL\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/superlotto-plus\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"USCAL-20261004\",\n\n  \"mpn\":\"LottosOnline-USCAL-20261004\",\n\n  \"name\": \"California SuperLotto Plus US$60 Million Jackpot - 4th October 2026 (Sunday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_uscal.png\",\n\n  \"description\": \"Play the California SuperLotto Plus for 4th October 2026 (Sunday) with an estimated jackpot of US$60 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"California SuperLotto Plus\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"2.20\",\n\n\t\"priceValidUntil\": \"2026-10-04 01:15:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"USCAL-20261004\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/superlotto-plus\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/lottery-tickets/superlotto-plus",
+     "name": "California SuperLotto Plus"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 457,
+   "html": "<h3>What is the California SuperLotto Plus?</h3> <p>The California SuperLotto Plus is an exciting draw game specific to the Golden State of California. Jackpots start at $7 million which is a solid chunk of prize money! Numbers are drawn at approximately 19:45 Pacific Time in California. Draws take place every Wednesday and Saturday.</p> <h3>Can I buy California SuperLotto Plus tickets online?</h3> <p>Yes! You can play without even leaving the comfort of your home, you don't have to be in California. LottosOnline makes playing California SuperLotto Plus easy. Simply visit the LottosOnline website, choose the California SuperLotto Plus lottery and select your lucky numbers. If you prefer random numbers, the Quick Pick function generates numbers for you. How you play is 100% your choice!</p> <h3>What is the cut-off for buying California SuperLotto Plus tickets online?</h3> <p>The cut off time for buying California SuperLotto Plus tickets from LottosOnline is 18:00 Pacific Time.</p> <h3>How do I win California SuperLotto Plus?</h3> <p>Hitting the jackpot is simple! All you need to do is choose five lucky numbers that match the winning jackpot numbers, and one very lucky winning MEGA number. Every draw has a total of nine prize divisions.</p> <h3>How do I claim my winnings on LottosOnline if I win the California SuperLotto Plus jackpot?</h3> <p>Whether you win a few hundred dollars or hit the jackpot, LottosOnline will notify you immediately via email. This means you'll never be kept waiting! All the latest California SuperLotto Plus lottery results are also displayed on the LottosOnline website.</p> <p>Claiming your winnings is easy. After your ticket entries have been checked and winnings are confirmed, funds will reflect in your LottosOnline Winnings Balance. To access your cash simply login to your LottosOnline account and decide what to do with your new fortune. You can convert it to credit in your Account Balance or arrange for our agents to transfer it to a nominated bank account. If you win big, we'll be in touch to discuss all the necessary arrangement for you to collect your lottery winning ticket in person. So you can sit back, relax and enjoy your new fortune with a minimum of fuss.</p> <h3>How much is the tax on California SuperLotto Plus winnings for non-US residents?</h3> <p>For non-US residents there is a flat federal tax rate of 30%. There are no state taxes on lottery winnings in California.</p> <h3>What is the biggest California SuperLotto Plus jackpot ever won?</h3> <p>The largest ever jackpot for the California SuperLotto Plus was $193-Million. It was won by 3 tickets in February 2002!</p> <h3>How many California SuperLotto Plus rollovers can take place?</h3> <p>There is no limit on the number of rollovers that can take place. So, for every draw that there isn't a winner, the jackpot will continue to grow!</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

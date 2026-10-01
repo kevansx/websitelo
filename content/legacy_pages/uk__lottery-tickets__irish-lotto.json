@@ -1,0 +1,66 @@
+{
+ "path": "/uk/lottery-tickets/irish-lotto",
+ "title": "Play Irish Lotto Online - Buy Irish Lotto Lottery Tickets",
+ "description": "Buy Lottery Tickets Online for Irish Lotto and play the biggest jackpots on LottosOnline",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/lottery-tickets/irish-lotto",
+ "h1": "",
+ "h1_all": [
+  ""
+ ],
+ "h2": [],
+ "og_title": "Play Irish Lotto Online - Buy Irish Lotto Lottery Tickets",
+ "og_description": "Buy Lottery Tickets Online for Irish Lotto and play the biggest jackpots on LottosOnline",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play Irish Lotto Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_ielot.png\",\n\n  \"description\": \"Play Irish Lotto Online - buy official Irish Lotto online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"IELOT\",\n\n  \"mpn\":\"LottosOnline-IELOT\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Irish Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"5.50\",\n\n\t\"priceValidUntil\": \"2026-10-03 17:15:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"IELOT\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/irish-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"IELOT-20261003\",\n\n  \"mpn\":\"LottosOnline-IELOT-20261003\",\n\n  \"name\": \"Irish Lotto EUR€5.2 Million Jackpot - 3rd October 2026 (Saturday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_ielot.png\",\n\n  \"description\": \"Play the Irish Lotto for 3rd October 2026 (Saturday) with an estimated jackpot of EUR€5.2 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Irish Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"5.50\",\n\n\t\"priceValidUntil\": \"2026-10-03 17:15:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"IELOT-20261003\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/irish-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\","
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/lottery-tickets/irish-lotto",
+     "name": "Irish Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 419,
+   "html": "<h3>What is the Irish Lotto?</h3> <p>As a state-franchised national lottery, the Irish Lotto is one of the nation's most popular lottery games. Games are held twice a week, with the draws happening on Wednesdays and Saturdays around 8pm in Dublin.</p> <h3>Can I play the Irish Lotto online?</h3> <p>Playing the Irish Lotto online is as easy as visiting the LotterysOnline website, selecting the Irish Lotto draw and choosing your numbers. If you prefer random numbers, the Quick Pick function will generate them for you.</p> <h3>How do I win the Irish Lotto?</h3> <p>When you play the Irish Lotto, there are plenty of ways to win! To hit the jackpot, you'll need to have matched all six main numbers. You can choose any numbers from 1 to 45. Jackpots start at a minimum of €2-Million and there's no roll-over cap, so they could get a lot higher. In total, there are eight prize payout tiers, with the lowest fixed at €3. With endless opportunities to strike it lucky, you could become a millionaire overnight!</p> <h3>Can I play the Irish Lotto from outside Ireland?</h3> <p>Don't reside in Ireland? With LotterysOnline, you can play the Irish Lotto from almost anywhere! All you need to do is create a LotterysOnline account, select the Irish Lotto and pick your six lucky numbers.</p> <h3>How do I claim the money on LottosOnline if I win the jackpot?</h3> <p>If you match all six numbers, you've won the lottery jackpot and are in for a new found fortune! Congratulations! We will contact you to make arrangements for you to be united with your winning ticket.</p> <p>If you win a smaller prize, LottosOnline will send you a notification via e-mail. Once the numbers have been double checked, your winnings will reflect in your Winnings Balance.  When you are ready, you can then log into your account and authorise our agents to transfer your prize money to your nominated account. Alternatively, you could convert your winnings to credit in your Account Balance to spend on more tickets.</p> <h3>How do I find out if I'm a winner?</h3> <p>If you're a winner, LotterysOnline will let you know the exciting news via email. But there's no need to wait in anticipation! The winning lottery numbers are also published on the LotterysOnline website, so you can discover if you're joining the exclusive ranks of the millionaires immediately!</p> <h3>What is the biggest Irish Lotto jackpot ever won?</h3> <p>The biggest jackpot won in the Irish Lotto so far is €18.9-Million, which was split between a syndicate in 2008.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

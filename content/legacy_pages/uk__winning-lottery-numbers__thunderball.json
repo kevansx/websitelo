@@ -1,0 +1,66 @@
+{
+ "path": "/uk/winning-lottery-numbers/thunderball",
+ "title": "UK Thunderball Results & Winning Numbers | LottosOnline",
+ "description": "Get the latest UK Thunderball results and winning lottery numbers online",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/winning-lottery-numbers/thunderball",
+ "h1": "UK Thunderball Results & Winning Numbers",
+ "h1_all": [
+  "UK Thunderball Results & Winning Numbers"
+ ],
+ "h2": [
+  "UK Thunderball Results",
+  "Are you a winner?"
+ ],
+ "og_title": "UK Thunderball Results & Winning Numbers | LottosOnline",
+ "og_description": "Get the latest UK Thunderball results and winning lottery numbers online",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/winning-lottery-numbers/thunderball",
+     "name": "UK Thunderball"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 117,
+   "html": "<h2>UK Thunderball Results</h2>\n<p>You could be a jackpot winner, right now! Here's where you can find the latest UK Thunderball results.</p>\n<p>The UK Thunderball draw is held every Tuesday, Wednesday, Friday and Saturday. Are you holding the lucky ticket? It's time to find out.</p>\n<h2>Are you a winner?</h2>\n<p>To bring home the jackpot, you will need to match all five main numbers plus the Thunderball.</p>\n<p>If you haven't matched all the numbers, you may still have won a prize. Even if you only match the Thunderball you still win a prize!</p>\n<p>We'll let you know via email if you have won a prize in the UK Thunderball draw.</p>\n<p>Draws are conducted every Tuesday, Wednesday, Friday and Saturday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

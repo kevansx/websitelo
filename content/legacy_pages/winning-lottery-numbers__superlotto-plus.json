@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/superlotto-plus",
+ "title": "California SuperLottoPlus Results - SuperLottoPlus Winning Numbers",
+ "description": "Check the latest Californian SuperlottoPlus lottery results. See if your lucky numbers match the winning lottery numbers for this exciting American lottery.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/superlotto-plus",
+ "h1": "California SuperLotto Plus Results & Winning Numbers",
+ "h1_all": [
+  "California SuperLotto Plus Results & Winning Numbers"
+ ],
+ "h2": [
+  "California SuperLotto Plus",
+  "Have you won the jackpot?"
+ ],
+ "og_title": "California SuperLottoPlus Results - SuperLottoPlus Winning Numbers",
+ "og_description": "Check the latest Californian SuperlottoPlus lottery results. See if your lucky numbers match the winning lottery numbers for this exciting American lottery.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/superlotto-plus",
+     "name": "California SuperLotto Plus"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 205,
+   "html": "<h2>California SuperLotto Plus</h2>\n<p>Looking for the latest California SuperLotto Plus results? Ready to discover if your dreams are about to come true? You're in the right place.</p>\n<p>The California SuperLotto Plus lottery happens every Wednesday and Saturday at about 7.45pm Pacific Time (PT). We bring you the most up-to-date lottery results, right here at LottosOnline.</p>\n<h2>Have you won the jackpot?</h2>\n<p>The California SuperLotto Plus has nine prize payout tiers. Here's how it works.</p>\n<p>Five main numbers (from 1-47) are selected, followed separately by one MEGA number (from 1-27). To win the jackpot, you'll need to match all five main numbers plus the one MEGA number. The jackpot size starts at a minimum of $7 million, rolling over the following draw if there are no jackpot winners.</p>\n<p>Even if your ticket entries have matched just the MEGA number, you will be a winner. Take a look at our California SuperLotto Plus prize breakdown to find out more.</p>\n<p>To make life easier, when you play you will get California SuperLotto Plus results straight to your inbox. It's the quickest, simplest way to stay updated. You might find yourself transformed into a millionaire with a click of a button! Good luck!</p>\n<p>Draws are conducted every Wednesday and Saturday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

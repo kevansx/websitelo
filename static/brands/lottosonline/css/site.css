@@ -1,0 +1,191 @@
+/* LottosOnline layout layer: page shell, header/drawer, footer, page heroes and the prose style for the
+   copy carried over from the old site. Loaded after tokens.css and components.css. Mobile first:
+   84% of search visitors are on phones. */
+
+html { -webkit-text-size-adjust: 100%; }
+body.lo { margin: 0; background: var(--surface-page); font-family: var(--font-body); color: var(--ink); }
+.lo img { max-width: 100%; height: auto; }
+.lo-wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--space-4); }
+.lo-main { min-height: 50vh; }
+.lo-skip { position: absolute; left: -9999px; top: 0; }
+.lo-skip:focus { left: var(--space-4); top: var(--space-2); z-index: 100; background: var(--surface-card); padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); }
+.lo-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---- header: phone default, desktop from 1000px ---- */
+.lo-site-header { position: relative; z-index: 20; }
+.lo-site-header .lo-header { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--surface-brand); }
+.lo-header__brand { display: inline-flex; flex: 0 1 auto; min-width: 0; }
+.lo-site-header .lo-header__logo { height: 28px; width: auto; display: block; }
+.lo-site-header .lo-header__nav { display: none; }
+.lo-header__account { display: flex; align-items: center; gap: var(--space-3); margin-left: auto; }
+.lo-header__login { color: var(--ink-on-brand); font: 600 14px/20px var(--font-display); text-decoration: none; white-space: nowrap; }
+.lo-header__pill { display: inline-flex; align-items: center; min-height: 36px; padding: 0 var(--space-4); border-radius: var(--radius-pill);
+  background: var(--cta-600); color: #fff; font: 700 14px/20px var(--font-display); text-decoration: none; white-space: nowrap; }
+.lo-header__pill:hover { background: var(--cta-700); }
+.lo-header__balance { display: grid; color: var(--ink-on-brand); text-decoration: none; text-align: right; }
+.lo-header__balance-label { font: 500 11px/14px var(--font-body); color: var(--ink-on-brand-muted); }
+.lo-header__balance-amount { font: 700 15px/18px var(--font-body); font-variant-numeric: tabular-nums; }
+.lo-header__cart { position: relative; color: var(--ink-on-brand); display: inline-flex; padding: 6px; }
+.lo-header__badge { position: absolute; top: -2px; right: -4px; min-width: 18px; height: 18px; border-radius: 9px; padding: 0 5px;
+  background: var(--gold-400); color: var(--surface-brand-deep); font: 800 11px/18px var(--font-display); text-align: center; }
+.lo-site-header .lo-iconbtn { color: var(--ink-on-brand); }
+.lo-drawer { background: var(--surface-brand-raised); padding: var(--space-2) var(--space-4) var(--space-4); display: grid; }
+.lo-drawer[hidden] { display: none; }
+.lo-drawer a { color: var(--ink-on-brand); text-decoration: none; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.12);
+  font: 600 15px/22px var(--font-display); }
+.lo-hide-mobile { display: none !important; }
+@media (max-width: 380px) { .lo-site-header .lo-header__logo { height: 22px; } .lo-header__pill { padding: 0 var(--space-3); } }
+@media (min-width: 640px) { .lo-hide-mobile { display: grid !important; } .lo-header__pill.lo-hide-mobile { display: inline-flex !important; } }
+@media (min-width: 1000px) {
+  .lo-site-header .lo-header { padding: var(--space-3) var(--space-6); gap: var(--space-5); }
+  .lo-site-header .lo-header__logo { height: 35px; }
+  .lo-only-mobile { display: none !important; }
+  .lo-site-header .lo-header__nav { display: flex; gap: var(--space-4); margin-left: var(--space-2); }
+  .lo-site-header .lo-header__nav a { color: var(--ink-on-brand); font: 600 14px/20px var(--font-display); text-decoration: none; padding: 6px 0;
+    border-bottom: 2px solid transparent; white-space: nowrap; }
+  .lo-site-header .lo-header__nav a:hover, .lo-site-header .lo-header__nav a[aria-current="page"] { border-bottom-color: var(--gold-400); }
+  .lo-drawer { display: none !important; }
+}
+.lo-support-banner { background: var(--placeholder-200); color: var(--placeholder-700); padding: var(--space-3) var(--space-4); text-align: center; }
+
+/* ---- page hero (title band) ---- */
+.lo-pagehead { background: linear-gradient(160deg, var(--surface-brand) 0%, var(--surface-brand-deep) 100%); color: var(--ink-on-brand);
+  padding: var(--space-6) 0 var(--space-6); position: relative; overflow: hidden; }
+.lo-pagehead::after { content: ""; position: absolute; inset: auto -10% -60% auto; width: 60%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(253,188,0,.18), transparent 65%); pointer-events: none; }
+.lo-pagehead h1 { margin: 0; font: 800 26px/32px var(--font-display); letter-spacing: -0.01em; }
+.lo-pagehead p { margin: var(--space-2) 0 0; color: var(--ink-on-brand-muted); max-width: 60ch; }
+.lo-pagehead__row { display: flex; align-items: center; gap: var(--space-4); position: relative; z-index: 1; }
+.lo-pagehead__ball { width: 64px; height: 64px; flex: none; border-radius: 50%; background: #fff; display: grid; place-items: center; overflow: hidden; box-shadow: var(--shadow-card); }
+.lo-pagehead__ball img { width: 100%; height: 100%; object-fit: contain; }
+@media (min-width: 900px) { .lo-pagehead { padding: var(--space-10) 0; } .lo-pagehead h1 { font-size: 34px; line-height: 40px; } .lo-pagehead__ball { width: 88px; height: 88px; } }
+
+.lo-crumbs { font-size: 13px; color: var(--ink-on-brand-muted); margin-bottom: var(--space-2); position: relative; z-index: 1; }
+.lo-crumbs a { color: var(--ink-on-brand); text-decoration: none; }
+.lo-crumbs a:hover { text-decoration: underline; }
+
+/* ---- sections ---- */
+.lo-section { padding: var(--space-8) 0; }
+.lo-section--tight { padding: var(--space-5) 0; }
+.lo-section h2 { font: 700 22px/28px var(--font-display); margin: 0 0 var(--space-4); }
+.lo-panel { background: var(--surface-card); border: 1px solid var(--border-hairline); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: var(--space-5); }
+@media (min-width: 900px) { .lo-panel { padding: var(--space-8); } }
+
+/* ---- carried-over copy (word for word from the old site) ---- */
+.lo-prose { max-width: 78ch; font-size: 16px; line-height: 26px; color: var(--ink); }
+.lo-prose > :first-child { margin-top: 0; }
+.lo-prose h2 { font: 700 21px/28px var(--font-display); margin: var(--space-8) 0 var(--space-3); color: var(--surface-brand); }
+.lo-prose h3 { font: 700 18px/24px var(--font-display); margin: var(--space-6) 0 var(--space-2); color: var(--surface-brand); }
+.lo-prose h4 { font: 700 16px/22px var(--font-display); margin: var(--space-5) 0 var(--space-2); }
+.lo-prose p { margin: 0 0 var(--space-4); }
+.lo-prose ul, .lo-prose ol { margin: 0 0 var(--space-4); padding-left: 1.3em; }
+.lo-prose li { margin: 0 0 var(--space-2); }
+.lo-prose a { color: var(--surface-brand-raised); text-decoration: underline; text-underline-offset: 2px; }
+.lo-prose a:hover { color: var(--surface-brand); }
+.lo-prose strong, .lo-prose b { font-weight: 700; }
+.lo-prose table { width: 100%; border-collapse: collapse; margin: 0 0 var(--space-5); font-size: 14px; display: block; overflow-x: auto; }
+.lo-prose th, .lo-prose td { border: 1px solid var(--border-hairline); padding: 8px 10px; text-align: left; vertical-align: top; }
+.lo-prose th { background: var(--surface-sunken); font-weight: 700; }
+.lo-prose img { border-radius: var(--radius-sm); }
+.lo-prose--wide { max-width: none; }
+
+/* ---- lottery grid (hub + home) ---- */
+.lo-lotgrid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; }
+@media (min-width: 560px) { .lo-lotgrid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .lo-lotgrid { grid-template-columns: repeat(4, 1fr); } }
+.lo-lot { background: var(--surface-card); border: 1px solid var(--border-hairline); border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+  display: grid; grid-template-rows: auto 1fr auto; text-align: center; overflow: hidden; transition: box-shadow .15s ease, transform .15s ease; }
+.lo-lot:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
+.lo-lot__top { padding: var(--space-4) var(--space-4) 0; display: grid; justify-items: center; gap: var(--space-2); }
+.lo-lot__ball { width: 72px; height: 72px; border-radius: 50%; object-fit: contain; }
+.lo-lot__name { font: 700 16px/20px var(--font-display); color: var(--ink); margin: 0; }
+.lo-lot__body { padding: var(--space-3) var(--space-4); display: grid; gap: var(--space-2); align-content: start; }
+.lo-lot__jackpot { font: 800 26px/30px var(--font-display); color: var(--surface-brand); letter-spacing: -0.01em; }
+.lo-lot__rise { justify-self: center; font: 700 12px/16px var(--font-body); color: var(--accent-700); background: #fff3e0; border-radius: var(--radius-pill); padding: 3px 10px; }
+.lo-lot__price { font-size: 13px; color: var(--ink-muted); }
+.lo-lot__foot { padding: 0 var(--space-4) var(--space-4); display: grid; gap: var(--space-2); }
+.lo-lot__count { font: 700 13px/18px var(--font-body); color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+
+/* ---- table of all lotteries (home) ---- */
+.lo-lottable { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface-card); border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); }
+.lo-lottable th { text-align: left; font: 700 12px/16px var(--font-display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted);
+  background: var(--surface-sunken); padding: 10px 12px; }
+.lo-lottable td { padding: 12px; border-top: 1px solid var(--border-hairline); vertical-align: middle; }
+.lo-lottable__name { display: flex; align-items: center; gap: var(--space-3); font: 700 15px/20px var(--font-display); color: var(--ink); text-decoration: none; }
+.lo-lottable__name img { width: 40px; height: 40px; border-radius: 50%; }
+.lo-lottable__jackpot { font: 800 17px/22px var(--font-display); color: var(--surface-brand); white-space: nowrap; }
+.lo-lottable__rise { display: block; font: 600 12px/16px var(--font-body); color: var(--accent-700); }
+.lo-lottable .lo-countdown { white-space: nowrap; }
+@media (max-width: 699px) {
+  .lo-lottable thead { display: none; }
+  .lo-lottable tr { display: grid; grid-template-columns: 1fr auto; gap: 4px var(--space-3); padding: 12px; border-top: 1px solid var(--border-hairline); }
+  .lo-lottable tr:first-child { border-top: 0; }
+  .lo-lottable td { border: 0; padding: 0; }
+  .lo-lottable td:nth-child(1) { grid-column: 1 / -1; }
+  .lo-lottable td:nth-child(4) { grid-row: 2 / span 2; grid-column: 2; align-self: center; }
+}
+
+/* ---- why choose us ---- */
+.lo-why { display: grid; gap: var(--space-3); grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 900px) { .lo-why { grid-template-columns: repeat(3, 1fr); } }
+.lo-why__item { display: flex; align-items: center; gap: var(--space-3); background: var(--surface-card); border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md); padding: var(--space-4); font: 700 13px/18px var(--font-display); text-transform: uppercase; letter-spacing: .03em; }
+.lo-why__item svg { flex: none; color: var(--accent-500); }
+
+/* ---- home hero ---- */
+.lo-homehero { background: radial-gradient(120% 140% at 85% 0%, var(--surface-brand-raised) 0%, var(--surface-brand) 45%, var(--surface-brand-deep) 100%);
+  color: var(--ink-on-brand); padding: var(--space-8) 0 var(--space-10); position: relative; overflow: hidden; }
+.lo-homehero::before { content: ""; position: absolute; inset: -30% -20% auto auto; width: 70%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(253,188,0,.22), transparent 60%); }
+.lo-homehero__grid { position: relative; display: grid; gap: var(--space-6); align-items: center; }
+@media (min-width: 900px) { .lo-homehero__grid { grid-template-columns: 1.1fr 1fr; } .lo-homehero { padding: var(--space-12) 0 var(--space-16); } }
+.lo-homehero__kicker { font: 700 16px/22px var(--font-display); color: var(--gold-400); margin: 0 0 var(--space-2); }
+.lo-homehero h1 { margin: 0; font: 800 32px/38px var(--font-display); letter-spacing: -0.02em; }
+@media (min-width: 900px) { .lo-homehero h1 { font-size: 46px; line-height: 52px; } }
+.lo-homehero__tag { display: inline-block; margin-top: var(--space-4); font: 800 15px/20px var(--font-display); color: var(--surface-brand-deep);
+  background: var(--gold-400); padding: 6px 12px; border-radius: var(--radius-sm); transform: rotate(-2deg); }
+.lo-homehero__cta { margin-top: var(--space-6); display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.lo-homehero__feature { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: var(--radius-xl); padding: var(--space-5);
+  display: grid; gap: var(--space-3); justify-items: center; text-align: center; backdrop-filter: blur(4px); }
+.lo-homehero__feature .lo-lot__ball { width: 88px; height: 88px; background: #fff; }
+.lo-homehero__fname { font: 700 16px/20px var(--font-display); color: var(--ink-on-brand-muted); }
+.lo-homehero__fjackpot { font: 800 40px/44px var(--font-display); color: var(--gold-400); letter-spacing: -0.02em; }
+
+/* ---- footer ---- */
+.lo-site-footer { margin-top: var(--space-12); }
+.lo-footer { padding: var(--space-8) 0 var(--space-6); }
+.lo-footer__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; padding-bottom: var(--space-5);
+  border-bottom: 1px solid rgba(255,255,255,.14); }
+.lo-footer__top img { height: 30px; width: auto; }
+.lo-footer__social { display: flex; align-items: center; gap: var(--space-3); color: var(--ink-on-brand-muted); font-size: 14px; }
+.lo-footer__social a { color: var(--ink-on-brand); display: inline-flex; padding: 6px; border-radius: 50%; background: rgba(255,255,255,.08); }
+.lo-footer__cols { display: grid; gap: 0; margin-top: var(--space-4); }
+.lo-footer__cols details { border-bottom: 1px solid rgba(255,255,255,.1); }
+.lo-footer__cols summary { list-style: none; cursor: pointer; padding: var(--space-3) 0; }
+.lo-footer__cols summary::-webkit-details-marker { display: none; }
+.lo-footer__cols h2 { margin: 0; font: 700 13px/18px var(--font-display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-on-brand); display: inline; }
+.lo-footer__cols h2 a { color: inherit; text-decoration: none; }
+.lo-footer__cols ul { list-style: none; margin: 0 0 var(--space-4); padding: 0; display: grid; gap: var(--space-2); }
+.lo-footer__cols li a { color: var(--ink-on-brand-muted); text-decoration: none; font-size: 14px; line-height: 20px; }
+.lo-footer__cols li a:hover { color: #fff; text-decoration: underline; }
+@media (min-width: 900px) {
+  .lo-footer__cols { grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1fr; gap: var(--space-6); }
+  .lo-footer__cols details { border: 0; }
+  .lo-footer__cols summary { pointer-events: none; }
+  .lo-footer__cols details:not([open]) > ul { display: grid; }
+}
+.lo-footer__trust { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; margin-top: var(--space-6); }
+.lo-footer__trust img { height: 24px; width: auto; background: #fff; border-radius: 4px; padding: 3px 6px; }
+.lo-footer__legal { background: var(--surface-brand-deep); color: var(--ink-on-brand-muted); font-size: 12px; line-height: 18px; padding: var(--space-5) 0; }
+.lo-footer__legal p { margin: 0 0 var(--space-2); }
+.lo-footer__legal a { color: var(--ink-on-brand); }
+
+/* ---- utilities ---- */
+.lo-stack > * + * { margin-top: var(--space-4); }
+.lo-center { text-align: center; }
+.lo-muted { color: var(--ink-muted); }
+.lo-flash { background: var(--gold-100); border: 1px solid var(--gold-400); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); margin: var(--space-4) 0; }
+.lo-flash--error { background: var(--error-100); border-color: var(--error-600); }
+.lo-flash--success { background: var(--success-100); border-color: var(--success-700); }
+@media (prefers-reduced-motion: reduce) { .lo * { transition: none !important; animation: none !important; } }

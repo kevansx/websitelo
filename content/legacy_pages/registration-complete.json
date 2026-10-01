@@ -1,0 +1,64 @@
+{
+ "path": "/registration-complete",
+ "title": "LottosOnline - register",
+ "description": "",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "Hi , Welcome to LottosOnline.com!",
+ "h1_all": [
+  "Hi , Welcome to LottosOnline.com!"
+ ],
+ "h2": [
+  "Claiming Your Winnings"
+ ],
+ "og_title": "LottosOnline - register",
+ "og_description": "",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/registration-complete",
+     "name": "Thank you for registering"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".leftcontent",
+   "words": 405,
+   "html": "<p><strong><a href=\"/package?id=SF8AY7GRWOA11UV7\">As a special introductory offer, use this link to get 3 lines in the next US Powerball draw for only €12.50</a></strong>.</p><p>You're moments away from possibly the biggest win of your life! Your <a href=\"/my-account/\">account details</a> can be accessed at any time at the top of the page. You can choose to deposit funds straight away or you can start playing immediately by choosing any of the lotteries below to enter. </p><p>Please note that our site's currency is in EUROS (<strong>€</strong>), but we will be able to pay out funds from your Winnings Balance in the currency of your choice.</p><p>So, what are you waiting for? <strong>Stop dreaming and start playing!</strong></p>\n<table>\n<thead>\n<tr>\n<th>Lottery</th>\n<th>Next jackpot</th>\n<th>Time left to play</th>\n<th></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>US Powerball</p>\n</td>\n<td><p>US$440 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>Mega Millions</p>\n</td>\n<td><p>US$321 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"EU Flag\" src=\"/images/country-assets/flag-round-eu.png\"/>EuroJackpot</p>\n</td>\n<td><p>EUR€106 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>SuperLotto Plus</p>\n</td>\n<td><p>US$60 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"AU Flag\" src=\"/images/country-assets/flag-round-au.png\"/>Australia Powerball</p>\n</td>\n<td><p>AU$60 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"IT Flag\" src=\"/images/country-assets/flag-round-it.png\"/>SuperEnaLotto</p>\n</td>\n<td><p>EUR€34.8 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"EU Flag\" src=\"/images/country-assets/flag-round-eu.png\"/>EuroMillions</p>\n</td>\n<td><p>EUR€28 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"AU Flag\" src=\"/images/country-assets/flag-round-au.png\"/>Oz Lotto </p>\n</td>\n<td><p>AU$20 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>Millionaire for Life</p>\n</td>\n<td><p>US$18 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"ES Flag\" src=\"/images/country-assets/flag-round-es.png\"/>Spanish El Gordo</p>\n</td>\n<td><p>EUR€17.9 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>Lotto America</p>\n</td>\n<td><p>US$6.05 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"AU Flag\" src=\"/images/country-assets/flag-round-au.png\"/>Australia Saturday Lotto</p>\n</td>\n<td><p>AU$6 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"IE Flag\" src=\"/images/country-assets/flag-round-ie.png\"/>Irish Lotto</p>\n</td>\n<td><p>EUR€5.2 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"DE Flag\" src=\"/images/country-assets/flag-round-de.png\"/>German Lotto</p>\n</td>\n<td><p>EUR€4 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"FR Flag\" src=\"/images/country-assets/flag-round-fr.png\"/>French Lotto</p>\n</td>\n<td><p>EUR€4 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"AU Flag\" src=\"/images/country-assets/flag-round-au.png\"/>Australian Weekday Windfall</p>\n</td>\n<td><p>AU$1 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"UK Flag\" src=\"/images/country-assets/flag-round-uk.png\"/>UK Thunderball</p>\n</td>\n<td><p>£500,000</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"ES Flag\" src=\"/images/country-assets/flag-round-es.png\"/>Spanish La Primitiva</p>\n</td>\n<td><p>Results Pending</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"ES Flag\" src=\"/images/country-assets/flag-round-es.png\"/>BonoLoto</p>\n</td>\n<td><p>Results Pending</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n</tbody>\n</table>\n<h2>Claiming Your Winnings</h2>\n<p>For total peace of mind, we always send clear email confirmation of your online lottery ticket entries which serves as your proof of purchase.</p>\n<p>After the draw, we will inform you of any winnings via email. You can check the lottery results on our website too or set up automatic lottery results notifications. The faster you find out the good news, the better!</p>\n<p>For most amounts your winnings will reflect in your Winnings Balance as soon as the draw has been processed. From here, you can transfer your winnings to your Account Balance to spend on more tickets, or you can follow the process to claim your winnings as cash. For larger winnings, we will contact you to arrange for you to collect your winning ticket in person.</p>\n<p>If you have any questions, big or small, please <a href=\"/contact-us\">get in touch</a>. We are always happy to answer your queries. Good luck!</p>"
+  },
+  {
+   "selector": ".maincontent-inner",
+   "words": 372,
+   "html": "<p><strong><a href=\"/package?id=SF8AY7GRWOA11UV7\">As a special introductory offer, use this link to get 3 lines in the next US Powerball draw for only €12.50</a></strong>.</p><p>You're moments away from possibly the biggest win of your life! Your <a href=\"/my-account/\">account details</a> can be accessed at any time at the top of the page. You can choose to deposit funds straight away or you can start playing immediately by choosing any of the lotteries below to enter. </p><p>Please note that our site's currency is in EUROS (<strong>€</strong>), but we will be able to pay out funds from your Winnings Balance in the currency of your choice.</p><p>So, what are you waiting for? <strong>Stop dreaming and start playing!</strong></p>\n<table>\n<thead>\n<tr>\n<th>Lottery</th>\n<th>Next jackpot</th>\n<th>Time left to play</th>\n<th></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>US Powerball</p>\n</td>\n<td><p>US$440 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>Mega Millions</p>\n</td>\n<td><p>US$321 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"EU Flag\" src=\"/images/country-assets/flag-round-eu.png\"/>EuroJackpot</p>\n</td>\n<td><p>EUR€106 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>SuperLotto Plus</p>\n</td>\n<td><p>US$60 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"AU Flag\" src=\"/images/country-assets/flag-round-au.png\"/>Australia Powerball</p>\n</td>\n<td><p>AU$60 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"IT Flag\" src=\"/images/country-assets/flag-round-it.png\"/>SuperEnaLotto</p>\n</td>\n<td><p>EUR€34.8 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"EU Flag\" src=\"/images/country-assets/flag-round-eu.png\"/>EuroMillions</p>\n</td>\n<td><p>EUR€28 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"AU Flag\" src=\"/images/country-assets/flag-round-au.png\"/>Oz Lotto </p>\n</td>\n<td><p>AU$20 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>Millionaire for Life</p>\n</td>\n<td><p>US$18 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"ES Flag\" src=\"/images/country-assets/flag-round-es.png\"/>Spanish El Gordo</p>\n</td>\n<td><p>EUR€17.9 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"US Flag\" src=\"/images/country-assets/flag-round-us.png\"/>Lotto America</p>\n</td>\n<td><p>US$6.05 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"AU Flag\" src=\"/images/country-assets/flag-round-au.png\"/>Australia Saturday Lotto</p>\n</td>\n<td><p>AU$6 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"IE Flag\" src=\"/images/country-assets/flag-round-ie.png\"/>Irish Lotto</p>\n</td>\n<td><p>EUR€5.2 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"DE Flag\" src=\"/images/country-assets/flag-round-de.png\"/>German Lotto</p>\n</td>\n<td><p>EUR€4 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"FR Flag\" src=\"/images/country-assets/flag-round-fr.png\"/>French Lotto</p>\n</td>\n<td><p>EUR€4 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"AU Flag\" src=\"/images/country-assets/flag-round-au.png\"/>Australian Weekday Windfall</p>\n</td>\n<td><p>AU$1 Million</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"UK Flag\" src=\"/images/country-assets/flag-round-uk.png\"/>UK Thunderball</p>\n</td>\n<td><p>£500,000</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"ES Flag\" src=\"/images/country-assets/flag-round-es.png\"/>Spanish La Primitiva</p>\n</td>\n<td><p>Results Pending</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n<tr>\n<td>\n<p><img alt=\"ES Flag\" src=\"/images/country-assets/flag-round-es.png\"/>BonoLoto</p>\n</td>\n<td><p>Results Pending</p></td>\n<td>\n </td>\n<td>\n</td>\n</tr>\n</tbody>\n</table>\n<h2>Claiming Your Winnings</h2>\n<p>For total peace of mind, we always send clear email confirmation of your online lottery ticket entries which serves as your proof of purchase.</p>\n<p>After the draw, we will inform you of any winnings via email. You can check the lottery results on our website too or set up automatic lottery results notifications. The faster you find out the good news, the better!</p>\n<p>For most amounts your winnings will reflect in your Winnings Balance as soon as the draw has been processed. From here, you can transfer your winnings to your Account Balance to spend on more tickets, or you can follow the process to claim your winnings as cash. For larger winnings, we will contact you to arrange for you to collect your winning ticket in person.</p>\n<p>If you have any questions, big or small, please <a href=\"/contact-us\">get in touch</a>. We are always happy to answer your queries. Good luck!</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

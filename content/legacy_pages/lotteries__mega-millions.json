@@ -1,0 +1,68 @@
+{
+ "path": "/lotteries/mega-millions",
+ "title": "Mega Millions Lottery Information | LottosOnline",
+ "description": "Information about the Mega Millions Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/mega-millions",
+ "h1": "The Mega Millions Story",
+ "h1_all": [
+  "The Mega Millions Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing Mega Millions Online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About Mega Millions"
+ ],
+ "og_title": "Mega Millions Lottery Information | LottosOnline ",
+ "og_description": "Information about the Mega Millions Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/mega-millions",
+     "name": "Mega Millions"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 528,
+   "html": "<p>Mega Millions is one of the biggest lotteries in the world. Tickets first went on sale in 1996, when it was known as 'The Big Game'. It became 'Mega Millions' in 2002, and today a total of 45 US jurisdictions take part - giving players the chance to win life-changing sums of money! Do you want to check the latest Mega Millions results? Would you like to find out how to buy tickets online? Read on!</p> <p>If you are not a resident of the USA, don't worry - you can still play! Here at LottosOnline, we provide a trusted ticket purchasing service to people just like you from across the globe. No matter where you are, you can buy a ticket for Mega Millions online. And that means you could be the next multi-million dollar jackpot winner! What are you waiting for?</p> <p>The Mega Millions lottery is drawn twice a week, on Tuesdays and Fridays at 23:00 Eastern Standard Time (EST).</p> <h2>How Much Could You Win?</h2> <p>The Mega Millions jackpot starts at $40 million. When there is no jackpot winner, the top prize increases by at least $5 million each week. It often reaches more than $300 million! There are nine prize payout tiers in total.</p> <h2>Playing Mega Millions Online</h2> <p>A Mega Millions ticket has a total of 6 numbers. To play with LottosOnline, simply choose five main numbers from 1 to 70. Then, choose one additional Mega Ball number from 1 to 25. Can't decide which numbers to play? Just use our Quick Pick random number generator!</p> <p>Once you have chosen your numbers, simply submit your entry and make payment using your preferred method. When we have received your entry, our official lottery ticket purchasing agents - based at our local buying office in the USA - will purchase your official Mega Millions tickets. Then it's time to set the champagne on ice and wait for the big draw!</p> <p>You will receive email confirmation for your lottery ticket purchase. Your official lottery tickets are safeguard in a secure location until after the draw, and we will let you know the USA Mega Millions results via email soon after the draw. Good luck!</p> <h2>You've Won! What Happens Next?</h2> <p>If you have won a prize, congratulations! We always confirm your winnings by email, and your winnings will reflect in your LottosOnline Winnings Balance immediately. We handle it all for you! You can just sit back, relax, and enjoy your new fortune!</p> <p>Just log in to check your Winnings Balance, and decide how to use it! Either arrange for our agents to transfer your winnings to your bank account or convert it into more Account Balance to buy more tickets. It really is that simple!</p> <h2>Fun Facts About Mega Millions</h2> <p>Did you know?</p><ul><li>The biggest Mega Millions lottery jackpot ever was an outstanding $656 million. The huge jackpot - drawn on March 30th 2012 - was shared by three lucky ticket holders</li><li>The very first draw produced a jackpot winner, who enjoyed a $27 million prize!</li><li>There are an incredible $1 billion of unclaimed Mega Millions winnings. That includes one ticket in Virginia worth $99 million!</li></ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

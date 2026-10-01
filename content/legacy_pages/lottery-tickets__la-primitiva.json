@@ -1,0 +1,66 @@
+{
+ "path": "/lottery-tickets/la-primitiva",
+ "title": "Play La Primitiva Online - La Primitiva Tickets Online",
+ "description": "Buy Spanish La Primitiva lottery tickets online with draws held every Thursday and Sunday - don't miss this Spanish lottery with jackpots over €100-Million",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lottery-tickets/la-primitiva",
+ "h1": "Play La Primitiva Online",
+ "h1_all": [
+  "Play La Primitiva Online"
+ ],
+ "h2": [],
+ "og_title": "Play La Primitiva Online - La Primitiva Tickets Online",
+ "og_description": "Buy Spanish La Primitiva lottery tickets online with draws held every Thursday and Sunday - don't miss this Spanish lottery with jackpots over €100-Million",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play Spanish La Primitiva Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_eslap.png\",\n\n  \"description\": \"Play Spanish La Primitiva Online - buy official Spanish La Primitiva online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"ESLAP\",\n\n  \"mpn\":\"LottosOnline-ESLAP\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Spanish La Primitiva\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"3.00\",\n\n\t\"priceValidUntil\": \"2026-10-03 17:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"ESLAP\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/la-primitiva\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"ESLAP-20261003\",\n\n  \"mpn\":\"LottosOnline-ESLAP-20261003\",\n\n  \"name\": \"Spanish La Primitiva Results Pending Jackpot - 3rd October 2026 (Saturday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_eslap.png\",\n\n  \"description\": \"Play the Spanish La Primitiva for 3rd October 2026 (Saturday) with an estimated jackpot of Results Pending\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Spanish La Primitiva\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"3.00\",\n\n\t\"priceValidUntil\": \"2026-10-03 17:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"ESLAP-20261003\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/la-primitiva\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateR"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lottery-tickets/la-primitiva",
+     "name": "Spanish La Primitiva"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 616,
+   "html": "<h3>What is the Spanish La Primitiva Lottery?</h3> <p>Spanish La Primitiva Lottery dates back to 1763, which makes it one of the longest running lotteries in existence. There are huge fortunes to be won, with jackpots starting at a minimum of €2,000,000. Draws are held in Madrid every Monday, Thursday and Saturday at 21:30 CET.</p> <h3>Can I play the Spanish La Primitiva Lottery online?</h3> <p>Playing Spanish La Primitiva Lottery online is easy. Simply visit the LottosOnline website and purchase your ticket in just seconds. You can choose your own six numbers or let the Quick Pick function generate random numbers for you. You will also automatically be allocated a bonus Reintegro number with every ticket you purchase.</p> <h3>When do online Spanish La Primitiva tickets need to be purchased by?</h3> <p>You must purchase your Spanish La Primitiva lottery tickets before 14:30 CET on the day of the draw, so approximately five hours before the draw takes place. LottoOnline's local ticket buying office in Spain will then purchase the official Spanish La Primitiva tickets on your behalf prior to the draw taking place.</p> <h3>How do I win Spanish La Primitiva Lottery?</h3> <p>The Spanish La Primitiva Lottery is made up of seven prize payout tiers. The lottery game uses 49 balls in total, numbered 1 to 49. For every game, 55% of total ticket sales are allocated to the prize pool. With players across the globe, jackpots can quickly hit the roof!</p> <p>To win the jackpot, you'll need to match six main numbers, as well as the bonus Reintegro ball. Jackpots regularly reach tens of millions of Euros. The seventh prize tier level requires only the Reintegro ball which gives you a 1 in 10 chance of winning. Great odds!</p> <h3>Can I play Spanish La Primitiva Lottery from outside Europe?</h3> <p>Spanish La Primitiva Lottery is not just for Spaniards! With LottosOnline, everyone can play, no matter what country they live in. All you need to do is open the LottosOnline website, select Spanish La Primitiva Lottery and purchase your tickets. Then cross your fingers and wait to win!</p> <h3>How do I claim the money on LottosOnline if I win the jackpot?</h3> <p>Whether you've won a few Euros or a life changing fortune, claiming your Spanish La Primitiva Lottery winnings is easy. After numbers have been checked and winnings are confirmed, funds for smaller winnings will reflect in your LottosOnline Winnings Balance. To access your winnings, simply login to your LottosOnline account, view your balance and decide what to do with your new fortune. You can request our agents transfer funds into to a nominated bank account or you can transfer the winnings to your Account Balance to use for more tickets. If you win the jackpot, LottosOnline will contact you to make all the necessary arrangements for you to collect your winning ticket.</p> <h3>How do I find out if I'm a winner?</h3> <p>Thanks to the Reintegro ball, the Spanish La Primitiva Lottery always has plenty of winners! If you're one of the lucky players, LottosOnline will send you an email notifying you of the exciting news. Winning numbers are also published on the LottosOnline website.</p> <h3>How much is the tax on Spanish La Primitiva Lottery winnings?</h3> <p>Under Spanish legislation, all lottery prizes over €2,500 are taxed at 20%, which will be deducted from winnings before they are paid out.</p> <h3>How many Spanish La Primitiva Lottery rollovers can take place?</h3> <p>There's no limit on the number of times the Spanish La Primitiva Lottery can roll over. This means that you could win a huge lump sum!</p> <h3>What is the biggest Spanish La Primitiva Lottery jackpot ever won?</h3> <p>The biggest Spanish La Primitiva Lottery jackpot in history is a jaw-dropping €101.7 million!</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

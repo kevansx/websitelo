@@ -1,0 +1,30 @@
+{# /lotteries: the hub of lottery information pages. H1 and copy from the live page. #}
+{% extends "lo/base.html" %}
+{% set breadcrumbs = [("Home", "/"), ("Lottos & Games", "/lotteries")] %}
+{% block content %}
+<section class="lo-pagehead">
+  <div class="lo-wrap">
+    <nav class="lo-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Lottos &amp; Games</span></nav>
+    <h1>{{ (page.h1 if page else None) or "Lottos & Games" }}</h1>
+  </div>
+</section>
+<section class="lo-section">
+  <div class="lo-wrap">
+    <div class="lo-lotgrid">
+      {% for l in lotteries %}
+        {% set jp = lo_jackpot(l.game_code) %}
+        <a class="lo-lot" href="/lotteries/{{ l.slug }}" style="text-decoration:none">
+          <div class="lo-lot__top"><img class="lo-lot__ball" src="{{ lo_ball(l) }}" alt="{{ l.name }}" width="72" height="72" loading="lazy"><h2 class="lo-lot__name">{{ l.name }}</h2></div>
+          <div class="lo-lot__body">{% if jp and jp.display %}<span class="lo-lot__jackpot">{{ jp.display }}</span>{% endif %}</div>
+          <div class="lo-lot__foot"><span class="lo-btn lo-btn--secondary lo-btn--sm">{{ l.name }} information</span></div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% if page %}
+<section class="lo-section" style="padding-top:0">
+  <div class="lo-wrap"><article class="lo-panel lo-prose">{% for block in page['copy'] %}{{ block.html|safe }}{% endfor %}</article></div>
+</section>
+{% endif %}
+{% endblock %}

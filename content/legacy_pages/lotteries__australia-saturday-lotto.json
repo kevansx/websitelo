@@ -1,0 +1,63 @@
+{
+ "path": "/lotteries/australia-saturday-lotto",
+ "title": "Australia Saturday Lotto Lottery Information | LottosOnline",
+ "description": "Information about the Australia Saturday Lotto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/australia-saturday-lotto",
+ "h1": "The Australia Saturday Lotto Story",
+ "h1_all": [
+  "The Australia Saturday Lotto Story"
+ ],
+ "h2": [],
+ "og_title": "Australia Saturday Lotto Lottery Information | LottosOnline ",
+ "og_description": "Information about the Australia Saturday Lotto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/australia-saturday-lotto",
+     "name": "Australia Saturday Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 415,
+   "html": "<p>The Australia Saturday Lotto was started in 1972 and was one of the first Aussie lottos that allowed players to pick their own numbers. The draw takes place every Saturday at 8:30 pm Australian Eastern Daylight Time.</p> <h3>How Much Could You Win?</h3> The jackpot is usually AU$4 Million, but special ‘Superdraws’ of AU$20 Million take place 6-7 times a year, and a special AU$30 Million Megadraw usually take place over the Christmas/New Year period. The Australia Saturday Lotto is great fun to play and gives you an excellent chance of winning every time you play. <h3>Playing Saturday Australian Lotto Online</h3> <p>To play the Australia Saturday Lotto you’ll need to choose six numbers from a pool of 1-45. Use your own lucky lotto numbers or choose the Quick Pick option to let the random number generator complete your playslip instantly. During the draw, two bonus numbers are selected from the same drum. These bonus numbers count towards prizes in four of the seven prize divisions. With this format, it’s easy to see why the game offers players the best odds of any of the Australian lotteries.</p> <h3>You've Won! What Happens Next?</h3> You don’t have to check the Saturday Australia Lotto results because LottosOnline will do that for you - and we’ll send you an email with the results. For smaller prizes, your LottosOnline Winning Balance will reflect your winnings as soon as the draw results have been varified. If you win the jackpot, we’ll be in touch to discuss the arrangements for you to collect your winning ticket. <p>All you need to do is decide how to spend your winnings. You can arrange for our agents to transfer them to your bank account or you can convert them to credit in your Account Balance to spend on more tickets.</p> <h3>Fun Facts About the Saturday Australia Lotto</h3> <ul> <li>Like with many lottery games, there was a public good behind the establishment of the Australia Saturday lotto, which was set up to raise funds for the state of Victoria’s health system.</li> <li>The very first jackpot prize in 1972 was ‘only’ A$50 0000</li> <li>When the game launched it was with 40 main numbers. In 1985 this was increased to 45 main numbers to reduce the chances of winning - and even so, the Australia Saturday Lotto still gives some of the best odds of winning. Although the A$4 Million jackpot could double to A$8 million if it is not won, it has rarely gotten there.</li> </ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

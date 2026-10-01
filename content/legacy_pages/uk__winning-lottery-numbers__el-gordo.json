@@ -1,0 +1,66 @@
+{
+ "path": "/uk/winning-lottery-numbers/el-gordo",
+ "title": "Spanish El Gordo Results & Winning Numbers | LottosOnline",
+ "description": "Get the latest Spanish El Gordo results and winning lottery numbers online",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/winning-lottery-numbers/el-gordo",
+ "h1": "Spanish El Gordo Results & Winning Numbers",
+ "h1_all": [
+  "Spanish El Gordo Results & Winning Numbers"
+ ],
+ "h2": [
+  "Weekly El Gordo Lottery Results",
+  "Are you a lucky winner?"
+ ],
+ "og_title": "Spanish El Gordo Results & Winning Numbers | LottosOnline",
+ "og_description": "Get the latest Spanish El Gordo results and winning lottery numbers online",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/winning-lottery-numbers/el-gordo",
+     "name": "Spanish El Gordo"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 158,
+   "html": "<h2>Weekly El Gordo Lottery Results</h2> <p>Have you won the jackpot? Here are the latest weekly El Gordo lottery results, direct from Spain. Good luck!</p> <p>The weekly El Gordo lottery draw takes place every Sunday at 13:00 Central European Time (CET).</p> <h2>Are you a lucky winner?</h2> <p>There are nine prize payout tiers for the weekly El Gordo draw. The jackpot is won by matching five main numbers (from 1-54) plus one key number (from 0-9). Starting at €5 million, the jackpot rolls over if there is no winner. It has been known to reach more than €30 million!</p> <p>To win the minimum prize, you'll need to match just the one key number.</p><p>No matter how small or large your prize, we will always send notification of your winnings via email, immediately after the draw.</p> <p>Read on for the weekly El Gordo lottery results - it's time to make those big money dreams come true!</p> <p>Draws are conducted every Sunday. </p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

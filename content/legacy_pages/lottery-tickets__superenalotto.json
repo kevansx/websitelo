@@ -1,0 +1,66 @@
+{
+ "path": "/lottery-tickets/superenalotto",
+ "title": "Play SuperEnaLotto Online - SuperEnaLotto Tickets Online",
+ "description": "Buy Italian SuperEnaLotto tickets online and join one of Europe's most dynamic lottery games, where you could instantly win a prize just by buying your ticket.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lottery-tickets/superenalotto",
+ "h1": "Play SuperEnaLotto Online",
+ "h1_all": [
+  "Play SuperEnaLotto Online"
+ ],
+ "h2": [],
+ "og_title": "Play SuperEnaLotto Online - SuperEnaLotto Tickets Online",
+ "og_description": "Buy Italian SuperEnaLotto tickets online and join one of Europe's most dynamic lottery games, where you could instantly win a prize just by buying your ticket.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play SuperEnaLotto Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_itsup.png\",\n\n  \"description\": \"Play SuperEnaLotto Online - buy official SuperEnaLotto online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"ITSUP\",\n\n  \"mpn\":\"LottosOnline-ITSUP\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"SuperEnaLotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"2.90\",\n\n\t\"priceValidUntil\": \"2026-10-02 16:30:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"ITSUP\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/superenalotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"ITSUP-20261002\",\n\n  \"mpn\":\"LottosOnline-ITSUP-20261002\",\n\n  \"name\": \"SuperEnaLotto EUR€34.8 Million Jackpot - 2nd October 2026 (Friday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_itsup.png\",\n\n  \"description\": \"Play the SuperEnaLotto for 2nd October 2026 (Friday) with an estimated jackpot of EUR€34.8 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"SuperEnaLotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"2.90\",\n\n\t\"priceValidUntil\": \"2026-10-02 16:30:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"ITSUP-20261002\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/superenalotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCo"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lottery-tickets/superenalotto",
+     "name": "SuperEnaLotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 435,
+   "html": "<h3>What is the SuperEnaLotto Lottery?</h3> <p>The SuperEnaLotto started out in the 1950s as the 'EnaLotto' and was changed into the 'SuperEnaLotto' in 1997. The version played today was finalised in 2009, with the Friday draw added in 2023. Draws are normally held every Tuesday, Thursday, Friday and Saturday but can sometimes be moved to allow for significant holidays or events. Will you hit the jackpot?</p> <h3>Can I play SuperEnaLotto online?</h3> <p>Buying SuperEnaLotto tickets online can be done in a matter of minutes. Simply visit the LottosOnline website, select the SuperEnaLotto, choose your lucky numbers and keep your fingers crossed! It's simple, easy and 100% secure.</p> <h3>When is the cut off time for purchasing tickets?</h3> <p>The deadline for ticket purchases on LottosOnline is an hour and a half before the actual draw takes place, so no later than 5.30pm (GMT) on the days of the draw. If you don't want to miss out, make sure you purchase you tickets in advance.</p> <h3>How do I win the SuperEnaLotto?</h3> <p>To play the game, you need to select six numbers, ranging from 1 to 90. If the six numbers that you have selected match the six numbers that are drawn, you've won the jackpot. There is also a seventh number drawn, known as the 'jolly' number. Matching five main numbers and the Jolly number wins the second tier prize. You could also win a spot prize of €25 when your ticket is purchased if your number selection matches the four random numbers that are printed on your ticket, called the 'magic square'.</p> <h3>How much can I win?</h3> <p>The SuperEnaLotto jackpot has no rollover limit, so in theory it could just keep growing and growing. The largest amount ever won in the SuperEnaLotto was €209.1-Million, when the jackpot had rolled over for more than a year.</p> <h3>How do I find out if I'm a winner?</h3> <p>Whatever you've won this draw, whether a few Euros or even the jackpot, LottosOnline will notify you via email. Alternatively you can check the LottosOnline website for the latest results. Why wait to hear the good news?</p> <h3>How do I claim the money on LottosOnline if I win the jackpot?</h3> <p>Ready to spend your windfall? After LottosOnline has verified your numbers, non-jackpot winnings will reflect in your online Winnings Balance. It's then yours to use as you like. You can request our agents transfer funds to a bank account, or you could convert winnings to credit in your Account Balance for future games.</p> <p>If you're a jackpot winner, we'll be in touch to make all the necessary arrangements to unite you with your winning ticket.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

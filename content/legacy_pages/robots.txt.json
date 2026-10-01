@@ -1,0 +1,22 @@
+{
+ "path": "/robots.txt",
+ "title": "",
+ "description": "",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "",
+ "h1_all": [],
+ "h2": [],
+ "og_title": "",
+ "og_description": "",
+ "og_image": "",
+ "jsonld": [],
+ "copy": [
+  {
+   "selector": "maincontent",
+   "words": 64,
+   "html": "<p>User-agent: *\nDisallow:/checkout\nDisallow:/my-account/claim-winnings\nDisallow:/my-account/details\nDisallow:/my-account/payment-methods\nDisallow:/lottery-news/archive/sep-2020\nDisallow:/lottery-news/archive/sep-2018\nDisallow:/lottery-news/archive/sep-2017\nDisallow:/lottery-news/archive/sep-2016\nDisallow:/lottery-news/archive/oct-2019\nDisallow:/lottery-news/archive/oct-2018\nDisallow:/lottery-news/archive/oct-2017\nDisallow:/lottery-news/archive/oct-2016\nDisallow:/lottery-news/archive/oct-2015\nDisallow:/lottery-news/archive/nov-2018\nDisallow:/lottery-news/archive/nov-2017\nDisallow:/lottery-news/archive/nov-2016\nDisallow:/lottery-news/archive/nov-2015\nDisallow:/lottery-news/archive/may-2022\nDisallow:/lottery-news/archive/may-2020\nDisallow:/lottery-news/archive/may-2018\nDisallow:/lottery-news/archive/may-2017\nDisallow:/lottery-news/archive/may-2016\nDisallow:/lottery-news/archive/may-2015\nDisallow:/lottery-news/archive/mar-2022\nDisallow:/lottery-news/archive/mar-2021\nDisallow:/lottery-news/archive/mar-2019\nDisallow:/lottery-news/archive/mar-2018\nDisallow:/lottery-news/archive/mar-2017\nDisallow:/lottery-news/archive/mar-2016\nDisallow:/lottery-news/archive/jun-2022\nDisallow:/lottery-news/archive/jun-2018\nDisallow:/lottery-news/archive/jun-2017\nDisallow:/lottery-news/archive/jun-2016\nDisallow:/lottery-news/archive/jul-2019\nDisallow:/lottery-news/archive/jul-2018\nDisallow:/lottery-news/archive/jul-2017\nDisallow:/lottery-news/archive/jul-2016\nDisallow:/lottery-news/archive/jan-2021\nDisallow:/lottery-news/archive/jan-2020\nDisallow:/lottery-news/archive/jan-2019\nDisallow:/lottery-news/archive/jan-2018\nDisallow:/lottery-news/archive/jan-2017\nDisallow:/lottery-news/archive/jan-2016\nDisallow:/lottery-news/archive/feb-2020\nDisallow:/lottery-news/archive/feb-2018\nDisallow:/lottery-news/archive/feb-2017\nDisallow:/lottery-news/archive/feb-2016\nDisallow:/lottery-news/archive/dec-2021\nDisallow:/lottery-news/archive/dec-2020\nDisallow:/lottery-news/archive/dec-2019\nDisallow:/lottery-news/archive/dec-2017\nDisallow:/lottery-news/archive/dec-2016\nDisallow:/lottery-news/archive/dec-2015\nDisallow:/lottery-news/archive/aug-2019\nDisallow:/lottery-news/archive/aug-2018\nDisallow:/lottery-news/archive/aug-2017\nDisallow:/lottery-news/archive/aug-2016\nDisallow:/lottery-news/archive/apr-2018\nDisallow:/lottery-news/archive/apr-2017\nDisallow:/lottery-news/archive/apr-2016\nSitemap: https://www.lottosonline.com/sitemap.xml </p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

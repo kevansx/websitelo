@@ -1,0 +1,64 @@
+{# LottosOnline header. Same menu labels and targets as the old site (Home, Play Lottos, How to play,
+   Lottos & Games, Results & Winnings, FAQs, Contact us), in the Live Lottos header pattern. Shared by the
+   public layout (lo/base.html) and the engine layout (base.html) so every page carries one header. #}
+{% set _nav = [
+  ("/", "Home"),
+  ("/lottery-tickets", "Play Lottos"),
+  ("/how-to-play-lottery-online", "How to play"),
+  ("/lotteries", "Lottos & Games"),
+  ("/winning-lottery-numbers", "Results & Winnings"),
+  ("/faqs", "FAQs"),
+  ("/contact-us", "Contact us"),
+] %}
+<header class="lo-site-header">
+  <div class="lo-header lo-on-brand">
+    <button class="lo-iconbtn lo-only-mobile" type="button" aria-label="Menu" aria-expanded="false" aria-controls="lo-drawer" data-drawer-toggle>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="lo-header__brand" href="/" aria-label="LottosOnline home">
+      <img class="lo-header__logo" src="{{ url_for('static', filename='brands/lottosonline/img/logo-on-dark.webp') }}" alt="LottosOnline.com" width="230" height="35">
+    </a>
+    <nav class="lo-header__nav" aria-label="Main">
+      {% for href, label in _nav %}
+        <a href="{{ href }}"{% if request.path == href or (href != '/' and request.path.startswith(href ~ '/')) %} aria-current="page"{% endif %}>{{ label }}</a>
+      {% endfor %}
+    </nav>
+    <div class="lo-header__account">
+      {% if customer %}
+        {% if header_cart_count and header_cart_count > 0 %}
+          <a class="lo-header__cart" href="{{ url_for('cart') }}" aria-label="Cart, {{ header_cart_count }} item{{ 's' if header_cart_count != 1 }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+            <span class="lo-header__badge">{{ header_cart_count }}</span>
+          </a>
+        {% endif %}
+        <a class="lo-header__balance lo-hide-mobile" href="{{ url_for('account') }}#wallet">
+          <span class="lo-header__balance-label">Balance</span>
+          <span class="lo-header__balance-amount">{{ header_balance_currency }}{{ header_balance_amount }}</span>
+        </a>
+        {% if not support_read_only %}
+          <a class="lo-header__pill lo-hide-mobile" href="{{ url_for('wallet_add_funds') }}">Deposit</a>
+        {% endif %}
+        <a class="lo-iconbtn" href="{{ url_for('account') }}" aria-label="My account">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        </a>
+      {% else %}
+        <a class="lo-header__login" href="/login">Login</a>
+        <a class="lo-header__pill" href="/create-account">Open Account</a>
+      {% endif %}
+    </div>
+  </div>
+  <nav class="lo-drawer" id="lo-drawer" aria-label="Menu" data-drawer hidden>
+    {% for href, label in _nav %}<a href="{{ href }}">{{ label }}</a>{% endfor %}
+    {% if customer %}
+      <a href="{{ url_for('account') }}">My account</a>
+      <a href="{{ url_for('wallet_add_funds') }}">Deposit</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+      <a href="/login">Login</a>
+      <a href="/create-account">Open Account</a>
+    {% endif %}
+  </nav>
+</header>
+{% if support_read_only %}
+  <div class="lo-support-banner" role="status"><strong>{{ support_banner_message }}</strong></div>
+{% endif %}

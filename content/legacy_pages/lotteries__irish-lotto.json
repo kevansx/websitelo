@@ -1,0 +1,68 @@
+{
+ "path": "/lotteries/irish-lotto",
+ "title": "Irish Lotto Lottery Information | LottosOnline",
+ "description": "Information about the Irish Lotto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/irish-lotto",
+ "h1": "The Irish Lotto Story",
+ "h1_all": [
+  "The Irish Lotto Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Play Irish Lotto Online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About Irish Lottery"
+ ],
+ "og_title": "Irish Lotto Lottery Information | LottosOnline ",
+ "og_description": "Information about the Irish Lotto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/irish-lotto",
+     "name": "Irish Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 500,
+   "html": "<p>The Irish Lotto started in 1988. The Irish government used it to generate funds for causes such as sports, welfare and the arts. In 2014 the lottery was sold to Premier Lotteries Ireland. This was to generate much needed funds for the country. Though ownership changed the charitable causes still benefit from this popular lottery game.</p> <p>The Irish Lotto draw is held every Wednesday and Saturday around 8pm Dublin time. You'll find the results on LottosOnline soon after the official results of the draw are released, and of course you will be notified if you have won!</p> <h2>How Much Could You Win?</h2> <p>The Irish Lotto has a total of eight prize payout tiers. The lowest prize is fixed at €3, while the higher prizes are allocated a percentage of the prize fund.</p> <p>The Irish Lotto jackpot is set at a minimum of €2 million. Unlike the UK Lotto, the Irish Lotto has no rollover cap.</p> <h2>Play Irish Lotto Online</h2> <p>To play the Irish Lotto online, simply log in to your LottosOnline account. If you haven't registered yet, don't worry - it's a quick and straightforward process!</p> <p>Once you have logged in, select 'Irish Lotto' and choose your 6 main numbers between 1 and 45. Select a once-off entry or choose the number of draws you would like to enter, with the option of a multi-buy entry for reduced rates. You can pay for your official Irish Lotto tickets using the payment method of your choice.</p> <p>After you have placed your ticket entry, we will send email confirmation immediately. Our local ticket purchasing agents will then purchase your official Irish Lotto entries. They will scan your tickets and it will be uploaded into your account section. They will keep your official tickets secure at our local ticket buying offices until after the draw results have been released.</p> <h2>You've Won! What Happens Next?</h2> <p>Congratulations! Whether your winnings reach the hundreds, thousands or millions, you have plenty of reason to celebrate! If you have purchased a winning ticket via LottosOnline, we will notify you immediately via email. Then, it's time for you to enjoy your winnings!</p> <p>Simply log in to your LottosOnline account and view your LottosOnline Winnings Balance. Your winnings will be visible straight away and are ready to be claimed. You can either request our agents transfer funds to your bank account or you can convert your winnings to credit in your Account Balance.</p> <h2>Fun Facts About Irish Lottery</h2> <p>Did you know?</p> <ul><li>In the Irish language, the national lottery is called \"An Crannchur Náisiúnta\".</li> <li>The Lotto draw was once postponed when in 2015 some ticket machines experienced technical problems which prompted organizers to wait one day with the draw.</li> <li>Irish Lotto winners can choose to remain anonymous, and winnings are tax free.</li> <li>The biggest jackpot won in the Irish Lotto was €18.9-Million, which was split between a syndicate in 2008. The largest individual win came two years later when one lucky resident of Waterford, Ireland, won €16.7-Million.</li> </ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

@@ -1,0 +1,63 @@
+{
+ "path": "/lotteries/australia-weekday-lotto",
+ "title": "Weekday Windfall Lottery Information | LottosOnline",
+ "description": "Information about the Weekday Windfall Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/australia-weekday-lotto",
+ "h1": "The Australia Weekday Windfall Story",
+ "h1_all": [
+  "The Australia Weekday Windfall Story"
+ ],
+ "h2": [],
+ "og_title": "Weekday Windfall Lottery Information | LottosOnline ",
+ "og_description": "Information about the Weekday Windfall Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/australia-weekday-lotto",
+     "name": "Weekday Windfall"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 435,
+   "html": "<p>The Australia Weekday Windfall is a rebranding of the the old Monday &amp; Wednesday Lotto, which started up in New South Wales but is now available all over Australia. The draw takes place every Monday, Wednesday and Friday at about 7:30 pm Australian Eastern Standard Time.</p> <h3>How Much Could You Win?</h3> <p>There is a guaranteed jackpot of AU$1 Million for up to 6 lucky tickets. If more than six people win the jackpot, it gets split fairly between all the winning players. The Australia Weekday Windfall Lotto is a lot of fun and gives you great odds of winning every time you play.</p> <h3>Playing Australia Weekday Windfall Lotto Online</h3> <p>To play the Australia Weekday Windfall Lotto you’ll need to choose six numbers from a pool of 1-45. Use your own lucky lotto numbers or choose the Quick Pick option to let the random number generator complete your playslip instantly. During the draw, two supplementary numbers are selected from the same drum. These extra numbers count towards prizes in three of the six prize divisions. With this format, it’s easy to see why the game offers players some of the best odds of any of the Australian lotteries.</p> <h3>You've Won! What Happens Next?</h3> <p>You don’t have to check the Australia Weekday Windfall Lotto results or complete any paperwork because LottosOnline will do that for you - and we’ll send you an email with the results. If you win the jackpot, we’ll be in touch to help you make all the arrangements for collecting your prizewinning ticket. Smaller prizes will reflect in your LottosOnline Winning Balance as soon as the draw has been verified. </p> <p>All you need to do is decide how to use your winnings. You can arrange for our agents to transfer them to your bank account or you can convert them to Account Balance to spend on more tickets.</p> <h3>Fun Facts About the Australia Weekday Windfall Lotto</h3> <p> </p><ul> <li>The first draw of the original Monday &amp; Wednesday Lotto in New South Wales was  5 November 1979 and was originally referred to a \"The Big One\"</li> <li>Since 2004, the format has been identical to the Australia Saturday Lotto</li><li>The Australian Monday &amp; Wednesday Lotto was rebranded to the Weekday Windfall in May 2024, with the first draw of the new format on Monday 20th May. It added a Friday draw to the original format, and allowed up to 6 winners of the Million top prize (formerly this was a maximum of 4)</li> <li>Every once in a while there is a Monday Night Superdraw, where the jackpot goes up to AU$5 Million</li> </ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

@@ -1,0 +1,68 @@
+{
+ "path": "/lotteries/us-powerball",
+ "title": "Powerball Lottery Information | LottosOnline",
+ "description": "Information about the Powerball Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/us-powerball",
+ "h1": "The USA Powerball Story",
+ "h1_all": [
+  "The USA Powerball Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing USA Powerball Online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About USA Powerball"
+ ],
+ "og_title": "Powerball Lottery Information | LottosOnline ",
+ "og_description": "Information about the Powerball Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/us-powerball",
+     "name": "Powerball"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 562,
+   "html": "<p>USA Powerball has the biggest starting jackpot in the world, at a staggering $40 million. Launched in 1992, it was the first lottery to use the two drum balls format. Tickets are sold in 45 American states - but the good news is you can enter from anywhere in the world by playing USA Powerball online!</p> <p>If you dream of luxury yachts, high-end designer clothes and fine dining in Michelin starred restaurants, the USA Powerball is the lottery for you. It's a fast and fun way to change your life forever. And best of all, it's simple to play!</p> <p>If there is no winner, the jackpot rolls over each week - which means you could win a record-breaking nine-figure jackpot! The USA Powerball draw happens every Monday, Wednesday and Saturday at 22:59 Eastern Standard Time (EST).</p> <h2>How Much Could You Win?</h2><p>There are nine prize payout tiers in total, including a minimum jackpot of $40 million and a second prize of $1 million.</p> <p>Do you have the lucky ticket? Be sure to check the latest USA Powerball results, or look out for an email from LottosOnline to confirm your winnings!</p> <h2>Playing USA Powerball Online</h2> <p>Do you want to win millions? Playing USA Powerball online is simple - here's how to do it with LottosOnline!</p> <p>To buy your ticket USA Powerball lottery ticket online, simply choose five main numbers from 1 to 69 plus one Powerball number from 1 to 26. If you can't decide, use our Quick Pick random number generator.</p> <p>Once you have placed your USA Powerball entry and paid using your prefered payment method, our local ticket purchasing agents - based at our local ticket buying office in the USA - will purchase the official lottery ticket on your behalf. You don't have to do a thing.</p> <p>You will receive email confirmation of your lottery ticket purchase. Your official ticket will be held in a secure location until after the draw, when it will be checked and verified for any winnings. If you have won, we will let you know the good news immediately!</p> <h2>You've Won! What Happens Next?</h2> <p>Have you won a prize? Big or small, your winnings will immediately be credited to your LottosOnline Winnings Balance. We'll let you know how much you have won via email - so don't worry if you have forgotten to check the latest USA Powerball results.</p> <p>Receiving your winning via LottosOnline is simple and straightforward. Your winnings will be credited to your LottosOnline Winnings Balance straight away. Just log in to check your Winnings Balance, and decide how to claim it! Either arrange a transfer to your bank account or convert it into more Account Balance to buy more tickets. It really is that simple!</p><h2>Fun Facts About USA Powerball</h2> <p>Did you know?</p> <ul><li>The biggest single-ticket jackpot to date was $590,500,000 - won on May 18th 2013 by 84-year-old Gloria C MacKenzie from Florida. She chose the cash option which, at $370.9 million was the biggest lottery payout to a single ticket winner of all time!</li><li>In 2003, 110 people claimed the second prize. Officials investigated, and it emerged that each player had selected their numbers from fortune cookies!</li><li>Tickets for the very first USA Powerball draw went on sale on 19th April 1992. Twenty years later, the format was changed with a new $40 million starting jackpot.</li></ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

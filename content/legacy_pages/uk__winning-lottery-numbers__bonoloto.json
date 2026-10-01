@@ -1,0 +1,66 @@
+{
+ "path": "/uk/winning-lottery-numbers/bonoloto",
+ "title": "BonoLoto Results & Winning Numbers | LottosOnline",
+ "description": "Get the latest BonoLoto results and winning lottery numbers online",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/winning-lottery-numbers/bonoloto",
+ "h1": "BonoLoto Results & Winning Numbers",
+ "h1_all": [
+  "BonoLoto Results & Winning Numbers"
+ ],
+ "h2": [
+  "BonoLoto Lottery Results",
+  "Are you a winner?"
+ ],
+ "og_title": "BonoLoto Results & Winning Numbers | LottosOnline",
+ "og_description": "Get the latest BonoLoto results and winning lottery numbers online",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/winning-lottery-numbers/bonoloto",
+     "name": "BonoLoto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 177,
+   "html": "<h2>BonoLoto Lottery Results</h2> <p>The BonoLoto draw takes place every day of the week. Do you have the winning ticket? Here are the latest BonoLoto lottery results from Spain. We wish you the best of luck!</p><h2>Are you a winner?</h2> <p>There are five BonoLoto prize tiers. To win the jackpot, you will need to match all six main numbers (from 1-49). The jackpot starts at a minimum of €400,000 and rolls over if it is not won. The biggest BonoLoto jackpot to date was a little over €10,600,000. Imagine the possibilities - that winner could be you!</p><p>Second prize is won by matching five main numbers plus a bonus number, known as the Complementario. There is also a refund on the cost of your ticket if you match the Reintegro number (from 0-9). The Reintegro number is randomly assigned to your ticket entries.</p><p>To find out if you have won, read on for the BonoLoto results below or check your email. LottosOnline will notify you immediately of your winnings!</p> <p>Draws are conducted every Monday, Tuesday, Wednesday and Friday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

@@ -1,0 +1,66 @@
+{
+ "path": "/uk/lottery-tickets/fr-lotto",
+ "title": "Play French Lotto Online - Buy French Lotto Lottery Tickets",
+ "description": "Buy Lottery Tickets Online for French Lotto and play the biggest jackpots on LottosOnline",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/lottery-tickets/fr-lotto",
+ "h1": "",
+ "h1_all": [
+  ""
+ ],
+ "h2": [],
+ "og_title": "Play French Lotto Online - Buy French Lotto Lottery Tickets",
+ "og_description": "Buy Lottery Tickets Online for French Lotto and play the biggest jackpots on LottosOnline",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play French Lotto Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_frlot.png\",\n\n  \"description\": \"Play French Lotto Online - buy official French Lotto online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"FRLOT\",\n\n  \"mpn\":\"LottosOnline-FRLOT\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"French Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"6.00\",\n\n\t\"priceValidUntil\": \"2026-10-03 16:50:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"FRLOT\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/fr-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"FRLOT-20261003\",\n\n  \"mpn\":\"LottosOnline-FRLOT-20261003\",\n\n  \"name\": \"French Lotto EUR€4 Million Jackpot - 3rd October 2026 (Saturday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_frlot.png\",\n\n  \"description\": \"Play the French Lotto for 3rd October 2026 (Saturday) with an estimated jackpot of EUR€4 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"French Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"6.00\",\n\n\t\"priceValidUntil\": \"2026-10-03 16:50:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"FRLOT-20261003\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/fr-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n "
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/lottery-tickets/fr-lotto",
+     "name": "French Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 485,
+   "html": "<h3>What is the French Lotto?</h3>\n<p>Are you feeling lucky? Then it's time to try your hand at the French Lotto! This popular lottery game has been around for over 40 years, and it's easy to see why it's still going strong. Here we'll take a closer look at the French Lotto.</p>\n<h3>How do I play the French Lotto online?</h3>\n<p>It's simple! All you need to do is choose five numbers from 1 to 49, as well as one 'Chance' number from 1 to 10. You can either pick your own numbers or opt for a Quick Pick, where the computer randomly selects your numbers for you. Then, just sit back and wait for the results!</p>\n<h3>When Do the French Lotto Draws Take Place?</h3>\n<p>The French Lotto draws take place three times a week. Every Monday, Wednesday and Saturday at 8:30 pm CET. The results are announced shortly after the draw, so you can check your numbers and see if you're a winner.</p>\n<h3>How do I win the French Lotto?</h3>\n<p>If you're lucky enough to match all five numbers plus the Chance number, you'll take home the jackpot! There are 9 prize tiers in total including the jackpot. Even just matching the Chance number will earn you a small prize.</p>\n<p>As well as the main French Lotto draw, players are also automatically entered into a raffle each draw. Every draw provides a guarantee of 10 tickets winning €20,000. Raffle numbers are randomly generated and assigned when French Lotto tickets are purchased.</p>\n<h3>Can I play French Lotto from outside France?</h3>\n<p>Don't reside in France? With LotterysOnline, you can play the French Lotto from almost anywhere! All you need to do is create a LotterysOnline account, select the French Lotto and pick your lucky numbers.</p>\n<h3>How do I claim the money on LottosOnline if I win the jackpot?</h3>\n<p>If you match all the numbers, you're a winner! Congratulations! We will contact you to make the nescessary arrangements.</p>\n<p>If you win a lower tier prize, your winnings will reflect in your winnings balance. When you are ready, you can then log in to your account to either transfer the funds to your Account Balance to use on more tickets, or request payment.</p>\n<h3>How do I find out if I'm a winner?</h3>\n<p>If you're a winner, LotterysOnline will let you know the exciting news via email. But there's no need to wait in anticipation! Results are also published on the LotterysOnline website, so you can discover if you're joining the exclusive ranks of the millionaires immediately!</p>\n<h3>What is the biggest French Lotto jackpot ever won?</h3>\n<p>The highest indiviual jackpot won in the current French Lotto rules is a huge €30,000,000.</p>\n<h3>How many French Lotto rollovers can take place?</h3>\n<p>Currently, jackpots can roll over 34 times, up to a total of €36-Million. It has never reached this total, but if it ever does it will roll down on its next draw.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

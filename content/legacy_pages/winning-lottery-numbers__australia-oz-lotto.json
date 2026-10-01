@@ -1,0 +1,65 @@
+{
+ "path": "/winning-lottery-numbers/australia-oz-lotto",
+ "title": "Oz Lotto - get the lotto results and winning numbers",
+ "description": "Review the latest Oz Lotto lottery results and winning numbers. Check your lottery tickets and find out if you picked the right lottery numbers this week.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/australia-oz-lotto",
+ "h1": "Oz Lotto Results & Winning Numbers",
+ "h1_all": [
+  "Oz Lotto Results & Winning Numbers"
+ ],
+ "h2": [
+  "Tuesday OzLotto Results"
+ ],
+ "og_title": "Oz Lotto - get the lotto results and winning numbers",
+ "og_description": "Review the latest Oz Lotto lottery results and winning numbers. Check your lottery tickets and find out if you picked the right lottery numbers this week.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/australia-oz-lotto",
+     "name": "Oz Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 281,
+   "html": "<h2>Tuesday OzLotto Results</h2> <p>Need to know the latest Tuesday OzLotto results? It’s one of Australia’s favorite lottos so get your ticket ready and start ticking off the winning lotto numbers. You could be holding a jackpot-winning ticket in your hands!</p> <p>The Tuesday OzLotto draw takes place every Tuesday at 8:30pm Australian Eastern Daylight Time (AEDT). Check the Tuesday OzLotto results page on the LottosOnline website for the latest draw results. You can also find results for the US Powerball on our website.</p> <h3>Have you won the jackpot?</h3> <p>Buy lottery tickets online for the Tuesday OzLotto and you could win in one of seven prize divisions. This is how it works:</p> <p>The winning numbers are selected from a drum of 1-47. If you match all seven numbers you win the jackpot! Three bonus numbers, which are drawn from the same pool, could make you a winner in the 2nd, 4th and 7th prize divisions. If you play EuroMillions online, you’ll know what a difference those bonus balls can make to the prizes you can win. Your odds of winning any prize in the Tuesday Ozlotto are an incredible 1 in 51. Even better is the news that all prizes are completely tax-free! Unlike the online lottery USA where non-US winners have to pay 30% in Federal tax before they can pocket their winnings.</p> <p>When you buy Oz Lotto tickets online, you get the Tuesday OzLotto results straight to your inbox after the draw. It’s the quickest and easiest way to keep up with the draw results. Just think, the next time you get an email from LottosOnline it could be announcing your entry to the millionaire’s club!</p> <p>DRAWS ARE CONDUCTED EVERY TUESDAY.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

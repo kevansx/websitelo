@@ -1,0 +1,68 @@
+{
+ "path": "/uk/how-to-play/german-lotto",
+ "title": "German Lotto Lottery Information | LottosOnline",
+ "description": "Information about the German Lotto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/how-to-play/german-lotto",
+ "h1": "The German Lotto Story",
+ "h1_all": [
+  "The German Lotto Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing German Lotto Online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About German Lotto"
+ ],
+ "og_title": "German Lotto Lottery Information | LottosOnline ",
+ "og_description": "Information about the German Lotto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/german-lotto",
+     "name": "German Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 494,
+   "html": "<p>Do you dream of owning your very own Porsche? Perhaps you would love a holiday home on the French Riviera or an endless supply of designer clothes? To be in with the chance to have all this and more, it's time to play the German Lotto!</p> <p>Started way back in 1974, the German Lotto is a long-running and highly popular lotto game managed by Deutscher Lotto-und Totoblock (DTLB). With an impressive nine prize payout tiers, the German Lotto has an annual prize payout pool of €1.5 billion - and you could win your share by buying a lotto ticket right here on LottosOnline!</p> <p>The German Lotto draw happens every Wednesday at 18:25 Central European Time (CET) and Saturday at 19:25 (CET).</p> <h2>How Much Could You Win?</h2> <p>The German Lotto jackpot starts at €1 million for the Wednesday draw, increasing to €2 million for the Saturday draw. If the jackpot is not won, it increases in size each week - rolling over up to a maximum of thirteen times. The biggest jackpot winnings to date reached a staggering €45.4 million! </p> <h2>Playing German Lotto Online</h2> <p>To buy a ticket entry for the German Lotto online, simply login to your LottosOnline account. If you don't have a login yet, don't worry - it's quick and simple to get started. We only require a few basic details so we can get in touch if you are a lucky winner!</p> <p>After logging in to LottosOnline, simply select the German Lotto. Choose six main numbers from 1-49, plus one additional number from 0-9, which is known as the Super Number or 'Superzahl'. Alternatively, you can pick your numbers at random! Once you've entered your lucky numbers, it's time to select your payment method and start thinking about how you're going to spend your German Lotto winnings!</p> <p>We always confirm your purchase immediately via email. Your official German Lotto tickets will be stored securely until after the draw takes pace, when it will be checked and verified against the official results for any winnings.</p> <h2>You've Won! What Happens Next?</h2> <p>Big or small, a German Lotto win is always worth celebrating in style! With LottosOnline, receiving your winnings could not be easier. Simply log in to your LottosOnline account, check your Winnings Balance and claim your winnings to arrange for our agents to transfer the funds into a bank account of your choice. Or you can convert it into more tickets by transferring it to your Account Balance. Whatever you decide, it is always hassle-free!</p> <h2>Fun Facts About German Lotto</h2> <p>Did you know?</p><ul><li>The German Lotto in its current form is over forty years old, but an official lottery has been running since the 1700s. Amazing!</li> <li>The biggest single jackpot of €45.4 million was won with a ticket that came free with a newspaper!</li><li>On an average week, the prize payout pool reaches an impressive €15.2 Million</li><li>Each year, the German Lotto creates an average of 364 millionaires!</li></ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

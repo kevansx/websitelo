@@ -1,0 +1,112 @@
+/* LottosOnline — design tokens (Live Lottos token set, LottosOnline brand colours and fonts) as CSS custom properties.
+   Generated from tokens.json. Load this first, then livelottos.css. */
+
+:root {
+  /* colour */
+  --surface-page: #f7f5fa;
+  --surface-card: #ffffff;
+  --surface-sunken: #f1ecf5;
+  --surface-brand: #582178;
+  --surface-brand-raised: #6a2a90;
+  --surface-brand-deep: #3e1456;
+  --surface-tag: #14101a;
+  --ink: #1d1324;
+  --ink-muted: #5f5468;
+  --ink-subtle: #756c84;
+  --ink-on-brand: #ffffff;
+  --ink-on-brand-muted: #e2d3ee;
+  --cta-600: #0b7a08;
+  --cta-700: #086005;
+  --cta-400: #24a71a;
+  --cta-100: #ddf3da;
+  --accent-500: #d67900;
+  --accent-700: #a85e00;
+  --live-500: #e11d48;
+  --live-600: #b31338;
+  --live-100: #ffe4ea;
+  --bonus-300: #ffe680;
+  --placeholder-500: #f5c518;
+  --placeholder-200: #fff3c4;
+  --placeholder-700: #7a5b00;
+  --border-hairline: #e4e1ec;
+  --border-control: #8c8499;
+  --focus-ring: #3e1456;
+  --focus-ring-inverse: #ffffff;
+  --gold-400: #fdbc00;
+  --gold-100: #fff3d1;
+  --coral-300: #f25934;
+  --coral-500: #dc370e;
+  --coral-700: #b0330f;
+  --coral-100: #ffe9e1;
+  --success-100: #dcf5e7;
+  --success-700: #06704a;
+  --error-600: #c81e1e;
+  --error-100: #fdecec;
+
+  /* spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* radius */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* shadow */
+  --shadow-card: 0 1px 2px rgba(27,16,36,0.05), 0 4px 14px rgba(27,16,36,0.06);
+  --shadow-card-hover: 0 2px 4px rgba(27,16,36,0.07), 0 10px 24px rgba(27,16,36,0.11);
+  --shadow-sticky: 0 -2px 16px rgba(27,16,36,0.14);
+  --shadow-modal: 0 14px 44px rgba(27,16,36,0.26);
+  --shadow-tag: 0 3px 0 rgba(20,16,26,0.28);
+
+  /* opacity */
+  --opacity-disabled: 0.45;
+  --opacity-scrim: 0.62;
+  --opacity-hero-art: 0.38;
+
+  /* type families */
+  --font-display: Montserrat, "Segoe UI", system-ui, sans-serif;
+  --font-body: "Open Sans", system-ui, -apple-system, sans-serif;
+}
+
+/* type styles — use the class, or copy the declarations */
+
+/* Jackpot */
+.jackpot-hero { font-family: var(--font-display); font-size: 44px; line-height: 44px; font-weight: 800; letter-spacing: -0.02em; }
+.jackpot-tag { font-family: var(--font-display); font-size: 34px; line-height: 36px; font-weight: 800; letter-spacing: -0.02em; }
+.jackpot-card { font-family: var(--font-display); font-size: 26px; line-height: 28px; font-weight: 800; letter-spacing: -0.01em; }
+
+/* Headline */
+.display-1 { font-family: var(--font-display); font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.01em; }
+.display-2 { font-family: var(--font-display); font-size: 22px; line-height: 28px; font-weight: 700; }
+.display-3 { font-family: var(--font-display); font-size: 18px; line-height: 24px; font-weight: 600; }
+
+/* Text */
+.body-lg { font-family: var(--font-body); font-size: 17px; line-height: 26px; font-weight: 400; }
+.body { font-family: var(--font-body); font-size: 15px; line-height: 22px; font-weight: 400; }
+.body-strong { font-family: var(--font-body); font-size: 15px; line-height: 22px; font-weight: 600; }
+.body-sm { font-family: var(--font-body); font-size: 13px; line-height: 19px; font-weight: 400; }
+.caption { font-family: var(--font-body); font-size: 12px; line-height: 16px; font-weight: 500; }
+.legal { font-family: var(--font-body); font-size: 11px; line-height: 16px; font-weight: 400; }
+
+/* Numeric */
+.countdown { font-family: var(--font-body); font-size: 15px; line-height: 18px; font-weight: 700; }
+.countdown-lg { font-family: var(--font-body); font-size: 18px; line-height: 22px; font-weight: 700; }
+.ball-number { font-family: var(--font-body); font-size: 15px; line-height: 15px; font-weight: 700; }
+.price { font-family: var(--font-body); font-size: 17px; line-height: 22px; font-weight: 700; }
+
+/* Label */
+.button { font-family: var(--font-display); font-size: 16px; line-height: 20px; font-weight: 700; }
+.nav { font-family: var(--font-display); font-size: 14px; line-height: 20px; font-weight: 600; }
+.tag { font-family: var(--font-display); font-size: 12px; line-height: 14px; font-weight: 800; letter-spacing: 0.06em; }
+.pill { font-family: var(--font-display); font-size: 11px; line-height: 11px; font-weight: 800; letter-spacing: 0.09em; }

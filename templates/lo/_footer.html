@@ -1,0 +1,76 @@
+{# LottosOnline footer. The link lists are the old footer's, in the old order and wording, so internal
+   linking is unchanged; links that pointed at a redirect now point at the final page, "Play UK Lotto" is
+   gone (not sold), and the games the old footer never listed are added at the end. #}
+{% import "lo/_lotteries.html" as lots %}
+<footer class="lo-site-footer">
+  <div class="lo-footer lo-on-brand">
+    <div class="lo-wrap">
+      <div class="lo-footer__top">
+        <a href="/" aria-label="LottosOnline home"><img src="{{ url_for('static', filename='brands/lottosonline/img/logo-on-dark.webp') }}" alt="LottosOnline.com" width="230" height="35" loading="lazy"></a>
+        <div class="lo-footer__social">
+          <span>Follow us</span>
+          <a href="https://www.facebook.com/LottosOnline?ref=hl" rel="noopener" target="_blank" aria-label="Follow LottosOnline on Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg></a>
+          <a href="https://twitter.com/LottosOnline" rel="noopener" target="_blank" aria-label="Follow LottosOnline on X"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg></a>
+          <a href="https://www.pinterest.com/lottosonlinecom/" rel="noopener" target="_blank" aria-label="Follow LottosOnline on Pinterest"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.6 19.3c-.1-.8-.2-2 0-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.5 1.8-2.5.9 0 1.3.7 1.3 1.4 0 .9-.6 2.2-.9 3.4-.2 1 .5 1.9 1.6 1.9 1.9 0 3.3-2 3.3-4.9 0-2.6-1.8-4.4-4.5-4.4-3 0-4.8 2.3-4.8 4.6 0 .9.4 1.9.8 2.4l.1.4-.3 1.1c0 .2-.2.3-.4.2-1.4-.6-2.2-2.6-2.2-4.2 0-3.4 2.5-6.6 7.2-6.6 3.8 0 6.7 2.7 6.7 6.3 0 3.8-2.4 6.8-5.7 6.8-1.1 0-2.2-.6-2.5-1.3l-.7 2.6c-.2 1-.9 2.2-1.4 2.9A10 10 0 1 0 12 2z"/></svg></a>
+          <a href="https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed" rel="noopener" target="_blank" aria-label="See LottosOnline videos on YouTube"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="lo-footer__cols">
+        <details open>
+          <summary><h2><a href="/lottery-tickets">Buy Lottery Tickets Online</a></h2></summary>
+          <ul>
+            {% for slug, label in lots.FOOTER_PLAY %}<li><a href="/lottery-tickets/{{ slug }}">{{ label }}</a></li>{% endfor %}
+          </ul>
+        </details>
+        <details>
+          <summary><h2><a href="/winning-lottery-numbers">Results &amp; Winnings</a></h2></summary>
+          <ul>
+            {% for slug, label in lots.FOOTER_RESULTS %}<li><a href="/winning-lottery-numbers/{{ slug }}">{{ label }}</a></li>{% endfor %}
+            <li><a href="/raffle-tickets">Spanish Raffle Results</a></li>
+          </ul>
+        </details>
+        <details>
+          <summary><h2>About us</h2></summary>
+          <ul>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/create-account">Open Free Account</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="http://www.referlottos.com/" rel="noopener" target="_blank">Affiliate Program</a></li>
+            <li><a href="/VIP-rewards">VIP Rewards</a></li>
+          </ul>
+        </details>
+        <details>
+          <summary><h2>Help</h2></summary>
+          <ul>
+            <li><a href="/faqs">FAQs</a></li>
+            <li><a href="/how-to-play-lottery-online">How To Play</a></li>
+            <li><a href="/contact-us">Contact Us</a></li>
+            <li><a href="/payment-methods">Payment Methods</a></li>
+          </ul>
+        </details>
+        <details>
+          <summary><h2>More</h2></summary>
+          <ul>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
+            <li><a href="/AML-Policy.php">AML Policy</a></li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="lo-footer__trust">
+        <img src="/images/visa-logo.png" alt="LottosOnline accepts VISA cards" width="54" height="18" loading="lazy">
+        <img src="/images/mastercard-logo.png" alt="LottosOnline accepts Mastercard" width="40" height="25" loading="lazy">
+        <span class="lo-18 lo-18--onbrand" title="You must be 18 or older to buy lottery tickets on LottosOnline">18+</span>
+        <img src="/images/securitymetrics-logo.png" alt="LottosOnline.com uses SecurityMetrics for PCI compliance" width="100" height="28" loading="lazy">
+      </div>
+    </div>
+  </div>
+  <div class="lo-footer__legal">
+    <div class="lo-wrap">
+      <p><a href="/">www.LottosOnline.com</a> is a trade name of Marvicap Limited. Marvicap Limited and its associated brands operate an independent ticket messenger service and are neither affiliated with nor endorsed by official lottery organizations.</p>
+      <p>&copy; Marvicap Limited 2014-{{ lo_year }} All Rights Reserved | Archangelou 48, Office 207, 2nd floor, Engomi, 2404, Nicosia, Cyprus.</p>
+    </div>
+  </div>
+</footer>

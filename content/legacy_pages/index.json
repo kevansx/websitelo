@@ -1,0 +1,53 @@
+{
+ "path": "/index",
+ "title": "Lottery Tickets and Lottery Results Online - LottosOnline.com",
+ "description": "Play lotto online with LottosOnline - get scanned lottery tickets, lotto results for the biggest lottery games in the world like US Powerball and EuroMillions",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/",
+ "h1": "Play Lotto Online",
+ "h1_all": [
+  "Play Lotto Online"
+ ],
+ "h2": [
+  "Lottery Tickets Online"
+ ],
+ "og_title": "Lottery Tickets and Lottery Results Online - LottosOnline.com",
+ "og_description": "Play lotto online with LottosOnline - get scanned lottery tickets, lotto results for the biggest lottery games in the world like US Powerball and EuroMillions",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".welcome",
+   "words": 234,
+   "html": "<p>Welcome to LottosOnline – the best place to play the world’s biggest lottery jackpots. In just a few clicks, you could actually win millions. It’s fun, simple and the fastest way to change your life forever. It doesn’t matter where you live, you can play the lottery online here in a few simple steps.</p>\n<ol>\n<li>Create your free LottosOnline account  </li>\n<li>Choose a lottery draw and select your lucky numbers</li>\n<li>Confirm your entry</li>\n<li>Wait for your lottery results and confirmation of your winnings</li>\n</ol>\n<p>LottosOnline is secure, safe and totally legal, buying your official lottery ticket entries from licensed retailers around the world. This is your big chance to win big money, which is why we are crystal clear and open at every step. We guarantee your winnings are paid out. And if you’ve got questions, our friendly team are always on hand.</p>\n<h2>Lottery Tickets Online</h2>\n<p>To buy lottery tickets online, start by choosing the lottery you would like to play. Whether you want to play the US Powerball, Mega Millions or EuroMillions lottery, you can pick from\nthe world’s highest paying jackpots. If you don’t know the rules for each draw, don’t worry. We\nexplain every game in perfect detail, so you know exactly how to play before you buy your\n\tonline lottery tickets and what to expect if you win! </p>\n<p>It’s time to start thinking big. Your dreams start right here.</p>\n<br/>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

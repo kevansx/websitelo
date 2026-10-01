@@ -1,0 +1,97 @@
+{# Home. Same structure search engines see today: the banner line is text, not a heading; the single H1
+   "Play Lotto Online" and H2 "Lottery Tickets Online" sit in the copy below the lottery table, word for
+   word. Lotteries are ordered by "% above base", as the old page ordered them. #}
+{% extends "lo/base.html" %}
+{% set featured = rows[:4] %}
+{% set lead = rows[0] if rows else None %}
+{% block content %}
+<section class="lo-homehero">
+  <div class="lo-wrap lo-homehero__grid">
+    <div>
+      <p class="lo-homehero__kicker">Buy Official Lottery Tickets</p>
+      <p class="lo-homehero__title" style="margin:0;font:800 32px/38px var(--font-display);letter-spacing:-.02em">To Enter The Worlds Biggest Jackpots!</p>
+      <span class="lo-homehero__tag">Lowest Prices With Scanned Tickets!</span>
+      <div class="lo-homehero__cta">
+        <a class="lo-btn lo-btn--lg" href="/lottery-tickets">Play Now</a>
+        {% if not customer %}<a class="lo-btn lo-btn--lg lo-btn--onbrand" href="/create-account">Open Free Account</a>{% endif %}
+      </div>
+    </div>
+    {% if lead %}
+    <a class="lo-homehero__feature" href="/lottery-tickets/{{ lead.lottery.slug }}" style="text-decoration:none;color:inherit">
+      <img class="lo-lot__ball" src="{{ lo_ball(lead.lottery) }}" alt="{{ lead.lottery.name }}" width="88" height="88">
+      <span class="lo-homehero__fname">{{ lead.lottery.name }}</span>
+      <span class="lo-homehero__fjackpot">{{ lead.jp.display }}</span>
+      {% if lead.jp.rise_pct %}<span class="lo-lot__rise">🔥 {{ lead.jp.rise_pct }}% above base</span>{% endif %}
+      {% if lead.jp.cutoff_iso %}<span class="lo-countdown lo-countdown--lg lo-countdown--onbrand" data-until="{{ lead.jp.cutoff_iso }}">&nbsp;</span>{% endif %}
+      <span class="lo-btn">Play Now</span>
+    </a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="lo-section" style="padding-top:var(--space-6)">
+  <div class="lo-wrap">
+    <div class="lo-lotgrid">
+      {% for r in featured %}
+      <div class="lo-lot">
+        <div class="lo-lot__top">
+          <img class="lo-lot__ball" src="{{ lo_ball(r.lottery) }}" alt="{{ r.lottery.name }}" width="72" height="72">
+          <p class="lo-lot__name">{{ r.lottery.name }}</p>
+        </div>
+        <div class="lo-lot__body">
+          <span class="lo-lot__jackpot">{{ r.jp.display or "Results Pending" }}</span>
+          {% if r.jp.rise_pct %}<span class="lo-lot__rise">🔥 {{ r.jp.rise_pct }}% above base</span>{% endif %}
+          {% if r.price %}<span class="lo-lot__price">Each ticket costs: {{ r.price }}</span>{% endif %}
+        </div>
+        <div class="lo-lot__foot">
+          {% if r.jp.cutoff_iso %}<span class="lo-lot__count lo-countdown" data-until="{{ r.jp.cutoff_iso }}">&nbsp;</span>{% endif %}
+          <a class="lo-btn lo-btn--block" href="/lottery-tickets/{{ r.lottery.slug }}">Play Now</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="lo-section" style="padding-top:0">
+  <div class="lo-wrap">
+    <table class="lo-lottable">
+      <thead><tr><th scope="col">Lottery</th><th scope="col">Next jackpot</th><th scope="col">Time left to play</th><th scope="col"><span class="lo-sr">Play</span></th></tr></thead>
+      <tbody>
+      {% for r in rows %}
+        <tr>
+          <td><a class="lo-lottable__name" href="/lottery-tickets/{{ r.lottery.slug }}"><img src="{{ lo_ball(r.lottery) }}" alt="" width="40" height="40" loading="lazy">{{ r.lottery.name }}</a></td>
+          <td>
+            {% if r.jp and r.jp.display %}<span class="lo-lottable__jackpot">{{ r.jp.display }}</span>{% else %}<span class="lo-muted">Results Pending</span>{% endif %}
+            {% if r.jp and r.jp.rise_pct %}<span class="lo-lottable__rise">🔥 {{ r.jp.rise_pct }}% higher than base jackpot</span>{% endif %}
+          </td>
+          <td>{% if r.jp and r.jp.cutoff_iso %}<span class="lo-countdown" data-until="{{ r.jp.cutoff_iso }}">&nbsp;</span>{% endif %}</td>
+          <td><a class="lo-btn lo-btn--sm" href="/lottery-tickets/{{ r.lottery.slug }}">Play Now</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="lo-section" style="padding-top:0">
+  <div class="lo-wrap">
+    <article class="lo-panel lo-prose">
+      <h1 style="font:800 26px/32px var(--font-display);color:var(--surface-brand);margin:0 0 var(--space-4)">{{ page.h1 if page else "Play Lotto Online" }}</h1>
+      {% if page %}{% for block in page['copy'] %}{{ block.html|safe }}{% endfor %}{% endif %}
+    </article>
+  </div>
+</section>
+
+<section class="lo-section" style="padding-top:0">
+  <div class="lo-wrap">
+    <p class="lo-center" style="font:700 22px/28px var(--font-display);margin:0 0 var(--space-4)">Why Choose Us?</p>
+    <div class="lo-why">
+      {% for label in ["Biggest lottery jackpots", "Official lottery tickets", "Scanned copies of lottery tickets", "No commission on winnings", "Loyalty program", "Safe and secure playing"] %}
+        <div class="lo-why__item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{ label }}</div>
+      {% endfor %}
+    </div>
+    {% if not customer %}<p class="lo-center" style="margin-top:var(--space-6)"><a class="lo-btn lo-btn--lg" href="/create-account">Open an Account</a></p>{% endif %}
+  </div>
+</section>
+{% endblock %}

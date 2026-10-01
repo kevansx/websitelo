@@ -1,0 +1,68 @@
+{
+ "path": "/lotteries/el-gordo",
+ "title": "Spanish El Gordo Lottery Information | LottosOnline",
+ "description": "Information about the Spanish El Gordo Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/el-gordo",
+ "h1": "The El Gordo Lottery Story",
+ "h1_all": [
+  "The El Gordo Lottery Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing El Gordo Lottery Online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About El Gordo Lottery"
+ ],
+ "og_title": "Spanish El Gordo Lottery Information | LottosOnline ",
+ "og_description": "Information about the Spanish El Gordo Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/el-gordo",
+     "name": "Spanish El Gordo"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 550,
+   "html": "<p>El Gordo de la Primitiva - or the weekly El Gordo lottery - is a Spanish lottery with a starting jackpot of €5 million. Launched in 1993, it began with monthly draws but soon proved so popular that it increased to weekly draws four years later, in 1997. A 9th prize payout tier was later added, providing plenty of great reasons to play the El Gordo lottery!</p> <p>The El Gordo lottery draw happens on a Sunday afternoon in Madrid. To be in with a chance, here's how to buy your official lottery tickets via LottosOnline. Let's make your dreams come true!</p> <h2>How Much Could You Win?</h2> <p>Starting at €5 million, the El Gordo lottery jackpot rolls over each draw if there is no jackpot winner. It has been known to climb to more than €30 million! </p> <p>The jackpot isn't the only prize money up for grabs. With an impressive nine prize payout tiers, the El Gordo lottery provides plenty of opportunity to become a winner.</p> <h2>Playing El Gordo Lottery Online</h2> <p>Each weekly El Gordo lottery ticket has six numbers in total - five main numbers from 1 - 54, and one key number from 1 - 9. If you choose multiple lines, the same key number will apply to all lines on your ticket. Either select your own lucky numbers or, if you're stuck for choice, let our Quickpick number generator choose at random for you</p> <p>To enter into the official El Gordo lottery draw, simply log in to LottosOnline, select the weekly El Gordo lottery, and choose your numbers. If you don't have an account yet, don't worry - it's quick, easy and FREE!</p> <p>Once we have received your lottery ticket entries and payment, our local ticket purchasing agents will purchase your official El Gordo lottery tickets. You will receive email confirmation of your order, and an email with a link to a scanned copy of your official ticket. Your tickets will be stored securely until after the draw, when it will be checked against the results. Good luck!</p> <h2>You've Won! What Happens Next?</h2> <p>Pop open the champagne - it's time to celebrate! If you're a winner and have purchased a winning El Gordo lottery ticket via LottosOnline, we will send you an email straight away to tell you the great news. This email will contain full instructions on how to claim your winnings. Rest assured, it's fast and simple. If you win the jackpot, we'll be in touch directly by telephone to discuss the next steps.</p> <p>Once the results are verified and your tickets have been checked, your winnings will reflect in your LottosOnline Winnings Balance. Just log in, click on the 'claim' link next to your Winnings Balance, and decide what to do with your new-found wealth! Either instruct us to get our agents to transfer it directly your bank account, or convert the funds to credit in your Account Balance to buy more lottery tickets. Easy!</p> <h2>Fun Facts About El Gordo Lottery</h2><ul><li>'El Gordo' is literally translated as 'The Fat One', due to the size of the jackpots</li><li>The weekly El Gordo lottery is often confused with the annual Christmas raffle draw - El Gordo de la Navidad - which boasts the biggest lottery prize pool of more than €2 billion!</li></ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

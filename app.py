@@ -43,6 +43,7 @@ from werkzeug.routing import RequestRedirect
 
 import blog_content
 import retired_content
+import lo_lotteries
 import seo
 from brand_config import BrandConfig, load_brand_config
 from crm_api import CRMClient, CRMError, load_crm_config_from_env
@@ -306,6 +307,7 @@ def create_app() -> Flask:
     load_dotenv()  # server supplies /opt/.../.env; local dev can use .env too
 
     app = Flask(__name__, static_folder="static", template_folder="templates")
+    lo_lotteries.register_converters(app)
 
     # Azure Front Door (or nginx) terminates TLS and forwards requests to this
     # app over an internal hop. Honor the standard X-Forwarded-* headers so that
@@ -2425,7 +2427,7 @@ def create_app() -> Flask:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Service Unavailable | Lotto Express</title>
+  <title>Service Unavailable | LottosOnline</title>
   <link rel="stylesheet" href="/resources/css/style.css?v=2" />
 </head>
 <body>
@@ -2769,6 +2771,15 @@ def create_app() -> Flask:
                 meta = seo.page_seo(endpoint)
         except Exception:
             meta = {}
+
+        # LottosOnline: a page that exists on the live site keeps the exact title and description it
+        # was captured with (approved description fixes applied). This beats every table above.
+        try:
+            captured = (app.config.get("LO_LEGACY_PAGES") or {}).get(request.path) if app.config.get("LO_LEGACY_PAGES") else None
+        except Exception:
+            captured = None
+        if captured and captured.get("title"):
+            meta = {"title": captured["title"], "description": seo.description_for(request.path, captured.get("description") or "")}
 
         # Pages whose metadata is data rather than configuration — a blog post
         # carries its own title and description — set these on `g`.
@@ -3721,15 +3732,16 @@ def create_app() -> Flask:
 
     @app.get("/")
     def home():
-        # Homepage is driven by `layout_model()` (store catalog + jackpots cache).
-        return render_template("home.html")
+        # LottosOnline home (templates/lo/home.html): every lottery the site sells, ordered by
+        # "% above base" as the old home page ordered them, with the old page's copy word for word.
+        return render_template("lo/home.html", rows=app.config["LO_HOME_ROWS"](), page=app.config["LO_LEGACY_PAGES"].get("/"))
 
-    @app.get("/catalog")
+    @app.get("/lottery-tickets")
     def catalog():
         games = store_games_cached()
         return render_template("catalog.html", games=games)
 
-    @app.get("/play/<game_code>")
+    @app.get("/lottery-tickets/<lo_play:game_code>")
     def play(game_code: str):
         # Legacy-like "edit your order" fallback target.
         session["last_play_url"] = request.path
@@ -6819,7 +6831,7 @@ def create_app() -> Flask:
                 return t
         return None
 
-    @app.get("/results")
+    @app.get("/winning-lottery-numbers")
     def results_index():
         games = store_games_cached()
         jackpots, _ = _get_jackpots_live_or_cache(timeout_seconds=_layout_timeout_seconds())
@@ -6852,7 +6864,7 @@ def create_app() -> Flask:
         rows.sort(key=lambda r: str((r.get("game") or {}).get("game_name") or ""))
         return render_template("results_index.html", rows=rows)
 
-    @app.get("/results/<game_code>")
+    @app.get("/winning-lottery-numbers/<lo_results:game_code>")
     def results_game(game_code: str):
         # The model happily invents a page for any string, which turned every
         # typo and stale link into an indexable empty results page.
@@ -7639,7 +7651,7 @@ def create_app() -> Flask:
 
         return redirect(url_for("cart"))
 
-    @app.get("/lotteries/promotions")
+    @app.get("/promotions")
     def promotions_index():
         # Simple CRM-driven offers discovery page powered by marketing banners.
         banners = marketing_banners_cached("catalog")
@@ -7847,7 +7859,7 @@ def create_app() -> Flask:
             notes.append(f"email: {why}")
         return notes
 
-    @app.get("/register")
+    @app.get("/create-account")
     def register():
         # Emit signup_started once per session/journey.
         ctx = _mkt_ctx()
@@ -8328,7 +8340,7 @@ def create_app() -> Flask:
         session["customer"] = customer
         return redirect(next_url)
 
-    @app.post("/register")
+    @app.post("/create-account")
     def register_post():
         selected_currency = (request.form.get("currency") or "").strip().upper() or "EUR"
         allowed_currencies = {"EUR", "USD", "GBP"}
@@ -11019,11 +11031,7 @@ def create_app() -> Flask:
         return redirect(url_for("contact", topic="refund", order_id=str(order_id), message=reason))
 
     # --- Static pages (new canonical routes) ---
-    @app.get("/about")
-    def about():
-        return render_template("about.html")
-
-    @app.get("/contact")
+    @app.get("/contact-us")
     def contact():
         recaptcha_enable = str(os.environ.get("RECAPTCHA_ENABLE") or "").strip() == "1"
         topic = (request.args.get("topic") or "").strip().lower()
@@ -11054,7 +11062,7 @@ def create_app() -> Flask:
         }
         return render_template("contact.html", recaptcha_enable=recaptcha_enable, prefill=prefill)
 
-    @app.post("/contact")
+    @app.post("/contact-us")
     def contact_post():
         # Legacy PHP used a server-side mailer + reCAPTCHA.
         # For now, we keep the same UI and accept submissions, but only acknowledge receipt.
@@ -11076,406 +11084,7 @@ def create_app() -> Flask:
         flash("Thank you for your submission. We will be in contact with you shortly.", "success")
         return redirect(url_for("contact"))
 
-    @app.get("/faq")
-    def faq():
-        return render_template("faq.html")
-
-    @app.get("/terms")
-    def terms():
-        return render_template("terms.html")
-
-    @app.get("/terms-and-conditions")
-    def terms_alias():
-        return legacy_redirect("terms")
-
-    @app.get("/privacy")
-    def privacy():
-        return render_template("privacy_world.html")
-
-    @app.get("/privacy-policy")
-    def privacy_alias():
-        return legacy_redirect("privacy")
-
-    @app.get("/privacy/au")
-    def privacy_au():
-        return render_template("privacy_au.html")
-
-    @app.get("/privacy/world")
-    def privacy_world():
-        return render_template("privacy_world.html")
-
-    @app.get("/responsible-gaming")
-    def responsible_gaming():
-        return render_template("responsible_gaming.html")
-
-    @app.get("/identity-verification-info")
-    def identity_verification_info():
-        return render_template("identity_verification_info.html")
-
-    @app.get("/sitemap.xml")
-    def sitemap_xml():
-        """
-        Every page we want indexed, on the canonical host.
-
-        The previous version listed twelve static pages — several of them at
-        legacy URLs that now redirect — and deliberately left out the play and
-        results pages, which are the pages that earn the traffic.
-        """
-        base = _canonical_base()
-        # (path, changefreq, priority)
-        entries: list[tuple[str, str, str]] = [
-            ("/", "daily", "1.0"),
-            ("/catalog", "daily", "0.9"),
-            ("/results", "daily", "0.8"),
-            ("/lotteries/promotions", "weekly", "0.7"),
-            ("/faq", "monthly", "0.5"),
-            ("/about", "monthly", "0.4"),
-            ("/contact", "monthly", "0.4"),
-            ("/responsible-gaming", "monthly", "0.4"),
-            ("/identity-verification-info", "yearly", "0.3"),
-            ("/terms", "yearly", "0.2"),
-            ("/privacy", "yearly", "0.2"),
-            ("/login", "yearly", "0.2"),
-            ("/register", "monthly", "0.4"),
-        ]
-
-        game_codes: list[str] = []
-        try:
-            for game in store_games_cached():
-                if not isinstance(game, dict):
-                    continue
-                code = str(game.get("game_code") or "").strip()
-                if code and code not in game_codes:
-                    game_codes.append(code)
-        except Exception:
-            game_codes = []
-        for code in game_codes:
-            entries.append((f"/play/{code}", "daily", "0.9"))
-        for code in game_codes:
-            entries.append((f"/results/{code}", "daily", "0.7"))
-
-        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-        # Posts carry the date they were last edited; everything else is dated
-        # today because it is generated from live data on every request.
-        lastmods: dict[str, str] = {}
-        catalogue = blog_content.blog()
-        if catalogue.posts:
-            entries.append(("/blog/", "weekly", "0.7"))
-            for post in catalogue.posts:
-                entries.append((post.url, "yearly", "0.6"))
-                stamp = post.modified or post.published
-                if stamp:
-                    lastmods[post.url] = stamp.strftime("%Y-%m-%d")
-            for term in list(catalogue.categories.values()) + list(catalogue.tags.values()):
-                entries.append((term.url, "weekly", "0.4"))
-
-        # Products we no longer sell, whose pages still rank. Low priority: they
-        # are reference pages, not somewhere we want crawl budget spent first.
-        for retired in retired_content.library().games:
-            entries.append((retired.path, "yearly", "0.3"))
-
-        xml = [
-            '<?xml version="1.0" encoding="UTF-8"?>',
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-        ]
-        for path, changefreq, priority in entries:
-            xml.append("  <url>")
-            xml.append(f"    <loc>{base}{path}</loc>")
-            xml.append(f"    <lastmod>{lastmods.get(path, today)}</lastmod>")
-            xml.append(f"    <changefreq>{changefreq}</changefreq>")
-            xml.append(f"    <priority>{priority}</priority>")
-            xml.append("  </url>")
-        xml.append("</urlset>")
-        return Response("\n".join(xml) + "\n", mimetype="application/xml")
-
-    @app.get("/robots.txt")
-    def robots_txt():
-        """
-        Crawl rules. The old site had none, so crawlers were free to spend
-        their budget on cart and account URLs.
-
-        Everything public is allowed; private, transactional and parameterised
-        URLs are not, and the sitemap is advertised on the canonical host.
-        """
-        lines = [
-            "User-agent: *",
-            "Allow: /",
-            "Disallow: /account",
-            "Disallow: /orders",
-            "Disallow: /legacy-orders",
-            "Disallow: /cart",
-            "Disallow: /checkout",
-            "Disallow: /wallet/",
-            "Disallow: /admin/",
-            "Disallow: /api/",
-            "Disallow: /verify-email",
-            "Disallow: /reset-password",
-            "Disallow: /set-password",
-            "Disallow: /logout",
-            "Disallow: /resources/php_functions/",
-            "Disallow: /*?open_item_idx=",
-            "",
-            f"Sitemap: {_canonical_base()}/sitemap.xml",
-            "",
-        ]
-        return Response("\n".join(lines), mimetype="text/plain")
-
-    # ----------------------------------------------------------------------
-    # Blog
-    #
-    # The blog was a WordPress install on the old PHP host, which no longer
-    # exists, while 576 archived `/blog/` URLs are still indexed. The content
-    # was recovered into content/blog (see tools/blog_harvest.py) and is served
-    # here at exactly the URLs WordPress used, trailing slashes included.
-    # ----------------------------------------------------------------------
-
-    def _blog_pages_url(base: str, page: int) -> str:
-        return base if page <= 1 else f"{base}page/{page}/"
-
-    def _blog_listing(
-        *,
-        posts,
-        page: int,
-        base_url: str,
-        heading: str,
-        intro: str,
-        title: str,
-        description: str,
-        active_term=None,
-    ):
-        items, total_pages = blog_content.paginate(posts, page)
-        # WordPress served page 1 at the bare URL, and asking past the end used
-        # to 404; both are redirects here so no indexed pager URL dead-ends.
-        if page < 1 or (page > total_pages and total_pages >= 1):
-            return redirect(base_url, code=301)
-        if page == 1 and request.path != base_url:
-            return redirect(base_url, code=301)
-
-        g.seo_override = {"title": title, "description": description}
-        catalogue = blog_content.blog()
-        return render_template(
-            "blog_index.html",
-            posts=items,
-            page=page,
-            total_pages=total_pages,
-            prev_url=_blog_pages_url(base_url, page - 1) if page > 1 else "",
-            next_url=_blog_pages_url(base_url, page + 1) if page < total_pages else "",
-            listing_heading=heading,
-            listing_intro=intro,
-            terms=list(catalogue.categories.values()),
-            active_term=active_term,
-        )
-
-    @app.get("/blog")
-    def blog_root_redirect():
-        return redirect("/blog/", code=301)
-
-    @app.get("/blog/")
-    @app.get("/blog/page/<int:page>/")
-    def blog_index(page: int = 1):
-        catalogue = blog_content.blog()
-        if not catalogue.posts:
-            abort(404)
-        return _blog_listing(
-            posts=catalogue.posts,
-            page=page,
-            base_url="/blog/",
-            heading="Lotto Express Blog",
-            intro="Jackpot news, winners' stories and guides to playing the world's biggest lotteries.",
-            title="Lottery News, Jackpot Alerts and Winners' Stories | Lotto Express",
-            description=(
-                "Lottery news, jackpot alerts, winners' stories and strategy guides for "
-                "EuroMillions, Powerball, Mega Millions and the world's biggest draws."
-            ),
-        )
-
-    @app.get("/blog/category/<term>/")
-    @app.get("/blog/category/<term>/page/<int:page>/")
-    @app.get("/blog/tag/<term>/")
-    @app.get("/blog/tag/<term>/page/<int:page>/")
-    def blog_term(term: str, page: int = 1):
-        kind = "category" if "/category/" in request.path else "tag"
-        catalogue = blog_content.blog()
-        found = catalogue.term(kind, blog_content.slugify(term))
-        if found is None:
-            # A term that no longer exists is still a blog URL: send its equity
-            # to the index rather than dropping it.
-            return redirect("/blog/", code=301)
-        base_url = f"/blog/{kind}/{found.slug}/"
-        if term != found.slug:
-            return redirect(_blog_pages_url(base_url, page), code=301)
-        label = found.name.title()
-        return _blog_listing(
-            posts=found.posts,
-            page=page,
-            base_url=base_url,
-            heading=label,
-            intro=f"Every Lotto Express post filed under {label}.",
-            title=f"{label} | Lotto Express Blog",
-            description=f"Lottery news and guides from Lotto Express filed under {label}.",
-            active_term=found,
-        )
-
-    @app.get("/blog/feed/")
-    def blog_feed():
-        catalogue = blog_content.blog()
-        base = _canonical_base()
-        items = []
-        for post in catalogue.posts[:20]:
-            published = post.published.strftime("%a, %d %b %Y %H:%M:%S +0000") if post.published else ""
-            items.append(
-                "    <item>\n"
-                f"      <title>{html.escape(post.heading)}</title>\n"
-                f"      <link>{base}{post.url}</link>\n"
-                f"      <guid isPermaLink=\"true\">{base}{post.url}</guid>\n"
-                + (f"      <pubDate>{published}</pubDate>\n" if published else "")
-                + f"      <description>{html.escape(post.excerpt)}</description>\n"
-                "    </item>"
-            )
-        xml = (
-            '<?xml version="1.0" encoding="UTF-8"?>\n'
-            '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
-            "  <channel>\n"
-            "    <title>Lotto Express Blog</title>\n"
-            f"    <link>{base}/blog/</link>\n"
-            "    <description>Lottery news, jackpot alerts and winners' stories.</description>\n"
-            "    <language>en</language>\n"
-            f'    <atom:link href="{base}/blog/feed/" rel="self" type="application/rss+xml" />\n'
-            + "\n".join(items)
-            + "\n  </channel>\n</rss>\n"
-        )
-        return Response(xml, mimetype="application/rss+xml")
-
-    @app.get("/blog/comments/feed/")
-    def blog_comments_feed():
-        # Comments did not survive the move and are not coming back.
-        return Response("Gone", status=410, mimetype="text/plain")
-
-    @app.get("/blog/wp-content/uploads/<path:asset>")
-    def blog_upload(asset: str):
-        """
-        The post images, at the URLs they were published under.
-
-        They are indexed in Google Images and hot-linked from the posts
-        themselves, so the path has to stay `/blog/wp-content/uploads/...`
-        even though WordPress is gone.
-        """
-        directory = os.path.join(app.static_folder, "blog", "uploads")
-        return send_from_directory(directory, asset, max_age=2592000)
-
-    @app.get("/blog/wp-json/")
-    @app.get("/blog/wp-json/<path:_rest>")
-    @app.get("/blog/xmlrpc.php")
-    @app.get("/blog/wp-login.php")
-    @app.get("/blog/wp-admin/")
-    def blog_wordpress_plumbing(_rest: str = ""):
-        # The REST API, pingback endpoint and admin were WordPress's, not the
-        # blog's: they are deliberately gone rather than temporarily missing.
-        return Response("Gone", status=410, mimetype="text/plain")
-
-    # ShortPixel's proxy and WordPress's oEmbed published these as if they were
-    # pages, and the archive has them at 200, but they never held content.
-    _BLOG_JUNK_SLUGS = {"q_glossy", "ret_img", "embed", "ret_wait", "to_auto"}
-
-    @app.get("/blog/<slug>/")
-    def blog_post(slug: str):
-        if slug in _BLOG_JUNK_SLUGS:
-            return redirect("/blog/", code=301)
-        catalogue = blog_content.blog()
-        post = catalogue.by_slug.get(slug)
-        if post is None:
-            lowered = catalogue.by_slug.get(slug.lower())
-            if lowered is not None:
-                return redirect(lowered.url, code=301)
-            abort(404)
-
-        base = _canonical_base()
-        image = base + post.card_image if post.card_image else ""
-        g.seo_override = {
-            "title": post.title,
-            "description": post.description or post.excerpt,
-            "og_image": image,
-            "og_type": "article",
-        }
-        article_ld = json.dumps(
-            {
-                "@context": "https://schema.org",
-                "@graph": [
-                    {
-                        "@type": "BlogPosting",
-                        "headline": post.heading,
-                        "description": post.description or post.excerpt,
-                        "datePublished": post.published.isoformat() if post.published else "",
-                        "dateModified": (post.modified or post.published).isoformat() if (post.modified or post.published) else "",
-                        "author": {"@type": "Organization", "name": post.author},
-                        "publisher": {
-                            "@type": "Organization",
-                            "name": seo.BRAND,
-                            "logo": {"@type": "ImageObject", "url": base + url_for("static", filename=BRAND_LOGO_PATH)},
-                        },
-                        "image": image or None,
-                        "mainEntityOfPage": {"@type": "WebPage", "@id": base + post.url},
-                        "wordCount": post.word_count or None,
-                    },
-                    {
-                        "@type": "BreadcrumbList",
-                        "itemListElement": [
-                            {"@type": "ListItem", "position": 1, "name": "Home", "item": base + "/"},
-                            {"@type": "ListItem", "position": 2, "name": "Blog", "item": base + "/blog/"},
-                            {"@type": "ListItem", "position": 3, "name": post.heading},
-                        ],
-                    },
-                ],
-            },
-            ensure_ascii=False,
-        )
-
-        related = [p for p in catalogue.posts if p.slug != post.slug and set(p.tags) & set(post.tags)][:3]
-        if len(related) < 3:
-            extra = [p for p in catalogue.posts if p.slug != post.slug and p not in related]
-            related = (related + extra)[:3]
-
-        # A term is often both a category and a tag ("lottery news"), which would
-        # otherwise print the same chip twice; the category archive wins.
-        post_terms: list[tuple[str, str]] = []
-        seen: set[str] = set()
-        for kind, names in (("category", post.categories), ("tag", post.tags)):
-            for name in names:
-                term_slug = blog_content.slugify(name)
-                if term_slug and term_slug not in seen:
-                    seen.add(term_slug)
-                    post_terms.append((name, f"/blog/{kind}/{term_slug}/"))
-
-        return render_template(
-            "blog_post.html", post=post, related=related, article_ld=article_ld, post_terms=post_terms
-        )
-
-    @app.get("/blog/<path:rest>")
-    def blog_stray(rest: str):
-        """
-        Anything else under /blog/ that the archive has at a 200.
-
-        ShortPixel's image proxy left `/q_glossy` and `/ret_img` hanging off
-        real post URLs, and WordPress published an oEmbed `/embed/` for each
-        post. They are all indexed, and they all belong to a page that still
-        exists, so walk back up to it rather than answering 404.
-        """
-        catalogue = blog_content.blog()
-        parts = [p for p in rest.split("/") if p]
-        while len(parts) > 1:
-            parts.pop()
-            post = catalogue.by_slug.get(parts[-1])
-            if post is not None:
-                return redirect(post.url, code=301)
-            if len(parts) >= 2 and parts[0] in ("category", "tag"):
-                found = catalogue.term(parts[0], parts[1])
-                if found is not None:
-                    return redirect(found.url, code=301)
-        return redirect("/blog/", code=301)
-
-    @app.get("/404-page.php")
-    def legacy_404_page():
-        return render_template("404.html"), 404
+    # Lotto Express blog and legacy-URL layers removed: LottosOnline public URLs live in lo_routes.py.
 
     @app.errorhandler(404)
     def not_found(_e):
@@ -11518,7 +11127,7 @@ def create_app() -> Flask:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Something went wrong | Lotto Express</title>
+  <title>Something went wrong | LottosOnline</title>
   <link rel="stylesheet" href="/resources/css/style.css?v=2" />
 </head>
 <body>
@@ -11535,301 +11144,6 @@ def create_app() -> Flask:
 </html>
 """
         return Response(body, status=500, mimetype="text/html")
-
-    # --- Legacy URL compatibility layer ---
-    def legacy_redirect(to_endpoint: str, **values):
-        # 301, not 302: these are the old site's URLs, they are not coming back,
-        # and a temporary redirect asks Google to keep indexing the old URL and
-        # withhold the ranking signals from the new one.
-        return redirect(url_for(to_endpoint, **values), code=301)
-
-    def legacy_redirect_path(path: str):
-        return redirect(path, code=301)
-
-    @app.get("/index.php")
-    def legacy_index_php():
-        return legacy_redirect("home")
-
-    @app.get("/about-us")
-    @app.get("/about-us.php")
-    def legacy_about():
-        return legacy_redirect("about")
-
-    @app.get("/contact-us")
-    @app.get("/contact-us.php")
-    def legacy_contact():
-        return legacy_redirect("contact")
-
-    @app.get("/faq.php")
-    def legacy_faq():
-        # `/faq` itself is served by `faq()`; registering it here too used to be
-        # harmless only because that route won. As a 301 it would be a redirect
-        # loop onto itself.
-        return legacy_redirect("faq")
-
-    @app.get("/login.php")
-    def legacy_login_php():
-        return legacy_redirect("login")
-
-    @app.get("/register.php")
-    def legacy_register_php():
-        return legacy_redirect("register")
-
-    @app.get("/set-password.php")
-    def legacy_set_password():
-        # Only the .php spelling. This shim used to claim bare `/set-password`
-        # too, which is now the campaign's own page for the 23,230 imported
-        # customers who have no password. Two endpoints on one rule left the
-        # campaign relying on registration order, and the losing outcome was
-        # silent: a 301 to `/reset-password`, telling someone to reset a
-        # password they have never had, which is the exact dead end this flow
-        # exists to remove.
-        return legacy_redirect("reset_password")
-
-    @app.get("/logout.php")
-    def legacy_logout_php():
-        return legacy_redirect("logout")
-
-    @app.get("/account.php")
-    def legacy_account_php():
-        return legacy_redirect("account")
-
-    @app.get("/terms-and-conditions.php")
-    def legacy_terms_php():
-        return legacy_redirect("terms")
-
-    @app.get("/privacy-policy.php")
-    def legacy_privacy_main_php():
-        return legacy_redirect("privacy")
-
-    @app.get("/privacy-policy-au.php")
-    def legacy_privacy_au_php():
-        return legacy_redirect("privacy_au")
-
-    @app.get("/privacy-policy-world.php")
-    def legacy_privacy_world_php():
-        return legacy_redirect("privacy_world")
-
-    @app.get("/responsible-gaming.php")
-    def legacy_responsible_gaming_php():
-        return legacy_redirect("responsible_gaming")
-
-    @app.get("/identity-verification-info.php")
-    def legacy_identity_verification_info_php():
-        return legacy_redirect("identity_verification_info")
-
-    @app.get("/lottery-results")
-    @app.get("/lottery-results/")
-    @app.get("/lottery-results/index.php")
-    def legacy_results_index():
-        return legacy_redirect("results_index")
-
-    @app.get("/safe-play")
-    @app.get("/safe-play.php")
-    def legacy_safe_play():
-        return legacy_redirect("responsible_gaming")
-
-    @app.get("/favicon.ico")
-    def favicon_ico():
-        # The old site linked `/Favicon.ico`; browsers and crawlers ask for the
-        # lowercase name, and paths here are case-sensitive.
-        return redirect(url_for("static", filename=g.brand.favicon_path), code=301)
-
-    @app.get("/wallet/add-funds.php")
-    def legacy_wallet_add_funds():
-        return legacy_redirect("wallet_add_funds")
-
-    @app.get("/wallet/add-funds-success.php")
-    def legacy_wallet_add_funds_success():
-        # We don't know intent_id here; show the return page.
-        return legacy_redirect("wallet_topup_return", status="success")
-
-    @app.get("/wallet/add-funds-failed.php")
-    def legacy_wallet_add_funds_failed():
-        return legacy_redirect("wallet_topup_return", status="fail")
-
-    @app.get("/wallet/confirm-order.php")
-    @app.get("/wallet/confirm-order")
-    def legacy_wallet_confirm_order():
-        token = require_login()
-        if not token:
-            return redirect(url_for("login", next=request.path))
-        return render_template("wallet_confirm_order.html")
-
-    @app.get("/wallet/order-placed.php")
-    @app.get("/wallet/order-placed")
-    def legacy_wallet_order_placed():
-        token = require_login()
-        if not token:
-            return redirect(url_for("login", next=request.path))
-        return render_template("wallet_order_placed.html")
-
-    @app.get("/wallet/confirm-syndicate.php")
-    @app.get("/wallet/confirm-syndicate")
-    def legacy_wallet_confirm_syndicate():
-        token = require_login()
-        if not token:
-            return redirect(url_for("login", next=request.path))
-        return render_template("wallet_confirm_syndicate.html")
-
-    @app.get("/wallet/add-funds-for-promo.php")
-    @app.get("/wallet/add-funds-for-promo")
-    def legacy_wallet_add_funds_for_promo():
-        token = require_login()
-        if not token:
-            return redirect(url_for("login", next=request.path))
-        return render_template("wallet_add_funds_for_promo.html")
-
-    @app.get("/wallet/add-funds-for-purchase.php")
-    @app.get("/wallet/add-funds-for-purchase")
-    def legacy_wallet_add_funds_for_purchase():
-        token = require_login()
-        if not token:
-            return redirect(url_for("login", next=request.path))
-        return render_template("wallet_add_funds_for_purchase.html")
-
-    def _legacy_slug_path(slug: str, *, kind: str) -> str | None:
-        """Where a legacy slug for a product we no longer sell should land."""
-        brand: BrandConfig = app.config["BRAND_CONFIG"]
-        table = {str(k).strip().strip("/").lower(): v for k, v in (brand.legacy_slug_to_path or {}).items()}
-        for candidate in _legacy_slug_candidates(slug, kind=kind):
-            if candidate in table:
-                return table[candidate]
-        return None
-
-    def _retired_lookup(slug: str) -> retired_content.RetiredGame | None:
-        """
-        Match a legacy `/lotteries/` slug to a recovered retired-product page.
-
-        The old URLs were mixed case and one was nested (`Syndicate/El-Gordo`),
-        so the last path segment is tried as well as the whole slug.
-        """
-        library = retired_content.library()
-        cleaned = str(slug or "").strip().strip("/").lower()
-        for candidate in (cleaned, cleaned.split("/")[-1]):
-            game = library.get(candidate)
-            if game is not None:
-                return game
-        return None
-
-    def _retired_game_page(game: retired_content.RetiredGame):
-        """
-        A product we stopped selling, served at the URL that ranked for it.
-
-        These three pages carried around two thousand words each and are still
-        indexed. Redirecting them to `/catalog` handed a specific, well-ranked
-        page to a generic one, which Google treats as a soft 404 — the signal was
-        being lost either way. The copy is recovered from the archive, the page
-        says plainly that the game is not available, and it points at the games
-        that are. The CRM has no draw data for these, so there are no live
-        numbers to show and the page does not pretend otherwise.
-        """
-        if request.path != game.path:
-            return redirect(game.path, code=301)
-
-        games = store_games_cached()
-        jackpots, _ = _get_jackpots_live_or_cache(timeout_seconds=_layout_timeout_seconds())
-        alternatives = [
-            _results_game_meta(code, games, jackpots)
-            for code in game.alternatives
-            if _catalog_game(code)
-        ]
-        base = _canonical_base()
-        breadcrumb_ld = json.dumps(
-            {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                    {"@type": "ListItem", "position": 1, "name": "Home", "item": base + "/"},
-                    {"@type": "ListItem", "position": 2, "name": "Lotteries", "item": base + "/catalog"},
-                    {"@type": "ListItem", "position": 3, "name": game.name},
-                ],
-            },
-            ensure_ascii=False,
-        )
-        g.seo_override = {
-            "title": game.seo_title,
-            "description": game.seo_description,
-            "og_type": "article",
-        }
-        return render_template(
-            "retired_game.html", game=game, alternatives=alternatives, breadcrumb_ld=breadcrumb_ld
-        )
-
-    @app.get("/lotteries/<path:slug>")
-    def legacy_lotteries(slug: str):
-        slug = slug.strip("/")
-        if slug.endswith(".php"):
-            slug = slug[: -len(".php")]
-
-        brand: BrandConfig = app.config["BRAND_CONFIG"]
-        promo_map = {str(k).strip().lower(): v for k, v in (brand.legacy_promo_slug_to_bundle_slug or {}).items()}
-
-        # Sub-pages such as French-Lotto/10-to-win were sold as promotions.
-        for key in (slug.lower(), slug.split("/")[-1].lower()):
-            if key in promo_map:
-                return legacy_redirect("offer", bundle_slug=promo_map[key])
-
-        # Games this CRM does not sell but whose page we recovered: it keeps its
-        # own URL and its own copy. See `_retired_game_page`. Checked ahead of
-        # `resolve_game_code`, whose fuzzy name matching would otherwise hand
-        # "Australian-Powerball" to the US Powerball.
-        retired = _retired_lookup(slug)
-        if retired is not None:
-            return _retired_game_page(retired)
-
-        game_code = resolve_game_code(slug, kind="lottery")
-        if game_code:
-            return legacy_redirect("play", game_code=game_code)
-
-        # Anything else the CRM does not sell goes to the catalogue rather than a
-        # dead end. A 200 "currently unavailable" page with no content reads as a
-        # soft 404 to Google and keeps the URL in the index competing with the
-        # pages we do want ranked.
-        fallback = _legacy_slug_path(slug, kind="lottery")
-        if fallback:
-            return legacy_redirect_path(fallback)
-        abort(404)
-
-    @app.get("/lottery-results/<path:slug>")
-    def legacy_results(slug: str):
-        slug = slug.strip("/")
-        if slug.endswith(".php"):
-            slug = slug[: -len(".php")]
-        # A results page for a product we no longer sell. There are no numbers to
-        # show — the CRM only carries draws for games in its catalogue — so the
-        # closest equivalent page is the product's own, which at least matches
-        # what the visitor searched for. The generic results index does not.
-        #
-        # Checked before `resolve_game_code`, which scores slugs against CRM game
-        # names and will happily read "australian-powerball-winning-numbers" as
-        # the US Powerball. These slugs are known exactly; exact beats fuzzy.
-        retired = retired_content.library().for_results_slug(slug) or _retired_lookup(slug)
-        if retired is not None:
-            return legacy_redirect_path(retired.path)
-
-        game_code = resolve_game_code(slug, kind="results") or resolve_game_code(slug, kind="lottery")
-        if game_code:
-            return legacy_redirect("results_game", game_code=game_code)
-
-        fallback = _legacy_slug_path(slug, kind="results")
-        if fallback:
-            return legacy_redirect_path(fallback)
-        abort(404)
-
-    @app.get("/promotions/<path:slug>")
-    def legacy_promotions(slug: str):
-        slug = slug.strip("/")
-        if slug.endswith(".php"):
-            slug = slug[: -len(".php")]
-        brand: BrandConfig = app.config["BRAND_CONFIG"]
-        promo_map = {str(k).strip().lower(): v for k, v in (brand.legacy_promo_slug_to_bundle_slug or {}).items()}
-        bundle_slug = promo_map.get(slug.lower())
-        if bundle_slug:
-            return legacy_redirect("offer", bundle_slug=bundle_slug)
-        # Expired promotions: send them to the promotions index, which is the
-        # closest live equivalent, instead of a 200 placeholder.
-        return legacy_redirect("promotions_index")
 
     @app.route("/admin/login", methods=["GET", "POST"])
     @app.route("/admin/login/", methods=["GET", "POST"])
@@ -12373,6 +11687,18 @@ def create_app() -> Flask:
     app.extensions["crm_sync_once"] = _sync_once
 
     start_background_sync(_sync_once, interval_seconds=300)
+
+    # Engine internals the LottosOnline layer reuses rather than duplicates.
+    app.config["LO_ENGINE"] = {
+        "get_cache": get_cache,
+        "currency_symbol": _currency_symbol,
+        "is_sales_closed": _is_sales_closed,
+        "layout_model": layout_model,
+        "store_games_cached": store_games_cached,
+        "jackpots_live_or_cache": _get_jackpots_live_or_cache,
+    }
+    import lo_routes
+    lo_routes.register(app)
 
     return app
 

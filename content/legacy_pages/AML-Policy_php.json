@@ -1,0 +1,67 @@
+{
+ "path": "/AML-Policy.php",
+ "title": "Learn more about our anti-money laundering policy",
+ "description": "LottosOnline adheres to Anti-Money Laundering principles",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "AML Policy",
+ "h1_all": [
+  "AML Policy"
+ ],
+ "h2": [],
+ "og_title": "Learn more about our anti-money laundering policy",
+ "og_description": "LottosOnline adheres to Anti-Money Laundering principles",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/AML-Policy.php",
+     "name": "AML Policy"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".leftcontent",
+   "words": 26,
+   "html": "<p>LottosOnline adheres to Anti-Money Laundering principles. You may request our Anti-Money Laundering And Countering the Financing of Terrorism Policies and Procedures Manual by emailing <a href=\"/cdn-cgi/l/email-protection#295a5c5959465b5d6965465d5d465a66474540474c074a4644\">customer support</a></p>"
+  },
+  {
+   "selector": ".fullwidthcontent",
+   "words": 26,
+   "html": "<p>LottosOnline adheres to Anti-Money Laundering principles. You may request our Anti-Money Laundering And Countering the Financing of Terrorism Policies and Procedures Manual by emailing <a href=\"/cdn-cgi/l/email-protection#295a5c5959465b5d6965465d5d465a66474540474c074a4644\">customer support</a></p>"
+  },
+  {
+   "selector": ".maincontent-inner",
+   "words": 28,
+   "html": "<p>LottosOnline adheres to Anti-Money Laundering principles. You may request our Anti-Money Laundering And Countering the Financing of Terrorism Policies and Procedures Manual by emailing <a href=\"/cdn-cgi/l/email-protection#295a5c5959465b5d6965465d5d465a66474540474c074a4644\">customer support</a></p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

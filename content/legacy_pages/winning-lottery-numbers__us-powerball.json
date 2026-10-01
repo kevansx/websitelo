@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/us-powerball",
+ "title": "US Powerball Results - US Powerball Winning Numbers",
+ "description": "Get the latest US Powerball results - check your tickets for the winning lottery numbers to win the jackpot with a minimum prize of $40 million in every draw.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/us-powerball",
+ "h1": "Powerball Results & Winning Numbers",
+ "h1_all": [
+  "Powerball Results & Winning Numbers"
+ ],
+ "h2": [
+  "US Powerball Results",
+  "Have you won the jackpot?"
+ ],
+ "og_title": "US Powerball Results - US Powerball Winning Numbers",
+ "og_description": "Get the latest US Powerball results - check your tickets for the winning lottery numbers to win the jackpot with a minimum prize of $40 million in every draw.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/us-powerball",
+     "name": "Powerball"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 199,
+   "html": "<h2>US Powerball Results</h2><p>Looking for the latest US Powerball results? Ready to discover if you're dreams are about to come true? You're in the right place.</p><p>The US Powerball lottery happens every Monday, Wednesday and Saturday at 10.59pm Eastern Standard Time (EST). We bring you the most up-to-date lottery results, right here at LottosOnline.</p><h2>Have you won the jackpot?</h2><p>The USA Powerball has nine prize payout tiers. Here's how it works.</p><p>Five main numbers (from 1-69) are selected, followed separately by one Powerball number (from 1-26). To win the jackpot, you'll need to match all five main numbers plus the one Powerball number. The jackpot size starts at a minimum of $40 million, rolling over to the following week if there are no jackpot winners.</p><p>Even if your ticket entries have matched just the Powerball number, you will be a winner. Take a look at our US Powerball prize breakdown to find out more.</p><p>To make life easier we deliver your USA Powerball results straight to your inbox. It's the quickest, simplest way to stay updated. You might find yourself transformed into a millionaire with a click of a button! Good luck!</p><p>Draws are conducted every Wednesday and Saturday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

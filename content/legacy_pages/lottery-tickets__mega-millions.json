@@ -1,0 +1,66 @@
+{
+ "path": "/lottery-tickets/mega-millions",
+ "title": "Play Mega Millions - US Mega Millions Tickets",
+ "description": "Buy Mega Millions tickets online. Draws are held every Tuesday and Friday. Don't miss out on this iconic American lottery with huge jackpots.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lottery-tickets/mega-millions",
+ "h1": "Play Mega Millions Online",
+ "h1_all": [
+  "Play Mega Millions Online"
+ ],
+ "h2": [],
+ "og_title": "Play Mega Millions - US Mega Millions Tickets",
+ "og_description": "Buy Mega Millions tickets online. Draws are held every Tuesday and Friday. Don't miss out on this iconic American lottery with huge jackpots.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play Mega Millions Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_usmeg.png\",\n\n  \"description\": \"Play Mega Millions Online - buy official Mega Millions online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"USMEG\",\n\n  \"mpn\":\"LottosOnline-USMEG\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Mega Millions\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"10.00\",\n\n\t\"priceValidUntil\": \"2026-10-03 01:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"USMEG\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/mega-millions\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"USMEG-20261003\",\n\n  \"mpn\":\"LottosOnline-USMEG-20261003\",\n\n  \"name\": \"Mega Millions US$321 Million Jackpot - 3rd October 2026 (Saturday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_usmeg.png\",\n\n  \"description\": \"Play the Mega Millions for 3rd October 2026 (Saturday) with an estimated jackpot of US$321 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Mega Millions\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"10.00\",\n\n\t\"priceValidUntil\": \"2026-10-03 01:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"USMEG-20261003\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/mega-millions\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"review"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lottery-tickets/mega-millions",
+     "name": "Mega Millions"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 688,
+   "html": "<h3>What is the Mega Millions lottery?</h3> <p>Mega Millions (initially called The Big Game Mega Millions) is one of the world's biggest, most exciting lottery games. It's played across 43 states in the USA as well as the US Virgin Islands and the District of Columbia. It's so easy to play and jackpots start at a massive $50 million. Wow! Who said money can't buy happiness?</p> <p>Draws take place in Atlanta, Georgia, every Tuesday and Friday at 11.00 pm Eastern Standard Time (EST). With millions of players entering every draw, the Mega Millions jackpot can quickly hit incredible figures, transforming you into a millionaire overnight!</p> <h3>Can I play the Mega Millions lottery online?</h3> <p>Yes! Playing Mega Millions online is simple. LottosOnline has a USA lottery ticket buying office, which purchases all the official US Mega Millions lottery tickets for you. All you need to do is sign-up for a LottosOnline account, select Mega Millions, choose your numbers and keep your fingers crossed! If you would rather play with randomly selected numbers, the Quick Pick function will generate a selection for you.</p> <h3>What is the deadline for buying Mega Millions lottery tickets online?</h3> <p>The cut off time for buying Mega Millions tickets from LottosOnline is 21:00 EST.</p> <h3>How do I win Mega Millions?</h3> <p>To win the jackpot, you need to pick 5 of the main numbers, which range from 1 to 70 and also pick one of the Megaball numbers, which range from 1 to 24. To hit the jackpot, you'll need to correctly pick all five of the winning numbers, plus the Mega Ball. But, there are nine different ways to win prizes, which range from $1 right up to multi-million dollar jackpots. That's right - this means that you're 9 times more likely to bag a prize!</p> <h3>Can I play Mega Millions from outside America?</h3> <p>The Mega Millions draw takes place in the USA, but you don't have to be American to play. With LottosOnline, you can play Mega Millions from anywhere in the world!</p> <h3>How do I claim the money on LottosOnline if I win the jackpot?</h3> <p>It's easy! If you win, LottosOnline will let you know via email.</p><p>After all winning tickets have been checked against the official winning numbers and winnings are confirmed, funds will reflect in your LottosOnline Winnings Balance. To access your winnings simply login to your LottosOnline account, view your balance and decide what to do with your new fortune. You can choose to claim your winnings, meaning our agents will arrange payment into your bank account, or you can convert them to credit in your Account Balance. If you win the jackpot or another large amount, LottosOnline will be in touch to discuss your requirements and make the arrangements for you to collect your winning ticket, so you can relax and look forward to the cash rolling in.</p> <h3>How much is the tax on winnings for non-US residents?</h3> <p>For non-US residents there is a flat federal tax rate of 24%. There may be further state taxes of up to 8% due to the US states in which the MegaMillions ticket is purchased.</p> <h3>Where can I see the Mega Millions results?</h3> <p>You can find Mega Millions results right here on the LottosOnline website. Just head to the results page and select the Mega Millions draw. The winning numbers are posted once the draw results have been verified and confirmed. Just imagine - with one click to check the winning numbers, all of your dreams could come true.    </p><h3>What is the biggest Mega Millions jackpot ever won?</h3> <p>The record for the richest win in the history of the Mega Millions is $656 million, which got split between three incredibly lucky winners. The largest amount to date won by a single ticket holder was $326 million.</p> <h3>Where do LottosOnline purchase the official USA Mega Million lottery tickets?</h3> <p>Official Mega Millions lottery tickets are purchased in Colorado or Delaware in the USA by our lottery ticket purchasing agents prior to every draw. You will receive an email confirmation for the purchase of your lottery tickets with corresponding numbers to confirm your entry into the draw.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

@@ -1,0 +1,69 @@
+{
+ "path": "/uk/how-to-play/bonoloto",
+ "title": "BonoLoto Lottery Information | LottosOnline",
+ "description": "Information about the BonoLoto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/how-to-play/bonoloto",
+ "h1": "The BonoLoto Lottery Story",
+ "h1_all": [
+  "The BonoLoto Lottery Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing BonoLoto Online",
+  "How do I win the BonoLoto jackpot?",
+  "You've Won! What Happens Next?",
+  "Fun Facts About BonoLoto Lottery"
+ ],
+ "og_title": "BonoLoto Lottery Information | LottosOnline ",
+ "og_description": "Information about the BonoLoto Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/bonoloto",
+     "name": "BonoLoto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 688,
+   "html": "<p>Spain's BonoLoto lottery draw takes place an impressive seven times every week - making it a fast-paced game with great odds for scooping the jackpot! First introduced in 1988 by La Loteria Nacional, it is a lower-cost alternative with the chance to win big-money prizes</p> <p>The BonoLoto draws take place every day of the week at 21:00 Central European Time (CET). So get your tickets ready and put the champagne on ice!</p> <h2>How Much Could You Win?</h2> <p>The BonoLoto lottery has five prize payout tiers and 55% of all ticket sales go into the prize pool. The minimum jackpot depends on the number of tickets sold, but is usually around €400,000. This rolls over if there is no jackpot winner. The largest ever BonoLoto jackpot was €7.1 million.</p> <h2>Playing BonoLoto Online</h2> <p>To be in with a chance to win, you can buy your official BonoLoto tickets with us at LottosOnline. Simply set up your free account and then start playing!</p> <p>To buy BonoLoto ticket entries, log in to your LottosOnline account and select the BonoLoto draw. From here you can buy one BonoLoto lottery ticket or multiple tickets, either as a one-off entry or as a subscription. Then, choose your six lucky numbers from 1 - 49 or use our Quick Pick option to receive a random selection of numbers.</p> <p>Alternatively, you can also choose a multiple draw ticket, which makes life much easier. Simply pick your numbers as normal, and then choose 4, 8 or 16 draws - your ticket will be entered for the number of draws you select, which means you don't have to buy a new ticket for every draw. Easy!</p> <p>Once you've paid for your lotto tickets using your preferred payment method, you'll receive an automatic confirmation of your order via email. Then our local ticket purchasing agents will purchase your official BonoLoto tickets on your behalf and we will send you an email with a link to a scanned copy of your tickets for your records. We'll keep your official ticket safe at a secure location until after the draw, when it will be checked against the official results for any winnings.</p> <h2>How do I win the BonoLoto jackpot?</h2> <p>Correctly pick the six main numbers and it is jackpot time. Hurray! During the draw, a 7th additional number is drawn called the Complementario. Match 5 numbers and the Complementario and you'll win the 2nd level tier prize payout.</p> <p>In addition, the BonoLoto also has a Reintegro feature. A number between 0 and 9 is automatically assigned to your ticket upon purchase. If you fail to win any prizes but match the Reintegro, you get 50c back.</p> <h2>You've Won! What Happens Next?</h2> <p>If you've won the BonoLoto, congratulations! We'll let you know via email straight away, or alternatively you can check for yourself by heading over to our BonoLoto results page. If it's the jackpot you've won, we'll be in touch by phone to discuss the arrangements to get you united with your winning ticket.</p> <p>Our email confirmation will tell you everything you need to know about your winning results from your ticket purchases. It's incredibly simple. Just log in to your LottosOnline account and check your LottosOnline Winnings Balance. From here, you can decide what you would like to do - arrange that our agents transfer funds directly to your personal bank account, or convert your winnings into Account Balance to buy more lottery tickets. The choice is yours entirely! Whatever you do with your winnings, it will be quick, fun and straightforward if you play with LottosOnline.</p> <p>As always, if you would like to ask us any questions, please get in touch. Alternatively, you can go to our FAQs page which covers our players' most common queries.</p> <h2>Fun Facts About BonoLoto Lottery</h2> <p>Did you know?</p><ul><li>On average, the BonoLoto jackpot is won two to three draws every week!</li><li>To date, the biggest BonoLoto jackpot was €10.6 million. It was won in January 2024, ending more than twenty five years of waiting for the jackpot to break the €10 million mark. And now that it has, where next? </li></ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

@@ -1,0 +1,66 @@
+{
+ "path": "/lottery-tickets/bonoloto",
+ "title": "Play BonoLoto Online - Spanish BonoLoto Tickets Online",
+ "description": "Buy BonoLoto lottery tickets online and stand a chance of winning the jackpot with draws held every Monday, Tuesday, Wednesday, Thursday, Friday and Saturday.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lottery-tickets/bonoloto",
+ "h1": "Play BonoLoto Online",
+ "h1_all": [
+  "Play BonoLoto Online"
+ ],
+ "h2": [],
+ "og_title": "Play BonoLoto Online - Spanish BonoLoto Tickets Online",
+ "og_description": "Buy BonoLoto lottery tickets online and stand a chance of winning the jackpot with draws held every Monday, Tuesday, Wednesday, Thursday, Friday and Saturday.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play BonoLoto Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_esbon.png\",\n\n  \"description\": \"Play BonoLoto Online - buy official BonoLoto online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"ESBON\",\n\n  \"mpn\":\"LottosOnline-ESBON\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"BonoLoto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"1.50\",\n\n\t\"priceValidUntil\": \"2026-10-02 16:30:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"ESBON\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/bonoloto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"ESBON-20261002\",\n\n  \"mpn\":\"LottosOnline-ESBON-20261002\",\n\n  \"name\": \"BonoLoto Results Pending Jackpot - 2nd October 2026 (Friday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_esbon.png\",\n\n  \"description\": \"Play the BonoLoto for 2nd October 2026 (Friday) with an estimated jackpot of Results Pending\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"BonoLoto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"1.50\",\n\n\t\"priceValidUntil\": \"2026-10-02 16:30:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"ESBON-20261002\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/bonoloto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstR"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lottery-tickets/bonoloto",
+     "name": "BonoLoto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 602,
+   "html": "<h3>What is BonoLoto?</h3> <p>BonoLoto draws are held every day of the week which means there are plenty of chances to win! Thanks to the low-cost of the tickets and big jackpots players can enjoy great odds. Winning numbers are drawn at 21:00 CET. The game is so popular that lots of people play seven times a week!</p> <h3>Can I play BonoLoto online?</h3> <p>You don't need to be in Spain to buy your BonoLoto ticket. With LottosOnline, players can take part in the BonoLoto from the comfort of their own home. Just go to LottosOnline, select BonoLoto lottery and you can buy tickets in just seconds.</p> <h3>When do I need to buy my BonoLoto ticket?</h3> <p>If you want to buy BonoLoto tickets online at LottosOnline, the cut-off time for purchases is 16:00 CET on the day of the draw, so approximately five hours before the draw takes place. Don't forget to buy yours early!</p> <h3>How do I win BonoLoto?</h3> <p>Bonoloto jackpots start at a minimum of €400000, which gives players plenty of chances to get rich quick. In total, the BonoLoto lottery is made up of five prize tiers. To hit the jackpot, you'll need to match the six main numbers, plus the bonus Complementario number. The Complementario is randomly assigned when you purchase your ticket. Players can hand pick their six main numbers or use the Quick Pick function to generate them at random. Keep your fingers crossed!</p> <h3>Can I play the BonoLoto from outside Spain?</h3> <p>Want to play BonoLoto from outside Spain? No problem! All you need to do is register for a free LottosOnline account, select BonoLoto lottery and pick your lucky numbers. It's quick, easy and can be done from anywhere in the world.</p> <h3>How do I claim the prize money on LottosOnline if I win the jackpot?</h3> <p>Whether you've won a few Euros or a life changing fortune, claiming your BonoLoto winnings is easy. After numbers have been checked and winnings are confirmed, funds for smaller winnings will be paid into your LottosOnline Winnings Balance. To access your winnings simply login to your LottosOnline account, view your balance and decide what to do with your new fortune. You can request our agents make a transfer into to a nominated bank account or you can convert your winnings to credit in to your Account Balance to use for more tickets. If you win the jackpot, LottosOnline will contact you to make all the necessary arrangements for you to collect your winning ticket.</p> <h3>How do I find out if I'm a winner?</h3> <p>Thanks to the Reintegro ball, the BonoLoto always has plenty of winners! If you're one of the lucky players, LottosOnline will send you an email notifying you of the exciting news. Winning numbers are also published on the LottosOnline website.</p> <h3>How much is the tax on BonoLot winnings?</h3> <p>Under Spanish legislation, all lottery prizes over €2,500 are taxed at 20%.</p> <h3>What is the biggest BonoLoto jackpot ever won?</h3> <p>The biggest jackpot ever won was a huge €10.6 million. On average BonoLoto lottery players win jackpots two or three times a week! Could you be the next winner? There's only one way to find out!</p> <h3>How many BonoLoto rollovers can take place?</h3> <p>If the BonoLoto jackpot is not won, there is no limit to the number of rollovers, though on average the BoloLoto jackpot rolls over about three times. This means the jackpot can quickly triple. Don't miss out on exciting BoloLoto pottery jackpots, get the ball rolling and pick your numbers today!</p> <h3>Is there an age limit?</h3> <p>To play BonoLoto lottery you must be 18 years or older.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

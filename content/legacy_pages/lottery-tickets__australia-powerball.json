@@ -1,0 +1,66 @@
+{
+ "path": "/lottery-tickets/australia-powerball",
+ "title": "Play Australia Powerball Online - Australia Powerball Online",
+ "description": "Buy Australia Powerball lottery tickets online  - play one of Australia's favourite lottery games with jackpots reaching 80-Million Australian dollars.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lottery-tickets/australia-powerball",
+ "h1": "Play Australia Powerball Online",
+ "h1_all": [
+  "Play Australia Powerball Online"
+ ],
+ "h2": [],
+ "og_title": "Play Australia Powerball Online - Australia Powerball Online",
+ "og_description": "Buy Australia Powerball lottery tickets online  - play one of Australia's favourite lottery games with jackpots reaching 80-Million Australian dollars.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play Australia Powerball Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_aupow.png\",\n\n  \"description\": \"Play Australia Powerball Online - buy official Australia Powerball online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"AUPOW\",\n\n  \"mpn\":\"LottosOnline-AUPOW\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Australia Powerball\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"1.70\",\n\n\t\"priceValidUntil\": \"2026-10-08 07:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"AUPOW\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/australia-powerball\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"AUPOW-20261008\",\n\n  \"mpn\":\"LottosOnline-AUPOW-20261008\",\n\n  \"name\": \"Australia Powerball AU$60 Million Jackpot - 8th October 2026 (Thursday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_aupow.png\",\n\n  \"description\": \"Play the Australia Powerball for 8th October 2026 (Thursday) with an estimated jackpot of AU$60 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Australia Powerball\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"1.70\",\n\n\t\"priceValidUntil\": \"2026-10-08 07:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"AUPOW-20261008\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/australia-powerball\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggrega"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lottery-tickets/australia-powerball",
+     "name": "Australia Powerball"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 516,
+   "html": "<h3>What is the Australia Powerball Lottery</h3> <p>The Australia Powerball is one of Australia's most profitable lottos. The jackpot starts at AU$3 million, but once it reaches $AU10 million, it increases by AU$10 million with each rollover. It might not reach the record-breaking heights of the US Powerball jackpot, but it's still a thrilling lottery to play. Australia Powerball draws take place every Thursday at 8:30pm Australian Eastern Daylight Time (AEDT).</p> <h3>Can I buy Australia Powerball tickets online?</h3> <p>Yes, you can! And it's the easiest thing in the world to buy lottery tickets online. You don't have to stand in line to play the Australia Powerball. You can also play EuroMillions online if you fancy something different. Use your own lotto numbers or try the Quick Pick random number generator to make it easier.</p> <h3>What's the deadline for buying Australia Powerball tickets online?</h3> <p>The cutoff time for buying Australia Powerball tickets is usually a few hours before the draw takes place. If you've ever played American lottery online games, you'll know that gives agents sufficient time to purchase official lottery tickets on your behalf.</p> <h3>How do win Australia Powerball?</h3> <p>The Australia Powerball has nine prize divisions. To hit the jackpot you'll need to match all eight numbers. That includes the seven main numbers and the one Powerball number.</p> <h3>Can I play the Australia Powerball lottery from outside Australia?</h3> <p>Foreigners are welcome to play the Australia Powerball. You can also buy US lottery tickets online as there are no laws requiring winners to be American citizens. That's what makes playing the lottery online so amazing.</p> <h3>How do I claim my winnings on LottosOnline if I win the Australia Powerball jackpot?</h3> <p>Whether your prize is big or small, you can sit back and let LottosOnline handle all the details. Just watch your inbox for an email from us informing you of your good fortune. Or you can check the website for the latest Powerball results.</p> <p>Once your ticket has been checked and your winnings confirmed, most prizes will be credited to your LottosOnline winnings balance immediately. From there you can request that the winnings go to your bank account, or you can move them to your Account Balance. Once the funds are in your Accounts Balance, you can use them to buy lottery tickets online for the next draw. For Jackpot wins, we'll assist with the arrangements for you to collect your ticket in person.</p> <h3>How much is the tax on Australia Powerball winnings for non-Australian residents?</h3> <p>None. In Australia, lottery winning are tax-free but you may have to pay tax as per the legislation in your home country.</p> <h3>What is the biggest Australia Powerball jackpot ever won?</h3> <p>The Australian Powerball is uncapped so it will keep rolling over until someone picks the winning numbers. An impressive jackpot of AU$80 million was won by two lucky players in July 2009. While it pales in comparison to the US Powerball jackpot of $1.5 billion, at the time it was the biggest jackpot in Australia. Buy your Australia Powerball lottery tickets online and you could be the next big jackpot winner.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

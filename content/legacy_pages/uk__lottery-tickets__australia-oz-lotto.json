@@ -1,0 +1,66 @@
+{
+ "path": "/uk/lottery-tickets/australia-oz-lotto",
+ "title": "Play Oz Lotto Online - Buy Oz Lotto Lottery Tickets",
+ "description": "Buy Lottery Tickets Online for Oz Lotto and play the biggest jackpots on LottosOnline",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/lottery-tickets/australia-oz-lotto",
+ "h1": "",
+ "h1_all": [
+  ""
+ ],
+ "h2": [],
+ "og_title": "Play Oz Lotto Online - Buy Oz Lotto Lottery Tickets",
+ "og_description": "Buy Lottery Tickets Online for Oz Lotto and play the biggest jackpots on LottosOnline",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play Oz Lotto Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_aulot.png\",\n\n  \"description\": \"Play Oz Lotto Online - buy official Oz Lotto online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"AULOT\",\n\n  \"mpn\":\"LottosOnline-AULOT\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Oz Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"2.40\",\n\n\t\"priceValidUntil\": \"2026-10-06 07:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"AULOT\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/australia-oz-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"AULOT-20261006\",\n\n  \"mpn\":\"LottosOnline-AULOT-20261006\",\n\n  \"name\": \"Oz Lotto AU$20 Million Jackpot - 6th October 2026 (Tuesday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_aulot.png\",\n\n  \"description\": \"Play the Oz Lotto for 6th October 2026 (Tuesday) with an estimated jackpot of AU$20 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Oz Lotto\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"2.40\",\n\n\t\"priceValidUntil\": \"2026-10-06 07:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"AULOT-20261006\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/australia-oz-lotto\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRa"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/lottery-tickets/australia-oz-lotto",
+     "name": "Oz Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 389,
+   "html": "<h3>What is the Oz Lotto?</h3> <p>The Oz Lotto may be considered Australia’s biggest lottery as it holds the record for the country’s largest jackpot at AU$112 000 000. The Oz Lotto draw is held every Tuesday at 8:30 p.m. AEDT (Australian Eastern Daylight Time).</p> <h3>Can I Play Oz Lotto online?</h3> <p>Yes, you can. It’s easy to play the Oz Lotto with LottosOnline. To buy a ticket you simply need to log in to your account, choose Oz Lotto and pick your lucky lotto numbers. You also have the option of using the Quick Pick to generate a set of random numbers for you.</p> <h3>What is the cut-off time for purchasing Oz Lotto tickets on LottosOnline?</h3> <p>To give the LottosOnline agents enough time to purchase your official Oz Lotto lottery tickets, you need to complete your purchase a few hours before the draw takes place at 8:30 p.m. AEDT (Australian Eastern Daylight Time).</p> <h3>Can I still play OZ Lotto from outside Australia?</h3> <p>There are no rules preventing foreigners from taking part in the Oz Lotto. In fact, you can play any of the big international lotteries online right here at LottosOnline.</p> <h3>How do I claim the money on LottosOnline if I win the jackpot?</h3> <p>It doesn’t matter how big or small your prize is, LottosOnline will always notify you as soon as the results are verified. Once your tickets have been checked against the results, all non-jackpot winnings will reflect in your LottosOnline Winnings Balance.</p> <p>Winning any lottery prize can make your day, and LottosOnline makes it easy to get your winnings. After your winnings show in your Winnings Balance you can request that our agents transfer them to your bank account, or you can convert the winnings to credit in your Account Balance where you can use them to buy more tickets.</p> <p>If you’re a jackpot winner you’re in for a real treat! LottosOnline will be in touch to help with the necessary arrangements for uniting you with your jackpot winning ticket, while you get to work on your wish list.</p> <h3>How do I win the Oz Lotto Lottery?</h3> <p>All you need to do to win the Oz Lotto jackpot is match the seven numbers drawn. There are seven prize tiers, including the jackpot. Your odds of winning any prize in the Oz Lotto lottery are 1 in 51.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

@@ -1,0 +1,58 @@
+{
+ "path": "/account-disabled",
+ "title": "Reset Password | LottosOnline",
+ "description": "Provide your email address to begin the password reset process on LottosOnline.",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "",
+ "h1_all": [],
+ "h2": [
+  "Account currently deactive",
+  "Or..."
+ ],
+ "og_title": "Reset Password | LottosOnline",
+ "og_description": "Provide your email address to begin the password reset process on LottosOnline.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/account-disabled",
+     "name": "Login"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": "maincontent",
+   "words": 38,
+   "html": "<h2>Account currently deactive</h2>\n<p>Your account is currently deactive.Please contact admin to activate your account.</p>\n<h2>Or...</h2>\n<a href=\"/login\">Back to Login</a>\n<br/>\n\t\t\t\t\t\tJust in case you suddenly remember your password - here is a nice quick link back to the login page.\n<img alt=\"\" src=\"/images/celebration.png\"/>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

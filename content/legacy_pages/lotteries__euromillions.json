@@ -1,0 +1,68 @@
+{
+ "path": "/lotteries/euromillions",
+ "title": "EuroMillions Lottery Information | LottosOnline",
+ "description": "Information about the EuroMillions Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/euromillions",
+ "h1": "The EuroMillions Lottery Story",
+ "h1_all": [
+  "The EuroMillions Lottery Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing EuroMillions Lottery Online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About EuroMillions Lottery"
+ ],
+ "og_title": "EuroMillions Lottery Information | LottosOnline ",
+ "og_description": "Information about the EuroMillions Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/euromillions",
+     "name": "EuroMillions"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 499,
+   "html": "<p>EuroMillions is one of the biggest multi-national lottery games in the world. When it launched in 2004, there were three participating nations - France, Spain and the UK. By October of that year, a further six European countries had joined. Through LottosOnline, you can play the EuroMillions lottery online, even if your resident country does not take part. Read on to find out how.</p> <p>The EuroMillions lottery often has big-money jackpots - starting at a minimum jackpot size of €17 million. The jackpot prize rolls over if there is no jackpot winner, and can reach a huge €200 million. That's some serious cash!</p> <p>The draw takes place every Tuesday and Friday at 21:45 Central European Time (CET) and the EuroMillions lottery results are updated on LottosOnline shortly afterwards. Do you dream of a life of carefree spending? It's time to play EuroMillions lottery online!</p> <h2>How Much Could You Win?</h2> <p>There are thirteen prize payout tiers for the EuroMillions lottery. Each tier is allocated a percentage of the total prize pool, which means winnings fluctuate every week. Overall, there is a 1 in 13 chance that you will win money.</p> <h2>Playing EuroMillions Lottery Online</h2> <p>A EuroMillions ticket entry has a total of seven numbers - five main numbers (from 1 to 50) plus two Lucky Star numbers (from 1 to 12). To enter, simply log in to LottosOnline, select the EuroMillions lottery, and choose your lottery numbers. Alternatively, you can use our Quick Pick random number selector - the choice is yours entirely.</p> <p>Once we have received your entry and payment, our local ticket purchasing agents will buy your official lottery tickets on your behalf. You will be sent confirmation via email, including a link to a scanned copy of the official tickets. Your tickets will be stored securely until after the draw takes place, when it will be verified against the results for winnings.</p> <h2>You've Won! What Happens Next?</h2> <p>Whether it's a life-changing sum or a boost to this month's spare cash, it's always an incredible feeling to win! If the ticket you have bought, via LottosOnline, is a winning entry, you will be informed immediately by email. We won't keep you in suspense! You can also check the latest EuroMillions lottery results on our lottery results page.</p> <p>Your winnings will reflect in your LottosOnline Winnings Balance straight away. Just log in and decide how to use your winnings! Either transfer it to your Account Balance to buy more tickets or start our simple claims process to convert your winnings into cash. It really is that simple!</p> <h2>Fun Facts About EuroMillions Lottery</h2> <p>Did you know?</p> <ul><li>Scottish couple Colin and Chris Weir won the biggest EuroMillions lottery jackpot of all time in July 2011 - a total of £161,653,000! They celebrated by buying a mansion!</li><li>Watch out for EuroMillions Superdraws - special events when the jackpot is set to a huge €100 million! If there is no winner, the jackpot rolls over to the following week.</li></ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

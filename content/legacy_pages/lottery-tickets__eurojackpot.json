@@ -1,0 +1,66 @@
+{
+ "path": "/lottery-tickets/eurojackpot",
+ "title": "Play EuroJackpot Online - EuroJackpot Tickets Online",
+ "description": "Buy EuroJackpot lottery tickets online and you could walk away with the winning jackpot prize of up to €90 Million. Draws happen every Friday.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lottery-tickets/eurojackpot",
+ "h1": "Play EuroJackpot Online",
+ "h1_all": [
+  "Play EuroJackpot Online"
+ ],
+ "h2": [],
+ "og_title": "Play EuroJackpot Online - EuroJackpot Tickets Online",
+ "og_description": "Buy EuroJackpot lottery tickets online and you could walk away with the winning jackpot prize of up to €90 Million. Draws happen every Friday.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play EuroJackpot Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_eujac.png\",\n\n  \"description\": \"Play EuroJackpot Online - buy official EuroJackpot online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"EUJAC\",\n\n  \"mpn\":\"LottosOnline-EUJAC\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"EuroJackpot\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"5.50\",\n\n\t\"priceValidUntil\": \"2026-10-02 16:20:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"EUJAC\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/eurojackpot\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"EUJAC-20261002\",\n\n  \"mpn\":\"LottosOnline-EUJAC-20261002\",\n\n  \"name\": \"EuroJackpot EUR€106 Million Jackpot - 2nd October 2026 (Friday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_eujac.png\",\n\n  \"description\": \"Play the EuroJackpot for 2nd October 2026 (Friday) with an estimated jackpot of EUR€106 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"EuroJackpot\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"5.50\",\n\n\t\"priceValidUntil\": \"2026-10-02 16:20:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"EUJAC-20261002\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/eurojackpot\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bes"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lottery-tickets/eurojackpot",
+     "name": "EuroJackpot"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 573,
+   "html": "<h3>What is the EuroJackpot lottery?</h3> <p>Want to play one of the biggest lotteries in Europe? EuroJackpot is the game for you! The jackpot starts at a massive €10,000,000 and can quickly roll over to a capped but phenomenal €120,000,000. With figures this big, it's not surprising that EuroJackpot is Europe's favourite lottery!  Will you be the lucky player who strikes it rich this week?</p> <p>The pan-European draw was launched in March 2012 and is held across the continent in Croatia, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Iceland, Italy, Latvia, Lithuania, the Netherlands, Norway, Slovenia, Spain and Sweden. The Eurojackpot draw take place in Helsinki, Finland every Tuesday and Friday night at 21:00 Eastern European Time (EET).</p> <h3>Can I play EuroJackpot online?</h3> <p>With LottosOnline, you can play the EuroJackpot online from the comfort of your very own home. All you need is a computer and the internet. Simply visit the LottosOnline website and select the EuroJackpot Lottery. Simply choose your lucky numbers or let the Quick Pick random number generator do all the hard work for you. With the click of a button, your lucky numbers could transform you into a millionaire over night!</p> <h3>When do online EuroJackpot lottery tickets need to be purchased by?</h3> <p>You must purchase your EuroJackpot lottery tickets before 15:00 EET (13:00 GMT), so approximately six hours before the draw takes place. LottoOnline's local ticket buying office in Europe will then purchase official the EuroJackpot tickets on your behalf prior to the draw</p> <h3>How do I win the EuroJackpot lottery?</h3> <p>Your EuroJackpot ticket will include seven numbers in total. Your aim is to correctly pick five main numbers from 1 to 50 and two EuroNumbers from 1 to 12.  There are twelve different ways you can win a EuroJackpot prize. The easiest way to win a EuroJackpot lottery prize is to match two main numbers and one Euro number. If you match all seven numbers, your life is about to <b>change</b> forever - it's jackpot time! </p> <h3>Can I play EuroJackpot Lottery from outside the participating countries in Europe?</h3> <p>Even if you live outside the participating countries, it's not a problem! With LottosOnline, non-European residents can still take part in the EuroJackpot lottery. This gives people worldwide a chance to win big in one of Europe's largest lotteries.</p> <h3>How do I claim the money on LottosOnline if I win the jackpot?</h3> <p>If you're a big winner, your life is about to change forever, so get ready! We'll get hold of you to discuss all the arrangements that will be needed in order to unite you with your ticket. All you need to do is pick which dream you're going to make into a reality first!</p> <p>If you win, LottosOnline will send you a notification via e-mail. Once the numbers have been double checked, smaller winnings will reflect in your LottosOnline Winnings Balance. When you are ready, you can then log into your account and claim your prize money. Alternatively, you could transfer the funds to your Account Balance to use on more tickets.</p> <h3>How do I find out if I'm a winner?</h3> <p>Feeling lucky? You can check EuroJackpot lottery results through the LottosOnline website. If you're a winner, LottosOnline will notify you via email. Your new fortune could be waiting for you in your inbox!</p> <h3>What is the biggest EuroJackpot lottery jackpot ever won?</h3> <p>The EuroJackpot lottery is capped at €120-Million. Wow! Just imagine what you could do with that!</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

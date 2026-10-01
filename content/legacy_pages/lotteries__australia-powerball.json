@@ -1,0 +1,68 @@
+{
+ "path": "/lotteries/australia-powerball",
+ "title": "Australia Powerball Lottery Information | LottosOnline",
+ "description": "Information about the Australia Powerball Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/australia-powerball",
+ "h1": "The Australia Powerball Story",
+ "h1_all": [
+  "The Australia Powerball Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing Australia Powerball online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About Australia Powerball"
+ ],
+ "og_title": "Australia Powerball Lottery Information | LottosOnline ",
+ "og_description": "Information about the Australia Powerball Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/australia-powerball",
+     "name": "Australia Powerball"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 586,
+   "html": "<p>The Australia Powerball starts with a minimum jackpot of AU$3 million. But with no rollover cap, the jackpot can grow quickly and once reached a record AU$80 million. Now players from all over the world have a shot at winning a Australian Powerball jackpot thanks to LottosOnline.</p> <p>It is similar to the US Powerball, but there are some important differences. The Australia Powerball format has seven numbers and not five, but these are drawn from a smaller field. You can also buy Powerball lottery tickets online to improve your chances of becoming a mega-millionaire!</p> <p>Once the Australia Powerball jackpot reaches AU$10 million, it continues to increase by an extra AUD10 million each week. You can see how that would create a massive jackpot in no time at all. Australia Powerball draws take place every Thursday at 8:30pm Australian Eastern Daylight Time (AEDT).</p> <h2>How Much Could You Win?</h2> <p>The Australia Powerball has a total of nine prize divisions and starts with a jackpot of AU$3 million. If you're looking for an international lottery with more prize divisions, play EuroMillions online which has a total of 13 prize divisions.</p> <h2>Playing Australia Powerball online</h2> <p>If you want to win an Aussie jackpot, here's everything you need to know about the Australia Powerball.</p> <p>Pick seven main numbers from 1 - 35 and one Aussie Powerball number from 1 - 20. As with all online lottery USA and European games, you can use your own numbers or let the Quick Pick random number generator complete your playslip with one click.</p> <p>Pay for your tickets with your credit card or use the funds in your Account Balance. You'll get an email from LottosOnline confirming your purchase. Your official lottery tickets will be locked away until the draw takes place. All lottery tickets will be checked and winners notified via email - so check your inbox for the good news.</p> <h2>You've Won! What Happens Next?</h2> <p>If you win the jackpot we'll be in touch to discuss the next moves to unite you with your winning ticket. For smaller amounts, your winnings will reflect in your Winnings Balance and you can log in to check your balance whenever you want to. You'll also receive an email from LottosOnline to verify your win, so don't worry about checking the lottery results.</p> <p>From your Winnings Balance you can request our agents transfer funds to your bank account or you can convert your winnings to credit in your Account Balance. The money in your Account Balance can be used to buy lottery tickets online for the next draw.</p> <h2>Fun Facts About Australia Powerball</h2> <p>Did you know?</p> <ul><li>In March 2013 the rules for the Australia Powerball changed slightly. The lottery grew to eight prize divisions and the minimum rollover of AU$10 million was introduced. Then in April 2018 they shook it up again. In order to allow the jackpot to grow even bigger, the main pool of numbers was dropped from 40 to 35, and the numbers to pick increased from six to seven. Also the prize divisions increased again, to nine. The Australia Powerball jackpot has yet to match the US Powerball jackpot, but it certainly has gotten bigger.</li> <li>Six out of nine Australia Powerball prize divisions use the Powerball. Pick the right Aussie Powerball number and you can boost your winnings or even take home the jackpot.</li> <li>The record Australia Powerball jackpot of AU$80 million was won in 2009. It took another three years before another Australian lottery managed to top that!</li> </ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

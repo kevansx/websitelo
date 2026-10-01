@@ -1,0 +1,62 @@
+{
+ "path": "/contact-us",
+ "title": "Contact us  - get answers from the LottosOnline Support Team",
+ "description": "Contact LottosOnline any time you need assistance playing the lotteries on offer. Reach out to us to ask a question or make a suggestion.",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "Contact Us",
+ "h1_all": [
+  "Contact Us"
+ ],
+ "h2": [],
+ "og_title": "Contact us  - get answers from the LottosOnline Support Team",
+ "og_description": "Contact LottosOnline any time you need assistance playing the lotteries on offer. Reach out to us to ask a question or make a suggestion.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/contact-us",
+     "name": "Contact Us"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".leftcontent",
+   "words": 153,
+   "html": "<p>Here at LottosOnline, we love talking to our customers. It’s important to ask questions and get detailed answers. After all, this is your chance to win millions and change your life forever!</p><p>To help you out, we’ve created a Frequently Asked Questions section of our website. From the legalities to the rewards programme, it answers all kinds of common queries. But if you would still like to talk, our experienced staff are always available.</p><p>\nDo you need more information about a specific lottery? Want to discuss payment methods? Simply contact us via phone or email. Our friendly team are here to help. We’re ready and waiting to talk. </p>\n<p> Head Office:<br/>\n</p><p>Archangelou 48, Office 207,<br/>Engomi,<br/>2404, Nicosia,<br/>Cyprus</p>\n<p>Phone:+357 22000254<br/>\nHours of Operation: Monday to Friday, 10am to 5pm Eastern European Time (GMT +2)<br/>\nE-mail: <a href=\"/cdn-cgi/l/email-protection#6b181e1b1b04191f2b27041f1f041824050702050e45080406\">[email protected]</a>\n</p>\n<p>Please click on our Frequent Asked Questions (<a href=\"/faqs\">FAQ</a>) page to read more information.</p>"
+  },
+  {
+   "selector": ".maincontent-inner",
+   "words": 155,
+   "html": "<p>Here at LottosOnline, we love talking to our customers. It’s important to ask questions and get detailed answers. After all, this is your chance to win millions and change your life forever!</p><p>To help you out, we’ve created a Frequently Asked Questions section of our website. From the legalities to the rewards programme, it answers all kinds of common queries. But if you would still like to talk, our experienced staff are always available.</p><p>\nDo you need more information about a specific lottery? Want to discuss payment methods? Simply contact us via phone or email. Our friendly team are here to help. We’re ready and waiting to talk. </p>\n<p> Head Office:<br/>\n</p><p>Archangelou 48, Office 207,<br/>Engomi,<br/>2404, Nicosia,<br/>Cyprus</p>\n<p>Phone:+357 22000254<br/>\nHours of Operation: Monday to Friday, 10am to 5pm Eastern European Time (GMT +2)<br/>\nE-mail: <a href=\"/cdn-cgi/l/email-protection#6b181e1b1b04191f2b27041f1f041824050702050e45080406\">[email protected]</a>\n</p>\n<p>Please click on our Frequent Asked Questions (<a href=\"/faqs\">FAQ</a>) page to read more information.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

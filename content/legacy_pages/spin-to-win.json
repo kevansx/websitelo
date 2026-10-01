@@ -1,0 +1,67 @@
+{
+ "path": "/spin-to-win",
+ "title": "LottosOnline Spin to Win Offer",
+ "description": "LottosOnline wants to reward players for playing the lottery online through us. This offer is a great opportunity for new players to get a bonus.",
+ "keywords": "",
+ "canonical_old": "",
+ "h1": "LottosOnline Spin to Win Offer",
+ "h1_all": [
+  "LottosOnline Spin to Win Offer"
+ ],
+ "h2": [
+  "How It Works",
+  "What Are the Rewards?",
+  "What Are the Prizes?",
+  "Spin to Win with LottosOnline.com"
+ ],
+ "og_title": "LottosOnline Spin to Win Offer",
+ "og_description": "LottosOnline wants to reward players for playing the lottery online through us. This offer is a great opportunity for new players to get a bonus.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/spin-to-win",
+     "name": "spin-to-win"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".leftcontent",
+   "words": 492,
+   "html": "<img alt=\"\" src=\"/images/Banner-Actual-Size.jpg\"/>\n<p>Welcome to Our New Incentive Program!</p>\n<p>Deposit, Spin, and Win Big with Amazing Prizes!</p>\n<img alt=\"\" src=\"/images/how-to-play-step1.png\"/>\n<h2>How It Works</h2>\n<p>Earn bonuses and free spins based on the amount you spend or deposit from your payment card. And you get this benefit not once, not twice, but for your first <strong>three</strong> qualifying transactions.</p>\n<p>Spend a minimum of <strong>just €5</strong> to qualify for the program.</p>\n<p><strong>The more you spend, the bigger the rewards!</strong></p>\n<img alt=\"\" src=\"/images/how-to-play-step2.png\"/>\n<h2>What Are the Rewards?</h2>\n<p>The first three times that you spend or deposit more than €5 you will earn a double whammy of bonuses: a percentage of your initial spend will get added to your Reward Balance AND you will qualify for a number of Free Spins on our amazing Prize Wheel.</p>\n<p> The percentage of your initial spend that will be returned as rewards grows with each qualifying deposit - starting at a generous 10% and climbing to 20% on the next, ending up at an absolutely massive 30% on the third qualifying transaction. The percentages and number of spins per qualifying tier are layed out in this handy table:</p>\n<p>\n</p>\n<table>\n<tr>\n<th>SPEND LEVEL</th>\n<th>BONUS PERCENT ON FIRST, SECOND OR THIRD QUALIFICATION</th>\n<th>SPINS AWARDED ON FIRST, SECOND OR THIRD QUALIFICATION</th>\n</tr>\n<tr>\n<td>€5 to €10</td>\n<td>10%, 20% or 30%</td>\n<td>1 FREE SPIN</td>\n</tr>\n<tr>\n<td>€10 to €40</td>\n<td>10%, 20% or 30%</td>\n<td>2 FREE SPINS</td>\n</tr>\n<tr>\n<td>€40 to €100</td>\n<td>10%, 20% or 30%</td>\n<td>3 FREE SPINS</td>\n</tr>\n<tr>\n<td>Over €100</td>\n<td>10%, 20% or 30%</td>\n<td>5 FREE SPINS</td>\n</tr>\n</table>\n<p>It's up to you how much you spend but as you can see, the more you spend the bigger the reward. There's up to 15 Free Spins waiting to be claimed, and a huge chunk of Reward Balance to boot.</p>\n<p>Bonus funds are automatically credited to your Rewards Balance and free spins are shown in a special section of your account.</p>\n<img alt=\"\" src=\"/images/how-to-play-step3.png\"/>\n<h2>What Are the Prizes?</h2>\n<p>Currently there are over a dozen different prizes that can be won on the spin to win. The list changes from time to time so be sure to come back and check</p>\n<p><strong>The current list of Spin to Win Prizes</strong>:\n</p><ul>\n<li>Free entry into our Jackpot Prize Pool draw</li>\n<li>Free tickets in the MegaMillions Lottery</li>\n<li>Free tickets in the Australian Saturday Lottery</li>\n<li>Free tickets in the EuroMillions Lottery</li>\n<li>Free tickets in the US Powerball Lottery</li>\n<li>Free tickets in the Irish Lotto</li>\n<li>Free tickets in the French Lotto</li>\n<li>Free entry into various lottery syndicates, not available for general sale</li>\n<li>Additional 10% to Rewards Balance on top of the automatic qualification tier amount</li>\n<li>Additional spins on the wheel</li>\n<li>Discount on your next purchase</li>\n</ul>\n<img alt=\"\" src=\"/images/how-to-play-step4.png\"/>\n<h2>Spin to Win with LottosOnline.com</h2>\n<p>Simply put, it pays to go large with LottosOnline. The bigger your play on your first three card transactions, the more you reap the rewards!</p>\n<p>It's easy to get <strong>player rewards</strong> at LottosOnline. We want to help our players get the best opportunity of winning <strong>jackpot prizes</strong></p>\n<p>So what are you waiting for? Stop dreaming, and start playing!</p>\n<p><a href=\"/lottery-tickets\">Start Playing!</a></p>"
+  },
+  {
+   "selector": ".maincontent-inner",
+   "words": 487,
+   "html": "<img alt=\"\" src=\"/images/Banner-Actual-Size.jpg\"/>\n<p>Welcome to Our New Incentive Program!</p>\n<p>Deposit, Spin, and Win Big with Amazing Prizes!</p>\n<img alt=\"\" src=\"/images/how-to-play-step1.png\"/>\n<h2>How It Works</h2>\n<p>Earn bonuses and free spins based on the amount you spend or deposit from your payment card. And you get this benefit not once, not twice, but for your first <strong>three</strong> qualifying transactions.</p>\n<p>Spend a minimum of <strong>just €5</strong> to qualify for the program.</p>\n<p><strong>The more you spend, the bigger the rewards!</strong></p>\n<img alt=\"\" src=\"/images/how-to-play-step2.png\"/>\n<h2>What Are the Rewards?</h2>\n<p>The first three times that you spend or deposit more than €5 you will earn a double whammy of bonuses: a percentage of your initial spend will get added to your Reward Balance AND you will qualify for a number of Free Spins on our amazing Prize Wheel.</p>\n<p> The percentage of your initial spend that will be returned as rewards grows with each qualifying deposit - starting at a generous 10% and climbing to 20% on the next, ending up at an absolutely massive 30% on the third qualifying transaction. The percentages and number of spins per qualifying tier are layed out in this handy table:</p>\n<p>\n</p>\n<table>\n<tr>\n<th>SPEND LEVEL</th>\n<th>BONUS PERCENT ON FIRST, SECOND OR THIRD QUALIFICATION</th>\n<th>SPINS AWARDED ON FIRST, SECOND OR THIRD QUALIFICATION</th>\n</tr>\n<tr>\n<td>€5 to €10</td>\n<td>10%, 20% or 30%</td>\n<td>1 FREE SPIN</td>\n</tr>\n<tr>\n<td>€10 to €40</td>\n<td>10%, 20% or 30%</td>\n<td>2 FREE SPINS</td>\n</tr>\n<tr>\n<td>€40 to €100</td>\n<td>10%, 20% or 30%</td>\n<td>3 FREE SPINS</td>\n</tr>\n<tr>\n<td>Over €100</td>\n<td>10%, 20% or 30%</td>\n<td>5 FREE SPINS</td>\n</tr>\n</table>\n<p>It's up to you how much you spend but as you can see, the more you spend the bigger the reward. There's up to 15 Free Spins waiting to be claimed, and a huge chunk of Reward Balance to boot.</p>\n<p>Bonus funds are automatically credited to your Rewards Balance and free spins are shown in a special section of your account.</p>\n<img alt=\"\" src=\"/images/how-to-play-step3.png\"/>\n<h2>What Are the Prizes?</h2>\n<p>Currently there are over a dozen different prizes that can be won on the spin to win. The list changes from time to time so be sure to come back and check</p>\n<p><strong>The current list of Spin to Win Prizes</strong>:\n</p><ul>\n<li>Free entry into our Jackpot Prize Pool draw</li>\n<li>Free tickets in the MegaMillions Lottery</li>\n<li>Free tickets in the Australian Saturday Lottery</li>\n<li>Free tickets in the EuroMillions Lottery</li>\n<li>Free tickets in the US Powerball Lottery</li>\n<li>Free tickets in the Irish Lotto</li>\n<li>Free tickets in the French Lotto</li>\n<li>Free entry into various lottery syndicates, not available for general sale</li>\n<li>Additional 10% to Rewards Balance on top of the automatic qualification tier amount</li>\n<li>Additional spins on the wheel</li>\n<li>Discount on your next purchase</li>\n</ul>\n<img alt=\"\" src=\"/images/how-to-play-step4.png\"/>\n<h2>Spin to Win with LottosOnline.com</h2>\n<p>Simply put, it pays to go large with LottosOnline. The bigger your play on your first three card transactions, the more you reap the rewards!</p>\n<p>It's easy to get <strong>player rewards</strong> at LottosOnline. We want to help our players get the best opportunity of winning <strong>jackpot prizes</strong></p>\n<p>So what are you waiting for? Stop dreaming, and start playing!</p>\n<p><a href=\"/lottery-tickets\">Start Playing!</a></p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

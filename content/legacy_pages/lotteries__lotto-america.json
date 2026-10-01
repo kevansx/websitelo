@@ -1,0 +1,68 @@
+{
+ "path": "/lotteries/lotto-america",
+ "title": "Lotto America Lottery Information | LottosOnline",
+ "description": "Information about the Lotto America Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/lotto-america",
+ "h1": "The Lotto America Story",
+ "h1_all": [
+  "The Lotto America Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing Lotto America Online",
+  "You've Won! What Happens Next?",
+  "Fun Facts About Lotto America Lottery"
+ ],
+ "og_title": "Lotto America Lottery Information | LottosOnline ",
+ "og_description": "Information about the Lotto America Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/lotto-america",
+     "name": "Lotto America"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 505,
+   "html": "<p>Lotto America is currently the newest game from the Multi-State Lottery Association, the same group that brings the massively popular US Powerball and MegaMillions. It was launched in November 2017 to replace the Hot Lotto, which was discontinued that October. It offers some of the best odds of any of the games run by the MUSL, with an overall chance of winning a prize at an amazingly good 1 in 9.63. Match just the Star Ball to win the minimum prize. Match 5 numbers plus the Star Ball to win the Jackpot.</p> <p>The draw takes place every Monday, Wednesday and Saturday after 23H00 (Eastern Time). The lottery results are updated on our website shortly afterwards. Do you dream of some extra spending money? It's time to play the Lotto America lottery online!</p> <h2>How Much Could You Win?</h2> <p>There are a total of nine prize payout tiers for the Lott America lottery, all of which have set prize payouts except the Jackpot. Overall, there is a 1 in 9.63 chance that you will win money.</p> <h2>Playing Lotto America Online</h2> <p>A Lotto America ticket has a total of five main numbers (from 1 to 52) plus one Star Ball number (from 1 to 10). To enter, simply log in to LottosOnline, select the Lotto America lottery, and choose your numbers. Alternatively, you can use our Quick Pick random number selector - the choice is yours entirely.</p> <p>Once we have received your entry and payment, our local ticket purchasing agents will buy your official lottery ticket. You will be sent confirmation via email, including a scanned copy of your ticket. Your entry will be stored securely until after the draw, when it will be verified against the results.</p> <h2>You've Won! What Happens Next?</h2> <p>Whether it's a life-changing sum or a boost to this month's spare cash, it's always an incredible feeling to win! If the ticket you have bought, via LottosOnline, is a winning entry, you will be informed by email. We won't keep you in suspense! You can also check the latest Lotto America lottery results on our results page.</p> <p>Once confirmed, your winnings will reflect in your LottosOnline Winnings Balance straight away. Just log in and decide how to use your winnings! Either claim them to get our agents to pay out to your bank account or convert it to credit in your Account Balance to buy more tickets. It really is that simple!</p> <h2>Fun Facts About Lotto America Lottery</h2> <p>Did you know?</p> <ul> <li>When the Lotto America started in November 2017 it was supposed to open with a jackpot of $2-Million. However, as it replaced the Hot Lotto and the very last Hot Lotto jackpot was not won, the organisers just rolled the jackpot over to the Lotto America, giving it a huge boost and opening with a jackpot of $15-Million!</li> <li>While the Hot Lotto used a digital selection method, the Lotto America has been moved back to physical drawing machines as this is both more secure and more exciting for players.</li> </ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

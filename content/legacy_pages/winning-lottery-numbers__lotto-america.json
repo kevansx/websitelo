@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/lotto-america",
+ "title": "Lotto America Results - Lotto America Winning Numbers",
+ "description": "Get the latest Lotto America results, check your tickets for winning lottery numbers and see if you have had luck in the most recent Lotto America draw.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/lotto-america",
+ "h1": "Lotto America Results & Winning Numbers",
+ "h1_all": [
+  "Lotto America Results & Winning Numbers"
+ ],
+ "h2": [
+  "Lotto America Results",
+  "Are you a winner?"
+ ],
+ "og_title": "Lotto America Results - Lotto America Winning Numbers",
+ "og_description": "Get the latest Lotto America results, check your tickets for winning lottery numbers and see if you have had luck in the most recent Lotto America draw.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/lotto-america",
+     "name": "Lotto America"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 117,
+   "html": "<h2>Lotto America Results</h2>\n<p>You could be a jackpot winner, right now! Here's where you can find the latest Lotto America results.</p>\n<p>The Lotto America draw is held every Monday, Wednesday and Saturday. Are you holding the lucky ticket? It's time to find out.</p>\n<h2>Are you a winner?</h2>\n<p>To bring home the jackpot, you will need to match all five main numbers plus the Star Ball.</p>\n<p>If you haven't matched all the numbers, you may still have won a prize. Even if you only match the Star Ball you still win a prize!</p><p>We'll let you know via email if you have won a prize in the Lotto America lottery draw.</p>\n<p>Draws are conducted every Wednesday and Saturday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

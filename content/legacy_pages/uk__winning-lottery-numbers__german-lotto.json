@@ -1,0 +1,66 @@
+{
+ "path": "/uk/winning-lottery-numbers/german-lotto",
+ "title": "German Lotto Results & Winning Numbers | LottosOnline",
+ "description": "Get the latest German Lotto results and winning lottery numbers online",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/winning-lottery-numbers/german-lotto",
+ "h1": "German Lotto Results & Winning Numbers",
+ "h1_all": [
+  "German Lotto Results & Winning Numbers"
+ ],
+ "h2": [
+  "German Lotto Results",
+  "Have you won the jackpot?"
+ ],
+ "og_title": "German Lotto Results & Winning Numbers | LottosOnline",
+ "og_description": "Get the latest German Lotto results and winning lottery numbers online",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/winning-lottery-numbers/german-lotto",
+     "name": "German Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 165,
+   "html": "<h2>German Lotto Results</h2><p>You can find the latest German Lotto results right here at LottosOnline. We update the winning numbers as soon as the draw takes place, every Wednesday at 18:25 Central European Time (CET) and Saturday at 19:25 CET. So grab your lotto ticket and prepare to celebrate!</p><h2>Have you won the jackpot?</h2><p>The German Lotto jackpot starts at a minimum of €1 million on a Wednesday and €2 million on a Saturday. To win, you'll need to match your six main numbers plus the Super Number - otherwise known as the 'Superzahl'.</p><p>You'll still get a prize if you match just two numbers plus the Super Number. There are nine prize payout tiers in total, so make sure you read our German Lotto Results prize breakdown page for more details.</p><p>If you have bought a German Lotto ticket at LottosOnline, you will be notified of your winnings immediately via email. We won't keep you in suspense!</p><p>Draws are conducted every Wednesday and Saturday.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

@@ -1,0 +1,66 @@
+{
+ "path": "/winning-lottery-numbers/la-primitiva",
+ "title": "Spanish La Primitiva Results - La Primitiva Winning Numbers",
+ "description": "Find out if you picked the winning Spanish La Primitiva lotto numbers. The lottery results are updated twice a week after the draws on Thursday and Saturday.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/winning-lottery-numbers/la-primitiva",
+ "h1": "Spanish La Primitiva Results & Winning Numbers",
+ "h1_all": [
+  "Spanish La Primitiva Results & Winning Numbers"
+ ],
+ "h2": [
+  "Spanish La Primitiva Lottery Results",
+  "Are you a multi-millionaire?"
+ ],
+ "og_title": "Spanish La Primitiva Results - La Primitiva Winning Numbers",
+ "og_description": "Find out if you picked the winning Spanish La Primitiva lotto numbers. The lottery results are updated twice a week after the draws on Thursday and Saturday.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers/la-primitiva",
+     "name": "Spanish La Primitiva"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 197,
+   "html": "<h2>Spanish La Primitiva Lottery Results</h2> <p>La Primitiva is one of the world's oldest and most lucrative lotteries. Have you won millions? Here are the Spanish La Primitiva lottery results, straight from Madrid!</p> <p>The La Primitiva lottery draw happens every Thursday and Saturday at 21:30 Central European Time (CET). Let's find out if it's time to pop the champagne and celebrate!</p> <h2>Are you a multi-millionaire?</h2> <p>With seven prize payout tiers, the Spanish La Primitiva results include six main numbers (from 1-49), plus an extra number, known as the Complementario. The Reintegro number (from 0 - 9) is drawn separately. It is randomly selected and appears on your lotto ticket.</p> <p>To win the jackpot, you'll need to match all six main numbers plus the Reintegro. You will also win a big prize if you match six main numbers, or five main numbers plus the Complementario.</p> <p>The Spanish La Primitiva jackpot starts at a minimum of €2,000,000 and rolls over each week if there is no winner - sometime reaching more than €50,000,000!</p> <p>You can win €8 by matching just three main numbers - just imagine the life-changing possibilities if you matched more!</p> <p>Draws are conducted every Thursday and Saturday. </p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

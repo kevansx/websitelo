@@ -1,0 +1,68 @@
+{
+ "path": "/lotteries/eurojackpot",
+ "title": "EuroJackpot Lottery Information | LottosOnline",
+ "description": "Information about the EuroJackpot Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lotteries/eurojackpot",
+ "h1": "The EuroJackpot Lottery Story",
+ "h1_all": [
+  "The EuroJackpot Lottery Story"
+ ],
+ "h2": [
+  "How Much Could You Win?",
+  "Playing EuroJackpot Lottery Online",
+  "You've Won! What Next?",
+  "Fun Facts About EuroJackpot Lottery"
+ ],
+ "og_title": "EuroJackpot Lottery Information | LottosOnline ",
+ "og_description": "Information about the EuroJackpot Lottery including its history, how to play online, how to claim your winnings and some fun facts.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lotteries/",
+     "name": "Lotteries"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lotteries/eurojackpot",
+     "name": "EuroJackpot"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 533,
+   "html": "<p>EuroJackpot is a multinational lottery launched in March 2012. A total of sixteen European countries - including Denmark, Spain, Germany and the Netherlands - take part in the draw. With fantastic odds of winning prize money, it's an increasingly popular lottery game for both new and experienced players!</p> <p>The EuroJackpot lottery results are announced straight after the draw in Helsinki, Finland every Friday and Tuesday at 21:00 Eastern European Time (that's 19:00 GMT)</p> <p>Would you like to find out more about playing the EuroJackpot lottery online? Read on to find out everything you need to know - including jackpot size, and how to find the EuroJackpot lottery results. We have even thrown in some fun facts too - good luck!</p> <h2>How Much Could You Win?</h2> <p>The starting jackpot is €10 million and can reach as much as €120 million. If it is not won after twelve consecutive weeks, the jackpot will be shared amongst the 2nd tier prize winners. There are twelve EuroJackpot lottery prize payout tiers in total.</p> <h2>Playing EuroJackpot Lottery Online</h2> <p>To play the EuroJackpot lottery, simply choose five main numbers from 1 to 50 plus two Euro Numbers from 1 to 12. To buy your ticket entries via LottosOnline, all you need to do is log in to your account (or take a minute to register for FREE). Then, select your numbers of let our Quick Pick random number generator do it for you. Payment can be made via your preferred method - and you can choose to buy either a one-off ticket or a multi-buy ticket.</p> <p>When your ticket entries have been processed by LottosOnline, the official ticket will be purchased by our ticket purchasing agents. They will store your official tickets at their secure premises, and it will be checked for winnings following the draw results.</p> <p>For your peace of mind, we always send email confirmation of your ticket entries. It couldn't be easier!</p> <h2>You've Won! What Next?</h2> <p>If you have a winning ticket, we will email you right away. There is no need to wait for the great news! If you prefer to check the EuroJackpot lottery results yourself, you can see the latest verified results right here at LottosOnline.</p> <p>Your winnings will appear immediately in your LottosOnline Winnings Balance, where you can choose what to do with your new-found wealth! Either reinvest your winnings by transferring them to your Account Balance or organise for them to go into your bank account by following the claim process. Then, the fun starts - and you can start creating the life of your dreams!</p> <p>If you have any questions, take a look at our FAQ page or get in touch with us. The LottosOnline support team are always here to help!</p> <h2>Fun Facts About EuroJackpot Lottery</h2> <p>Did you know?</p> <ul><li>The biggest jackpot purchased online was won on September 13th, 2014 by a winner from Espoo, Finland. The ticket was worth a huge €61,170,752.70!</li> <li>EuroJackpot lottery results can be watched on their official YouTube channel - so you don't have to miss a thing.</li> <li>Of the main numbers, number 19 has been drawn most often to date. Number 3 is the most frequently drawn EuroJackpot Number.</li></ul>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

@@ -1,0 +1,66 @@
+{
+ "path": "/lottery-tickets/us-powerball",
+ "title": "Play Powerball Online - US Powerball Tickets Online",
+ "description": "Buy Powerball tickets online with draws held every Wednesday and Saturday. Don't miss the biggest US lottery with a record breaking jackpot of $1.58billion.",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/lottery-tickets/us-powerball",
+ "h1": "Play US Powerball Online",
+ "h1_all": [
+  "Play US Powerball Online"
+ ],
+ "h2": [],
+ "og_title": "Play Powerball Online - US Powerball Tickets Online",
+ "og_description": "Buy Powerball tickets online with draws held every Wednesday and Saturday. Don't miss the biggest US lottery with a record breaking jackpot of $1.58billion.",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play Powerball Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_uspow.png\",\n\n  \"description\": \"Play Powerball Online - buy official Powerball online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"USPOW\",\n\n  \"mpn\":\"LottosOnline-USPOW\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Powerball\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"5.20\",\n\n\t\"priceValidUntil\": \"2026-10-04 01:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"USPOW\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/us-powerball\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"USPOW-20261004\",\n\n  \"mpn\":\"LottosOnline-USPOW-20261004\",\n\n  \"name\": \"Powerball US$440 Million Jackpot - 4th October 2026 (Sunday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_uspow.png\",\n\n  \"description\": \"Play the Powerball for 4th October 2026 (Sunday) with an estimated jackpot of US$440 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Powerball\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"5.20\",\n\n\t\"priceValidUntil\": \"2026-10-04 01:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"USPOW-20261004\",\n\n\t\"url\":\"https://www.lottosonline.com/lottery-tickets/us-powerball\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\","
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/lottery-tickets/us-powerball",
+     "name": "Powerball"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 570,
+   "html": "<h3>What is the Powerball Lottery?</h3> <p>US Powerball is one of the biggest lottery draws in the world. Jackpots start at $40 million which is an incredible amount of prize money! The lottery is played in 47 states in the USA. Numbers are drawn at 22:59 Eastern Standard Time (EST) in Florida. Draws take place every Monday, Wednesday and Saturday</p> <h3>Can I buy Powerball tickets online?</h3> <p>Yes! Want to win big without even leaving the comfort of your home? LottosOnline makes playing US Powerball easy. Simply visit the LottosOnline website, choose the Powerball lottery and select your lucky numbers. If you prefer random numbers, the Quick Pick function generates numbers for you. How you play is 100% your choice!</p> <h3>When do online Powerball tickets need to be bought by?</h3> <p>The cut off time for buying US Powerball tickets from LottosOnline is 17:00 EST - that's 21:00 GMT. From time to time we may be able to arrange an extention when the jackpot is very large, so it's worth checking back. </p> <h3>How do I win US Powerball?</h3> <p>Hitting the jackpot is simple! All you need to do is choose five numbers that match the winning jackpot numbers, as well as the winning Powerball number. Every draw has a total of nine prize payout tiers.</p> <h3>Can I play the Powerball lottery from outside the USA?</h3> <p>You don't have to be in the USA to play! LottosOnline allows people from all over the world take part in the US Powerball.</p> <h3>How do I claim my winnings on LottosOnline if I win the Powerball jackpot?</h3> <p>Whether you win a few hundred dollars or hit the jackpot, LottosOnline will notify you immediately via email. This means you'll never be kept waiting! All the latest Powerball lottery results are also displayed on the LottosOnline website.</p> <p>Claiming your winnings is easy. After your ticket entries have been checked and winnings are confirmed, funds will reflect in your LottosOnline Winnings Balance. To access your winnings simply login to your LottosOnline account, view your balance and decide what to do with your new fortune. You can claim your winnings and our agents will pay the funds to your nominated bank account, or you can convert them to credit in your Account Balance to buy more tickets. If you win big, we'll assist with the arrangements for you to collect your winning ticket, so you can sit back, relax and enjoy your new fortune without a minimum of fuss.</p> <h3>How much is the tax on Powerball winnings for non-US residents?</h3> <p>For non-US residents there is a flat federal tax rate of 30%. There may be further state taxes of up to 8% depending on the US states in which the PowerBall ticket is purchased.</p> <h3>What is the biggest Powerball jackpot ever won?</h3> <p>The largest ever jackpot in any lottery in the world was $1.5 BILLION. It was won by 3 people and each one ended up receiving a cash value of $327.8 million per ticket. However, on May 18, 2013 one lucky player won a massive $590.5 million all on their own!</p> <h3>Where in the USA does LottosOnline purchase the official Powerball lottery tickets?</h3> <p>The official Powerball lottery tickets are purchased in Colorado or Delaware in the USA.</p> <h3>How many US Powerball rollovers can take place?</h3> <p>There is no limit on the number of rollovers that can take place. So, for every week there isn't a winner the jackpot will soar!</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

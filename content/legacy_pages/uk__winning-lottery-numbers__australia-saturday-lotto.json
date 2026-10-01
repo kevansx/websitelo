@@ -1,0 +1,65 @@
+{
+ "path": "/uk/winning-lottery-numbers/australia-saturday-lotto",
+ "title": "Australia Saturday Lotto Results & Winning Numbers | LottosOnline",
+ "description": "Get the latest Australia Saturday Lotto results and winning lottery numbers online",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/winning-lottery-numbers/australia-saturday-lotto",
+ "h1": "Australia Saturday Lotto Results & Winning Numbers",
+ "h1_all": [
+  "Australia Saturday Lotto Results & Winning Numbers"
+ ],
+ "h2": [
+  "Australia Saturday Lotto Results"
+ ],
+ "og_title": "Australia Saturday Lotto Results & Winning Numbers | LottosOnline",
+ "og_description": "Get the latest Australia Saturday Lotto results and winning lottery numbers online",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/winning-lottery-numbers/australia-saturday-lotto",
+     "name": "Australia Saturday Lotto"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 216,
+   "html": "<h2>Australia Saturday Lotto Results</h2> <p>Looking for the latest Australia Saturday Lotto results? Could your dreams of winning one of Australia’s biggest lottos finally come true? Grab your Australia Saturday Lotto tickets and find out!</p> <p>The Australia Saturday Lotto draw takes place every Saturday at 9:30pm Australian Eastern Daylight Time (AEDT). Results for all biggest international lotteries, including the US Powerball are always available on LottosOnline.</p> <h3>Have you won the jackpot?</h3> <p>The Australia Saturday Lotto has seven prize payout tiers. Some lotteries offer more prize divisions. Play EuroMillions online for your chance to win in one of a massive 13 payout tiers.</p> <p>This is how the draw works:</p> <p>Although you only pick six lotto numbers, a total of eight numbers are drawn from a set of 1-45. Two bonus numbers give you access to the 6th and 7th prize divisions if you match both bonus numbers. If you match just one bonus number you can win in the 2nd and 5th prize divisions.</p> <p>Match the six main numbers and you win the Australia Saturday Lotto jackpot! Take a look at the prize breakdown to see what you’ve won.</p> <p>Play and you will receive the latest Australia Saturday Lotto results via email. Stay updated and buy lottery tickets online every week from LottosOnline.</p> <p>DRAWS ARE CONDUCTED EVERY SATURDAY.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

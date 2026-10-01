@@ -1,0 +1,66 @@
+{
+ "path": "/uk/lottery-tickets/el-gordo",
+ "title": "Play Spanish El Gordo Online - Buy Spanish El Gordo Lottery Tickets",
+ "description": "Buy Lottery Tickets Online for Spanish El Gordo and play the biggest jackpots on LottosOnline",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/lottery-tickets/el-gordo",
+ "h1": "",
+ "h1_all": [
+  ""
+ ],
+ "h2": [],
+ "og_title": "Play Spanish El Gordo Online - Buy Spanish El Gordo Lottery Tickets",
+ "og_description": "Buy Lottery Tickets Online for Spanish El Gordo and play the biggest jackpots on LottosOnline",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "_unparsed": "\n\n/* the general Offer */\n\n[\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"name\": \"Play Spanish El Gordo Online\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_eselg.png\",\n\n  \"description\": \"Play Spanish El Gordo Online - buy official Spanish El Gordo online and get a scanned copy of your ticket (where available)\",\n\n  \"sku\":\"ESELG\",\n\n  \"mpn\":\"LottosOnline-ESELG\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Spanish El Gordo\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n        \"priceCurrency\": \"EUR\",\n\n        \"price\": \"4.40\",\n\n\t\"priceValidUntil\": \"2026-10-04 18:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"ESELG\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/el-gordo\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5\",\n\n    \"reviewCount\": \"1\",\n\n    \"bestRating\": \"5\",\n\n    \"worstRating\": \"1\"\n\n  }\n\n},\n\n\n\n/* the specific current Jackpot */\n\n{\n\n  \"@context\": \"http://schema.org/\",\n\n  \"@type\": \"Product\",\n\n  \"sku\":\"ESELG-20261004\",\n\n  \"mpn\":\"LottosOnline-ESELG-20261004\",\n\n  \"name\": \"Spanish El Gordo EUR€17.9 Million Jackpot - 4th October 2026 (Sunday)\",\n\n  \"image\": \"https://www.lottosonline.com/images/lottery-assets/logo_main_eselg.png\",\n\n  \"description\": \"Play the Spanish El Gordo for 4th October 2026 (Sunday) with an estimated jackpot of EUR€17.9 Million\",\n\n  \"brand\": {\n\n\t\"@type\": \"Thing\",\n\n\t\"name\": \"Spanish El Gordo\"\n\n  },\n\n  \"offers\": {\n\n\t\"@type\": \"Offer\",\n\n\t\"priceCurrency\": \"EUR\",\n\n\t\"price\": \"4.40\",\n\n\t\"priceValidUntil\": \"2026-10-04 18:00:00\",\n\n\t\"itemCondition\": \"http://schema.org/NewCondition\",\n\n\t\"availability\": \"http://schema.org/InStock\",\n\n\t\"sku\":\"ESELG-20261004\",\n\n\t\"url\":\"https://www.lottosonline.com/uk/lottery-tickets/el-gordo\",\n\n\t\"seller\": {\n\n\t  \"@type\": \"Organization\",\n\n\t  \"name\": \"LottosOnline.com\"\n\n\t}\n\n  },\n\n  \"aggregateRating\": {\n\n    \"ratingValue\": \"5"
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/lottery-tickets",
+     "name": "Play Online"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/lottery-tickets/el-gordo",
+     "name": "Spanish El Gordo"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".lotto-what",
+   "words": 509,
+   "html": "<h3>What is the El Gordo?</h3> <p>Jackpots for this hugely popular Spanish lottery game start at €5 million, which is more than enough to live the high life! The El Gordo lottery is held once a week on Sunday afternoons. Draws take place in Madrid at 21:00 CET. Since starting in 1993, it has rapidly grown into one of the biggest lotteries in Europe.</p> <h3>Can I play Weekly El Gordo lottery online?</h3> <p>With LottosOnline, you can play Weekly El Gordo from anywhere!. Simply visit the LottosOnline website, choose your numbers and cross your fingers! If you prefer Lady Luck to do the hard work for you, the Quick Pick number generator will select numbers for you at random.</p> <h3>When is the cut off time for purchasing tickets?</h3> <p>Tickets must be purchased before 18:30 CET on the day of the draw the day of the draw.</p> <h3>How do I win the El Gordo lottery</h3> <p>Every ticket has two grids. The first set of balls is numbered from 1 to 54 and the second from 0 to 9. Players select five main numbers from the first grid and one from the second. To hit the jackpot you'll need to have selected all five main numbers from grid one, as well as the winning number from grid two. In total, there are nine prize payout tiers. This means that even if you don't hit the jackpot you could still win big.</p> <h3>Can I play the Weekly El Gordo from outside Spain?</h3> <p>You don't have to live in Spain to play Weekly El Gordo lottery. By signing up for a free LottosOnline account you can buy tickets from anywhere in the world. This means you have a chance at winning one of Spain's biggest jackpots!</p> <h3>How do I claim winnings on LottosOnline?</h3> <p>Ready to spend your new fortune? Claiming your prize money is easy. After LottosOnline has verified your ticket, your winnings will reflect in your LottosOnline Winnings Balance. It's then yours to use as you like. You can request our agents transfer the winnings into your bank account or you can convert it to credit in your Account Balance for future games. If you're a big jackpot winner, LottosOnline will contact you to make the necessary arrangements to unite you with your winning ticket.</p> <h3>How do I find out if I'm a winner?</h3> <p>Feeling lucky? If you're a winner LottosOnline will notify you of the exciting news via email. Jackpot winners are also telephoned to discuss the next steps. You can also check the LottosOnline website for regular updates on winning numbers.</p> <h3>How much is the tax on winnings?</h3> <p>By Spanish law, winnings over €2,500 are subject to a 20% tax.</p> <h3>How many El Gordo rollovers can take place?</h3> <p>There is no limit to the number of times a rollover can take place. This means jackpots have soared to over €30 million! Will you be the next lucky player to win a rollover jackpot?</p> <h3>Is there an age limit?</h3> <p>To play Weekly El Gordo lottery you'll need to be 18 years or over.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}

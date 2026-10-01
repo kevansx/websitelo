@@ -1,0 +1,65 @@
+{
+ "path": "/uk/winning-lottery-numbers/australia-weekday-lotto",
+ "title": "Weekday Windfall Results & Winning Numbers | LottosOnline",
+ "description": "Get the latest Weekday Windfall results and winning lottery numbers online",
+ "keywords": "",
+ "canonical_old": "https://www.lottosonline.com/uk/winning-lottery-numbers/australia-weekday-lotto",
+ "h1": "Weekday Windfall Results & Winning Numbers",
+ "h1_all": [
+  "Weekday Windfall Results & Winning Numbers"
+ ],
+ "h2": [
+  "Australia Weekly Windfall Lotto Results"
+ ],
+ "og_title": "Weekday Windfall Results & Winning Numbers | LottosOnline",
+ "og_description": "Get the latest Weekday Windfall results and winning lottery numbers online",
+ "og_image": "https://www.lottosonline.com/images/logolarge.png",
+ "jsonld": [
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": "https://www.lottosonline.com/",
+     "name": "Home"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": "https://www.lottosonline.com/winning-lottery-numbers",
+     "name": "Winning Lottery Numbers"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": "https://www.lottosonline.com/uk/winning-lottery-numbers/australia-weekday-lotto",
+     "name": "Weekday Windfall"
+    }
+   ]
+  },
+  {
+   "@context": "https://schema.org",
+   "@type": "Organization",
+   "name": "LottosOnline",
+   "url": "https://www.lottosonline.com/",
+   "logo": "https://www.lottosonline.com/images/logolarge.png",
+   "sameAs": [
+    "https://twitter.com/LottosOnline",
+    "https://plus.google.com/u/0/b/102133213157963113753/102133213157963113753/about",
+    "https://www.facebook.com/LottosOnline",
+    "https://www.youtube.com/channel/UCclrNVGkE3JFv44ZNRC5RkA/feed",
+    "https://www.pinterest.com/lottosonlinecom/"
+   ]
+  }
+ ],
+ "copy": [
+  {
+   "selector": ".playing-lotto",
+   "words": 229,
+   "html": "<h2>Australia Weekly Windfall Lotto Results</h2>\n<p>Looking for the latest Australia Weekly Windfall Lotto results? Could your dreams of winning one of Australia’s most popular lottos finally come true? Grab your Australia Weekly Windfall Lotto tickets and find out!</p>\n<p>The Australia Weekly Windfall Lotto draw takes place every Monday, Wednesday and Friday at 7:30pm Australian Eastern Standard Time (AEST). Results for the Australia Weekly Windfall Lotto as well as the biggest international lotteries are always available on LottosOnline.</p>\n<h3>Have you won the jackpot?</h3>\n<p>The Australia Weekly Windfall Lotto has six prize divisions. Although you only pick six lotto numbers, a total of eight numbers are drawn from a set of 1-45, with the last two drawn becoming the 'supplementary' numbers. The supplementary numbers are used in prize divisions 2, 5 and 6.</p><p>Match the six main numbers and you win the Australia Weekly Windfall Lotto jackpot!</p>\n<p>Play and you will receive the latest Australia Weekly Windfall Lotto results via email. Stay updated and buy lottery tickets online every week from LottosOnline.</p>\n<p>The Weekday Windfall Lotto is a replacement for the older format <strong>Australian Monday &amp; Wednesday Lotto</strong>. The new game adds a Friday draw to the Monday and Wednesday draws of the previous game. We have kept the results from previous Australian Monday &amp; Wednesday Lotto draws available to our players.</p>\n<p>DRAWS ARE CONDUCTED EVERY MONDAY, WEDNESDAY AND FRIDAY.</p>"
+  }
+ ],
+ "captured": "2026-10-01"
+}
