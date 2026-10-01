@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1140" height="336" viewBox="0 0 1140 336">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="1140" height="336" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Tickets_BG" data-name="Tickets BG" transform="translate(-220 -452)">
+    <rect id="Rectangle_171" data-name="Rectangle 171" width="1140" height="336" transform="translate(220 452)" fill="#fff3db"/>
+    <g id="Stripes_Grid" data-name="Stripes Grid" transform="translate(220 452)" clip-path="url(#clip-path)">
+      <g transform="translate(68.668 -418.353)">
+        <path id="Path_109" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(299.668 -418.353)">
+        <path id="Path_109-2" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(530.668 -418.353)">
+        <path id="Path_109-3" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(761.668 -418.353)">
+        <path id="Path_109-4" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(992.668 -418.353)">
+        <path id="Path_109-5" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(68.668 -237.353)">
+        <path id="Path_109-6" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(299.668 -237.353)">
+        <path id="Path_109-7" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(530.668 -237.353)">
+        <path id="Path_109-8" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(761.668 -237.353)">
+        <path id="Path_109-9" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(992.668 -237.353)">
+        <path id="Path_109-10" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect" id="mobileTicketWindow" style="display:none"></div>
+<div class="noSelect container lePages lotteryOfferPages">
+  {% if not bundle %}
+    <h1 class="pageHeading">Offer</h1>
+    <div class="leOfferNotice">
+      {% if offer_reachable %}
+        <p class="sub-heading">This offer is not available yet</p>
+        <p>The link you followed points at an offer we are not running at the moment. Nothing has gone wrong with your account.</p>
+      {% else %}
+        <p class="sub-heading">We can't load this offer right now</p>
+        <p>This is a problem at our end, not with your link. Please try again shortly.</p>
+      {% endif %}
+      <p><a class="linkAsButton secondaryFormButton" href="{{ url_for('promotions_index') }}">See what's on now</a></p>
+    </div>
+  {% else %}
+    {% set locked_cents = offer_locked_cents %}
+    {% set locked_price = (offer_currency_symbol ~ '%.2f'|format((locked_cents or 0) / 100)) if locked_cents is not none else None %}
+
+    {# The offer masthead. Marketing writes contents_description in the Module
+       and expects it on the page unedited, so it is rendered verbatim and
+       nothing is invented when it is empty. The locked price sits beside it
+       because the price is the offer: a customer who has to scroll to find it
+       is being asked to build a play before knowing what it costs. #}
+    <div class="leOfferMasthead">
+      <p class="leOfferEyebrow">Limited time offer</p>
+      <h1 class="pageHeading leOfferTitle">{{ offer_title }}</h1>
+      {% if bundle.contents_description %}
+        <p class="leOfferBlurb">{{ bundle.contents_description }}</p>
+      {% endif %}
+      {% if locked_price %}
+        <p class="leOfferPrice">
+          <span class="leOfferPriceLabel">Offer price</span>
+          <span class="leOfferPriceAmount">{{ locked_price }}</span>
+        </p>
+      {% endif %}
+    </div>
+
+    {% if offer_hero and offer_hero.games %}
+      {% if offer_hero.single %}
+        {# One lottery, so the offer can lead with the play page's banner. #}
+        {% set hero = offer_hero.games[0] %}
+        <div class="lotteryBanners leOfferHero{% if hero.syndicate %} leOfferHeroSyndicate{% endif %}" id="lotteryBanner">
+          <div id="bannerContent">
+            <div class="lotteryBannerBall">
+              {% if hero.logo_url %}
+                <img src="{{ hero.logo_url }}" width="175" height="112" alt="{{ hero.game_name }}" />
+              {% else %}
+                <img src="/resources/images/LELogo.png" width="175" height="112" alt="" />
+              {% endif %}
+            </div>
+            {# A share is a stake in a group's boards, not a ticket that wins
+               the jackpot, so the banner does not headline a figure this
+               customer is not buying. The countdown takes the middle. #}
+            {% if not hero.syndicate %}
+              <div class="bannerHeader">
+                <p>Next {{ hero.game_name }} jackpot</p>
+                <p id="bannerJackpotAmount">{{ hero.jackpot_display or "—" }}</p>
+              </div>
+            {% endif %}
+            {# A syndicate offer counts down to marketing's own closing date,
+               which is the date that decides whether this page can still be
+               bought from. The draw cutoff is a different date and is only
+               used when no closing date was set. #}
+            {% set offer_ends = hero.syndicate and offer_deadline_seconds is not none %}
+            <div class="bannerTimeToDraw">
+              <p>{{ "Offer ends in" if offer_ends else "Draw Cutoff Timer" }}</p>
+              <div id="drawCounterReact">
+                {% if offer_ends %}
+                  <span class="wl-countdown" data-remaining="{{ offer_deadline_seconds }}" data-ended-label="Offer closed">—</span>
+                {% elif hero.remaining_seconds is not none %}
+                  <span class="wl-countdown" data-remaining="{{ hero.remaining_seconds }}">—</span>
+                {% else %}
+                  <span>—</span>
+                {% endif %}
+              </div>
+            </div>
+            <div class="bannerEighteenPlus"><p>18+</p></div>
+          </div>
+        </div>
+      {% else %}
+        {# Several lotteries in one bundle, so every game is named with its own
+           jackpot rather than one of them being promoted to the headline. #}
+        <ul class="leOfferGames">
+          {% for hero in offer_hero.games %}
+            <li class="leOfferGame">
+              {% if hero.logo_url %}
+                <img class="leOfferGameLogo" src="{{ hero.logo_url }}" width="96" height="61" alt="" />
+              {% endif %}
+              <div class="leOfferGameText">
+                <p class="leOfferGameName">{{ hero.game_name }}</p>
+                {% set unit = 'share' if hero.syndicate else 'ticket' %}
+                <p class="leOfferGameCount">{{ hero.tickets }} {{ unit }}{{ '' if hero.tickets == 1 else 's' }}</p>
+              </div>
+              {% if hero.jackpot_display %}
+                <p class="leOfferGameJackpot">{{ hero.jackpot_display }}</p>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endif %}
+
+    <ul class="leOfferAssurances">
+      <li>
+        <img src="/resources/images/lock-icon-131x132px.png" width="30" height="30" alt="" />
+        <p class="leOfferAssuranceTitle">Secure payment</p>
+        <p>Your details are encrypted with industry-standard SSL.</p>
+      </li>
+      <li>
+        <img src="/resources/images/money-3-bars-underneath-69x69px.png" width="30" height="30" alt="" />
+        <p class="leOfferAssuranceTitle">One locked price</p>
+        <p>The offer price is what you pay. We confirm it at checkout.</p>
+      </li>
+      <li>
+        <img src="/resources/images/black-white-globe-131x132px.png" width="30" height="30" alt="" />
+        <p class="leOfferAssuranceTitle">Official entries</p>
+        <p>Every entry is bought on your behalf by our local agents.</p>
+      </li>
+      <li>
+        <img src="/resources/images/star-ribbon-131x132px.png" width="30" height="30" alt="" />
+        <p class="leOfferAssuranceTitle">Winnings guaranteed</p>
+        <p>Wins are insured and paid straight into your account.</p>
+      </li>
+    </ul>
+
+    {# Who we are, for a stranger a campaign has just landed here. `details`
+       rather than a script: it collapses without JavaScript, the browser gives
+       it keyboard and screen-reader behaviour for free, and opening it cannot
+       cost someone the numbers they have already picked by sending them to
+       another page. The copy is the About page's own, included rather than
+       repeated. #}
+    <details class="leOfferAbout">
+      <summary class="leOfferAboutSummary">
+        <span class="leOfferAboutTitle">About Lotto Express</span>
+        <span class="leOfferAboutHint">Who we are, and how your entry is bought</span>
+      </summary>
+      <div class="leOfferAboutBody">
+        {% include "_about_content.html" %}
+      </div>
+    </details>
+
+    {% if tickets %}
+      <form method="post" action="{{ url_for('offer_start', bundle_slug=bundle_slug) }}" id="leOfferForm">
+        {# A syndicate share has no numbers to pick, so an offer made only of
+           shares gets no picker and no "Build your play" — there is nothing to
+           build. A bundle holding both keeps the picker for the ordinary
+           tickets and puts the shares in their own panels below it. #}
+        {% if offer_playable %}
+          <div class="leOfferBuildHead">
+            <div class="leOfferBuildHeadText">
+              <p class="sub-heading">Build your play</p>
+              <p class="textLight">
+                {% if offer_syndicates %}
+                  Your syndicate shares are ready. Choose numbers for the {{ offer_playable|length }} ticket{{ '' if offer_playable|length == 1 else 's' }} below before you continue.
+                {% else %}
+                  Every ticket in this offer needs its numbers before you can continue.
+                {% endif %}
+              </p>
+            </div>
+            <button class="secondaryFormButton" type="button" id="leOfferQuickPickAll">Quick Pick All</button>
+          </div>
+
+          {# `#main` and `#tickets_section` are what the stylesheet dresses a number
+             board with — the ball grid, the complete/incomplete states and the
+             whole full-screen editor below 768px are all scoped to them. The offer
+             page carries them so it inherits that behaviour instead of growing a
+             second picker; `.lotteryOfferPages` re-lays the cards over the top. #}
+          <div id="main">
+            <div id="tickets_section">
+              <div id="leOfferTickets"></div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if offer_syndicates %}
+          <div class="leOfferSyndicates">
+            {% if not offer_playable %}
+              <p class="sub-heading">Your syndicate {{ 'shares' if offer_syndicates|sum(attribute='shares') != 1 else 'share' }}</p>
+            {% endif %}
+            {% for s in offer_syndicates %}
+              <section class="leOfferSyndicate">
+                <div class="leOfferSyndicateHead">
+                  {% if s.logo_url %}
+                    <img class="leOfferSyndicateLogo" src="{{ s.logo_url }}" width="96" height="61" alt="" />
+                  {% endif %}
+                  <div class="leOfferSyndicateText">
+                    <p class="leOfferSyndicateGame">{{ s.game_name }}</p>
+                    {% if s.syndicate_prebuilt_wheel_name %}
+                      <p class="leOfferSyndicateWheel">{{ s.syndicate_prebuilt_wheel_name }}</p>
+                    {% endif %}
+                  </div>
+                  <span class="leOfferSyndicateState">{{ s.shares }} share{{ '' if s.shares == 1 else 's' }}</span>
+                </div>
+
+                <ul class="leOfferSyndicateFacts">
+                  {% if s.syndicate_wheel_num_lines %}
+                    <li><span>Boards played</span><strong>{{ '{:,}'.format(s.syndicate_wheel_num_lines) }}</strong></li>
+                  {% endif %}
+                  {% if s.syndicate_max_participants %}
+                    <li><span>Syndicate size</span><strong>{{ '{:,}'.format(s.syndicate_max_participants) }} shares</strong></li>
+                  {% endif %}
+                  {% if s.syndicate_shares_remaining is not none and s.syndicate_shares_remaining is defined %}
+                    <li><span>Shares remaining</span><strong>{{ '{:,}'.format(s.syndicate_shares_remaining) }}</strong></li>
+                  {% endif %}
+                </ul>
+
+                {% if s.schedule %}
+                  <p class="leOfferSyndicateSchedule">{{ s.schedule }}</p>
+                {% endif %}
+                <p class="leOfferSyndicateNote">
+                  {% if s.syndicate_wheel_num_lines %}
+                    Your numbers are already selected — this syndicate plays a fixed wheel of {{ '{:,}'.format(s.syndicate_wheel_num_lines) }} boards at every draw.
+                  {% else %}
+                    Your numbers are already selected — this syndicate plays a fixed, pre-built wheel at every draw.
+                  {% endif %}
+                </p>
+              </section>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <input type="hidden" name="lines_json" id="leOfferLinesJson" value="[]" />
+
+        <div class="leOfferSummary">
+          <div class="leOfferSummaryText">
+            {% if locked_price %}
+              <p class="leOfferSummaryLabel">Offer price</p>
+              <p class="leOfferSummaryAmount">{{ locked_price }}</p>
+            {% endif %}
+            {% set offer_closed = offer_deadline_seconds is not none and offer_deadline_seconds <= 0 %}
+            <p class="textLight" id="leOfferStatus">{% if offer_closed %}This offer has ended.{% endif %}</p>
+            <p class="textLight">Prices are confirmed by our system at checkout.</p>
+          </div>
+          {# Enabled from the start when there is nothing to complete: the
+             picker is what disables it, and with no picker on the page nothing
+             would ever switch it back on. `data-offer-closed` outranks the
+             picker, which would otherwise re-enable it once numbers are in. #}
+          <button class="primaryFormButton" type="submit" id="leOfferSubmit"
+            {%- if offer_deadline_seconds is not none and not offer_closed %} data-offer-remaining="{{ offer_deadline_seconds }}"{% endif %}
+            {%- if offer_closed %} data-offer-closed="1"{% endif %}
+            {%- if offer_playable or offer_closed %} disabled{% endif %}>Continue</button>
+        </div>
+      </form>
+
+      {% if offer_playable %}
+      <template id="leLineTemplate">
+        <div class="leLineWrapper" data-line-index="__IDX__">
+          <div class="lines">
+            <div id="upperTicketSection">
+              <div id="choosenNumber"></div>
+              <div id="mobileUpperTicketSection">
+                <a id="closeTicketWindow" href="#" data-action="close-editor" aria-label="Close number selection"><img src="/resources/images/Close_Icon.svg" width="22" height="22" alt="" /></a>
+                <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
+                <button class="clearButton secondaryFormButton" type="button" data-action="clear">Clear</button>
+                <button class="done primaryFormButton" type="button" data-action="done">Done</button>
+                <img class="editTicket" src="/resources/images/edit.png" width="20" height="20" data-action="edit" role="button" tabindex="0" aria-label="Edit numbers" />
+              </div>
+              <div id="webUpperTicketSection">
+                <img class="ticketCompleteImage" src="/resources/images/Check.svg" style="display:none" width="25" height="23" />
+                <img class="ticketIncompleteImage" src="/resources/images/Error.svg" width="23" height="27" />
+                <button class="clearButton secondaryFormButton" type="button" data-action="clear">Clear</button>
+                <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
+              </div>
+            </div>
+            <div id="lowerTicketSection">
+              <div class="leGroups"></div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <script id="leOfferTicketsJson" type="application/json">{{ offer_playable|tojson }}</script>
+      <script id="leOfferProducts" type="application/json">{{ offer_products|tojson }}</script>
+      {% endif %}
+    {% elif offer_unsellable %}
+      <div class="leOfferNotice">
+        <p>This offer includes a game we're not selling at the moment, so it can't be played. Please check back shortly.</p>
+      </div>
+    {% else %}
+      <div class="leOfferNotice">
+        <p>This offer has no tickets to play. Please check back shortly.</p>
+      </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if bundle and offer_deadline_seconds %}
+<script>
+(function () {
+  var btn = document.getElementById("leOfferSubmit");
+  var form = btn && btn.form;
+  if (!btn || !btn.hasAttribute("data-offer-remaining")) return;
+  var endsAt = Date.now() + parseInt(btn.getAttribute("data-offer-remaining"), 10) * 1000;
+  function close() {
+    btn.setAttribute("data-offer-closed", "1");
+    btn.disabled = true;
+    var status = document.getElementById("leOfferStatus");
+    if (status) status.textContent = "This offer has ended.";
+  }
+  // A timer does not fire on time in a background or sleeping tab, so the
+  // clock is also checked whenever the customer comes back to the page and
+  // again at the moment they submit.
+  function check() { if (Date.now() >= endsAt) close(); }
+  var wait = endsAt - Date.now();
+  if (wait < 2147483647) setTimeout(close, Math.max(0, wait));
+  document.addEventListener("visibilitychange", check);
+  if (form) form.addEventListener("submit", function (e) {
+    check();
+    if (btn.hasAttribute("data-offer-closed")) e.preventDefault();
+  });
+})();
+</script>
+{% endif %}
+{% if bundle and offer_playable %}
+<script defer src="/resources/js/line_editor_core.js?v={{ build_id }}"></script>
+<script defer src="/resources/js/offer_picker.js?v={{ build_id }}"></script>
+{% endif %}
+{% endblock %}

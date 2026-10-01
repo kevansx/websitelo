@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container processOrderForm">
+  <div class="row lePages">
+    <div class="processOrderContent">
+      <p class="pageHeading">Please Confirm Your Order</p>
+      <p class="processOrderCopy">
+        For security and pricing accuracy, Lotto Express now confirms orders from your cart.
+      </p>
+      <hr class="processOrderTotal">
+      <a class="linkAsButton" href="{{ url_for('cart') }}">Go to Cart to Confirm</a>
+      <br /><br />
+      <a class="tertiaryLink" href="{{ url_for('catalog') }}">Or click here to keep browsing lotteries</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

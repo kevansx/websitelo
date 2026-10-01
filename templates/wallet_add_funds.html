@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container addFundsForms" id="addFunds">
+  <div class="row lePages">
+    <div class="topUpPaymentOverlay"></div>
+    <div class="formHeader">
+      <div class="formHeaderContent">
+        {% if purchase_mode %}
+          <p class="pageHeading">Please Top Up Your Wallet to Complete Purchase</p>
+          {# "Funds" here means added funds, which is what orders are paid
+             from. A customer arriving with winnings in the wallet has not
+             been told they have no money - they chose to add funds rather
+             than use them - so the wording names the pot rather than implying
+             the wallet is empty. #}
+          <p class="paymentTopUpText">The total value of items in your cart is more than the added funds in your wallet.</p>
+          {% if balance_cents is not none %}
+            <p class="paymentTopUpText">Added Funds: {{ currency_symbol }}{{ '%.2f'|format((balance_cents or 0) / 100) }}</p>
+          {% endif %}
+          {% if required_cents is not none %}
+            <p class="paymentTopUpText">Funds Required: {{ currency_symbol }}{{ '%.2f'|format((required_cents or 0) / 100) }}</p>
+          {% endif %}
+        {% else %}
+          <p class="pageHeading">Add Funds</p>
+          <p class="paymentTopUpText">Funds added to your wallet will be available for placing orders.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="addFundsContent">
+      <div class="paymentTopUpFormLeft">
+        <label>Select amount to add to wallet.</label>
+        <ul id="addFundsAmounts" class="fundsTopUpAmounts">
+          <li class="secondaryFormButton" id="addFundsOne" onclick="replaceAddFundsValue('40.00',this.id)"><span class="addFundsCurrency">{{ currency_symbol }}</span><span class="addFundsAmount">40</span></li>
+          <li class="secondaryFormButton" id="addFundsTwo" onclick="replaceAddFundsValue('50.00',this.id)"><span class="addFundsCurrency">{{ currency_symbol }}</span><span class="addFundsAmount">50</span></li>
+          <li class="secondaryFormButton" id="addFundsThree" onclick="replaceAddFundsValue('75.00',this.id)"><span class="addFundsCurrency">{{ currency_symbol }}</span><span class="addFundsAmount">75</span></li>
+          <li class="secondaryFormButton" id="addFundsFour" onclick="replaceAddFundsValue('100.00',this.id)"><span class="addFundsCurrency">{{ currency_symbol }}</span><span class="addFundsAmount">100</span></li>
+          <li class="secondaryFormButton" id="addFundsFive" onclick="replaceAddFundsValue('200.00',this.id)"><span class="addFundsCurrency">{{ currency_symbol }}</span><span class="addFundsAmount">200</span></li>
+          <li class="secondaryFormButton" id="addFundsSix" onclick="replaceAddFundsValue('500.00',this.id)"><span class="addFundsCurrency">{{ currency_symbol }}</span><span class="addFundsAmount">500</span></li>
+        </ul>
+      </div>
+
+      <div class="addCardToFile">
+        <form method="post" action="{{ url_for('wallet_add_funds_post') }}" id="addFundsForm">
+          <div class="paymentTopUpFormRight" style="margin-top:0;">
+            <label>Enter Custom Amount<span class="inputRequiredStar">*</span> <span>(min {{ currency_symbol }} 5.00)</span></label>
+            <div class="inputCurrencyAmount">
+              <input type="text" class="required inputTopUpAmount" name="amount" id="newCCAddFundsAmount" value="{{ default_amount }}" />
+              <i>{{ currency_symbol }}</i>
+            </div>
+            <p class="addFundsDepositError"></p>
+          </div>
+
+          <div style="clear:both;"></div>
+
+          {% if needs_country %}
+            <div class="paymentTopUpFormLeft" style="margin-top:10px;">
+              <label>Country you're paying from<span class="inputRequiredStar">*</span></label>
+              <input
+                type="text"
+                name="country"
+                id="topup_country"
+                placeholder="Country (e.g. United Kingdom)"
+                list="topup_country_list"
+                required
+              />
+              <datalist id="topup_country_list">
+                {% for c in (country_options or []) %}
+                  {% if c.name and c.iso2 %}
+                    <option value="{{ c.name }}"></option>
+                  {% endif %}
+                {% endfor %}
+              </datalist>
+            </div>
+          {% endif %}
+
+          {# Asked here only when the CRM holds no address for this customer.
+             Some processors will not open a payment page without one, and a
+             hosted page is reached straight from this form, so there is no
+             later screen where it could be collected. #}
+          {% if needs_address %}
+            <div class="paymentTopUpFormLeft" style="margin-top:10px;">
+              <label>Your address<span class="inputRequiredStar">*</span></label>
+              <p class="paymentTopUpText">Your bank needs this to approve the payment.</p>
+              <input type="text" name="billing_street" id="topup_billing_street" placeholder="Street address" style="margin-bottom:8px;" required />
+              <input type="text" name="billing_city" id="topup_billing_city" placeholder="City" style="margin-bottom:8px;" required />
+              <input type="text" name="billing_state" id="topup_billing_state" placeholder="State or region (optional)" style="margin-bottom:8px;" />
+              <input type="text" name="billing_postcode" id="topup_billing_postcode" placeholder="Postcode" required />
+            </div>
+          {% endif %}
+
+          <hr>
+          <input type="hidden" name="next" value="{{ next or '' }}">
+          <input type="hidden" name="edit_order_url" value="{{ edit_order_url or '' }}">
+          <input type="submit" value="Continue to Payment" id="addFundsSubmit">
+          <p>lottoexpress.com will show on your statement</p>
+          {% if purchase_mode %}
+            <p style="margin-top:8px;">
+              <a class="confirmBetText tertiaryLink" href="{{ edit_order_url or url_for('catalog') }}">Or click here to edit your order</a>
+            </p>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function() {
+  // Legacy index.js expects these globals for amount validation. Our new Add Funds page
+  // doesn't inject them, so provide safe defaults so preset buttons work reliably.
+  if (typeof window.addFundsMinDepositAmount === 'undefined') window.addFundsMinDepositAmount = 5.0;
+  if (typeof window.depositLimit === 'undefined') window.depositLimit = 1000000.0;
+
+  if (typeof window.confirmCorrectAmount !== 'function') {
+    window.confirmCorrectAmount = function(amount) {
+      var n = parseFloat(String(amount || '').replace(/[^0-9.]/g, ''));
+      if (!isFinite(n)) n = 0;
+      if (n < window.addFundsMinDepositAmount) {
+        var e = document.querySelector('.addFundsDepositError');
+        if (e) e.textContent = 'Minimum deposit of ' + window.addFundsMinDepositAmount.toFixed(2);
+        return false;
+      }
+      if (n > window.depositLimit) {
+        var e2 = document.querySelector('.addFundsDepositError');
+        if (e2) e2.textContent = 'Amount exceeds your deposit limit.';
+        return false;
+      }
+      var e3 = document.querySelector('.addFundsDepositError');
+      if (e3) e3.textContent = '';
+      return true;
+    };
+  }
+
+  // Ensure preset amount buttons work even if legacy JS changes.
+  window.replaceAddFundsValue = function(val, id) {
+    var raw = String(val || '').trim();
+    var n = parseFloat(raw.replace(/[^0-9.]/g, ''));
+    if (!isFinite(n)) n = 0;
+    var fixed = n.toFixed(2);
+
+    if (window.confirmCorrectAmount && window.confirmCorrectAmount(fixed) !== true) {
+      var amt0 = document.getElementById('newCCAddFundsAmount');
+      if (amt0) amt0.value = '';
+      document.querySelectorAll('#addFundsAmounts li').forEach(function(li){ li.classList.remove('topUpAmountActive'); });
+      return;
+    }
+
+    var amt = document.getElementById('newCCAddFundsAmount');
+    if (amt) {
+      amt.value = fixed;
+      // Trigger legacy focusout-driven formatting/validation if present.
+      try { amt.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {}
+      try { amt.dispatchEvent(new Event('focusout', { bubbles: true })); } catch (e) {}
+    }
+
+    document.querySelectorAll('#addFundsAmounts li').forEach(function(li){ li.classList.remove('topUpAmountActive'); });
+    if (id) {
+      var active = document.getElementById(String(id));
+      if (active) active.classList.add('topUpAmountActive');
+    }
+  };
+})();
+</script>
+{% endblock %}

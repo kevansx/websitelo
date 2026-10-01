@@ -1,0 +1,12 @@
+{# Tab bar for the orders area. The Legacy Orders tab is only rendered when the
+   customer's legacy history check succeeded with total > 0. #}
+{% if legacy_orders_available %}
+  <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+    <li class="{{ 'active' if active_orders_tab == 'current' else '' }}">
+      <a href="{{ url_for('orders') }}">Orders</a>
+    </li>
+    <li class="{{ 'active' if active_orders_tab == 'legacy' else '' }}">
+      <a href="{{ url_for('legacy_orders') }}">Legacy Orders</a>
+    </li>
+  </ul>
+{% endif %}

@@ -1,0 +1,1024 @@
+{% extends "base.html" %}
+{% block content %}
+{# Backdrop the open line sits on below 768px (mobile.css #mobileTicketWindow). #}
+<div class="noSelect" id="mobileTicketWindow" style="display:none"></div>
+<style>
+  /* Ensure upsell offers stay visible above reality check popup */
+  .leUpsellBox {
+    position: relative;
+    z-index: 1000 !important;
+  }
+  /* Hide reality check popup on cart page to prevent layout issues */
+  #realityCheckPopup {
+    display: none !important;
+  }
+  /* Ensure cart content is visible */
+  .processOrderContent {
+    position: relative;
+    z-index: 1;
+  }
+  /* Align cart page outer edges with fixed-width legacy footer strip */
+  .processOrderForm.container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .processOrderContent button.topupConfirmBtn {
+    font-size: 16px !important;
+    line-height: 19px !important;
+    padding-top: 6px !important;
+  }
+  .processOrderContent button.topupConfirmBtn span {
+    display: block;
+    text-align: center;
+  }
+  /* Two lines of text in a button sized for one: the second line names the
+     amount of winnings being authorised, which is the part that must not be
+     clipped. */
+  .processOrderContent button.useWinningsBtn {
+    font-size: 16px !important;
+    line-height: 19px !important;
+    height: auto !important;
+    min-height: 52px;
+    padding: 8px 14px !important;
+    white-space: normal;
+  }
+  .processOrderContent button.useWinningsBtn span {
+    display: block;
+    text-align: center;
+    font-size: 13px !important;
+    line-height: 17px !important;
+  }
+  .leCartFundingRow span:last-child {
+    white-space: nowrap;
+  }
+  .cart-accordion-content.is-open {
+    display: block !important;
+  }
+  .cart-arrow.is-open {
+    transform: rotate(180deg);
+  }
+  .cart-line-action-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .processOrderContent .cart-line-action-wrap form {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+  }
+  .processOrderContent button.cart-line-edit-btn {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 24px !important;
+    padding: 0 9px !important;
+    margin: 0 !important;
+    line-height: 22px !important;
+    font-size: 12px !important;
+    border-radius: 4px !important;
+    white-space: nowrap;
+  }
+  .processOrderContent button.cart-line-remove-btn {
+    width: 24px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 2px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+  }
+  .processOrderContent button.cart-line-remove-btn:hover {
+    background: rgba(255,255,255,0.12) !important;
+  }
+  .processOrderContent .cart-line-title {
+    /* `.processOrderCopy` is a fixed 315px column, which leaves a line's
+       numbers a sliver of the panel to wrap inside. */
+    width: auto !important;
+    flex: 0 0 auto;
+    font-size: 13px !important;
+    line-height: 24px !important;
+    margin: 0 !important;
+    opacity: 0.8;
+    white-space: nowrap;
+  }
+  .processOrderContent .cart-line-detail {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+  .processOrderContent form.cart-promo-form {
+    margin: 10px 0 14px;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .processOrderContent .cart-promo-input-wrap {
+    min-width: 220px;
+  }
+  .processOrderContent button.cart-promo-apply-btn {
+    width: auto !important;
+    min-width: 88px !important;
+    max-width: none !important;
+    height: 42px !important;
+    padding: 0 12px !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  /* The cart's own column. Its headings run the full width so they share a
+     left edge with the cards, instead of being set in the 315px
+     `.processOrderCopy` column that is centred inside the 400px panel. */
+  .processOrderContent .leCartItems {
+    margin: 16px 0 18px;
+    text-align: left;
+  }
+  .processOrderContent .leCartHead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #165D8A;
+  }
+  .processOrderContent p.leCartHeadTitle {
+    margin: 0;
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 28px;
+  }
+  .processOrderContent p.leCartHeadCount {
+    margin: 0;
+    color: #A4D3F1;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .processOrderContent p.leCartSectionLabel {
+    margin: 15px 0 9px;
+    color: #00ADEF;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+  }
+
+  /* A cart item, dressed like the offer page's ticket cards: the game's own
+     logo, a stripe in brand blue down the edge, and the price where the eye
+     looks for it. Collapsed, this row is the whole confirmation for most
+     customers, so it has to say what was bought without being opened. */
+  .processOrderContent .leCartItem {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 1px solid #165D8A;
+    border-radius: 8px;
+    background-image: linear-gradient(90deg, #0A456C, #013658);
+  }
+  .processOrderContent .leCartItem::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #00ADEF;
+  }
+  .processOrderContent .leCartItem:hover { border-color: #2C7AAB; }
+  .processOrderContent .leCartItemHead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px 14px 18px;
+    cursor: pointer;
+  }
+  .processOrderContent .leCartItemLogo {
+    flex: 0 0 auto;
+    width: 46px;
+    height: auto;
+    margin-top: 1px;
+  }
+  .processOrderContent .leCartItemText {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .processOrderContent p.leCartItemTitle {
+    margin: 0;
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 22px;
+  }
+  .processOrderContent p.leCartItemTags {
+    margin: 7px 0 0;
+    line-height: 1;
+  }
+  /* `.processOrderContent p span` floats right, which would stack the chips
+     down the right-hand edge one under the other. */
+  .processOrderContent p.leCartItemTags .leCartTag {
+    float: none;
+    display: inline-block;
+    margin: 0 5px 0 0;
+    padding: 3px 9px;
+    border: 1px solid #22699C;
+    border-radius: 11px;
+    background-color: #0C4970;
+    color: #C7E9FE;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .processOrderContent p.leCartItemSchedule {
+    flex: 1 0 100%;
+    margin: 2px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid #0C4970;
+    color: #FECF6B;
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .processOrderContent .leCartItemAside {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .processOrderContent p.leCartItemPrice {
+    margin: 0;
+    color: #FC7D2B;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    white-space: nowrap;
+  }
+  .processOrderContent .leCartItemControls {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .processOrderContent .leCartItemControls form { margin: 0; }
+  .processOrderContent button.leCartItemRemove {
+    width: 26px !important;
+    min-width: 26px !important;
+    max-width: 26px !important;
+    height: 26px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 4px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #A4D3F1 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    cursor: pointer;
+  }
+  .processOrderContent button.leCartItemRemove:hover {
+    background-color: rgba(255,255,255,0.14) !important;
+    color: #FFFFFF !important;
+  }
+  /* The chevron is drawn on the pseudo-element, leaving the span's own
+     transform free for the toggle script's 180deg flip. */
+  .processOrderContent .leCartItemArrow {
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s;
+  }
+  .processOrderContent .leCartItemArrow::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 7px;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid #00ADEF;
+    border-bottom: 2px solid #00ADEF;
+    transform: rotate(45deg);
+  }
+  .processOrderContent .cart-accordion-content {
+    padding: 0 16px 14px 18px;
+    border-top: 1px solid #0C4970;
+  }
+  @media (max-width: 480px) {
+    .processOrderContent .leCartItemLogo { width: 36px; }
+    .processOrderContent .leCartItemHead { gap: 9px; padding: 12px 10px 12px 13px; }
+    .processOrderContent .leCartItemAside { flex-direction: column-reverse; align-items: flex-end; gap: 6px; }
+    .processOrderContent p.leCartHeadTitle { font-size: 19px; }
+  }
+
+  .processOrderContent .leCartPricingHeld {
+    margin: 16px 0 4px;
+    padding: 14px 16px;
+    border: 1px solid #7A6430;
+    border-radius: 8px;
+    background-color: rgba(254, 207, 107, 0.08);
+    text-align: left;
+  }
+  .processOrderContent p.leCartPricingHeldTitle {
+    margin: 0 0 6px;
+    color: #FECF6B;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .processOrderContent .leCartPricingHeld p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  /* A cart line: label, its numbers as small boxes, then the controls — one
+     compact row, the same tiles the picker collapses a line to on a phone. */
+  .leCartLine {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .leCartLineSummary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+  }
+  .leCartNums {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .leCartNum {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px;
+    height: 26px;
+    padding: 0 4px;
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    color: #2B2B2B;
+    font-family: 'Heebo', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    cursor: default;
+  }
+  .leCartNum.leCartNumBonus {
+    background-color: #FECF6B;
+    border-color: #E4B34B;
+  }
+  .processOrderContent .leCartLineSummary .cart-line-action-wrap {
+    margin-top: 0;
+    flex: 0 0 auto;
+  }
+
+  /* The number board, mounted in the line being edited. It is the play page's
+     own markup, so the legacy `#main #tickets_section` rules dress it; these
+     only place it in the cart panel and keep its controls visible without the
+     hover the play page relies on. */
+  .leCartEditor { display: none; }
+  .leCartEditor.is-open { display: block; }
+  /* `#main` is the play page's page wrapper and carries the site's dark
+     background; inside the cart it is only a hook for the ticket styles. */
+  .leCartEditor #main {
+    background: transparent !important;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+  }
+  .leCartEditor #main #tickets_section {
+    /* `height:100%` inside a parent that sizes to its content makes the layout
+       oscillate frame to frame, which also makes the controls untappable. */
+    height: auto;
+    min-height: 0;
+    margin-top: 0;
+    padding: 0 0 8px 0;
+    overflow: visible;
+  }
+  /* Hover is listed with the base state on purpose: the play page grows a line
+     on hover, and in the cart that pulls the card out from under the pointer,
+     which drops the hover, which shrinks it back — a permanent flicker that
+     also makes the controls unclickable. */
+  .leCartEditor #main #tickets_section .lines,
+  .leCartEditor #main #tickets_section .lines:hover {
+    float: none;
+    position: static;
+    width: 232px !important;
+    max-width: 100%;
+    height: auto !important;
+    margin: 8px 0 4px 0 !important;
+    padding: 0 0 10px 0 !important;
+    background-color: #FFFFFF;
+    box-shadow: none;
+  }
+  /* The tiles are floated and the play page contains them with a per-game fixed
+     height, which the cart has no body id for; without this the grid falls out
+     of the white card. */
+  .leCartEditor #main #tickets_section .lines ul {
+    overflow: hidden;
+  }
+  /* The panel sizes every button in it to 191x67 (style.css), which swallows the
+     board's controls; hand them back to the play page's own rules. */
+  .processOrderContent .leCartEditor button {
+    display: inline-block;
+    width: auto !important;
+    height: auto !important;
+    line-height: normal;
+    padding: 0 10px;
+    margin: 0;
+  }
+  .processOrderContent .leCartEditor #webUpperTicketSection button.clearButton {
+    width: 59px !important;
+    height: 27px !important;
+    padding-top: 3px;
+  }
+  .processOrderContent .leCartEditor #webUpperTicketSection button.quickPickButton {
+    padding-top: 4px;
+  }
+  .leCartEditor #main #tickets_section .lines.ticketComplete,
+  .leCartEditor #main #tickets_section .lines.ticketComplete:hover {
+    background-color: #E1F8F9;
+    border: 2px solid #C1E0E0;
+  }
+  .leCartEditor #main #tickets_section .lines #webUpperTicketSection button.quickPickButton,
+  .leCartEditor #main #tickets_section .lines #webUpperTicketSection button.clearButton {
+    display: inline-block;
+  }
+  /* style.css hides Quick Pick on a complete tile whenever the pointer is over
+     it. On the play page that only trims a card the hover itself expanded; here
+     the button is already on screen, so reaching for it makes it vanish. */
+  .leCartEditor #main #tickets_section .lines.ticketComplete:hover #webUpperTicketSection button.quickPickButton {
+    display: inline-block !important;
+  }
+  .leCartEditor #main #tickets_section .lines #webUpperTicketSection button.trashButton {
+    display: none !important;
+  }
+  .leCartEditorActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0 10px;
+  }
+  .processOrderContent .leCartEditorActions button {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 30px !important;
+    padding: 0 14px !important;
+    margin: 0 !important;
+    line-height: 28px !important;
+    font-size: 14px !important;
+    border-radius: 5px !important;
+  }
+  @media (max-width: 767px) {
+    /* Full screen: the mobile bar inside the card carries close/Clear/Done, and
+       `.processOrderContent` is a stacking context — without lifting it, its
+       z-index:1 would keep the open line under the fixed backdrop. The panel's
+       own dark chrome and spacing has to step aside too, or the "full screen"
+       line sits in a blue box a quarter of the way down the page. */
+    .leCartEditorActions { display: none; }
+    body.leEditingLine .processOrderContent { z-index: 5; }
+    body.leEditingLine .processOrderForm,
+    body.leEditingLine .processOrderContent,
+    body.leEditingLine .cart-accordion-item,
+    body.leEditingLine .cart-accordion-content,
+    body.leEditingLine .cart-accordion-content > div,
+    body.leEditingLine .leCartLine {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    body.leEditingLine .leCartEditor #main #tickets_section .lines,
+    body.leEditingLine .leCartEditor #main #tickets_section .lines:hover { width: 100% !important; }
+  }
+</style>
+<div class="container processOrderForm">
+  <div class="row lePages">
+    <div class="processOrderContent">
+      {% if items %}
+        <p class="pageHeading">Please Confirm Your Order</p>
+
+        {# `.processOrderCopy` is a 315px column centred inside a 400px panel,
+           so headings set with it sit indented from the item cards below them
+           and the column reads as though it has two left edges. These run the
+           full width of the panel instead, flush with the cards. #}
+        <div class="leCartItems">
+          <div class="leCartHead">
+            <p class="leCartHeadTitle">
+              {% if is_mm_cart and bundle_slug %}
+                {{ bundle_slug }}
+              {% else %}
+                Shopping Cart
+              {% endif %}
+            </p>
+            <p class="leCartHeadCount">{{ items|length }} item{{ '' if items|length == 1 else 's' }}</p>
+          </div>
+          <p class="leCartSectionLabel">Your cart details</p>
+          {% set quote_items = (quote.get('items') if quote and quote.get('items') is iterable else []) %}
+          {% for it in items %}
+            {% set idx = loop.index0 %}
+            {% set qit = quote_items[idx] if quote_items and idx < (quote_items|length) else {} %}
+            {% set title = qit.get('name') or qit.get('product_name') or qit.get('label') or it.get('game_name') or (it.get('game_code')|replace('-', ' ')|title if it.get('game_code') else '') or ('Lottery item ' ~ loop.index) %}
+            {% set qty = qit.get('quantity') or it.get('quantity') or 1 %}
+            {% set item_total_cents = qit.get('item_total_in_customer_cents') or qit.get('item_total_cents') or qit.get('line_total_cents') or qit.get('subtotal_in_customer_cents') or qit.get('subtotal_cents') or qit.get('total_in_customer_cents') or qit.get('total_cents') or 0 %}
+            {% set item_total_amount = qit.get('item_total') or qit.get('line_total') or qit.get('subtotal') or qit.get('total') %}
+            {% if (not item_total_cents) and item_total_amount %}
+              {% set item_total_cents = (item_total_amount|float * 100)|round(0, 'common')|int %}
+            {% endif %}
+            {% if (not item_total_cents) and it.get('estimated_item_total_cents') %}
+              {% set item_total_cents = it.get('estimated_item_total_cents') %}
+            {% endif %}
+            {% set is_upsell_item = it.get('is_upsell') or (it.get('options') and it.get('options').get('_is_upsell')) %}
+            {% set cart_item_id = 'cart-item-' ~ idx %}
+            {% set num_lines = (it.get('lines') or [])|length if it.get('kind') == 'single' else 0 %}
+            {% set draw_date = '' %}
+            {% if it.get('options') and it.get('options').get('_draw_date') %}
+              {% set draw_date = it.get('options').get('_draw_date')[:10] if it.get('options').get('_draw_date')|length >= 10 else it.get('options').get('_draw_date') %}
+            {% elif qit.get('draw_date') %}
+              {% set draw_date = qit.get('draw_date')[:10] if qit.get('draw_date')|length >= 10 else qit.get('draw_date') %}
+            {% endif %}
+            
+            <div class="cart-accordion-item leCartItem">
+              {% set is_open = (open_item_idx is not none and open_item_idx == idx) %}
+              {# Collapsed header - always visible #}
+              <div class="cart-accordion-header leCartItemHead" onclick="toggleCartItem('{{ cart_item_id }}')">
+                {% if it.get('logo_url') %}
+                  <img class="leCartItemLogo" src="{{ it.get('logo_url') }}" alt="" />
+                {% endif %}
+                <div class="leCartItemText">
+                  <p class="leCartItemTitle">{{ title }}</p>
+                  <p class="leCartItemTags">
+                    {% if num_lines > 0 %}<span class="leCartTag">{{ num_lines }} line{{ 's' if num_lines != 1 else '' }}</span>{% endif %}
+                    {% if draw_date %}<span class="leCartTag">Draw {{ draw_date }}</span>{% endif %}
+                  </p>
+                </div>
+                <div class="leCartItemAside">
+                  {% if item_total_cents %}
+                    <p class="leCartItemPrice">{{ cart_currency }} {{ '%.2f'|format((item_total_cents or 0) / 100) }}</p>
+                  {% endif %}
+                  <div class="leCartItemControls">
+                    <form method="post" action="{{ url_for('cart_remove_item') }}" onclick="event.stopPropagation();">
+                      <input type="hidden" name="item_idx" value="{{ idx }}" />
+                      <button
+                        class="leCartItemRemove"
+                        type="submit"
+                        title="Remove item"
+                        aria-label="Remove item"
+                      >&times;</button>
+                    </form>
+                    {# The chevron is drawn on the pseudo-element so the toggle
+                       script can keep rotating this span by 180deg. #}
+                    <span class="cart-arrow leCartItemArrow {% if is_open %}is-open{% endif %}" id="arrow-{{ cart_item_id }}"></span>
+                  </div>
+                </div>
+                {# A multi-draw line is one board entered in a run of draws, and the
+                   price covers the run. Without this it reads as a single draw.
+                   On its own row: squeezed into the title's column it wraps to
+                   four lines and stops being a sentence. #}
+                {% set schedule = schedule_sentence(qit.get('schedule')) %}
+                {% if schedule %}
+                  <p class="leCartItemSchedule">{{ schedule }}</p>
+                {% endif %}
+              </div>
+              
+              {# Expanded content - hidden by default #}
+              <div class="cart-accordion-content {% if is_open %}is-open{% endif %}" id="content-{{ cart_item_id }}" style="display:none;">
+                <div style="padding-top:12px;">
+                  <p class="processOrderCopy" style="margin:0 0 8px;">Quantity: {{ qty }}</p>
+                  
+                  {% if it.get('kind') == 'single' %}
+                    {% if draw_date %}
+                      <p class="processOrderCopy" style="margin:0 0 8px;">
+                        Draw: {{ draw_date }}
+                      </p>
+                    {% endif %}
+                    
+                    {% if it.get('lines') %}
+                      <div style="margin:0 0 12px;">
+                        {% for ln in it.get('lines') %}
+                          <div
+                            class="leCartLine"
+                            data-item-idx="{{ idx }}"
+                            data-line-idx="{{ loop.index0 }}"
+                            data-product-code="{{ it.get('product_code') or '' }}"
+                            data-line-json="{{ (ln or {})|tojson|forceescape }}"
+                          >
+                            <div class="leCartLineSummary">
+                              <p class="processOrderCopy textBold cart-line-title">Line {{ loop.index }}</p>
+                              <div class="leCartNums">
+                                {% for key, val in (ln or {}).items() %}
+                                  {# Values can be ints, lists of ints, or comma-strings. #}
+                                  {% if val is string %}
+                                    {% set nums = val.replace(' ', '').split(',') %}
+                                  {% elif val is iterable and val is not mapping %}
+                                    {% set nums = val %}
+                                  {% else %}
+                                    {% set nums = [val] %}
+                                  {% endif %}
+                                  {% for n in nums %}
+                                    {% if n is not none and (n|string)|trim != '' %}
+                                      <span
+                                        class="leCartNum{{ ' leCartNumBonus' if key != 'main' else '' }}"
+                                        title="{{ key|replace('_',' ')|title }}"
+                                      >{{ n }}</span>
+                                    {% endif %}
+                                  {% endfor %}
+                                {% endfor %}
+                              </div>
+                              <div class="cart-line-action-wrap">
+                                {# Falls back to the play page when the picker can't run. #}
+                                <form method="post" action="{{ url_for('cart_edit_line') }}" style="margin:0;">
+                                  <input type="hidden" name="item_idx" value="{{ idx }}" />
+                                  <input type="hidden" name="line_idx" value="{{ loop.index0 }}" />
+                                  <button class="secondaryFormButton cart-line-edit-btn" type="submit" data-action="cart-edit">Edit</button>
+                                </form>
+                                <form method="post" action="{{ url_for('cart_remove_line') }}" style="margin:0;">
+                                  <input type="hidden" name="item_idx" value="{{ idx }}" />
+                                  <input type="hidden" name="line_idx" value="{{ loop.index0 }}" />
+                                  <button
+                                    type="submit"
+                                    title="Remove line"
+                                    aria-label="Remove line"
+                                    class="cart-line-remove-btn"
+                                  >&times;</button>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="leCartLineSlot"></div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                  
+                  {% if item_total_cents %}
+                    <p class="processOrderCopy textBold" style="margin:8px 0 0;">
+                      Item total: {{ cart_currency }} {{ '%.2f'|format((item_total_cents or 0) / 100) }}
+                    </p>
+                    {# The CRM's own per-item saving. Deriving one here from a
+                       percentage would show a discount it never applied. #}
+                    {% set item_discount_cents = it.get('crm_discount_cents') or 0 %}
+                    {% if item_discount_cents > 0 %}
+                      <p class="processOrderCopy" style="margin:4px 0 0;">
+                        Discount applied:
+                        <span>- {{ cart_currency }} {{ '%.2f'|format(item_discount_cents / 100) }}</span>
+                      </p>
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          
+          <script>
+          function toggleCartItem(itemId) {
+            var content = document.getElementById('content-' + itemId);
+            var arrow = document.getElementById('arrow-' + itemId);
+            var shown = false;
+            try { shown = window.getComputedStyle(content).display !== 'none'; } catch(e) { shown = content.style.display !== 'none'; }
+            if (!shown) {
+              content.style.display = 'block';
+              arrow.style.transform = 'rotate(180deg)';
+              content.classList.add('is-open');
+              arrow.classList.add('is-open');
+            } else {
+              content.style.display = 'none';
+              arrow.style.transform = 'rotate(0deg)';
+              content.classList.remove('is-open');
+              arrow.classList.remove('is-open');
+            }
+          }
+          </script>
+        </div>
+
+        {% if lottery_upsells and lottery_upsells|length > 0 %}
+          <div class="leUpsellBox" style="margin:20px 0 30px; max-width:760px;">
+            <div style="margin-bottom:16px;">
+              <p class="sub-heading" style="margin:0 0 6px; font-size:18px; font-weight:700;">Recommended Offers</p>
+              <p class="leUpsellHint" style="margin:0; font-size:13px; opacity:0.85;">Bigger purchases unlock bigger discounts</p>
+            </div>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:12px;">
+            {% for o in lottery_upsells %}
+              <div class="leUpsellCard" style="padding:14px; border:1px solid rgba(255,255,255,0.2);">
+                <div style="display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:start;">
+                  <div>
+                    <p class="leUpsellTitle" style="margin:0 0 4px; font-size:16px; font-weight:700;">{{ o.title }}</p>
+                    <p class="leUpsellDescription" style="margin:0 0 6px; font-size:13px; opacity:0.9;">{{ o.reason }}</p>
+                    
+                    {# Highest Jackpot: Show jackpot amount #}
+                    {% if o.jackpot_display %}
+                      <p style="margin:0 0 6px; font-size:13px; opacity:0.85; font-weight:600;">
+                        Jackpot: {{ o.jackpot_display }}
+                      </p>
+                    {% endif %}
+                    
+                    {# Best Odds: Show % better odds #}
+                    {% if o.odds_improvement_pct is defined and o.odds_improvement_pct is not none %}
+                      <p style="margin:0 0 6px; font-size:13px; opacity:0.85; font-weight:600;">
+                        {{ o.odds_improvement_pct }}% better odds
+                      </p>
+                    {% endif %}
+                    
+                    {# Next Draw: Show countdown #}
+                    {% if o.countdown_to %}
+                      <p style="margin:0 0 6px; font-size:13px; opacity:0.85; font-weight:600;">
+                        Next draw: <span class="countdown-timer" data-target="{{ o.countdown_to }}">--:--:--</span>
+                      </p>
+                    {% endif %}
+                    
+                    {# Only advertise a discount the CRM will actually apply. An upsell
+                       with no matching offer rule is quoted at full price, so claiming
+                       one here would fail the price check at submit. #}
+                    {% if o.offer_rule_id and o.discount_percent is not none %}
+                      <p style="margin:0; font-size:14px; font-weight:600; color:#FFA500;">
+                        {{ o.discount_percent }}% Discount
+                      </p>
+                    {% endif %}
+                  </div>
+                  <form method="post" action="{{ url_for('cart_add_upsell') }}" style="margin:0;">
+                    <input type="hidden" name="product_code" value="{{ o.product_code }}" />
+                    <input type="hidden" name="game_code" value="{{ o.game_code }}" />
+                    <input type="hidden" name="game_name" value="{{ o.game_name }}" />
+                    <input type="hidden" name="lines_json" value="{{ o.lines|tojson|forceescape }}" />
+                    {% if o.offer_rule_id %}
+                      <input type="hidden" name="offer_rule_id" value="{{ o.offer_rule_id }}" />
+                    {% endif %}
+                    <button type="submit" class="secondaryFormButton linkAsButton centerLinkCopy" style="padding:10px 20px; white-space:nowrap;">
+                      Add to Cart
+                    </button>
+                  </form>
+                </div>
+              </div>
+            {% endfor %}
+            </div>
+            
+            {# Countdown timer script #}
+            {% if lottery_upsells %}
+            <script>
+            (function() {
+              function updateCountdowns() {
+                document.querySelectorAll('.countdown-timer').forEach(function(el) {
+                  var target = new Date(el.getAttribute('data-target'));
+                  var now = new Date();
+                  var diff = Math.max(0, Math.floor((target - now) / 1000));
+                  
+                  if (diff <= 0) {
+                    el.textContent = 'Draw time!';
+                    return;
+                  }
+                  
+                  var hours = Math.floor(diff / 3600);
+                  var minutes = Math.floor((diff % 3600) / 60);
+                  var seconds = diff % 60;
+                  
+                  el.textContent = 
+                    String(hours).padStart(2, '0') + ':' +
+                    String(minutes).padStart(2, '0') + ':' +
+                    String(seconds).padStart(2, '0');
+                });
+              }
+              
+              updateCountdowns();
+              setInterval(updateCountdowns, 1000);
+            })();
+            </script>
+            {% endif %}
+          </div>
+        {% elif eligible_offers and eligible_offers|length > 0 %}
+          <div class="leUpsellBox" style="margin:20px 0 30px; max-width:760px;">
+            <p class="sub-heading" style="margin-bottom:8px;">Recommended add-on offers</p>
+            <p class="leUpsellHint" style="margin-bottom:16px;">Select an offer to re-quote. CRM validates SKU and quantity before final totals are accepted.</p>
+            {% for o in eligible_offers %}
+              {% set oid = (o.id or o.rule_id or o.code or '') %}
+              {% set selected = (oid in selected_offers) %}
+              {% set title = o.title or o.name or o.label or ('Offer ' ~ oid) %}
+              {% set desc = (o.get('body') if o.get is defined else o.body) or (o.get('description') if o.get is defined else o.description) or (o.get('copy') if o.get is defined else '') or '' %}
+              {% set amount_cents = o.amount_cents if o.amount_cents is defined else o.price_cents if o.price_cents is defined else None %}
+              {% set currency = o.currency if o.currency is defined else cart_currency %}
+              <form method="post" action="{{ url_for('cart_toggle_offer') }}" class="leUpsellCard{% if selected %} selected{% endif %}" style="margin-bottom:12px;">
+                <input type="hidden" name="offer_id" value="{{ oid }}" />
+                <div class="leUpsellMain">
+                  <label class="leUpsellLabel">
+                    <input type="checkbox" {% if selected %}checked{% endif %} onchange="this.form.submit()" />
+                    <span class="leUpsellTitle">{{ title }}</span>
+                  </label>
+                  {% if desc %}
+                    <p class="leUpsellDescription">{{ desc }}</p>
+                  {% endif %}
+                </div>
+                <div class="leUpsellPrice">
+                  {% if amount_cents is not none %}
+                    <span>{{ currency }} {{ '%.2f'|format((amount_cents or 0) / 100) }}</span>
+                  {% else %}
+                    <span>Included in requote</span>
+                  {% endif %}
+                </div>
+              </form>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <p class="processOrderCopy">
+          Order Total:
+          <span>{{ cart_currency }} {{ '%.2f'|format((order_total_cents if order_total_cents is defined else cart_total_cents or 0) / 100) }}</span>
+        </p>
+        {% if (upsell_discount_amount_cents or 0) > 0 and offer_discount_confirmed %}
+          <p class="processOrderCopy" style="margin-top:-4px;">
+            {% if offer_discount_percent %}{{ offer_discount_percent }}% Offer{% else %}Offer{% endif %}
+            <span>- {{ cart_currency }} {{ '%.2f'|format((upsell_discount_amount_cents or 0) / 100) }}</span>
+          </p>
+        {% endif %}
+        {% if (discount_amount_cents or 0) > 0 %}
+          <p class="processOrderCopy" style="margin-top:-4px;">
+            {{ promo_discount_percent or discount_percent or 0 }}% Promo
+            <span>- {{ cart_currency }} {{ '%.2f'|format((discount_amount_cents or 0) / 100) }}</span>
+          </p>
+        {% endif %}
+        <hr class="processOrderTotal">
+        <p class="processOrderCopy textBold">
+          Total:
+          <span>{{ cart_currency }} {{ '%.2f'|format((cart_total_cents or 0) / 100) }}</span>
+        </p>
+
+        <form method="post" action="{{ url_for('cart_apply_promo') }}" class="cart-promo-form">
+          <div class="cart-promo-input-wrap">
+            <p class="formLabels">Promo code</p>
+            <input type="text" name="promo_code" value="{{ promo_code or '' }}" placeholder="Enter promo code" />
+          </div>
+          {% if not promo_code %}
+            <button class="secondaryFormButton cart-promo-apply-btn" type="submit">Apply</button>
+          {% endif %}
+        </form>
+
+        {% if cart_funding %}
+          {# Three amounts, never the total on its own next to the pay button.
+             Checkout spends added funds and leaves winnings alone unless the
+             customer says otherwise, so a single combined figure here is a
+             promise the pay button cannot keep. #}
+          <div class="leCartFunding" id="cartFunding">
+            <p class="leCartFundingRow">
+              <span>Wallet total</span>
+              <span>{{ cart_currency }} {{ '%.2f'|format((cart_funding.total_cents or 0) / 100) }}</span>
+            </p>
+            <p class="leCartFundingRow">
+              <span>Added funds (used first)</span>
+              <span id="cartFundingAdded">{{ cart_currency }} {{ '%.2f'|format((cart_funding.spendable_cents or 0) / 100) }}</span>
+            </p>
+            <p class="leCartFundingRow">
+              <span>Winnings (kept unless you use them)</span>
+              <span id="cartFundingWins">{{ cart_currency }} {{ '%.2f'|format((cart_funding.available_wins_cents or 0) / 100) }}</span>
+            </p>
+          </div>
+        {% endif %}
+
+        {% if support_read_only %}
+          {# Greying out the pay button would leave staff wondering whether
+             they had missed a step. Say why instead. #}
+          <div class="leCartWinsChoice">
+            <p class="leCartWinsChoiceTitle">Read-only support session</p>
+            <p>This is the customer's cart as they left it. Orders cannot be placed from a support session.</p>
+          </div>
+        {% elif pricing_unconfirmed %}
+          {# The offer's price could not be confirmed with the CRM. The locked
+             price above is what the customer was emailed and is worth showing,
+             but checkout re-quotes, so buying against it would take money for
+             an order the CRM may then refuse over the price. #}
+          <div class="leCartPricingHeld">
+            <p class="leCartPricingHeldTitle">We can't confirm this price right now</p>
+            <p>
+              Your offer is held and nothing has been charged. This is a problem at our end,
+              not with your order. Please try again in a few minutes.
+            </p>
+          </div>
+          <form method="get" action="{{ url_for('cart') }}">
+            <button type="submit" id="confirmBetSubmit" class="secondaryFormButton">Try again</button>
+          </form>
+        {% elif wins_authorization_needed %}
+          {# Added funds are short and the winnings would close the gap. That is
+             a choice to offer, not a refusal: the customer holds the money and
+             only has to say we may spend that part of it. #}
+          <div class="leCartWinsChoice">
+            <p class="leCartWinsChoiceTitle">Added funds do not cover this cart</p>
+            <p>
+              Use {{ cart_currency }} {{ '%.2f'|format((wins_cover_cents or 0) / 100) }} of your winnings
+              for the remainder, or add funds instead. Your winnings stay untouched unless you choose them here.
+            </p>
+          </div>
+          <form method="post" action="{{ url_for('checkout_submit') }}" id="confirmBetForm">
+            <input type="hidden" name="use_wins" value="1">
+            <button type="submit" id="confirmBetSubmit" class="useWinningsBtn">
+              Use Winnings and Confirm Order<br>
+              <span>Uses {{ cart_currency }} {{ '%.2f'|format((wins_cover_cents or 0) / 100) }} of your winnings</span>
+            </button>
+          </form>
+          <form method="get" action="{{ url_for('wallet_add_funds') }}" class="leCartWinsAddFunds">
+            <input type="hidden" name="next" value="{{ url_for('checkout_after_topup') }}">
+            <input type="hidden" name="amount_cents" value="{{ topup_amount_cents or 0 }}">
+            <input type="hidden" name="required_cents" value="{{ cart_total_cents or 0 }}">
+            <input type="hidden" name="edit_order_url" value="{{ cart_edit_order_url or '' }}">
+            <button type="submit" class="secondaryFormButton" id="addFundsInsteadSubmit">
+              Add Funds Instead
+            </button>
+          </form>
+        {% elif topup_needed and topup_cta_url %}
+          <form method="get" action="{{ url_for('wallet_add_funds') }}" id="confirmBetForm">
+            <input type="hidden" name="next" value="{{ url_for('checkout_after_topup') }}">
+            <input type="hidden" name="amount_cents" value="{{ topup_amount_cents or 0 }}">
+            <input type="hidden" name="required_cents" value="{{ cart_total_cents or 0 }}">
+            <input type="hidden" name="edit_order_url" value="{{ cart_edit_order_url or '' }}">
+            <button type="submit" id="confirmBetSubmit" class="topupConfirmBtn">
+              Add Funds to Continue<br>
+              <span>Funds Required: {{ cart_currency }} {{ '%.2f'|format((topup_amount_cents or 0) / 100) }}</span>
+            </button>
+          </form>
+        {% else %}
+          <form method="post" action="{{ url_for('checkout_submit') }}" id="confirmBetForm">
+            <button type="submit" id="confirmBetSubmit">
+              Confirm Order<br>
+              <span>Funds Required: {{ cart_currency }} {{ '%.2f'|format((cart_total_cents or 0) / 100) }}</span>
+            </button>
+          </form>
+        {% endif %}
+      {% else %}
+        <p class="pageHeading">Shopping Cart</p>
+        <p class="processOrderCopy">Your cart is empty.</p>
+        {% if has_saved_purchase_cart %}
+          <form method="post" action="{{ url_for('cart_reuse_last_purchase') }}" style="margin:8px 0 12px;">
+            <button class="secondaryFormButton" type="submit">Reuse last purchase ({{ saved_purchase_cart_count or 0 }} item{{ '' if (saved_purchase_cart_count or 0) == 1 else 's' }})</button>
+          </form>
+        {% endif %}
+        <a class="tertiaryLink" href="{{ url_for('home') }}">Back to homepage</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if items %}
+  {# The play page's own line markup, parked here and moved into whichever line
+     is being edited, so the legacy `#main #tickets_section` styles dress it and
+     the ids stay unique. #}
+  <div id="leCartLineEditor" class="leCartEditor">
+    <form id="leCartLineForm" method="post" action="{{ url_for('cart_update_line') }}">
+      <input type="hidden" name="item_idx" value="" />
+      <input type="hidden" name="line_idx" value="" />
+      <div id="main">
+        <div id="tickets_section">
+          <div class="leLineWrapper" data-line-index="0">
+            <div class="lines">
+              <div id="upperTicketSection">
+                <div id="choosenNumber"></div>
+                <div id="mobileUpperTicketSection">
+                  <a id="closeTicketWindow" href="#" data-action="cancel" aria-label="Close number selection"><img src="/resources/images/Close_Icon.svg" width="22" height="22" alt="" /></a>
+                  <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
+                  <button class="clearButton secondaryFormButton" type="button" data-action="clear">Clear</button>
+                  <button class="done primaryFormButton" type="button" data-action="save">Done</button>
+                </div>
+                <div id="webUpperTicketSection">
+                  <img class="ticketCompleteImage" src="/resources/images/Check.svg" style="display:none" width="25" height="23" alt="" />
+                  <img class="ticketIncompleteImage" src="/resources/images/Error.svg" width="23" height="27" alt="" />
+                  <button class="clearButton secondaryFormButton" type="button" data-action="clear">Clear</button>
+                  <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
+                </div>
+              </div>
+              <div id="lowerTicketSection">
+                <div class="leGroups"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="leCartEditorActions">
+        <button class="primaryFormButton" type="button" data-action="save">Done</button>
+        <button class="secondaryFormButton" type="button" data-action="cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <script id="leCartLineSchemas" type="application/json">{{ (cart_line_schemas or {})|tojson }}</script>
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+{% if items %}
+  <script defer src="/resources/js/line_editor_core.js?v={{ build_id }}"></script>
+  <script defer src="/resources/js/cart_line_editor.js?v={{ build_id }}"></script>
+{% endif %}
+{% endblock %}
+

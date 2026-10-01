@@ -1,0 +1,62 @@
+<div class="col-xs-12 col-sm-12 col-md-12" id="accountSetLimits">
+  <div class="accountPageContent">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+        <p class="accountLimitDescription" style="margin-bottom:10px;">
+          Limits management is not available yet on this site.
+        </p>
+        <form id="acctSetLimitsForm" method="POST">
+          <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 divAccountSpacing">
+            <label class="formLabels">Play Limit:</label>
+            <input type="text" name="setBetLimit" id="acctSetBetLimit" placeholder="Not Set" />
+            <label class="formLabels">Per:</label>
+            <select name="setBetLimitDuration" class="setBetDepositLimitDuration">
+              <option value="" selected="selected">Select Period</option>
+              <option value="1">1 Day</option>
+              <option value="7">1 Week</option>
+              <option value="28">1 Month (28 days)</option>
+            </select>
+            <p class="acctCurrentLimitAmounts"><span>Remaining:</span><span>N/A</span></p>
+            <p class="acctCurrentLimitAmounts"><span>Until:</span><span>N/A</span></p>
+            <hr>
+          </div>
+
+          <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 divAccountSpacing">
+            <label class="formLabels">Deposit Limit:</label>
+            <input type="text" name="setDepositLimit" id="acctSetDepositLimit" placeholder="Not Set" />
+            <label class="formLabels">Per:</label>
+            <select name="setDepositLimitDuration" class="setBetDepositLimitDuration">
+              <option value="" selected="selected">Select Period</option>
+              <option value="1">1 Day</option>
+              <option value="7">1 Week</option>
+              <option value="28">1 Month (28 days)</option>
+            </select>
+            <p class="acctCurrentLimitAmounts"><span>Remaining:</span><span>N/A</span></p>
+            <p class="acctCurrentLimitAmounts"><span>Until:</span><span>N/A</span></p>
+            <hr>
+          </div>
+
+          <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 divAccountSpacing">
+            <label class="formLabels">Loss Limit:</label>
+            <p id="acctSetLimitsLoss">Set your play limit to reflect your loss limit.</p>
+          </div>
+
+          <p id="acctSetLimitsInfo"><span class="infoButton">i</span>Please note: decreasing a limit will take effect immediately. Increasing a limit will take effect 24 hours after confirmation.</p>
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <button class="accountSubmitButtons accountSubmitButtonInactive" id="updateAcctLimitsButton" disabled>Confirm Limits</button>
+            <p id="acctSetLimitsCancel" class="accountSubmitCancel grayLink" style="display:none">Cancel</p>
+          </div>
+
+          {# legacy hidden pending fields (kept for JS compatibility) #}
+          <input type="hidden" name="pendingBetLimit" value="" />
+          <input type="hidden" name="pendingBetDuration" value="" />
+          <input type="hidden" name="pendingBetStartTime" value="" />
+          <input type="hidden" name="pendingDepositLimit" value="" />
+          <input type="hidden" name="pendingDepositDuration" value="" />
+          <input type="hidden" name="pendingDepositStartTime" value="" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,57 @@
+<div class="col-xs-12 col-sm-12 col-md-12 no-padding" id="accountWinnings">
+  {% set f = winnings_filters if winnings_filters is defined and winnings_filters else {} %}
+  <div class="walletPageContent">
+    <div class="col-xs-12 col-sm-12 col-md-12 no-padding accountHistorySearch">
+      <form id="accountWinningsForm">
+        <p class="formLabels">Date Range</p>
+        <div class="acctDateRangeDiv">
+          <input type="text" id="dateRangerWinnings" class="accountDateRange" name="dateRangerWinnings" value="{{ f.date_range or '' }}">
+        </div>
+        <button id="searchWinningsButton" class="accountSearchButtons">Search</button>
+        <p id="searchWinningsReset" class="accountSubmitCancel accountSubmitReset">Reset</p>
+      </form>
+    </div>
+
+    <div id="accountWinningsSection">
+      <div id="accountWinningsTable">
+        <div class="accountWinningsTableHeader">
+          <div class="accountWinningsTableHeaderCell lrg-td">Date<span class="glyphicon glyphicon-arrow-down"></span></div>
+          <div class="accountWinningsTableHeaderCell mid-td">Transaction #</div>
+          <div class="accountWinningsTableHeaderCell mid-td">Order #</div>
+          <div class="accountWinningsTableHeaderCell sml-td">Amount</div>
+        </div>
+
+        {% set has_win = false %}
+        {% set wins = winnings_wallet_transactions if winnings_wallet_transactions is defined else [] %}
+        {% if wins and wins|length %}
+          {% for t in wins %}
+            {% set draw_date = t.draw_date or t.get('draw_date') or t.checked_at or t.get('checked_at') or '' %}
+            {% set ticket_id = t.id or t.get('id') or '' %}
+            {% set order_id = t.order_id or t.get('order_id') or '—' %}
+            {% set state = (t.state or t.get('state') or '').strip() %}
+            {% set currency = t.customer_currency or t.credited_currency or (wallet.currency if wallet and wallet.currency is defined else '') %}
+            {% set amount_cents = t.winnings_total_cents or t.amount_customer_cents or t.winnings_credited_cents or t.get('winnings_total_cents') or t.get('amount_customer_cents') or 0 %}
+            {% set has_win = true %}
+            <div class="accountWinningsTableBody">
+              <div class="accountWinningsTableRow">
+                <div class="accountWinningsTableBodyCell lrg-td">{{ draw_date }}</div>
+                <div class="accountWinningsTableBodyCell mid-td">#{{ ticket_id }}{% if state %}<br><span class="textLight">{{ state }}</span>{% endif %}</div>
+                <div class="accountWinningsTableBodyCell mid-td">{{ order_id }}</div>
+                <div class="accountWinningsTableBodyCell sml-td">{{ currency }} {{ (amount_cents or 0) / 100 }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        {% if not has_win %}
+          <p class="accountNoResults">No Winnings</p>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if winnings_has_more %}
+      <p id="loadMoreWinnings" class="accountLoadMoreButton">Load More</p>
+    {% endif %}
+  </div>
+</div>
+

@@ -1,0 +1,125 @@
+<div class="col-xs-12 col-sm-12 col-md-12" id="acctDetails">
+  <div class="accountPageContent">
+    <div class="row">
+      <form id="acctDetailsForm">
+        <div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p class="acctAccordionHeaders">Personal Details</p>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="acctDetailsSplitColumn">
+              <div class="acctDetailsSplitColumns">
+                <p class="formLabels">Title<span class="inputRequiredStar">*</span></p>
+                <div class="select_box">
+                  {% set title_val = (me.title or me.prefix or me.salutation or '') if me else '' %}
+                  <select id="acctDetailsTitle" class="required acctDetailsSelect disabledState" name="acctDetailsTitle" readonly>
+                    <option value=""></option>
+                    <option value="Mr" {% if title_val|lower == 'mr' %}selected{% endif %}>Mr.</option>
+                    <option value="Ms" {% if title_val|lower == 'ms' %}selected{% endif %}>Ms.</option>
+                    <option value="Mrs" {% if title_val|lower == 'mrs' %}selected{% endif %}>Mrs.</option>
+                  </select>
+                </div>
+              </div>
+              <div class="acctDetailsSplitColumns">
+                <p class="formLabels">First Name<span class="inputRequiredStar">*</span></p>
+                <input type="text" name="acctDetailsFirstName" id="acctDetailsFirstName" class="required disabledState" value="{{ me.first_name if me else '' }}" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <p class="formLabels">Last Name<span class="inputRequiredStar">*</span></p>
+            <input type="text" name="acctDetailsLastName" id="acctDetailsLastName" class="required disabledState" value="{{ me.last_name if me else '' }}" readonly>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <p class="formLabels">Account #</p>
+            {% set acct_no = (me.account_number or me.accountNo or me.account_id or me.id) if me else '' %}
+            <input type="text" name="acctUserId" id="acctUserId" class="required disabledState" value="{{ acct_no }}" readonly>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <p class="formLabels">Date of Birth<span class="inputRequiredStar">*</span> (YYYY-MM-DD)</p>
+            {% set dob = (me.birthdate or me.dob or me.date_of_birth) if me else '' %}
+            <input type="text" name="acctDetailsDOB" id="acctDetailsDOB" class="required disabledState" value="{{ dob }}" readonly>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <p class="formLabels">Email<span class="inputRequiredStar">*</span></p>
+            <input type="email" name="acctDetailsEmail" id="acctDetailsEmail" class="required disabledState" value="{{ me.email if me else '' }}">
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <p class="formLabels">Phone<span class="inputRequiredStar">*</span></p>
+            <input type="tel" name="acctDetailsPhone" id="acctDetailsPhone" class="required" value="{{ me.phone if me else '' }}">
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 no-padding accountDetailsSection">
+          <div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <p class="acctAccordionHeaders">Mailing Address</p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <p class="formLabels">Address<span class="inputRequiredStar">*</span></p>
+              {% set addr_line1 = (me.address.line1 if me and me.address is mapping and me.address.line1 is defined else '') if me else '' %}
+              {% set street = (me.street or addr_line1 or (me.mailing_address.street if me and me.mailing_address is defined else '')) if me else '' %}
+              <input type="text" name="acctDetailsAddress" id="acctDetailsAddress" class="required" value="{{ street }}">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <p class="formLabels">Post Code</p>
+              {% set postal = (me.postal_code or me.postcode or me.zip or me.zip_code) if me else '' %}
+              <input type="text" name="acctDetailsPostCode" id="acctDetailsPostCode" value="{{ postal }}">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <p class="formLabels">City<span class="inputRequiredStar">*</span></p>
+              {% set city_val = (me.city or (me.mailing_address.city if me and me.mailing_address is defined else '')) if me else '' %}
+              <select name="city" class="required addressCity acctDetailsSelect">
+                <option value="">Select</option>
+                {% if city_val %}
+                  <option value="{{ city_val }}" selected="selected">{{ city_val }}</option>
+                {% endif %}
+              </select>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <p class="formLabels">State/Province<span class="inputRequiredStar">*</span></p>
+              {% set state_val = (me.state or me.province or (me.mailing_address.state if me and me.mailing_address is defined else '')) if me else '' %}
+              <select name="state" class="addressState acctDetailsSelect required">
+                <option value="">Select</option>
+                {% if state_val %}
+                  <option value="{{ state_val }}" selected="selected">{{ state_val }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <p class="formLabels">Country<span class="inputRequiredStar">*</span></p>
+              <div class="select_box">
+                {% set country_val = (me.country or me.country_code or me.country_iso2) if me else '' %}
+                <select id="acctDetailsCountry" class="required acctDetailsSelect acctDetailsNonupdatable disabledState" name="acctDetailsCountry" readonly>
+                  {% if country_val %}
+                    <option value="{{ country_val }}" selected="selected">{{ country_val }}</option>
+                  {% else %}
+                    <option value=""></option>
+                  {% endif %}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <button type="submit" class="accountSubmitButtons accountSubmitButtonInactive" id="updateAcctDetailsButton">Update</button>
+          <p id="acctDetailsSubmitCancel" class="accountSubmitCancel" style="display:none">Cancel</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

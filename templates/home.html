@@ -1,0 +1,348 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="homepage" class="noSelect container">
+  <style>
+    .leHomeJackpotHero {
+      position: relative;
+      isolation: isolate;
+      margin: 0 0 18px 0;
+      border-top: 4px solid #ffc24b;
+      border-bottom: 4px solid #ffc24b;
+      border-radius: 0;
+      overflow: hidden;
+      /* Same colour as the site template panel behind. */
+      background-color: #013658;
+    }
+    .leHomeJackpotHero > * { position: relative; z-index: 1; }
+    /* Transparent confetti overlay (converted from AdobeStock_313533410.ai).
+       Seamless horizontally, so it tiles across the top and falls down. */
+    .leHomeJackpotHero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: url('/resources/images/confetti-overlay.png');
+      background-repeat: repeat-x;
+      background-position: center top;
+      background-size: auto 100%;
+      /* Softened so the confetti doesn't compete with the text. */
+      opacity: 0.45;
+    }
+    .leHomeJackpotHeroInner {
+      position: relative;
+      z-index: 1;
+      min-height: 202px;
+      padding: 26px 22px 24px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .leHomeJackpotHeroContent {
+      width: 100%;
+      max-width: 1120px;
+      color: #ffffff;
+      text-align: center;
+    }
+    .leHomeJackpotHeroGame {
+      margin: 0 0 4px 0;
+      color: #ffc24b !important;
+      font-size: clamp(24px, 3vw, 40px) !important;
+      line-height: 1.02 !important;
+      letter-spacing: 0.8px;
+      font-weight: 900 !important;
+      font-family: "Arial Black", "Segoe UI", Arial, sans-serif;
+      text-transform: uppercase;
+      text-shadow: 0 0 14px rgba(255, 194, 75, 0.45), 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+    .leHomeJackpotHeroKicker {
+      margin: 0 0 6px 0;
+      color: #ffffff !important;
+      font-size: clamp(30px, 3.2vw, 44px) !important;
+      line-height: 1 !important;
+      letter-spacing: 0.5px;
+      font-weight: 900 !important;
+      font-family: "Arial Black", "Segoe UI", Arial, sans-serif;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+    }
+    .leHomeJackpotHeroTitle {
+      margin: 0 0 18px 0;
+      color: #ffffff !important;
+      font-size: clamp(62px, 8.2vw, 110px) !important;
+      line-height: 1 !important;
+      letter-spacing: 0.8px;
+      font-weight: 900 !important;
+      font-family: "Arial Black", "Segoe UI", Arial, sans-serif;
+      font-variant-numeric: tabular-nums lining-nums;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.65);
+      white-space: nowrap;
+    }
+    .leHomeJackpotHeroCountdown {
+      margin: 0 0 16px 0;
+      font-size: 23px !important;
+      line-height: 1.1 !important;
+      font-weight: 800 !important;
+      color: #ffffff !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+    .leHomeJackpotHero .linkAsButton {
+      display: inline-block !important;
+      width: auto !important;
+      min-width: 220px;
+      max-width: none !important;
+      height: auto !important;
+      padding: 12px 30px !important;
+      line-height: 1.05 !important;
+      font-size: 36px !important;
+      font-weight: 700 !important;
+      border-radius: 8px !important;
+      white-space: nowrap;
+      text-align: center;
+    }
+    @media (max-width: 991px) {
+      .leHomeJackpotHeroContent {
+        width: 100%;
+      }
+      .leHomeJackpotHeroGame {
+        font-size: clamp(20px, 4.4vw, 34px) !important;
+      }
+      .leHomeJackpotHeroKicker {
+        font-size: clamp(26px, 5vw, 40px) !important;
+      }
+      .leHomeJackpotHeroTitle {
+        font-size: clamp(48px, 9.4vw, 78px) !important;
+        letter-spacing: 0.5px;
+        margin-bottom: 14px;
+      }
+      .leHomeJackpotHeroCountdown {
+        font-size: 20px !important;
+        margin-bottom: 14px;
+      }
+      .leHomeJackpotHero .linkAsButton {
+        font-size: 26px !important;
+        padding: 10px 22px !important;
+      }
+    }
+    @media (max-width: 640px) {
+      .leHomeJackpotHeroInner {
+        padding: 20px 12px 18px 12px;
+      }
+      .leHomeJackpotHeroContent {
+        width: 100%;
+      }
+      .leHomeJackpotHeroGame {
+        font-size: clamp(16px, 5vw, 24px) !important;
+      }
+      .leHomeJackpotHeroKicker {
+        font-size: clamp(20px, 6vw, 28px) !important;
+        text-align: center;
+      }
+      .leHomeJackpotHeroTitle {
+        font-size: clamp(34px, 10.4vw, 52px) !important;
+        line-height: 1.05 !important;
+        white-space: normal;
+        letter-spacing: 0.35px;
+        margin-bottom: 16px;
+      }
+      .leHomeJackpotHeroCountdown {
+        font-size: 16px !important;
+        line-height: 1.15 !important;
+        margin-bottom: 12px;
+      }
+      .leHomeJackpotHero .linkAsButton {
+        min-width: 156px;
+        font-size: 22px !important;
+        padding: 8px 16px !important;
+      }
+    }
+  </style>
+  <div class="lotteryPageContent">
+    {% set hero_game = (layout.nav_lotteries[0] if layout and layout.nav_lotteries and layout.nav_lotteries|length > 0 else None) %}
+    <div class="leHomeJackpotHero">
+      <div class="leHomeJackpotHeroInner">
+        <div class="leHomeJackpotHeroContent">
+          {% if hero_game and hero_game.name %}
+          <p class="leHomeJackpotHeroGame">{{ hero_game.name }}</p>
+          {% endif %}
+          <p class="leHomeJackpotHeroKicker">Biggest Jackpot</p>
+          <p class="leHomeJackpotHeroTitle">{{ hero_game.jackpot if hero_game and hero_game.jackpot else '—' }}</p>
+          {% if hero_game and hero_game.sales_closed %}
+            <p class="leHomeJackpotHeroCountdown">Results pending</p>
+          {% else %}
+            <p class="leHomeJackpotHeroCountdown">Draw in <span class="wl-countdown" data-remaining="{{ hero_game.remaining_seconds if hero_game and hero_game.remaining_seconds is not none else '' }}">—</span></p>
+          {% endif %}
+          <a class="linkAsButton leHomeJackpotHeroCta" href="{{ hero_game.href if hero_game else '/catalog' }}">Play Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="homepageContentMain">
+      <h1 class="pageHeading">Lotto Express</h1>
+
+      {# 3-step “Get Started” section (legacy markup) #}
+      {% if not customer %}
+      <div class="col-xs-12 col-sm-12 col-lg-12 no-padding homepageSection">
+        <h2 class="sub-heading">Get Started on Lotto Express</h2>
+        <div class="homepageThreeColumns homepageGetStarted">
+          <div class="col-xs-12 col-sm-12 col-lg-12">
+            <div class="col-xs-12 col-sm-4 col-lg-4">
+              <div class="homePageColumns">
+                <a href="/register" class="registrationFormLink">
+                  <img src="/resources/images/lotto-express-online-lottery-get-started-1.svg" width="251" height="221" alt="">
+                </a>
+                <div class="homePageColumnContent">
+                  <img src="/resources/images/lotto-express-online-lottery-head-outline.svg" width="43" height="45" alt="">
+                  <p class="sub-heading">Step 1</p>
+                  <p>Register a free account on Lotto Express</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-lg-4">
+              <div class="homePageColumns">
+                <a href="/register" class="registrationFormLink">
+                  <img src="/resources/images/lotto-express-online-lottery-get-started-2.svg" width="259" height="221" alt="">
+                </a>
+                <div class="homePageColumnContent">
+                  <img src="/resources/images/lotto-express-online-lottery-checkmark-blue-outline.svg" width="49" height="45" alt="">
+                  <p class="sub-heading">Step 2</p>
+                  <p>Verify your email and deposit funds.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-lg-4">
+              <div class="homePageColumns">
+                <a href="/catalog">
+                  <img src="/resources/images/lotto-express-online-lottery-get-started-3.svg" width="245" height="221" alt="">
+                </a>
+                <div class="homePageColumnContent">
+                  <img src="/resources/images/lotto-express-online-lottery-play-blue-outline.svg" width="39" height="45" alt="">
+                  <p class="sub-heading">Step 3</p>
+                  <p>Play online for the world’s biggest lottery jackpots.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="col-xs-12 col-sm-12 col-lg-12 no-padding homepageSection">
+        <h2 class="pageHeading">Play the worlds biggest lotteries online at Lotto Express</h2>
+
+        {# Legacy-style product slider (CRM-driven via layout.nav_lotteries) #}
+        <div class="availableLotteries" id="availableLotteries">
+          <div class="secondaryFormButton lotteriesArrow lotteriesLeft lotteriesArrowDisabled">
+            <img src="/resources/images/whiteArrow.svg" width="15" height="27" alt="" />
+          </div>
+          <div class="secondaryFormButton lotteriesArrow lotteriesRight">
+            <img src="/resources/images/whiteArrow.svg" width="15" height="27" alt="" />
+          </div>
+          <div id="lotteryContent">
+            {# Legacy JS (resources/js/index.js) animates `.lotteryContent` via the `left` property. #}
+            <div class="lotteryContent" style="left:0px;">
+              {% for g in (layout.nav_lotteries if layout and layout.nav_lotteries else []) %}
+                <div class="lotteryItem lotteryTicketBG">
+                  <div class="lottoTicketInfo">
+                    {% if g.logo_url %}
+                      <img class="lottoTicketImg" src="{{ g.logo_url }}" width="118" height="75" alt="" />
+                    {% else %}
+                      <img class="lottoTicketImg" src="/resources/images/LELogo.png" width="118" height="75" alt="" />
+                    {% endif %}
+                    {% if g.jackpot %}
+                      <p class="lottoTicketAmount">{{ g.jackpot }}</p>
+                    {% else %}
+                      <p class="lottoTicketAmount">—</p>
+                    {% endif %}
+                    <div class="lottoTicketInfoMobile">
+                      <p class="lottoTicketName">{{ g.name }}</p>
+                      {% if g.jackpot_amount and g.jackpot_currency_symbol %}
+                        <p class="lottoTicketAmountM"><span class="lottoTicketCurrencyM">{{ g.jackpot_currency_symbol }}</span>{{ g.jackpot_amount }}</p>
+                      {% elif g.jackpot %}
+                        <p class="lottoTicketAmountM"><span class="lottoTicketCurrencyM"></span>{{ g.jackpot }}</p>
+                      {% endif %}
+                    </div>
+                    <a class="linkAsButton" href="{{ g.href }}">Play Now</a>
+                    {# Winnow-style countdown rendered into HTML (legacy CSS still applies to `.lottoTicketCounter span`). #}
+                    <div class="lottoTicketCounter">
+                      {% if g.sales_closed %}
+                        <span>Results pending</span>
+                      {% else %}
+                        <span class="wl-countdown" data-remaining="{{ g.remaining_seconds if g.remaining_seconds is not none else '' }}">—</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% set featured_promos = (layout.home_promos if layout and layout.home_promos else layout.nav_promos if layout and layout.nav_promos else []) %}
+      {% if featured_promos and featured_promos|length > 0 %}
+        <div class="col-xs-12 col-sm-12 col-lg-12 no-padding homepageSection">
+          <h2 class="pageHeading">FEATURED PROMOTIONS</h2>
+          <div class="homepageFeaturedPromos">
+            <div id="homepagePromoContent">
+              <div class="homepagePromoContent">
+                {% for p in featured_promos %}
+                  <div class="homepagePromoTicketBG">
+                    <div class="promoTicketContent">
+                      <p class="promoTicketName">{{ p.title }}</p>
+                      {% if p.subtitle %}<p class="promoTicketDescription">{{ p.subtitle }}</p>{% endif %}
+                      <div class="promoTicketPlay">
+                        <a class="linkAsButton promoTicketPlayNow" href="{{ p.href }}">{{ p.cta_label if p.cta_label else 'Play Now' }}</a>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="col-xs-12 col-sm-12 col-lg-12 no-padding homepageSection">
+        <h2 class="pageHeading">How to play on Lotto Express</h2>
+        <div class="homepageThreeColumns homepagePurchaseInstructions">
+          <div class="col-xs-12 col-sm-12 col-lg-12">
+            <div class="col-xs-12 col-sm-4 col-lg-4">
+              <div class="homePageColumns">
+                <p class="sub-heading">CHOICE</p>
+                <p>
+                  Choose which lotteries you want to play. You can play your favourite numbers, or "Quick Pick" for a random selection.
+                </p>
+                <img src="/resources/images/homePagePurchaseInstructions_1.svg" width="107" height="98" alt="" />
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-lg-4">
+              <div class="homePageColumns">
+                <p class="sub-heading">CONFIRMATION</p>
+                <p>
+                  As soon as your order is processed, we’ll send you a Confirmation of your lottery numbers and dates of play.
+                </p>
+                <img src="/resources/images/homePagePurchaseInstructions_2.svg" width="108" height="98" alt="" />
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-lg-4">
+              <div class="homePageColumns">
+                <p class="sub-heading">WINNINGS</p>
+                <p>
+                  When you win a lotto prize, we’ll immediately notify you and deposit your winnings into your Lotto Express account.
+                </p>
+                <img src="/resources/images/homePagePurchaseInstructions_3.svg" width="98" height="98" alt="" />
+              </div>
+            </div>
+          </div>
+          <p class="homePageSubHeader">WE DO THE WORK SO YOU CAN HAVE THE FUN!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script defer src="/resources/js/home_carousel.js?v=2"></script>
+{% endblock %}
+

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect container lePages">
+  <h1 class="pageHeading">Order detail</h1>
+  {% if order %}
+    {% set order_id = order.id or order.get('id') %}
+    {% set status = order.status or order.get('status') or '—' %}
+    {% set placed = order.placed_at or order.created_at or order.get('placed_at') or order.get('created_at') or '' %}
+    {% set cur = order.currency or order.get('currency') or (display_currency_code if display_currency_code is defined else '') %}
+    {% set total_cents = order.total_cents or order.total_eur_cents or order.get('total_cents') or order.get('total_eur_cents') or 0 %}
+    <p class="sub-heading">Order #{{ order_id }}</p>
+    <p>Status: {{ status }}</p>
+    <p>Placed: {{ placed }}</p>
+    <p>Total: {{ cur }} {{ (total_cents or 0) / 100 }}</p>
+
+    {% set tickets = order.tickets or order.get('tickets') or [] %}
+    {% if tickets and tickets|length %}
+      <h2 class="sub-heading">Tickets</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>Game</th>
+              <th>Draw Date</th>
+              <th>Status</th>
+              <th>Scan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set missing_scan = false %}
+            {% for t in tickets %}
+              {% set tid = t.id or t.get('id') %}
+              {% set game = t.game_name or t.game_code or t.get('game_name') or t.get('game_code') or '—' %}
+              {% set draw = t.draw_date or t.get('draw_date') or '—' %}
+              {% set tstatus = t.status or t.get('status') or '—' %}
+              {% set scan = t.scan_url or t.scanned_url or t.get('scan_url') or t.get('scanned_url') or '' %}
+              {% if not scan %}{% set missing_scan = true %}{% endif %}
+              <tr>
+                <td>#{{ tid }}</td>
+                <td>{{ game }}</td>
+                <td>{{ draw }}</td>
+                <td>{{ tstatus }}</td>
+                <td>
+                  {% if scan %}
+                    <a class="primaryLink" href="{{ scan }}" target="_blank" rel="noopener">Open scan</a>
+                  {% else %}
+                    <span>Pending</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('order_detail', order_id=order_id) }}">Refresh ticket scan</a>
+      </p>
+      <script>
+      (function () {
+        var hasMissingScan = {{ 1 if has_missing_scan else 0 }};
+        if (!hasMissingScan) return;
+        var attempt = {{ scan_poll_attempt or 0 }};
+        var maxAttempts = 10; // ~30s @ 3s interval
+        if (attempt >= maxAttempts) return;
+        setTimeout(function () {
+          var next = attempt + 1;
+          var url = "{{ url_for('order_detail', order_id=order_id) }}" + "?poll_attempt=" + next;
+          window.location.href = url;
+        }, 3000);
+      })();
+      </script>
+    {% else %}
+      <p>No tickets returned for this order.</p>
+    {% endif %}
+  {% else %}
+    <p>Order not found.</p>
+  {% endif %}
+</div>
+{% endblock %}
+

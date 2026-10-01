@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+{# One page for every way a handoff fails. It does not say which, because the
+   difference between expired, already used and wrong brand describes the state
+   of a live credential to whoever is holding the URL - and a staff member's
+   next step is the same in all of them: go back to the CRM and start again. #}
+<div class="container">
+  <div class="row lePages">
+    <div class="formHeader">
+      <div class="formHeaderContent">
+        <p class="pageHeading">This Login As link cannot be used</p>
+        <p class="paymentTopUpText">
+          The Login As link is invalid, expired, or already used. These links can only be opened
+          once and expire after two minutes.
+        </p>
+        <p class="paymentTopUpText">
+          Start a new Login As from the customer's record in LottoCRM. No customer session has been
+          opened and nothing has been changed.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

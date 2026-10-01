@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block content %}
+<section style="margin-top:16px;">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
+    <div>
+      <h1 style="margin:0; color:#00ADEF; font-size:26px;">CRM cache admin</h1>
+      <div style="opacity:0.85; margin-top:4px;">Local SQLite cache + sync controls.</div>
+    </div>
+    <div>
+      <form method="post" action="{{ url_for('admin_logout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="secondaryFormButton" type="submit" style="width:auto; padding:10px 16px;">Admin logout</button>
+      </form>
+    </div>
+  </div>
+
+  {% if msg %}
+  <div style="margin-top:12px; padding:10px 12px; border:1px solid #3aa86c; border-radius:8px; background:rgba(58,168,108,0.15);">{{ msg }}</div>
+  {% endif %}
+  {% if err %}
+  <div style="margin-top:12px; padding:10px 12px; border:1px solid #b84343; border-radius:8px; background:rgba(184,67,67,0.15);">{{ err }}</div>
+  {% endif %}
+
+  <div class="row" style="margin-top:14px;">
+    <div class="col-xs-12 col-md-6">
+      <div style="background:#0c4970; border:1px solid #2c7aab; border-radius:10px; padding:14px; margin-bottom:12px;">
+        <h3 style="margin:0 0 8px; font-size:18px;">Status</h3>
+        <div style="margin-bottom:8px;"><strong>DB rows</strong></div>
+        <ul>
+          <li><strong>jackpots</strong>: {{ counts.jackpots }}</li>
+          <li><strong>draw_results</strong>: {{ counts.draw_results }}</li>
+          <li><strong>draw_prize_tiers</strong>: {{ counts.draw_prize_tiers }}</li>
+          <li><strong>website_policies</strong>: {{ counts.website_policies }}</li>
+          <li><strong>countries</strong>: {{ counts.countries }}</li>
+          <li><strong>product_prices</strong>: {{ counts.product_prices }}</li>
+        </ul>
+        <div style="margin-top:12px; margin-bottom:8px;"><strong>Sync state</strong></div>
+        <ul style="margin-bottom:0;">
+          <li><strong>last_jackpots_fetch_at</strong>: {{ (status.get("last_jackpots_fetch_at") or {}).get("v") or "—" }}</li>
+          <li><strong>last_draw_results_fetch_at</strong>: {{ (status.get("last_draw_results_fetch_at") or {}).get("v") or "—" }}</li>
+          <li><strong>last_website_policies_fetch_at</strong>: {{ (status.get("last_website_policies_fetch_at") or {}).get("v") or "—" }}</li>
+          <li><strong>last_product_prices_fetch_at</strong>: {{ (status.get("last_product_prices_fetch_at") or {}).get("v") or "—" }}</li>
+          <li><strong>last_countries_fetch_at</strong>: {{ (status.get("last_countries_fetch_at") or {}).get("v") or "—" }}</li>
+          <li><strong>last_draw_results_cursor</strong>: {{ (status.get("last_draw_results_cursor") or {}).get("v") or "—" }}</li>
+          <li><strong>jackpots_last_error</strong>: {{ (status.get("jackpots_last_error") or {}).get("v") or "—" }}</li>
+          <li><strong>draw_results_last_error</strong>: {{ (status.get("draw_results_last_error") or {}).get("v") or "—" }}</li>
+          <li><strong>website_policies_last_error</strong>: {{ (status.get("website_policies_last_error") or {}).get("v") or "—" }}</li>
+          <li><strong>product_prices_last_error</strong>: {{ (status.get("product_prices_last_error") or {}).get("v") or "—" }}</li>
+          <li><strong>countries_last_error</strong>: {{ (status.get("countries_last_error") or {}).get("v") or "—" }}</li>
+          <li><strong>pricing_warning:last_event_at</strong>: {{ (status.get("pricing_warning:last_event_at") or {}).get("v") or "—" }}</li>
+          <li><strong>pricing_warning:last_reason</strong>: {{ (status.get("pricing_warning:last_reason") or {}).get("v") or "—" }}</li>
+          <li><strong>pricing_warning:count</strong>: {{ (status.get("pricing_warning:count") or {}).get("v") or "0" }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+      <div style="background:#0c4970; border:1px solid #2c7aab; border-radius:10px; padding:14px; margin-bottom:12px;">
+        <h3 style="margin:0 0 10px; font-size:18px;">Polling intervals</h3>
+        <form method="post">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="action" value="save_intervals">
+          <div class="form-group">
+            <label>Jackpots interval (minutes)</label>
+            <input class="form-control" type="number" min="1" step="1" name="jackpots_interval_minutes" value="{{ jackpots_interval_minutes }}">
+          </div>
+          <div class="form-group">
+            <label>Results interval (hours)</label>
+            <input class="form-control" type="number" min="1" step="1" name="results_interval_hours" value="{{ results_interval_hours }}">
+          </div>
+          <div class="form-group">
+            <label>Website policies interval (seconds)</label>
+            <input class="form-control" type="number" min="30" step="1" name="website_policies_refresh_interval_seconds" value="{{ website_policies_refresh_interval_seconds }}">
+          </div>
+          <div class="form-group">
+            <label>Product prices fallback interval (seconds)</label>
+            <input class="form-control" type="number" min="300" step="1" name="product_prices_refresh_interval_seconds" value="{{ product_prices_refresh_interval_seconds }}">
+          </div>
+          <button class="secondaryFormButton" type="submit" style="width:auto; padding:10px 16px;">Save</button>
+        </form>
+      </div>
+
+      <div style="background:#0c4970; border:1px solid #2c7aab; border-radius:10px; padding:14px; margin-bottom:12px;">
+        <h3 style="margin:0 0 10px; font-size:18px;">Manual actions</h3>
+        <form method="post" style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="secondaryFormButton" type="submit" name="action" value="sync_jackpots_now" style="width:auto; padding:8px 12px;">Sync jackpots now</button>
+          <button class="secondaryFormButton" type="submit" name="action" value="sync_countries_now" style="width:auto; padding:8px 12px;">Sync countries now</button>
+          <button class="secondaryFormButton" type="submit" name="action" value="sync_website_policies_now" style="width:auto; padding:8px 12px;">Sync website policies now</button>
+          <button class="secondaryFormButton" type="submit" name="action" value="sync_product_prices_now" style="width:auto; padding:8px 12px;">Sync product prices now</button>
+          <button class="secondaryFormButton" type="submit" name="action" value="backfill_results_now" style="width:auto; padding:8px 12px;">Backfill draw results now</button>
+          <button class="secondaryFormButton" type="submit" name="action" value="clear_cache" onclick="return confirm('Clear local cache DB?');" style="width:auto; padding:8px 12px; background:#a94442 !important;">Clear cache</button>
+        </form>
+      </div>
+
+      <div style="background:#0c4970; border:1px solid #2c7aab; border-radius:10px; padding:14px;">
+        <h3 style="margin:0 0 10px; font-size:18px;">Github pull</h3>
+        <div style="font-size:12px; opacity:0.85; margin-bottom:8px;">
+          Pulls latest Lotto Express code on this server. The GitHub key is write-only and encrypted at rest.
+        </div>
+        <form method="post">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="action" value="github_pull">
+          <div class="form-group">
+            <label>Github key</label>
+            <input class="form-control" type="password" name="github_key" value="" placeholder="Paste GitHub Personal Access Token">
+          </div>
+          <div style="font-size:12px; opacity:0.85; margin-bottom:8px;">
+            User: <code>{{ github_user }}</code><br>
+            Template: <code>{{ github_command_template }}</code><br>
+            Status:
+            allowlist {{ "ok" if (github_pull_status_flags and github_pull_status_flags.get("allowlist_configured")) else "missing" }},
+            template {{ "ok" if (github_pull_status_flags and github_pull_status_flags.get("template_valid")) else "invalid" }},
+            key {{ "ok" if (github_pull_status_flags and github_pull_status_flags.get("key_available")) else "missing" }}
+          </div>
+          <button class="secondaryFormButton" type="submit" style="width:auto; padding:10px 16px;">Pull</button>
+        </form>
+        <div style="margin-top:10px;">
+          <div style="font-size:12px; opacity:0.85;">Output{% if github_pull_exit is not none %} (exit {{ github_pull_exit }}){% endif %}</div>
+          <pre style="white-space:pre-wrap; color:rgba(255,255,255,0.92); background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:10px; min-height:80px; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">{{ github_pull_output or "" }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#0c4970; border:1px solid #2c7aab; border-radius:10px; padding:14px; margin-top:14px;">
+    <h3 style="margin:0 0 10px; font-size:18px;">Website policies</h3>
+    <div style="font-size:12px; opacity:0.85; margin-bottom:10px;">
+      Cached from <code>GET /api/v1/website/policies</code>. Total: <strong>{{ policies_count or 0 }}</strong>.
+    </div>
+    {% if not policies_by_category %}
+      <div style="opacity:0.85;">No policies cached yet.</div>
+    {% else %}
+      {% for category, rows in policies_by_category.items() %}
+        <div style="margin-bottom:12px;">
+          <div style="margin-bottom:6px;"><strong>{{ category }}</strong></div>
+          <div class="table-responsive">
+            <table class="table table-sm" style="margin-bottom:0;">
+              <thead>
+                <tr>
+                  <th style="min-width:220px;">Policy</th>
+                  <th style="width:120px;">Value</th>
+                  <th>Comment</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for p in rows %}
+                <tr>
+                  <td><code>{{ p.name }}</code></td>
+                  <td>{{ p.value_int if p.value_int is not none else "—" }}</td>
+                  <td>{{ p.comment or "—" }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

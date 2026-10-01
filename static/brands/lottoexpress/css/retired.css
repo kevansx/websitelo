@@ -1,0 +1,246 @@
+/*
+ * Product pages for lotteries we no longer sell.
+ *
+ * These carry copy recovered from the old site, so the page has to make the
+ * "not available" notice impossible to miss before any of that copy is read.
+ * Palette is the site's own: panels #0C4970, headings #00ADEF, body #C7E9FE.
+ */
+
+.leRetired {
+	max-width: 900px;
+	margin: 0 auto 48px auto;
+	color: #c7e9fe;
+}
+
+.leRetired h1.pageHeading {
+	margin: 0 0 18px 0;
+}
+
+.leRetired h2.sub-heading,
+.leRetired h3.sub-heading {
+	color: #00adef;
+}
+
+.leRetired p {
+	color: #c7e9fe;
+	line-height: 1.65;
+}
+
+.leRetired a {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+.leRetired a:hover,
+.leRetired a:focus {
+	color: #00adef;
+}
+
+.leRetiredCrumbs {
+	margin: 0 0 14px 0;
+	font-size: 13px;
+	color: rgba(199, 233, 254, 0.75);
+}
+
+.leRetiredCrumbs a {
+	color: rgba(199, 233, 254, 0.75);
+	text-decoration: none;
+}
+
+.leRetiredCrumbs a:hover {
+	color: #00adef;
+}
+
+.leRetiredDot {
+	margin: 0 6px;
+	opacity: 0.6;
+}
+
+/* ---------- the notice ---------- */
+
+.leRetiredNotice {
+	margin: 0 0 28px 0;
+	padding: 18px 20px;
+	border-left: 4px solid #ffb400;
+	border-radius: 4px;
+	background: rgba(255, 180, 0, 0.1);
+}
+
+.leRetiredNoticeLead {
+	margin: 0 0 8px 0;
+	font-size: 18px;
+	font-weight: 700;
+	color: #ffd479 !important;
+}
+
+.leRetiredNotice p:last-child {
+	margin: 0;
+}
+
+/* ---------- alternatives ---------- */
+
+.leRetiredAlts {
+	margin: 0 0 32px 0;
+}
+
+.leRetiredAltGrid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 14px;
+	margin-top: 14px;
+}
+
+.leRetiredAltCard {
+	flex: 1 1 200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	padding: 18px 14px;
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	border-radius: 8px;
+	background: #0c4970;
+	text-align: center;
+	text-decoration: none !important;
+}
+
+.leRetiredAltCard:hover,
+.leRetiredAltCard:focus {
+	border-color: #00adef;
+	background: #0f5c8c;
+}
+
+.leRetiredAltLogo {
+	max-height: 42px;
+	width: auto;
+}
+
+.leRetiredAltName {
+	font-weight: 600;
+	color: #ffffff;
+}
+
+.leRetiredAltJackpot {
+	font-size: 20px;
+	font-weight: 700;
+	color: #00adef;
+}
+
+.leRetiredAltCta {
+	margin-top: 4px;
+	padding: 6px 16px;
+	border-radius: 14px;
+	background: #00adef;
+	color: #013658;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+/* ---------- recovered copy ---------- */
+
+.leRetiredIntro {
+	font-size: 17px;
+	margin-bottom: 24px;
+}
+
+.leRetiredHighlights {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	margin: 0 0 32px 0;
+}
+
+.leRetiredHighlight {
+	flex: 1 1 240px;
+}
+
+.leRetiredHighlight h3 {
+	margin: 0 0 6px 0;
+	font-size: 17px;
+}
+
+.leRetiredHighlight p {
+	margin: 0;
+	font-size: 14px;
+}
+
+.leRetiredFacts,
+.leRetiredPrizes,
+.leRetiredCopy {
+	margin: 0 0 32px 0;
+	padding-top: 24px;
+	border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.leRetiredFactList {
+	margin: 14px 0 0 0;
+}
+
+.leRetiredFactList dt {
+	color: #00adef;
+	font-weight: 700;
+	margin-top: 12px;
+}
+
+.leRetiredFactList dd {
+	margin: 2px 0 0 0;
+	color: #c7e9fe;
+}
+
+.leRetiredTableWrap {
+	overflow-x: auto;
+	margin-top: 14px;
+}
+
+.leRetiredTable {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+.leRetiredTable th,
+.leRetiredTable td {
+	padding: 9px 12px;
+	text-align: left;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.leRetiredTable th {
+	color: #00adef;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.leRetiredTable tbody tr:nth-child(odd) {
+	background: rgba(255, 255, 255, 0.04);
+}
+
+.leRetiredStale {
+	margin-top: 12px;
+	font-size: 13px;
+	font-style: italic;
+	color: rgba(199, 233, 254, 0.72) !important;
+}
+
+.leRetiredSection {
+	margin-bottom: 22px;
+}
+
+.leRetiredSection h3 {
+	margin: 0 0 8px 0;
+	font-size: 18px;
+}
+
+.leRetiredBack {
+	margin-top: 28px;
+}
+
+@media (max-width: 767px) {
+	.leRetiredAltCard {
+		flex-basis: 100%;
+	}
+
+	.leRetiredHighlight {
+		flex-basis: 100%;
+	}
+}

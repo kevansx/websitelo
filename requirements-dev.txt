@@ -1,0 +1,10 @@
+# Tooling that is not needed to run the site.
+#
+# tools/blog_harvest.py parses archived HTML and recompresses recovered images;
+# the app itself only reads the JSON and image files it produces.
+-r requirements.txt
+
+beautifulsoup4==4.14.3
+lxml==6.1.1
+Pillow==10.4.0
+pytest==8.4.0

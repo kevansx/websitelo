@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62.793" height="62.793" viewBox="0 0 62.793 62.793">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #59c203;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-size: 41px;
+        font-family: Heebo-Bold, Heebo;
+        font-weight: 700;
+      }
+
+      .cls-3 {
+        filter: url(#Ellipse_4);
+      }
+    </style>
+    <filter id="Ellipse_4" x="0" y="0" width="62.793" height="62.793" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.412"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="AddIcon" transform="translate(-950 -576)">
+    <g class="cls-3" transform="matrix(1, 0, 0, 1, 950, 576)">
+      <circle id="Ellipse_4-2" data-name="Ellipse 4" class="cls-1" cx="28.397" cy="28.397" r="28.397" transform="translate(3 2)"/>
+    </g>
+    <text id="_" data-name="+" class="cls-2" transform="translate(982 620)"><tspan x="-11.131" y="0">+</tspan></text>
+  </g>
+</svg>

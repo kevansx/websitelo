@@ -1,0 +1,363 @@
+/*
+ * Blog styling.
+ *
+ * The posts were recovered from the old WordPress install, so the body markup
+ * is Gutenberg's: wp-block-columns, wp-block-image, wp-block-list and friends.
+ * These rules give that markup a readable home inside this site's layout
+ * without pulling in the old theme.
+ *
+ * The palette is the site's own: panels are #0C4970, headings #00ADEF, body
+ * copy #C7E9FE on dark. The recovered content assumed a white WordPress theme,
+ * so anything it brings with it has to be pulled back to these colours.
+ */
+
+.leBlog {
+	max-width: 860px;
+	margin: 0 auto 48px auto;
+}
+
+.leBlogHeader {
+	margin-bottom: 18px;
+}
+
+/* ---------- listings ---------- */
+
+.leBlogTerms {
+	margin: 0 0 26px 0;
+	padding-bottom: 16px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.leBlogTerm {
+	display: inline-block;
+	margin: 0 6px 8px 0;
+	padding: 5px 12px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 14px;
+	font-size: 13px;
+	line-height: 18px;
+	color: #ffffff;
+	background: transparent;
+	text-decoration: none;
+}
+
+.leBlogTerm:hover,
+.leBlogTerm:focus {
+	border-color: #00adef;
+	color: #00adef;
+	text-decoration: none;
+}
+
+.leBlogTerm.isActive {
+	background: #00adef;
+	border-color: #00adef;
+	color: #013658;
+}
+
+.leBlogCard {
+	display: flex;
+	align-items: flex-start;
+	gap: 18px;
+	padding: 20px 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.leBlogCardImage {
+	flex: 0 0 190px;
+	display: block;
+	overflow: hidden;
+	border-radius: 6px;
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.leBlogCardImage img {
+	display: block;
+	width: 100%;
+	height: 120px;
+	object-fit: cover;
+}
+
+.leBlogCardBody {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.leBlogCardTitle {
+	margin: 0 0 6px 0;
+	font-size: 20px;
+	line-height: 26px;
+}
+
+.leBlogCardTitle a {
+	color: #00adef;
+	text-decoration: none;
+}
+
+.leBlogCardTitle a:hover,
+.leBlogCardTitle a:focus {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+.leBlogCardMeta {
+	margin: 0 0 8px 0;
+	font-size: 13px;
+	color: rgba(199, 233, 254, 0.7);
+}
+
+.leBlogDot {
+	margin: 0 6px;
+	color: rgba(199, 233, 254, 0.45);
+}
+
+.leBlogCardExcerpt {
+	margin: 0 0 8px 0;
+	color: #c7e9fe;
+}
+
+.leBlogPager {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin: 28px 0 0 0;
+}
+
+.leBlogPageLink {
+	padding: 8px 16px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 4px;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.leBlogPageLink:hover,
+.leBlogPageLink:focus {
+	border-color: #00adef;
+	color: #00adef;
+	text-decoration: none;
+}
+
+.leBlogPageOf {
+	font-size: 13px;
+	color: rgba(199, 233, 254, 0.7);
+}
+
+/* ---------- single post ---------- */
+
+.leBlogCrumbs {
+	margin-bottom: 14px;
+	font-size: 13px;
+	color: rgba(199, 233, 254, 0.7);
+}
+
+.leBlogCrumbs a {
+	color: #00adef;
+}
+
+.leBlogHero {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	margin: 0 0 24px 0;
+	border-radius: 6px;
+}
+
+.leBlogBody {
+	font-size: 17px;
+	line-height: 1.65;
+	color: #c7e9fe;
+}
+
+.leBlogBody p {
+	margin: 0 0 18px 0;
+	color: #c7e9fe;
+}
+
+.leBlogBody h2,
+.leBlogBody h3,
+.leBlogBody h4,
+.leBlogBody h5 {
+	color: #00adef;
+}
+
+.leBlogBody h2 {
+	margin: 32px 0 12px 0;
+	font-size: 26px;
+	line-height: 32px;
+}
+
+.leBlogBody h3 {
+	margin: 26px 0 10px 0;
+	font-size: 21px;
+	line-height: 27px;
+}
+
+.leBlogBody a {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+.leBlogBody a:hover,
+.leBlogBody a:focus {
+	color: #00adef;
+}
+
+.leBlogBody strong,
+.leBlogBody b {
+	color: #ffffff;
+}
+
+.leBlogBody ul,
+.leBlogBody ol {
+	margin: 0 0 18px 24px;
+	padding: 0;
+	color: #c7e9fe;
+}
+
+.leBlogBody li {
+	margin-bottom: 8px;
+}
+
+.leBlogBody blockquote {
+	margin: 24px 0;
+	padding: 4px 0 4px 18px;
+	border-left: 3px solid #f5b301;
+	color: #ffffff;
+	font-size: 18px;
+}
+
+/* Gutenberg leftovers: images, figures and column layouts. */
+.leBlogBody img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 4px;
+}
+
+.leBlogBody figure {
+	margin: 0 0 20px 0;
+	max-width: 100%;
+}
+
+.leBlogBody figcaption {
+	margin-top: 6px;
+	font-size: 13px;
+	color: rgba(199, 233, 254, 0.7);
+	text-align: center;
+}
+
+.leBlogBody .wp-block-columns {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px;
+	margin-bottom: 18px;
+}
+
+.leBlogBody .wp-block-column {
+	flex: 1 1 240px;
+	min-width: 0;
+}
+
+.leBlogBody .wp-block-image {
+	margin: 0 0 20px 0;
+}
+
+.leBlogBody .aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.leBlogBody .alignright {
+	float: right;
+	margin: 0 0 14px 20px;
+}
+
+.leBlogBody .alignleft {
+	float: left;
+	margin: 0 20px 14px 0;
+}
+
+/* The old theme set colours inline on some blocks, for a white page. */
+.leBlogBody .has-text-color,
+.leBlogBody [style*="color"] {
+	color: #c7e9fe !important;
+}
+
+.leBlogBody .has-background,
+.leBlogBody [style*="background"] {
+	background: transparent !important;
+}
+
+.leBlogBody table {
+	width: 100%;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+	color: #c7e9fe;
+}
+
+.leBlogBody th,
+.leBlogBody td {
+	padding: 8px 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	text-align: left;
+}
+
+.leBlogBody th {
+	color: #ffffff;
+}
+
+.leBlogTaxonomy {
+	margin: 32px 0 0 0;
+	padding-top: 18px;
+	border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.leBlogRelated {
+	margin-top: 40px;
+}
+
+.leBlogRelated .leBlogCardTitle {
+	font-size: 17px;
+	line-height: 23px;
+}
+
+.leBlogBack {
+	margin-top: 28px;
+}
+
+@media (max-width: 767px) {
+	.leBlogCard {
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.leBlogCardImage {
+		flex: 0 0 auto;
+		width: 100%;
+	}
+
+	.leBlogCardImage img {
+		height: 180px;
+	}
+
+	.leBlogBody {
+		font-size: 16px;
+	}
+
+	.leBlogBody .wp-block-columns {
+		display: block;
+	}
+
+	.leBlogBody .alignright,
+	.leBlogBody .alignleft {
+		float: none;
+		margin: 0 0 14px 0;
+	}
+
+	.leBlogPager {
+		flex-wrap: wrap;
+	}
+}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container lePages">
+  <h1 class="pageHeading">Promotions</h1>
+  {% if banners and banners|length > 0 %}
+    {% for b in banners %}
+      <div class="row" style="margin-bottom:14px;">
+        <div class="col-xs-12" style="background:#013658; border:1px solid #0C4970; border-radius:5px; padding:14px 18px;">
+          <p class="sub-heading">{{ b.title }}</p>
+          {% if b.body %}<p>{{ b.body }}</p>{% endif %}
+          {% if b.start_at or b.end_at %}
+            <p class="textLight" style="margin-top:6px;">
+              {% if b.start_at %}Start: {{ b.start_at }}{% endif %}
+              {% if b.start_at and b.end_at %} | {% endif %}
+              {% if b.end_at %}End: {{ b.end_at }}{% endif %}
+            </p>
+          {% endif %}
+          {% if b.cta_href and b.cta_label %}
+            <a class="primaryFormButton linkAsButton centerLinkCopy" href="{{ b.cta_href }}">{{ b.cta_label }}</a>
+          {% elif b.cta_href %}
+            <a class="primaryFormButton linkAsButton centerLinkCopy" href="{{ b.cta_href }}">View offer</a>
+          {% endif %}
+        </div>
+      </div>
+      <hr />
+    {% endfor %}
+  {% else %}
+    <p>No promotions available yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
+

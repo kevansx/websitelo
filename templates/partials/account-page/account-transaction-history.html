@@ -1,0 +1,106 @@
+<div class="col-xs-12 col-sm-12 col-md-12 no-padding" id="accountTransactionHistory">
+  {% set f = txn_filters if txn_filters is defined and txn_filters else {} %}
+  {% set account_cur = account_currency_code if account_currency_code is defined else (wallet.currency if wallet and wallet.currency is defined else '') %}
+  <div class="walletPageContent">
+    <div class="col-xs-12 col-sm-12 col-md-12 no-padding accountHistorySearch">
+      <form id="accountTransactionForm">
+        <div class="transactionHistorySearchItems">
+          <p class="formLabels">Date Range</p>
+          <div class="acctDateRangeDiv">
+            <input type="text" id="dateRangerTransactionHistory" class="accountDateRange" name="dateRangerTransactionHistory" value="{{ f.date_range or '' }}">
+          </div>
+        </div>
+        <div class="transactionHistorySearchItems">
+          <p class="formLabels">Transaction Type</p>
+          <select name="transactionHistoryType" id="transactionHistoryType">
+            <option value="">All</option>
+            <option value="0" {% if f.type == '0' %}selected{% endif %}>Deposit</option>
+            <option value="4" {% if f.type == '4' %}selected{% endif %}>Order(Play)</option>
+            <option value="6" {% if f.type == '6' %}selected{% endif %}>Win</option>
+            <option value="2" {% if f.type == '2' %}selected{% endif %}>Adjustment</option>
+            <option value="1" {% if f.type == '1' %}selected{% endif %}>Withdrawal</option>
+          </select>
+        </div>
+        <div class="transactionHistorySearchItems">
+          <p class="formLabels">Status</p>
+          <select name="transactionHistoryStatus" id="transactionHistoryStatus">
+            <option value="">All</option>
+            <option value="1" {% if f.status == '1' %}selected{% endif %}>Success</option>
+            <option value="7" {% if f.status == '7' %}selected{% endif %}>Failed</option>
+            <option value="4" {% if f.status == '4' %}selected{% endif %}>Pending</option>
+          </select>
+        </div>
+        <button id="searchTransactionHistoryButton" class="accountSearchButtons">Search</button>
+        <p id="accountTransactionHistoryReset" class="accountSubmitCancel accountSubmitReset">Reset</p>
+      </form>
+    </div>
+
+    <div id="transactionHistorySection">
+      <div id="transactionHistoryTable">
+        <div class="transactionHistoryTableHeader">
+          <div class="transactionHistoryTableHeaderCell lrg-td">Date<span class="glyphicon glyphicon-arrow-down"></span></div>
+          <div class="transactionHistoryTableHeaderCell mid-td">Transaction #</div>
+          <div class="transactionHistoryTableHeaderCell mid-td">Transaction Type</div>
+          <div class="transactionHistoryTableHeaderCell mid-td">Amount</div>
+          <div class="transactionHistoryTableHeaderCell mid-td">Status</div>
+          <div class="transactionHistoryTableHeaderCell sml-td">Balance Total</div>
+        </div>
+
+        {% if wallet_transactions and wallet_transactions|length %}
+          {% for t in wallet_transactions %}
+            {% set created = t.created_at or t.createdAt or t.get('created_at') or t.get('createdAt') or '' %}
+            {% set txn_id = t.id or t.transaction_id or t.transactionId or t.get('id') or '' %}
+            {% set typ = t.type or t.kind or t.transaction_type or t.get('type') or t.get('kind') or '' %}
+            {% set status = t.status or t.get('status') or '' %}
+            {% set cur = t.currency or account_cur %}
+            {% set amt_cents = t.amount_cents or t.amountCents or t.get('amount_cents') or t.get('amountCents') or 0 %}
+            {% set bal_cents = t.balance_cents or t.balanceCents or t.get('balance_cents') or t.get('balanceCents') %}
+            <div class="transactionHistoryTableBody">
+              <div class="transactionHistoryTableRow">
+                <div class="transactionHistoryTableBodyCell lrg-td"><span class="glyphicon glyphicon-chevron-right glyph-accordion"></span>{{ created }}</div>
+                <div class="transactionHistoryTableBodyCell mid-td">{{ txn_id }}</div>
+                <div class="transactionHistoryTableBodyCell mid-td">{{ typ }}</div>
+                <div class="transactionHistoryTableBodyCell mid-td">{{ cur }} {{ (amt_cents or 0) / 100 }}</div>
+                <div class="transactionHistoryTableBodyCell mid-td">{{ status }}</div>
+                <div class="transactionHistoryTableBodyCell sml-td">
+                  {% if bal_cents is not none %}{{ cur }} {{ (bal_cents or 0) / 100 }}{% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="transactionHistoryTableTwo">
+              <div class="transactionHistoryTableHeader">
+                <div class="transactionHistoryTableHeaderCell lrg-td">Order #</div>
+                <div class="transactionHistoryTableHeaderCell sml-td">Withdrawalable</div>
+                <div class="transactionHistoryTableHeaderCell sml-td">Charge from<br>Withdrawalable</div>
+                <div class="transactionHistoryTableHeaderCell sml-td">Charge from<br>Non-withdrawalable</div>
+                <div class="transactionHistoryTableHeaderCell sml-td">Balance Withdrawalable</div>
+                <div class="transactionHistoryTableHeaderCell sml-td">Balance<br>Non-withdrawalable</div>
+                <div class="transactionHistoryTableHeaderCell lrg-td">Transaction<br>Via</div>
+                <div class="transactionHistoryTableHeaderCell sml-td">Converted Currency<br>Amount</div>
+              </div>
+              <div class="transactionHistoryTableBody">
+                <div class="transactionHistoryTableRow">
+                  <div class="transactionHistoryTableBodyCell lrg-td">—</div>
+                  <div class="transactionHistoryTableBodyCell sml-td">—</div>
+                  <div class="transactionHistoryTableBodyCell sml-td">—</div>
+                  <div class="transactionHistoryTableBodyCell sml-td">—</div>
+                  <div class="transactionHistoryTableBodyCell sml-td">—</div>
+                  <div class="transactionHistoryTableBodyCell sml-td">—</div>
+                  <div class="transactionHistoryTableBodyCell lrg-td">—</div>
+                  <div class="transactionHistoryTableBodyCell sml-td">—</div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="accountNoResults">No Transactions</p>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if wallet_transactions_has_more %}
+      <p id="loadMoreTransactions" class="accountLoadMoreButton">Load More</p>
+    {% endif %}
+  </div>
+</div>
+

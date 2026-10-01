@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container addFundsForms" id="addFundsForBet">
+  <div class="row lePages">
+    <div class="formHeader">
+      <div class="formHeaderContent">
+        <p class="pageHeading">Please Top Up Your Wallet to Complete Purchase</p>
+        {# Orders are paid from added funds; winnings are only spent when the
+           customer authorises them at checkout. Saying "balance" here would
+           tell someone holding winnings that they have nothing. #}
+        <p class="paymentTopUpText">If the added funds in your wallet do not cover your cart, please add funds and then return to your cart to complete checkout.</p>
+      </div>
+    </div>
+
+    <div class="addFundsContent paymentTopUpFormContent">
+      <a class="linkAsButton" href="{{ url_for('wallet_topup', next=url_for('cart')) }}">Add Funds</a>
+      <p style="margin-top:12px;">
+        <a class="confirmBetText tertiaryLink" href="{{ url_for('cart') }}">Or click here to go back to your cart</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

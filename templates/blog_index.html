@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{# Serves the blog home, the category archives and the tag archives: they were
+   the same listing in WordPress and are the same listing here. #}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="/resources/css/blog.css?v={{ build_id }}">
+  {% if prev_url %}<link rel="prev" href="{{ prev_url }}">{% endif %}
+  {% if next_url %}<link rel="next" href="{{ next_url }}">{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row lePages">
+    <div class="col-xs-12">
+      <div class="leBlog">
+
+        <header class="leBlogHeader">
+          <h1 class="pageHeading">{{ listing_heading }}</h1>
+          {% if listing_intro %}<p class="sub-heading">{{ listing_intro }}</p>{% endif %}
+        </header>
+
+        {% if terms %}
+        <nav class="leBlogTerms" aria-label="Blog categories">
+          <a class="leBlogTerm{% if not active_term %} isActive{% endif %}" href="/blog/">All posts</a>
+          {% for term in terms %}
+            <a class="leBlogTerm{% if active_term and active_term.slug == term.slug and active_term.kind == term.kind %} isActive{% endif %}"
+               href="{{ term.url }}">{{ term.name|title }}</a>
+          {% endfor %}
+        </nav>
+        {% endif %}
+
+        {% if posts %}
+        <div class="leBlogList">
+          {% for post in posts %}
+          <article class="leBlogCard">
+            {% if post.card_image %}
+            <a class="leBlogCardImage" href="{{ post.url }}" tabindex="-1" aria-hidden="true">
+              <img src="{{ post.card_image }}" alt="" loading="lazy" decoding="async">
+            </a>
+            {% endif %}
+            <div class="leBlogCardBody">
+              <h2 class="leBlogCardTitle"><a href="{{ post.url }}">{{ post.heading }}</a></h2>
+              <p class="leBlogCardMeta">
+                {% if post.display_date %}<time datetime="{{ post.iso_date }}">{{ post.display_date }}</time>{% endif %}
+                <span class="leBlogDot">&middot;</span>{{ post.reading_minutes }} min read
+              </p>
+              <p class="leBlogCardExcerpt">{{ post.excerpt }}</p>
+              <a class="tertiaryLink" href="{{ post.url }}">Read more</a>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+
+        {% if total_pages > 1 %}
+        <nav class="leBlogPager" aria-label="Blog pagination">
+          {% if prev_url %}<a class="leBlogPageLink" rel="prev" href="{{ prev_url }}">&laquo; Newer</a>{% endif %}
+          <span class="leBlogPageOf">Page {{ page }} of {{ total_pages }}</span>
+          {% if next_url %}<a class="leBlogPageLink" rel="next" href="{{ next_url }}">Older &raquo;</a>{% endif %}
+        </nav>
+        {% endif %}
+
+        {% else %}
+        <p>There are no posts here yet. <a class="tertiaryLink" href="/blog/">Browse the whole blog</a>.</p>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

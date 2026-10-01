@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1168" height="129" viewBox="0 0 1168 129">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="1168" height="129" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Product_BG" data-name="Product BG" transform="translate(12663 16511)">
+    <rect id="Rectangle_171" data-name="Rectangle 171" width="1168" height="129" transform="translate(-12663 -16511)" fill="#fff3db"/>
+    <g id="Stripes_Grid" data-name="Stripes Grid" transform="translate(-12663 -16511)" clip-path="url(#clip-path)">
+      <g transform="translate(68.668 -418.353)">
+        <path id="Path_109" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(299.668 -418.353)">
+        <path id="Path_109-2" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(530.668 -418.353)">
+        <path id="Path_109-3" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(761.668 -418.353)">
+        <path id="Path_109-4" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(992.668 -418.353)">
+        <path id="Path_109-5" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+      <g transform="translate(1223.668 -418.353)">
+        <path id="Path_109-6" data-name="Path 109" d="M-13891.313-15606.383l-387.209,304.668" transform="translate(14075.313 15924.383)" fill="none" stroke="#fff9ef" stroke-width="70"/>
+      </g>
+    </g>
+  </g>
+</svg>

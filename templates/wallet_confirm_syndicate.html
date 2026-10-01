@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container processOrderForm">
+  <div class="row lePages">
+    <div class="processOrderContent">
+      <p class="pageHeading">Please Confirm Your Order</p>
+      <p class="processOrderCopy textBold">Syndicate orders</p>
+      <p class="processOrderCopy">
+        Syndicate checkout is not yet available in this Flask site. If you were trying to place a syndicate order, please contact support.
+      </p>
+      <hr class="processOrderTotal">
+      <a class="linkAsButton" href="{{ url_for('cart') }}">Go to Cart</a>
+      <a class="linkAsButton" href="{{ url_for('contact') }}" style="margin-left:10px;">Contact Support</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect container lePages">
+  <h1 class="pageHeading">Confirming your payment...</h1>
+  <p>We are waiting for your card provider to confirm the payment. This usually takes a few seconds.</p>
+  <p>Please keep this page open.</p>
+
+  {% if intent_id %}
+    <p class="footnote">Reference: {{ intent_id }}</p>
+  {% endif %}
+
+  <a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('wallet_add_funds') }}">Back to add funds</a>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if can_poll %}
+<script>
+(function() {
+  // Keep polling via full page navigation so server-side status checks stay authoritative.
+  var nextAttempt = {{ (poll_attempt or 0) + 1 }};
+  var baseUrl = {{ poll_url | tojson }};
+  var sep = baseUrl.indexOf("?") >= 0 ? "&" : "?";
+  setTimeout(function() {
+    window.location.href = baseUrl + sep + "poll_attempt=" + nextAttempt;
+  }, 3000);
+})();
+</script>
+{% endif %}
+{% endblock %}
+

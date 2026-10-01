@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container addFundsForms" id="addFunds">
+  <div class="row lePages">
+    <div class="topUpPaymentOverlay"></div>
+    <div class="formHeader">
+      <div class="formHeaderContent">
+        <p class="pageHeading">Payment Details</p>
+        <p class="paymentTopUpText">
+          Adding {{ currency_symbol }} {{ '%.2f'|format((amount_cents or 0) / 100) }} to your wallet.
+          <a class="tertiaryLink" href="{{ url_for('wallet_add_funds', next=next or None) }}">Change amount</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="addFundsContent">
+      <div class="addCardToFile">
+        <form method="post" action="{{ url_for('wallet_topup_pay_post', intent_id=intent_id) }}" id="topupPayForm">
+          <div class="paymentTopUpFormRight" style="margin-top:0;">
+            <div id="directCardFields">
+              {% if testing_processor_mode %}
+                <p class="footnote" style="margin-bottom:10px;">
+                  Testing mode: use a new test card number (saved-card charging is disabled in this environment).
+                </p>
+              {% else %}
+                <label>Card Selection</label>
+                <select name="saved_card_id" id="saved_card_id">
+                  <option value="">Pay with a new card</option>
+                  {% for c in (saved_cards or []) %}
+                    <option value="{{ c.id }}">{{ c.label or (c.card_brand ~ ' •••• ' ~ c.card_last4 ~ ' ' ~ c.card_exp_month ~ '/' ~ c.card_exp_year) }}</option>
+                  {% endfor %}
+                </select>
+              {% endif %}
+
+              <div id="savedCardCvvRow" style="display:none; margin-top:10px;">
+                <label>CVV number<span class="inputRequiredStar">*</span></label>
+                <input type="text" name="saved_card_cvv" id="saved_card_cvv" maxlength="4" autocomplete="cc-csc" />
+                <p class="footnote">For security, CVV is required each time you use a saved card.</p>
+                <div style="margin-top:8px;">
+                  <button type="button" class="secondaryFormButton" id="deleteSavedCardBtn" style="width:auto; padding:8px 12px;">Remove saved card</button>
+                </div>
+              </div>
+
+              <div id="newCardFields" style="margin-top:10px;">
+                <label>Cardholder Name<span class="inputRequiredStar">*</span></label>
+                <input type="text" name="cardholder_name" id="cardholder_name" autocomplete="cc-name" />
+
+                <div class="registerSplitColumn">
+                  <div class="registerSplitColumns">
+                    <label>Card Number<span class="inputRequiredStar">*</span></label>
+                    <input type="text" name="card_number" id="card_number" autocomplete="cc-number" />
+                  </div>
+                  <div class="registerSplitColumns">
+                    <label>CVV number<span class="inputRequiredStar">*</span></label>
+                    <input type="text" name="cvv" id="cvv" maxlength="4" autocomplete="cc-csc" />
+                  </div>
+                </div>
+
+                <label>Expiry Date<span class="inputRequiredStar">*</span></label><br>
+                <div class="registerSplitColumn">
+                  <div class="registerSplitColumns">
+                    <input
+                      name="exp_month"
+                      id="exp_month"
+                      class="expiryCombo ccExpireMM"
+                      list="exp_month_list"
+                      inputmode="numeric"
+                      maxlength="2"
+                      placeholder="Month"
+                      autocomplete="cc-exp-month"
+                    />
+                    <datalist id="exp_month_list">
+                      {% for m in range(1,13) %}
+                        <option value="{{ '%02d'|format(m) }}"></option>
+                      {% endfor %}
+                    </datalist>
+                  </div>
+                  <div class="registerSplitColumns">
+                    <input
+                      name="exp_year"
+                      id="exp_year"
+                      class="expiryCombo ccExpireYY"
+                      list="exp_year_list"
+                      inputmode="numeric"
+                      maxlength="4"
+                      placeholder="Year"
+                      autocomplete="cc-exp-year"
+                    />
+                    <datalist id="exp_year_list">
+                      {% set y0 = now_year or 2026 %}
+                      {% for y in range(y0, y0+15) %}
+                        <option value="{{ y }}"></option>
+                      {% endfor %}
+                    </datalist>
+                  </div>
+                </div>
+
+                <label style="margin-top:10px;">
+                  <input type="checkbox" name="save_card" value="1" checked> Save this card for later
+                </label>
+                <div style="margin-top:8px;">
+                  <label>Label (optional)</label>
+                  <input type="text" name="card_label" id="card_label" placeholder="e.g. Personal Visa" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="paymentTopUpFormLeft" style="margin-top:10px;">
+            <p style="margin:0 0 8px; color:#FFA500; font-weight:700; text-align:left;">
+              Our payment processors require your full address for security reasons
+            </p>
+            <label>Billing address<span class="inputRequiredStar">*</span></label>
+            <input type="text" name="billing_street" id="billing_street" placeholder="Street address" value="{{ billing_street or '' }}" required />
+            <div class="registerSplitColumn">
+              <div class="registerSplitColumns">
+                <input type="text" name="billing_city" id="billing_city" placeholder="City" value="{{ billing_city or '' }}" required />
+              </div>
+              <div class="registerSplitColumns">
+                <input type="text" name="billing_postcode" id="billing_postcode" placeholder="Postcode" value="{{ billing_postcode or '' }}" required />
+              </div>
+            </div>
+            <div class="registerSplitColumn">
+              <div class="registerSplitColumns">
+                <input type="text" name="billing_state" id="billing_state" placeholder="State / Region (if applicable)" value="{{ billing_state or '' }}" />
+              </div>
+              <div class="registerSplitColumns">
+                <input
+                  type="text"
+                  name="billing_country"
+                  id="billing_country"
+                  placeholder="Country (e.g. United Kingdom)"
+                  value="{{ billing_country_display or billing_country or '' }}"
+                  list="billing_country_list"
+                  required
+                />
+                <datalist id="billing_country_list">
+                  {% for c in (country_options or []) %}
+                    {% if c.name and c.iso2 %}
+                      <option value="{{ c.name }}"></option>
+                    {% endif %}
+                  {% endfor %}
+                </datalist>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <input type="hidden" name="next" value="{{ next or '' }}">
+          <input type="hidden" name="browserScreenHeight" id="browserScreenHeight">
+          <input type="hidden" name="browserScreenWidth" id="browserScreenWidth">
+          <input type="hidden" name="browserColorDepth" id="browserColorDepth">
+          <input type="hidden" name="browserTimezone" id="browserTimezone">
+          <input type="hidden" name="browserLanguage" id="browserLanguage">
+          <input type="submit" value="Pay {{ currency_symbol }} {{ '%.2f'|format((amount_cents or 0) / 100) }}" id="addFundsSubmit">
+          <p>lottoexpress.com will show on your statement</p>
+        </form>
+
+        {% if hosted_available %}
+          <form method="post" action="{{ url_for('wallet_topup_use_hosted', intent_id=intent_id) }}" style="margin-top:12px;">
+            <button type="submit" class="secondaryFormButton" style="width:auto; padding:8px 12px;">
+              Pay on our provider's secure page instead
+            </button>
+          </form>
+        {% endif %}
+
+        {% if purchase_mode and edit_order_url %}
+          <p style="margin-top:8px;">
+            <a class="confirmBetText tertiaryLink" href="{{ edit_order_url }}">Or click here to edit your order</a>
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function() {
+  function byId(id){ return document.getElementById(id); }
+  var sel = byId('saved_card_id');
+  var cvvRow = byId('savedCardCvvRow');
+  var newFields = byId('newCardFields');
+  var delBtn = byId('deleteSavedCardBtn');
+  var delForm = document.createElement('form');
+  delForm.method = 'post';
+  delForm.style.display = 'none';
+  document.body.appendChild(delForm);
+
+  function setRequired(el, on) {
+    if (!el) return;
+    try { el.required = !!on; } catch (e) {}
+  }
+
+  function updateMode() {
+    var usingSaved = !!(sel && sel.value);
+    if (cvvRow) cvvRow.style.display = usingSaved ? 'block' : 'none';
+    if (newFields) newFields.style.display = usingSaved ? 'none' : 'block';
+    if (delBtn) delBtn.disabled = !usingSaved;
+
+    setRequired(byId('saved_card_cvv'), usingSaved);
+    setRequired(byId('cardholder_name'), !usingSaved);
+    setRequired(byId('card_number'), !usingSaved);
+    setRequired(byId('cvv'), !usingSaved);
+    setRequired(byId('exp_month'), !usingSaved);
+    setRequired(byId('exp_year'), !usingSaved);
+  }
+
+  if (sel) sel.addEventListener('change', updateMode);
+  if (delBtn) delBtn.addEventListener('click', function() {
+    var v = sel && sel.value ? String(sel.value) : '';
+    if (!v) return;
+    if (!confirm('Remove this saved card?')) return;
+    delForm.action = '/wallet/cards/' + encodeURIComponent(v) + '/delete';
+    delForm.submit();
+  });
+  updateMode();
+
+  // Populate 3DS browser fields (best-effort)
+  function fill3ds() {
+    try { byId('browserScreenHeight').value = String(window.screen.height || ''); } catch(e){}
+    try { byId('browserScreenWidth').value = String(window.screen.width || ''); } catch(e){}
+    try { byId('browserColorDepth').value = String(window.screen.colorDepth || ''); } catch(e){}
+    try { byId('browserTimezone').value = String(new Date().getTimezoneOffset() * -1); } catch(e){}
+    try { byId('browserLanguage').value = String(navigator.language || navigator.userLanguage || ''); } catch(e){}
+  }
+  var form = byId('topupPayForm');
+  var payBtn = byId('addFundsSubmit');
+  var payLabel = payBtn ? payBtn.value : '';
+  var sent = false;
+  if (form) form.addEventListener('submit', function (e) {
+    // A charge can take several seconds, and every further press was another
+    // charge on the same card. The server refuses a second one as well; this
+    // just stops the customer being shown the refusal for a click they made
+    // while waiting.
+    if (sent) { e.preventDefault(); return; }
+    sent = true;
+    fill3ds();
+    if (payBtn) { payBtn.disabled = true; payBtn.value = 'Processing\u2026'; }
+  });
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted && payBtn) { sent = false; payBtn.disabled = false; payBtn.value = payLabel; }
+  });
+})();
+</script>
+{% endblock %}

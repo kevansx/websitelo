@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="lePages">
+    <p class="pageHeading">Completing your order…</p>
+    <p>Please wait while we submit your checkout.</p>
+    <form id="autoCheckout" method="post" action="/checkout"></form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Auto-submit checkout after top-up. This mirrors a user clicking "Checkout" on the cart page.
+(function() {
+  var f = document.getElementById('autoCheckout');
+  if (!f) return;
+  setTimeout(function(){ f.submit(); }, 50);
+})();
+</script>
+{% endblock %}
+

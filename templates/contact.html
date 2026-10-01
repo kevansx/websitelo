@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row lePages">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <section class="contactUs">
+        <div class="col-xs-12 col-sm-12 col-md-12 contactUsHeader">
+          <h1 class="pageHeading">Contact Us</h1>
+          <p class="sub-heading">We want to hear from you</p>
+          <p>
+            Please feel free to contact our friendly and professional staff. They will be happy to assist you or answer any questions you may have. You can reach us by chat, email via our contact form or just give us a phone call.
+          </p>
+        </div>
+
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6 col-xl-6 contactDetails">
+          <div class="row">
+            <div class="col-xs-2 col-md-3 col-lg-3">
+              <img src="/resources/images/ContactEmail.svg" alt="contact" />
+              <p>Email</p>
+            </div>
+            <div class="col-xs-10 col-md-9 col-lg-9">
+              <p><a href="mailto:info@lottoexpress.com?subject=Website%20Enquiry%20for%20Lotto%20Express" class="primaryLink">info@lottoexpress.com</a></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-2 col-md-3 col-lg-3">
+              <img src="/resources/images/ContactCall.svg" alt="contact" />
+              <p>Call</p>
+            </div>
+            <div class="col-xs-10 col-md-9 col-lg-9 contactDirectory">
+              <p>UK <a href="tel:0080060080044" class="primaryLink">00-800-6008-0044</a></p>
+              <p>Australia <a href="tel:001180060080044" class="primaryLink">0011-800-6008-0044</a></p>
+              <p>New Zealand <a href="tel:0080060080044" class="primaryLink">00-800-6008-0044</a></p>
+              <p>South Africa <a href="tel:0080060080044" class="primaryLink">00-800-6008-0044</a></p>
+              <p>France <a href="tel:0080060080044" class="primaryLink">00-800-6008-0044</a></p>
+              <p>Germany <a href="tel:0080060080044" class="primaryLink">00-800-6008-0044</a></p>
+              <p>Other Countries <a href="tel:+35722022690" class="primaryLink">+357-22-022-690</a> (Cyprus)</p>
+              <p class="contactUsCallInfo textBold">(We will be pleased to accept your reverse-charges call.)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+          {# IMPORTANT: do not use legacy action endpoints; post to Flask. #}
+          <form id="leContactUsForm" action="{{ url_for('contact_post') }}" method="post">
+            {% set pf = prefill if prefill is defined and prefill else {} %}
+            <div>
+              <p class="formLabels">First Name <span class="inputRequiredStar">*</span></p>
+              <input class="required" name="firstname" type="text" value="{{ pf.first_name or '' }}" required>
+            </div>
+            <div>
+              <p class="formLabels">Last Name <span class="inputRequiredStar">*</span></p>
+              <input class="required" name="lastname" type="text" value="{{ pf.last_name or '' }}" required>
+            </div>
+            <div>
+              <p class="formLabels">Email <span class="inputRequiredStar">*</span></p>
+              <input class="required" name="email" type="email" value="{{ pf.email or '' }}" required>
+            </div>
+            <div>
+              <p class="formLabels">Phone</p>
+              <input name="phone" type="text" />
+            </div>
+            <div>
+              <p class="formLabels">Subject</p>
+              <input name="subject" type="text" value="{{ pf.subject or '' }}" />
+            </div>
+            <div>
+              <p class="formLabels">Message <span class="inputRequiredStar">*</span></p>
+              <textarea class="required" cols="20" name="message" rows="2" required>{{ pf.message or '' }}</textarea>
+            </div>
+            <div>
+              {% if recaptcha_enable %}
+                <div class="g-recaptcha" id="contactUs-recaptcha"></div>
+                <input type="hidden" class="hiddenRecaptcha required" name="hiddenContactUsRecaptcha" id="hiddenContactUsRecaptcha">
+              {% else %}
+                <div id="contactUsRecaptchaPlaceholder" aria-hidden="true"></div>
+              {% endif %}
+            </div>
+            <input type="hidden" name="topic" value="{{ pf.topic or '' }}">
+            <input type="hidden" name="order_id" value="{{ pf.order_id or '' }}">
+            <input type="hidden" name="hiddenContactUsField">
+            <div>
+              <input id="contactUsFormSubmit" type="submit">
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% if recaptcha_enable %}
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  try { if (typeof loadRecaptcha === "function") loadRecaptcha(); } catch (e) {}
+});
+</script>
+{% endif %}
+{% endblock %}
+

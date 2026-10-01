@@ -1,0 +1,1438 @@
+@media (max-width: 1199px) {
+	.LEBGColor { background-image:linear-gradient(to right, #0b5c93, #14669e, #2879b0, #1f70a7, #1f70a7, #14669e, #0b5c93); }
+	.navbar-default .container-fluid { width:960px; }
+	.container, #lotteryPageCopy { width:960px; }
+	.container .lotteryPageContent{ width:100%; }
+	footer { width:960px; }
+	footer #footerSections { width:100%; }
+	.container .contactUs {   }
+	.container .blueButton { margin:2px 16px 0 0; }
+	.lePages { width:930px; padding:20px 20px 50px 20px; }
+	#main { width:100%; }
+	#main #tickets_section { padding-left:17px; }
+	.howToPlaySectionTitle { width:180px; }
+	.howToPlaySection { width:240px; }
+	.superdrawPage .howToPlaySectionTitle { width:250px; }
+	.superdrawPage .howToPlaySection { width:325px; }
+	.howToPlayNumber { width:60px; padding-left:20px; }
+	.howToPlayDirections { width:200px; }
+	.container .cart-section .accordionLines span.glyphicon { left:-50px; }
+	/* START: ALL BANNER STYLES */
+	.banner { width:960px; }
+	.banner .bannerSection { max-width:830px; }
+	.banner .bannerSection .bannerContent { width:760px; }
+	#alertSetLimits .bannerSection .bannerContent p { width:550px; }
+	#alertUpdateDetails .bannerSection .bannerContent p { width:550px; } 
+	#alertUpdateDetails  .bannerSection .bannerContent p.bannerTitle { font-size:18px; }
+	#alertOnGamStopList .bannerSection .bannerImage img { margin-top:40px; }
+	/* START: IDENTITY VERIFYING FAILED */
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li { font-size:14px; padding-top:13px; }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li.verificationFailedEmail { width:215px;  margin-right:30px }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li.verificationFailedPhone { width:215px; margin-right:30px }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li.verificationFailedChat { width:212px; }
+	/* START: SAVED SHOPPING CART BANNER */
+	#alertSavedShoppingCart .bannerSection { max-width:920px; padding-top:14px; }
+	#alertSavedShoppingCart .bannerSection .bannerImage { padding-top:8px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent { width:835px; padding-bottom:8px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent p { width:460px; padding-right:20px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent p.savedCartDrawPassed { width:615px; margin:9px 20px 9px 0; }
+	#alertSavedShoppingCart .bannerSection .bannerContent a { padding-right:20px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent .shoppingCartLinks { margin-top:4px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent form button { margin-top:6px; }
+	.promosMainPage .promoLotteries .promoLotteriesHeaders { height:45px; }
+	.promosMainPage #promosMainPageHeader { padding:20px 82px 56px 15px; }
+	.lotteryBanners .bannerHeader #bannerJackpotAmount { font-size:60px; }
+	.lotteryBanners .bannerHeader #bannerJackpotAmount .bannerJackpotCurrency { font-size:35px; }
+	.lotteryDetailOdds { font-size:14px; }
+	.lotteryDetails .lottoDetailHeader { font-size:14px; }
+	.lotteryDetailOdds .oddsAmount { padding-right:8px; }
+	.lotteryDetailOdds #lotteryOddsNote { padding-right:8px; }
+	.singleOrderDetails .singleOrderDetailColumn { margin-left:0; }
+	.singleOrderDetails .singleOrderDetailColumn + .singleOrderDetailColumn { margin-right:0; }
+	.singleOrderDetails .singleOrderDetailColumn #linesDrawsCount { width:200px }
+	.singleOrderDetailColumn #promoImage { width:185px; }
+	.singleOrderDetailColumn.columnPromoImageDiscount { width:225px; text-align:center; }
+	.singleOrderDetailColumn #promoImageDiscount .promoImage_L { display:none; }
+	.singleOrderDetailColumn #promoImageDiscount .promoImage_M { display:inline-block; }
+	.singleOrderDetails .columnPromoOrderOptions { width:330px; }
+	.singleOrderDetails .columnPromoOrderDetails { width:310px; }
+	#main { padding-bottom:65px; }
+	/* START: ACCOUNT PAGES */
+	.account-accordion .accountPageContent { width:100%; }
+	#accountTabs ul { width:960px; }
+	#accountNotifications p span.acctNotificationCopy { width:350px; }
+	#acctDetails #alert_missingFields #missingFieldsSection #missingFieldsContent { width:755px; }
+	#acctDetails #alert_missingFields #missingFieldsSection #missingFieldsContent #missingFieldsTitle { margin:13px 0 10px 0; }
+	#acctDetails form input#acctDetailsFirstName { width:254px; }
+	.account-accordion .walletPageContent { width:100%; }
+	#accountWithdrawal .accountWithdrawalSearch { width:100%; }
+	#accountWithdrawal .accountWithdrawalSearch { width:100%; }
+	#accountWithdrawal .accountWithdrawalSearch .accountSearchItems { width:260px; margin-right:30px; }
+	#accountWithdrawal .ccWithdrawMethod { width:100%; }
+	#accountWithdrawal #additionalWithdrawOptions { width:100%; }
+	#accountWithdrawal #additionalWithdrawOptions .additionalWithdrawOptions img { margin-left:5px; }
+	#acctPaymentMethod .accountPaymentMethodList { width:260px; }
+	#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent { padding-left:10px; }
+	#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .redesignRadio { right:10px; }
+	#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .newPayMethod span { margin-right:2px; }
+	#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns input[name="paymentMethodsCardNumber"] { width:145px; }
+	#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns input[name="paymentMethodsCVV"] { width:100px; }
+	#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns select { width:123px; }
+	#acctPaymentMethod .paymentMethodSupportedCards li { margin:0 8px; }
+	.accountTransactionSummary .acctTransBetSection { width:315px; padding-right:35px; }
+	.accountTransactionSummary .acctTransDepositSection { width:295px; padding-right:10px; }
+	.accountTransactionSummary .acctTransWinSection { width:220px; }
+	#accountTransactionHistory #searchTransactionHistoryButton { clear:both; }
+	#accountOrderHistory .orderHistorySearchItems { width:199px; margin-right:15px; }
+	#accountSubscriptionHistory .subscriptionHistorySearchItems { width:199px; }
+	#accountBetHistory .betHistoryLastSearchItems { margin-right:20px; }
+	#accountBetHistory .betHistorySearchItems { width:199px; margin-right:15px; }
+	#cookie-prompt #cookieContent { width:645px; margin:0 auto; padding:10px 0; }
+	#cookie-prompt #cookieContent p { display: inline; }
+	#homepage #homepageContent { width:100%; }
+	
+	.homepageThreeColumns .homePageColumns { width:100%; }
+	.homepageGetStarted .homePageColumns { height:173px; }
+	/*#homepage #homepagePurchaseInstructions .homePagePurchaseInstruction { width:100%; }
+	#homepage #homepagePurchaseInstructions .homePagePurchaseInstruction p { text-align:justify; }
+	.homepageInfoSection #homepageInfo .homepageInfoCopy { width:100%; }*/
+	.homepageInfoSection .homepageInfoListItem span { width:238px; }
+	
+	.container .contactUs form { width:100%; }
+	.resultsMainPage #resultsMainPageHeader { padding:20px 82px 56px 15px; }
+	.lotteryResultsPages .lotteryResultsColumns .lotteryResultsDate { width:88px; }
+	.lotteryResultsPages .lotteryResultsColumns .lotteryResultsTotalPrizes { width:125px; }
+	.lotteryResultsPages #lotteryResultsGetConnected form .splitColumn .splitColumns input { width:122px; }
+	.lotteryResultsPages #resultsCheckNumberSection #tickets_section { width:95%; }
+	.lotteryResultsPages #tickets_section .lines ul { margin:0 1px; }
+	.lotteryResultsPages #resultsCheckNumberSection .secondaryFormButton { width:95px; margin:7px 9px 0 9px; }
+	.lotteryResultsPages #resultsCheckNumberSection .primaryFormButton { width:160px!important; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound { width:95%; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerPromoImg { width:175px; margin:8px 2px 0 -4px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerLottoLogo { width:100px; margin-top:6px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerLottoLogo img { width:100%; height:auto; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton { margin-left:18px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .linkAsButton { width:142px!important; }
+	.resultsMainPage .resultLotteries .resultLotteriesHeader { height:48px; }
+	.lotteryResultsPages .resultsBall { width:28px; height:28px; padding-top:4px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdJackpot { font-size:21px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo { width:225px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo .lotteryResultsAdProductInfoImg { width:100px }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo p.lotteryResultsAdLottoName { margin-top:9px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdPromoList { margin-top:12px; }
+	.lotteryResultsPages.container .accordion header.active + div { position:relative; padding:20px 0; /*height:435px; overflow-x:scroll;*/ }
+	.lotteryResultsPages .row { margin:0; }
+	.lotteryResultsPages .resultsBreakdown { width:96%; overflow-x:scroll; margin:0 auto; padding:0; /*position:absolute;*/ }
+	.resultsBreakdown .row { width:700px; /*overflow-x:scroll;*/ }
+	.resultsMainPage .resultLotteries .col-sm-1 { width:71px; }
+	.resultsMainPage .resultLotteries .col-sm-2 { width:119px; }
+	.resultsMainPage .resultLotteries .col-sm-3 { width:256px; }
+	.resultsMainPage .resultLotteries .col-sm-4 { width:213px; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .secondaryFormButton { width:88px; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteriesLogoImg { width:50px; padding-top:7px; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteryCopy { font-size:14px; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteryDate { font-size:13px; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .resultsBall {  width:22px; height:22px; font-size:12px; padding-top:3px; margin-right:4px; }
+	.lotteryResults .leftSection { min-width:620px; }
+	.lotteryResults .rightSection { min-width:308px; }
+	.resultsContainerJPP { width:290px; margin:10px 5px; }
+	.gordoWinNumber { width:65px; margin-right:7px; }
+	.gordoWinNumber p { font-size:14px; padding-top:7px!important; }
+	.gordoPrize p { font-size:14px; }
+	/*--------------- START: LOTTERY BANNERS ------------------------*/
+	.lotteryBanners .bannerPromoInfo { left:70px; }
+	.lotteryBanners .banner_lucky5_left_content { width:480px; margin-left:103px; }
+	.lotteryBanners .banner_lucky5_right_content { width:335px; }
+	#superSyndicateInfoWindow { margin-top:-48px; margin-left:160px; }
+	#regSyndicateInfoWindow { margin-top:-48px; margin-left:-190px; }
+	
+	.lotteryPageCopyImg { width:150px; }
+	.lotteryPageCopyText { width:610px; }
+	
+	#paymentIssues .bannerSection .bannerImage img { margin-top:12px; }
+}
+
+@media (max-width: 991px){
+	.container, #lotteryPageCopy { width:750px; }
+	footer { width:750px; }
+	.container .accordion header span.glyphicon { left:-10px; }
+	/* START: TOP MENU */
+	.navbar-default .container-fluid { width:750px; }
+	.navbar-default .container-fluid .headerLogo { width:218px; top:12px; }
+	.navbar-default .container-fluid #navbar { margin-left:205px; }
+    .navbar-default .container-fluid #navbar li a { font-size:14px; font-weight:500; }
+	.navbar-default .container-fluid #navbarAccountInfo li a { padding:6px 20px; }
+	.navbar-default .container-fluid .navbar-header { margin:0; }
+	.navbar-default .container-fluid #navbarAccountInfo li.addFundsLink { width:100px; font-size:13px; }
+	.navbar-default .container-fluid #navbarAccountInfo li.balanceLink { width:145px; }
+.navbar-default .container-fluid #navbarAccountInfo li.balanceLink:has(.balanceSplit) { width:178px; }
+	.supportReadOnlyBanner { width:auto; margin:0 10px 15px 10px; padding:10px 12px; font-size:13px; line-height:18px; }
+	.navbar-default .container-fluid #navbarAccountInfo li.nav_right_space img { margin-right:7px; }
+	.navbar-default .container-fluid #navbarAccountInfo li.acctLogin { margin-left:7px; }
+	.navbar-default .container-fluid #navbarAccountInfo li.acctLogin button { width:100%; min-width:160px; padding:10px 0 0 10px; margin:0; overflow-x:hidden; }
+	.navbar-default .container-fluid #navbarAccountInfo li.nav_right_space:hover .accountDropdown { width:100%; min-width:160px; }
+	.navbar-default .container-fluid #navbarAccountInfo li.acctLogin .navCustomerName { padding-right:0; }
+	.navbar-default .container-fluid #navbar li:hover .dropdown-menu { width:433px; }
+	.navbar-default .container-fluid #navbar li .dropdown-menu li { width:216px; height: 72px; }
+	.navbar-default .container-fluid #navbar li .dropdown-menu a img { width:58px; }
+	.navbar-default .container-fluid #navbar li.singleLotteryNav .dropdown-menu a img { margin:0 0 10px 2px; }
+	.navbar-default .container-fluid #navbar li.lotteryResultsNav .dropdown-menu a img { margin:0 0 10px 2px; }
+	.navbar-default .container-fluid #navbar li.lotteryResultsNav:hover .dropdown-menu { left:auto; right:0; }
+	.availableLotteries { height:200px; }
+	.availableLotteries .lotteryItem.lotteryTicketBG { width:140px; background-size:100%; margin:16px 0 0 0; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketImg { width:65px; height:auto; margin:4px auto; }
+	.availableLotteries .lotteryItem .lottoTicketInfo p.lottoTicketAmount { font-size:14px; margin:7px auto; }
+	.availableLotteries .lotteryItem .lottoTicketInfo a { width:85px!important; }
+	.availableLotteries .lotteryItem .lottoTicketInfo p { font-size:10px; }
+	.availableLotteries .homePagePromoTicket .promoTicketImage { left:8px; top:7px; width:33px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketCounter span { font-size:10px; }
+	.homepageSection { margin-bottom:50px; }
+	.homepageGetStarted .homePageColumns img { width:195px; height:auto; }
+	.homepageGetStarted .homePageColumnContent { /*width:131px;*/ margin-left:29px; padding-top:15px; }
+	.homepageGetStarted p { width:135px; }
+	.homepageGetStarted .homePageColumnContent img { width:auto; height:30px; margin-bottom:10px; }
+	.homepageInfoSection .homepageInfoListItem span { width:169px; }
+
+	/* START: FOOTER */
+	footer .footerHeader { font-size:16px; }
+	footer .helpIcon { padding:0 1px 20px 1px; }
+    footer #footerNav { text-align:center; padding-top:6px; }
+	footer #footerNav #androidAppImage { width: 150px; }
+    footer #footerSections #footerLegalImgs .footerLegalImgs { margin: 10px 5px; }
+    footer #footerSections #footerLegalImgs .footerLegalImgs img { width:80%; height:auto; }
+	footer #footerSocialMediaLinks a { padding:0 5px 0 0; }
+	/* START: SINGLE TICKETS */
+	#main #tickets_section { padding-left:21px; }
+	#main .ticketSectionFeatures { padding-top:10px; }
+	.singleOrderDetailColumn .lotteryCounter p.lotteryCount { width:168px; }
+	.singleOrderDetailColumn #lottoDrawDays label { margin-right:14px; font-size:14px; }
+	.singleOrderDetailColumn #lottoDrawDays label .drawDayOfWeek { width:82px; }
+	.singleOrderDetailColumn #lottoDrawDays label .drawDateCountdownClock { margin:-2px 6px 0 4px; }
+	/*START: CART */
+	.container .cart .pageHeading { padding-left:15px; }
+	.container .cart-section .productName { line-height:15px; }
+	.container .cart-section .accordionLines span.glyphicon { left:-25px; }
+	/*START: LOTTERY PAGES */
+	.promosMainPage .promoLotteries { padding:0; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails .promoLotteriesDetailsImg { width:50px; margin-top:8px; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails .promoLotteryCopy { font-size:14px; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing { padding-top:12px; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing .slashThrough_originalPrice { font-size:15px; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing .promoDiscountAmount { font-size:15px; }
+	.promosMainPage .promoLotteries .row { margin:0 5px; }
+	#syndicatePromoBanner .bannerContent { left:-50px; }
+	.howToPlaySectionTitle { width:150px; }
+	.howToPlaySection { width:180px; }
+	.superdrawPage .howToPlaySectionTitle { width:190px; }
+	.superdrawPage .howToPlaySection { width:250px; }
+	.howToPlayNumber { width:55px; padding-left:15px; }
+	.howToPlayDirections { width:125px; }
+	.superdrawPage .howToPlayDirections { width:148px; }
+	/*--------------- START: LOTTERY BANNERS ------------------------*/
+	.lotteryBanners.promoExpress .bannerPromoInfo { left:28px; }
+	.lotteryBanners.promoTurbo .bannerPromoInfo { left:70px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft { width:352px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .blue-white-red-stars-banner-left { left:150px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .blue-white-red-stars-banner-right { left:300px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .yellow-white-stars-banner-left { left:130px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .yellow-white-stars-banner-right { left:292px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoBannerDescription { width:440px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoBannerJackpot { width:440px; font-size:80px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoBannerName { left:195px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoLotteryLogo { left:-38px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount { width:352px; padding-left:72px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount p { font-size:15px; margin-top:17px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount p + p { font-size:14px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount .bannerPromoPriceInfo { font-size:17px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle { width:165px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle .linkAsButton { font-size:25px!important; padding-top:11px; }
+	.lotteryBanners .lotteryBannerBall { left:20px; width:160px; top:12px; }
+	.lotteryBanners .bannerHeader { top:12px; }
+	.lotteryBanners .bannerHeader p { line-height:30px; }
+	.lotteryBanners .bannerHeader #bannerJackpotAmount { font-size:55px; }
+	.lotteryBanners .bannerHeader #bannerJackpotAmount .bannerJackpotCurrency { font-size:22px; }
+	.lotteryBanners .bannerTimeToDraw { top:37px; right:14px; }
+	/* The clock shrinks with the banner so it keeps clear of the logo. */
+	.lotteryOfferPages .leOfferHeroSyndicate .bannerTimeToDraw p { font-size:18px; line-height:24px; }
+	.lotteryOfferPages .leOfferHeroSyndicate .bannerTimeToDraw #drawCounterReact { height:50px; padding-top:7px; }
+	.lotteryOfferPages .leOfferHeroSyndicate .bannerTimeToDraw #drawCounterReact span { font-size:28px; }
+	.lotteryBanners .bannerTimeToDraw p { font-size:15px; line-height:20px; }
+	.lotteryBanners .bannerTimeToDraw #drawCounterReact { font-size:16px; padding-top:4px; width:175px; height:33px; }
+	.singleOrderDetails .singleOrderDetailColumn { width:310px; margin-left:15px; padding:0; }
+	#frenchLottoPage #main { min-height:1250px; }
+	#irishLottoPage #main { min-height:1100px; }
+	#ozLottoPage #main { min-height:1100px; }
+	#canadianLottoPage #main { min-height:1100px; }
+	#euromillionsLottoPage #main { min-height:1250px; }
+	#eurojackpotLottoPage #main { min-height:1250px; }
+	#superEnalottoLottoPage #main { min-height:1250px; }
+	#superEnalottoLottoPage .singleOrderDetails { height:475px; }
+	#main .orderBillingPeriod span { width:154px; }
+	.lotteryDetails .lotteryDetailOdds .lottoDetailHeader { font-size:11px; }
+	.lotteryDetails #lotteryAccordionBanner { height:200px; }
+	.lotteryDetails #lotteryAccordionBanner p:last-child { font-size:65px; line-height:65px; }
+	.lotteryDetailOdds { font-size:11px; }
+	.lotteryDetailOdds .oddsAmount { padding-right:0px; }
+	.lotteryDetailOdds #lotteryOddsNote { padding-right:0px; }
+	.singleOrderDetails .columnPromoImage, .singleOrderDetails .columnPromoImageDiscount { display:none!important; }
+	.singleOrderDetailColumn #promoImageMobile { display:block; height:67px; background-color:#F8EC30; border-radius:4px; margin-top:13px; }
+	.singleOrderDetailColumn #promoImageMobile img { width:54px; display:block; margin:0 auto; padding-top:5px; }
+	.singleOrderDetailColumn #promoDiscountImageMobile { display:block; margin-top:11px; }
+	.singleOrderDetailColumn #promoPlayButton { padding:0 0 0 11px; }
+	/* START: ACCOUNT PAGES */
+	.accountPage .formLabels { font-size:14px; }
+	button.accountSubmitButtons { width:200px!important; }
+	#acctDetails #alert_missingFields #missingFieldsSection #missingFieldsImage img#iconAlert { margin-top:25px; }
+	#acctDetails #alert_missingFields #missingFieldsSection #missingFieldsContent { width:545px; }
+	#acctDetails form select#acctDetailsTitle {  }
+	#acctDetails .acctDetailsSplitColumns .select_box { width:94px; }
+	#acctDetails form input#acctDetailsFirstName { width:187px }
+	#accountNotifications p span.acctNotificationCopy { width:275px; }
+	#accountWithdrawal .accountWithdrawalSearch .accountSearchItems { width:202px; margin-right:15px; }
+	#accountWithdrawal .accountWithdrawalSearch .accountSearchItems select { text-indent:0; }
+	#accountWithdrawal #additionalWithdrawOptions .additionalWithdrawOptions img { margin:0; }
+	#accountWithdrawal .withdrawCCMethods { font-size:14px; }
+	#accountSetLimits .acctCurrentLimitAmounts span { display:block; float:none; }
+	#accountSetLimits .acctCurrentLimitAmounts span + span { display:block; float:none; margin-top:-7px; }
+	#accountSelfExclusion .accountExcludeRight {  }
+	#accountTabs ul { width:750px; }
+	#accountSubscriptionHistory .subscriptionHistorySearchItems { width:195px; }
+	#acctPaymentMethod { padding:0; }
+	#acctPaymentMethod .accountPaymentMethodList { width:200px; }
+	#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive .acctPaymentMethodListContent .newPayMethod span { float:left; margin:5px 5px 0 -3px; }
+	#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent { padding-left:10px; }
+	#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .newPayMethod { width:165px; } 
+	#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .redesignRadio { right:6px; }
+	#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .newPayMethod span { float:left; margin-top:6px; }
+	#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns.paymentMethodCCField { float:none; }
+	#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns.paymentMethodCVVField { float:none; }
+	#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns input[name="paymentMethodsCardNumber"] { width:100%; }
+	#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns input[name="paymentMethodsCVV"] { width:100%; }
+	#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns select { width:94px; text-indent:0; padding:0; }
+	#acctPaymentMethod .paymentMethodSupportedCards li { margin:0 2px; }
+	.accountTransactionSummary .acctTransBetSection { width:240px; padding-right:12px; }
+	.accountTransactionSummary .acctTransDepositSection { width:220px; padding-right:0; }
+	.accountTransactionSummary .acctTransWinSection { width:175px; }
+	.accountTransactionSummary .acctTransHeader { padding:0; }
+	/* START: OTHER SITE PAGES */
+	.lePages { width:710px; }
+	.lePages p, .lePages li { font-size:16px; }
+	.container .contactUs img { margin-top:-5px; }
+	/* START: ALL BANNER STYLES */
+	.banner { width:750px; }
+	.banner .bannerSection { max-width:693px; padding-top:0; }
+	.banner .bannerSection .bannerContent { width:625px; }
+	.banner .bannerSection .bannerContent .bannerTitle { margin: 15px 0 1px 0; }
+	#alertAcctDisabled .bannerSection .bannerImage img { margin-top:28px; }
+	/* START: SET LIMITS BANNER */
+	#alertSetLimits .bannerSection .bannerContent p { width:405px; margin-top:15px; }
+	#alertSetLimits .bannerSection .bannerImage img { margin-top:15px; }
+	#alertSetLimits .bannerSection .bannerContent a { width:175px!important; float:right; margin-top:15px; }
+	#alertUpdateDetails .bannerSection .bannerContent p.bannerTitle { width:493px; font-size:17px; margin-top: 23px; }
+	#alertUpdateDetails .bannerSection .bannerImage img { margin-top:17px; }
+	#alertUpdateDetails .bannerSection .bannerContent a { width:125px!important; float:right; margin-top:14px; font-size: 17px; font-weight:500; }
+	/* START: AGE VERIFICATION ALERT */
+	#alertAcctVerification .bannerSection .bannerImage img { margin-top:77px; }
+	/* START: IDENTITY VERIFYING INFO */
+	#alertAcctVerifying .bannerSection .bannerImage img { margin-top:38px;  }
+	/* START: ACCOUNT INACTIVE BANNER */
+	#alertAcctInactive .bannerSection .bannerImage img { margin-top:28px; }
+	/* START: ACCOUNT ON HOLD */
+	#alertAcctOnHold .bannerSection { max-width:693px; }
+	/* START: IDENTITY VERIFYING FAILED */
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul { margin-top:5px; }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li { font-size:14px; }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li.verificationFailedEmail { width:200px;  margin-right:15px; }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li.verificationFailedPhone { width:192px;  margin-right:15px; }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li.verificationFailedChat { width:189px; }
+	/* START: GAMSTOP BANNER */
+	#alertOnGamStopList .bannerSection .bannerImage img { margin-top:65px; }
+	/* START: COUNTRY BLOCKED BANNER */
+	#alertCountryBlocked .bannerSection .bannerImage img { margin-top:55px; }
+	/* START: SAVED SHOPPING CART BANNER */
+	#alertSavedShoppingCart .bannerSection { max-width:760px; padding-top:14px; }
+	#alertSavedShoppingCart .bannerSection .bannerImage { padding-top:17px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent { width:670px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent p { width:375px; padding-right:15px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent p.savedCartDrawPassed { width:470px; margin-right:20px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent .shoppingCartLinks { margin-top:11px; padding-right:5px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent .shoppingCartLinks a { font-size:15px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent form button { width:100px!important; font-size:14px!important; padding-top:7px; margin-top:13px; }
+	.lePages.results { padding:20px 0 50px 0; }
+	.resultsMainPage #resultsMainPageHeader { padding: 20px 82px 56px 35px; }
+	.resultsMainPage .resultLotteries .resultLotteriesHeader { font-size:13px; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .secondaryFormButton { width: 80px; font-size: 14px!important; padding-top: 6px; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .tertiaryLink { font-size:13px; }
+	.resultsMainPage .resultLotteries { padding:0; }
+	.resultsMainPage .resultLotteries .col-sm-1 { width:59px; }
+	.resultsMainPage .resultLotteries .col-sm-2 { width:91px; }
+	.resultsMainPage .resultLotteries .col-sm-3 { width:230px; }
+	.resultsMainPage .resultLotteries .col-sm-4 { width:210px; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteryCopy { font-size:14px; } 
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .resultsBall { width:21px; height:21px; font-size:13px; padding-top:2px; margin-right:2px; }
+	.lotteryResultsPages { padding-right:10px; padding-left:10px; }
+	.lotteryResultsPages .resultsBall { width:22px; height:22px; margin-right:3px; font-size:13px; padding-top:3px; }
+	.lotteryResultsPages .lotteryResultsColumns .lotteryResultsDate { width:65px; font-size:13px; }
+	.lotteryResultsPages .lotteryResultsColumns .lotteryResultsTotalPrizes { width:100px; font-size:13px; }
+	/*.lotteryResultsPages .resultsBreakdown { padding:10px 30px; }*/
+	.resultsBreakdown .row { padding:0; height:38px; }
+	.lotteryResultsPages .resultsBreakdown .resultsBreakdownHeader { font-size:12px; padding:9px 0; }
+	.lotteryResultsPages .resultsBreakdown .resultsBreakdownDetails { padding:9px 0; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerPromoImg { width:140px; margin-top:14px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerLottoLogo { width:80px; margin:13px -4px 0 -12px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerInfo p { font-size:14px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton { margin-left:10px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .linkAsButton { width:100px!important; font-size:15px; padding-top:14px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo { margin-top:15px; margin-left:-10px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo .lotteryResultsAdProductInfoImg { width:80px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo { width:200px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo p.lotteryResultsAdLottoName { margin-top:2px; }
+	.lotteryResultsPages .lotteryResultsAd .linkAsButton { width:178px!important; }
+	.lotteryResultsPages #lotteryResultsGetConnected { padding:10px; height:530px; }
+	.lotteryResultsPages #lotteryResultsGetConnected form input { margin-bottom:0; }
+	.lotteryResultsPages #lotteryResultsGetConnected form .splitColumn .splitColumns input { width:100%;	}
+	.lotteryResultsPages #lotteryResultsGetConnected form .splitColumn .splitColumns:first-child { float:none; }
+	.lotteryResultsPages #lotteryResultsGetConnected form .splitColumn .splitColumns:last-child { float:none; }
+	.lotteryResultsPages #lotteryResultsGetConnected form input[type=submit] { width:100%!important; }
+	.lotteryResultsPages #lotteryResultsGetConnected .lotteryResultsGetConnectedImg { width:210px; }
+	.lotteryResultsPages #tickets_section .lines ul li { width:24px; height:24px; }
+	.lotteryResultsPages #resultsCheckNumberSection .secondaryFormButton { width:70px; margin-right:5px; }
+	.lotteryResultsPages #resultsCheckNumberSection .primaryFormButton { width: 122px!important; font-size:16px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdJackpot { font-size:19px; }
+	.lotteryResults .leftSection { min-width:486px; }
+	.lotteryResults .rightSection { min-width:240px; }
+	.resultsContainerJPP { width:224px; margin:10px 3px; }
+	.resultCounter { font-size:12px; }
+	#siteUnderMaintenance .bannerSection .bannerImage img { margin-top:33px; }
+	#siteUnderMaintenance .bannerSection .bannerContent { margin-top:12px; }
+	
+	.lotteryPageCopy section div { float:none; }
+	.lotteryPageCopyImg { width:145px; margin-bottom:14px; float:left!important; }
+	.lotteryPageCopyText { width:100%; }
+	
+	.gordoWinNumber { width:50px; margin-right:5px; }
+	.gordoWinNumber p { font-size:12px; padding-top:8px!important; }
+	.gordoPrize p { font-size:13px; }
+	.gordoResultsSpecial p { font-size:13px; }
+	
+	#paymentIssues .bannerSection .bannerImage img { margin-top:27px; }
+	#paymentIssues.banner .bannerSection .bannerContent {  margin-top:12px; }
+	#paymentIssues .paymentIssuesTitle { font-size:18px; }
+}
+
+@media (max-width: 767px) {
+	.hideMobile { display:none; }
+	.checkboxRadioContainer { padding-left:29px; }
+	.redesignCheckmark { width:25px; height:25px; }
+	.redesignRadio { top:-1px; width:23px; height:23px; }
+	.checkboxRadioContainer .redesignCheckmark:after { left:8px; top: 3px; width: 8px; height: 15px; }
+	.checkboxRadioContainer .redesignRadio:after { left:5px; top:5px; width:11px; height:11px; }
+	button.accountSubmitButtons { width:178px!important; }
+	.secondaryFormButton:hover, input[type=submit].secondaryFormButton:hover { background-color:#00ADEF!important; color:#FFFFFF!important; }
+	/* START: POPUP WINDOWS */
+	.infoWindow, .alertWindow  { width:95%; max-width:344px; position:fixed!important; top:50px; overflow:scroll;  max-height:100vh; }
+	#itemInShoppingCartPopUp { top:10px; }
+	.infoWindow { z-index:6; }
+	.infoWindow .infoWindowHeader { display:block; }
+	#subscriptionInfoWindow { margin: auto; right: 0; left: 0; /*top: 0; bottom: 0;*/}
+	#syndicateInfoWindow { margin: auto; right: 0; left: 0; top: 0; bottom: 0; height: 165px;}
+	.availableLotteries { height:auto; background-image:none; margin-top:23px; }
+	.availableLotteries .lotteriesArrow { display:none; }
+	.lotteriesArrow:hover img { filter:none; }
+	.availableLotteries #lotteryContent .lotteryContent { position:initial; }
+	.availableLotteries .lotteryItem { display:block; }
+	.availableLotteries .lotteryItem.lotteryTicketBG { width:344px; height:97px; margin:9px auto 0 auto; background-image:url(../images/ticketBGMobile.svg); background-repeat:no-repeat; }
+	.availableLotteries .lotteryItem.lotteryTicketBG.homePagePromoTicket { background-image:url(../images/ticketBGMobile_Promo.svg); }
+	.availableLotteries .lotteryItem .lottoTicketInfo { padding:0; height:100%; }
+	.availableLotteries .homePagePromoTicket .promoTicketImage { top:0; left:0; width:30px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile { display:inline-block; margin:14px -15px 0 -10px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile .lottoTicketName { font-size:12px; font-weight:600; margin:0 0 10px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile p.lottoTicketAmountM { font-family:'impact',sans-serif; font-size:29px; font-weight:500; color:#003354; line-height:23px; margin-bottom:7px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile .lottoTicketAmountM span.lottoTicketCurrencyM { font-size:19px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketImg { float:left; margin:0 0 0 15px; padding-top:23px; width:69px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo p.lottoTicketAmount { display:none; }
+	.availableLotteries .lotteryItem .lottoTicketInfo a { float:right; width:93px!important; height:40px!important; font-size:15px; padding-top:9px; margin:29px 19px 0 0; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketCounter { display:block; clear:both; margin-top:-7px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketCounter span { font-size:12px; font-weight:500; margin-right:15px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo p.prizePool { display:none; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile .prizePoolM { font-size:10px; font-weight:500; line-height:8px; margin-top:-5px; }
+	#homepage { margin-bottom:-1px; padding:0; }
+	#homepage #homePageHeader { padding-top:82px; }
+	#homepage #homePagePurchaseInstructions .homePagePurchaseInstruction p { font-size:20px; }
+	#homepage #homePagePurchaseInstructions .homePagePurchaseInstruction { height:290px; }
+	#homepage .homepageFeaturedPromos { width:400px; margin:0 auto; }
+	#homepage .homepageFeaturedPromos #homepagePromoContent { margin:5px 10px 0 10px; }
+	
+	.homepageThreeColumns .homePageColumns { height:212px; margin-bottom:32px }
+	.homepageGetStarted .homePageColumns img { width:241px; }
+	.homepageGetStarted .homePageColumnContent { margin:0 auto; padding-left:35px; width:165px; padding-top:29px; }
+	.homepageGetStarted .homePageColumnContent img { width:auto; height:45px; margin-bottom:15px; }
+	.homepagePurchaseInstructions p { height:auto; }
+	.homepagePurchaseInstructions img { width:77px; height:auto; margin:12px auto 62px auto; }
+	.homepagePurchaseInstructions .homePageSubHeader { padding-top:10px; }
+	.homepageInfoSection { height:665px; }
+	.homepageInfoSection .homePageColumns { height:auto; }
+	.homepageInfoSection .homepageInfoListItem { height:48px; margin:5px 0; }
+	.homepageInfoSection .homepageInfoListItem img { float:left; margin-right:10px; }
+	.homepageInfoSection .homepageInfoListItem span { float:left; width:80%; }
+	/* START: MOBILE NAV */
+	.navbar-default .container-fluid #navbar, #navbarAccountInfo { display:none!important; }
+	.navbar-default { height:65px; margin-bottom:0; }
+	.navbar-default .container-fluid { height:65px; left:0; top:0; width:100%; z-index:3; border-bottom:2px solid #012B45; }
+	.navbar-default .container-fluid.container-fixed-position { position:fixed; }
+	.navbar-default .container-fluid .mobile-nav { display:block; position:absolute; top:0; left:0; width:100%; height:65px; z-index:4; }
+	.navbar-default .container-fluid .mobile-nav .mobileMenuButton { width:38px; position:absolute; margin:auto; top:0; bottom:0; left:10px; cursor:pointer; }
+	.navbar-default .container-fluid .mobile-nav .mobileTopRightLink { position:absolute; right:10px; margin:auto; top:0; bottom:0; width:38px; height:38px; display:flex; align-items:center; justify-content:center; z-index:4; }
+	.navbar-default .container-fluid .mobile-nav .mobileTopRightLink .mobile-nav-buttons { margin:0 !important; float:none !important; display:block; width:38px; height:38px; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown { display:none; width:270px; border-radius:0 0 5px 0px; float:left; text-align:left; position:absolute; left:-1px; top:65px; background:#C7E9FE; box-shadow:0 0 13px #012B457A; z-index:3; padding:0; overflow:scroll; min-height:270px; max-height:87vh; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li { list-style-type:none; padding:15px 5px 15px 0; cursor:pointer; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown .active-nav a { color:#00ADEF; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown .active-nav .mobileMenuListImage img { filter:brightness(4.5); }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li:last-child { border:none; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li a { color:#002339; font-size:15px; font-weight:400; text-align:left; padding:15px 5px 15px 0;}
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li a:hover { text-decoration:none; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li .mobileMenuListImage { display:inline-block; width:30px; vertical-align:middle; margin:0 25px 0 30px; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li .mobileMenuListImage img { display:block; margin:0px auto 0 auto; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown .lotteryNavListOpen { background-color:#A4D3F1; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav { padding:0; border-bottom:1px solid #c7e9fe; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav ul { padding:0; background-color:#A4D3F1; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav ul li { padding-left:40px; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav img { height:23px; padding-right:8px; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav.lotteryResultsList img { margin-bottom:40px; float:left; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav.promotionNavList img { margin-bottom:40px; float:left; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown .signInFormLink .mobileSignInLine{ padding-left:5px; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown .registrationFormLink { padding-left:5px; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown .blockSignIn .mobileSignInLine { padding-left:5px; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown .blockRegister { padding-left:5px; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-buttons.mobileSignInImg { margin:16px 10px 0 0; float:right; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-buttons.mobileAcctImg { margin:16px 10px 0 0; float:right; }
+	.navbar-default .container-fluid .mobile-nav #displayTimeOnSiteM { position:absolute; right:56px; top:14px; width:111px; text-align:right; z-index:1; font-size:13px; color:#FFFFFFBF; }
+	.navbar-default .container-fluid .navbar-header-mobile { display:block; }
+	.navbar-default .container-fluid .navbar-header-mobile .userNavDetails { padding:15px 0 0 15px; }
+	.navbar-default .container-fluid .headerLogo { width:158px; left:49px; top:3px; }
+	.navbar-default .container-fluid .navbar-header-mobile p { line-height:1px; color:#FFFFFF; }
+	.navbar-default .container-fluid .navbar-header-mobile p#userNameHeader { position:absolute; font-size:15px; line-height:15px; }
+	.navbar-default .container-fluid .navbar-header-mobile p#userBalanceHeader { position:absolute; bottom:2px; font-size:14px; }
+	.navbar-default .container-fluid .mobile-nav .timeOnSiteCounter { display:block!important; }
+	.navbar-default .container-fluid .lotteryResultsDate { color:#002339; }
+	.navbar-default .container-fluid .resultsBall { color:#002339; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav ul li.lotteryResultsMainPageNav { padding:4px 0 20px 0; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav ul li.lotteryResultsMainPageNav a { text-align:center; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav ul li.promosMainPageNav { padding:4px 0 20px 0; }
+	.navbar-default .container-fluid .mobile-nav .mobile-nav-dropdown li.additionalDropdownNav ul li.promosMainPageNav a { text-align:center; }
+	/* START: ALL BANNER STYLES */
+	.banner { width:100%; }
+	.banner .bannerSection { width:100%; padding-top:15px; }
+	.banner .bannerSection .bannerImage { float:none; width:100%; height:55px; position:relative; margin:0 0 10px 0; }
+	.banner .bannerSection .bannerImage img { position:absolute; left:0; right:0; margin:10px auto 0 auto!important; }
+	.banner .bannerSection .bannerContent { width:100%; margin-bottom:0px; }
+	.banner .bannerSection .bannerContent .bannerTitle { font-size:16px; text-align:center; margin:0px auto 5px auto!important; }  
+	.banner .bannerSection .bannerContent p { font-size:14px; width:95%; margin:0 auto 0 auto; text-align:justify; }
+	/* START: SET LIMITS BANNER */
+	#alertSetLimits .bannerSection .bannerContent p { width:100%; text-align:center; margin:0 0 15px 0; }
+	#alertSetLimits .bannerSection .bannerContent a { float:none; clear:both; margin:0 auto; }
+	#alertUpdateDetails .bannerSection .bannerContent p.bannerTitle{ width:100%; text-align:center; margin:0 0 15px 0; }
+	#alertUpdateDetails .bannerSection .bannerContent a { float:none; clear:both; margin:0 auto; }
+	/* START: ACCOUNT INACTIVE BANNER */
+	#alertAcctInactive p { text-align:center; }
+	/* START: ACCOUNT ON HOLD BANNER */
+	#alertAcctOnHold p { text-align:center; }
+	/* START: SAVED SHOPPING CART BANNER */
+	#alertSavedShoppingCart .bannerSection { max-width:95%; padding-top:3px; }
+	#alertSavedShoppingCart .bannerSection .bannerImage { padding-top:0; height:50px; }	
+	#alertSavedShoppingCart .bannerSection .bannerContent { width:100%; text-align:justify; float:none; padding-bottom:10px; }
+	#alertSavedShoppingCart .bannerSection .bannerContent p, #alertSavedShoppingCart .bannerSection .bannerContent p.savedCartDrawPassed { width:100%; padding-right:0; margin-bottom:15px; } 
+	#alertSavedShoppingCart .bannerSection .bannerContent form button { display:block; float:none; margin:10px auto; width:136px!important; font-size:17px!important; }
+	#alertSavedShoppingCart .bannerSection .bannerContent .shoppingCartLinks { display:block; float:none; text-align:center; padding: 0px 0 5px 0; }
+	#alertSavedShoppingCart .bannerSection .bannerContent .shoppingCartLinks a { padding:0; }
+	#alertSavedShoppingCart .bannerSection .bannerContent .shoppingCartLinks a { font-size:16px; }
+	#siteUnderMaintenance .bannerSection .bannerImage { height:42px; margin-bottom:0; }
+	#siteUnderMaintenance .bannerSection .bannerImage img { margin-top:0!important; }
+	
+	#paymentIssues.banner .bannerSection .bannerContent {  margin-top:0; }
+	#paymentIssues .paymentIssuesTitle { text-align:center; margin:8px 0; font-size:16px; width:100%; }
+	/*--------------- START: LOTTERY BANNERS ------------------------*/
+	.lotteryBanners #bannerBackground_10toWin { background: url(../images/BG_10ToWin_French_Tablet.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.lotteryBanners #bannerBackground_lucky5_eu { background:url(../images/BG_Lucky5_Euro_Tablet.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.lotteryBanners #bannerBackground_lucky5_fr { background:url(../images/BG_Lucky5_French_Tablet.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.lotteryBanners #bannerBackground_lucky5_ir { background:url(../images/BG_Lucky5_Irish_Tablet.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.lotteryBanners #bannerBackground_lucky5_oz { background:url(../images/BG_Lucky5_Oz_Tablet.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.lotteryBanners.promoExpress .bannerPromoInfo { left:0; }
+	.lotteryBanners.promoTurbo .bannerPromoInfo { left:0; }
+	.lotteryBanners .bannerPromoInfo { width:322px; height:290px; margin:0 auto; top:18px; right:0; }
+	.lotteryBanners .bannerPromoInfo .gradient_for_banner_mobile { display:block; position:absolute; top:0; width:100%; height:100%; background-image:linear-gradient(#020E31, #020E3100); opacity:0.51; border-radius:3px 3px 0 0; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoDealImgMobile { display:block; position:absolute; right:0; left:0; margin:0 auto; z-index:1; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft { width:100%; height:256px; top:34px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoDealImg { display:none;  }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .gradient_for_banner { display:none; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoBannerName { top:4px; left:108px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .yellow-white-stars-banner-left { top:14px; left:44px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .yellow-white-stars-banner-right { top:14px; left:203px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .blue-white-red-stars-banner-left { top:14px; left:63px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .blue-white-red-stars-banner-right { top:14px; left:213px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoBannerDescription { top:53px; right:0; left:0; margin:0 auto; width:275px; font-size:30px; }
+	.lotteryBanners.promoTurbo .bannerPromoInfo .bannerPromoInfoLeft .promoBannerDescription { top:37px; line-height:32px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoBannerJackpot { width:100%; left:0; top:84px; font-size:50px; }
+	.lotteryBanners.promoTurbo .bannerPromoInfo .bannerPromoInfoLeft .promoBannerJackpot { top:92px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount { width:203px; height:93px; background-size:cover; left:0; bottom:0; padding:0; border-radius:2px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount p { font-size:14px; line-height:21px; margin-top:37px; text-align:center; letter-spacing:-0.5px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount p + p { font-size:14px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount .bannerPromoSlashThrough:before { border-width:2px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount .bannerPromoPriceInfo { font-size:14px; letter-spacing:-0.8px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoLotteryLogo { width:100%; left:0; right:0; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoLotteryLogo .promoLotteryLogoImg { display:none; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoLotteryLogo .promoLotteryLogoImg_mobile { display:block; margin:-12px auto 0 auto; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle { position:absolute; width:115px; height:256px; margin:0 0 0 3px; top:34px; right:0; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle .linkAsButton { height:50px!important; font-size:20px!important; padding-top:12px; bottom:0; border-radius:2px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle .promoWarrenty_Mobile { display:block; position:absolute; bottom:55px; width:100%; height:auto; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoRight { display:none; }
+	/* START: ACCOUNT PAGES */
+	.accountPage { padding:0 7px; }
+	#accountTabs ul { width:100%; }
+	#accountTransactionHistory .accountHistorySearch { width:95%; padding:0; float:none; margin:0 auto; }
+	.acctDateRangeDiv { width:100%; }
+	.accountPage input { width:100%!important; }
+	button.accountSearchButtons { width:180px!important; }
+	.account-accordion .walletPageContent { margin-top:15px; }
+	#accountTabs li { padding:0 14px; }
+	.account-accordion .accountPageContent { width:100%; }
+	.accountPage .accountIcon { left:10px; }
+	.accountPage #accountNotifications #smsNotifictionLabel { padding: 3px 0 0 36px; }
+	.accountPage header div { margin-left:5px; /*width: 228px!important;*/ } /* hid the width when working on the results accordion. Not sure why width is mentioned here??? */
+	.accountPage .GamStopTimeOutImgWeb { display:none; }
+	.accountPage .GamStopTimeOutImgMobile { display:block; margin:16px auto 0 auto; cursor:pointer; max-width:344px; width:100%; }
+		/* START: ACCOUNT DETAILS ACCORDION */
+		#acctDetails #alert_missingFields { height:100%; }
+		#acctDetails #alert_missingFields #missingFieldsSection #missingFieldsImage { margin-left:0px; float:none; width:100%; position:relative; }
+		#acctDetails #alert_missingFields #missingFieldsSection #missingFieldsImage img#iconAlert { position:absolute; left:0; right:0; margin:10px auto 0 auto; }
+		#acctDetails #alert_missingFields #missingFieldsSection #missingFieldsContent { width:100%; }
+		#acctDetails #alert_missingFields #missingFieldsSection #missingFieldsContent p { font-size:14px; width:95%; margin:0 auto 0 auto; text-align:justify; }
+		#acctDetails #alert_missingFields #missingFieldsSection #missingFieldsContent #missingFieldsTitle { font-size:16px; text-align:center; margin:70px 0 5px 0; }
+		#acctDetails form .acctDetailsSplitColumn .acctDetailsSplitColumns { float:none }
+		#acctDetails form select#acctDetailsTitle { width:108%; }
+		#acctDetails .acctDetailsSplitColumns .select_box { width:100%; }
+		#acctDetails form input#acctDetailsFirstName { width:100%; }
+		/* START: ACCOUNT NOTIFICATIONS ACCORDION */
+		#accountNotifications p span.acctNotificationCopy { width:85%; margin-left:8px; }
+		/* START: ACCOUNT EXCLUSION ACCORDION */
+		#accountSelfExclusion .accountExcludeRight { float:none; /*width:100%;*/ clear:both; margin-left:39px; }
+		/* START: ACCOUNT-SECURITY-QUESTIONS */
+		#accountSecurityQuestions .securityQuestionAnswer { margin:0; }
+		/* START: ACCOUNT-LIMITS */
+		.accountPage .divAccountSpacing:first-child { padding-top:0; }
+		.accountPage .divAccountSpacing { padding:20px 0; }
+		#accountSetLimits #acctSetLimitsInfo .infoButton { float:left; margin:6px 12px 60px 0; }
+		/* START: ACCOUNT WALLET SECTION */
+		.accountPage .accountWalletText { float:left; }
+		.accountPage #accountWalletCurrencyCopy { float:right; }
+		.accountPage .accountWalletText span { display:block; }
+		.accountPage .accountWalletText #accountWalletTextGreen { display:inline; }
+		/* START: WITHDRAWAL SECTION */
+		#accountWithdrawal .accountWithdrawalSearch { width:100%; }
+		#accountWithdrawal .accountWithdrawalSearch .accountSearchItems { margin:5px 0 0 0; width:100%; }
+		#accountWithdrawal #searchWithdrawalButton { width:184px!important; margin-left:20px; font-size:18px!important; }
+		#accountWithdrawal .withdrawCCMethods { font-size:16px; }
+		#accountWithdrawal .accountWithdrawalSearch .accountSearchItems select { text-indent:7px; }
+		/* START: TRANSACTION HISTORY SECTION */
+		#accountTransactionHistory #searchTransactionHistoryButton { margin-left:26px; }
+		#accountTransactionHistory .transactionHistorySearchItems { width:100%; margin:0; }
+		#accountTransactionHistory #transactionHistoryTable { margin-top:25px; }
+		/* START: WINNINGS SECTION */
+		#accountWinnings .accountHistorySearch { padding:0; width:95%; margin:0 auto; float:none; }
+		#accountWinnings #accountWinningsTable { margin-top:25px; }
+		#accountWinnings #searchWinningsButton { margin:38px 0 0 26px; }
+		#accountWinnings #searchWinningsReset { margin-top:49px; }
+		/* START: PAYMENT METHOD SECTION */
+		#acctPaymentMethod .accountPaymentMethodList { width:300px; }
+		#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive { width:300px; }
+		#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .newPayMethod { width:225px; }
+		#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive .acctPaymentMethodListContent .newPayMethod span { float:none; margin:-1px 5px 0 -3px;  }
+		#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .redesignRadio { right:15px; }
+		.account-accordion .acctAccordionHeaders { margin-top:25px; }
+		#acctPaymentMethod .accountSubmitCancel { margin:53px 20px 0 0; font-size:18px; }
+		#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns.paymentMethodCVVField { float:none!important; margin-left:0!important; }
+		#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns:last-of-type { float:left; margin-left:10px; }
+		#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns select { width:126px; text-indent:7px; }
+		#acctPaymentMethod .paymentMethodSupportedCards li { margin:0 8px; }
+		/* START: TRANSACTION SUMMARY SECTION */
+		.accountTransactionSummary { width:95%; margin:0 auto; float:none; }
+		.accountTransactionSummary .acctTransBetSection { width:100%; padding:0; border-right:none; border-bottom:1px solid #CCCCCC; }
+		.accountTransactionSummary .acctTransHeader { text-align:unset; }
+		.accountTransactionSummary .acctTransRow div { padding:0; }
+		.accountTransactionSummary .acctTransDepositSection { width:100%; padding:0 0 15px 0; border-right:none; border-bottom:1px solid #CCCCCC; }
+		.accountTransactionSummary .acctTransWinSection { width:100%; padding:0 0 15px 0; border-bottom:1px solid #CCCCCC; }
+		.accountTransactionSummary #accountTransactionSummaryInfo { position:relative; bottom:0px; left:0; margin:12px 0 0 0; float:left; }
+		/* START; ACCOUNT DEPOSIT LIMIT */
+		#accountDepositLimit .depositLimit { padding-top:20px; }
+	/* START: IDENTITY VERIFYING FAILED */
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul { width:95%; margin: 0 auto; }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li { font-size:16px; padding-top:12px; }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li.verificationFailedEmail { width:100%; margin:10px 0 5px 0; }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li.verificationFailedPhone { width:100%; margin-right:0px; margin-bottom:5px; }
+	#alertAcctVerificationFailed .bannerSection .bannerContent ul li.verificationFailedChat { width:100%; margin-bottom:15px; }
+	/* START: UPLOAD ID FORM */
+	#uploadAgeVerificationDocsForm { width:344px; height:1090px; top:60px; bottom:unset; }
+	#uploadAgeVerificationDocsForm #uploadIDFormContent { width:277px; }
+	#uploadAgeVerificationDocsForm #uploadIDFormContent form #uploadIDFormLeft { float:none; }
+	#uploadAgeVerificationDocsForm #uploadIDFormContent form #uploadIDFormCenter { float:none; margin:50px 0 20px 0; width:100%; }
+	#uploadAgeVerificationDocsForm #uploadIDFormContent form #uploadIDFormCenter p { text-align:center; }
+	#uploadAgeVerificationDocsForm #uploadIDFormContent form #uploadIDFormCenter p:before, #uploadAgeVerificationDocsForm #uploadIDFormContent form #uploadIDFormCenter p:after { position:absolute; overflow:hidden; width:46%; height:2px;  content:'\a0'; background-color:#2A7FBF; margin:7px 0 0 10px; }
+	#uploadAgeVerificationDocsForm #uploadIDFormContent form #uploadIDFormCenter p:before { margin-left: -50%; text-align: right; }
+	.color { background-color: #ccc; }
+	#uploadAgeVerificationDocsForm #uploadIDFormContent form #uploadIDFormCenter .vline { display:none; }
+	#uploadAgeVerificationDocsForm #uploadIDFormContent form #uploadIDFormRight { float:none; }
+	/* START: ALL FORMS */
+	.formPopup .formPopupContent form p.formLabels	{ margin:13px 0 3px 7px; }
+	/* START: SIGN IN FORM */
+	#signInFormPopUp { top:10px; bottom:unset;  }
+	/* START: REGISTER FORM */
+	/*#registerFormPopUp { width:344px; top:10px; bottom:unset; }*/
+	#registerContent { width:277px; margin-bottom:40px; }
+	#registerContent form #registerLeftColumn { float:none; margin-right:0; }
+	#registerContent form #registerRightColumn { float:none; }
+	#registerContent form .specialOffersContainerWeb { float:none; margin-top:-425px; /*position:relative;*/position:absolute; height:140px; }
+	#registerContent #registerFooter {  display:none;  }
+	#registerContent #registerFooterMobile { display:block; /*position:absolute; bottom:0; right:0; left:0;*/ margin:auto; padding:20px 0; }
+	#registerContent .g-recaptcha { margin-top:150px; }
+	/* START: FORGOT PASSWORD FORM */
+	#forgotPasswordFormPopUp { top:10px; bottom:unset; }
+	/* START: NUMBER SELECTOR */
+	button:focus { outline:none; }
+	#mobileTicketWindow { position:fixed; background-color:#FFFCD5; border:2px solid #FECF6B; z-index:3; width:100%; top:0; bottom:0; min-height:700px; }
+	.mobileTicketWindowComplete { background-color:#EDFAFA !important; border:2px solid #C1E0E0 !important; }
+	.container, #lotteryPageCopy { width:100%; padding:0 5px; }
+	.lotteryPages, .lotteryResultsPages { padding:0; }
+	#lotteryTabs { width:100%; margin:30px auto 0 auto; }
+	#frenchLottoPage #main { min-height:740px; }
+	#frenchLottoPromoPage #main { min-height:740px; }
+	#irishLottoPage #main { min-height:640px; }
+	#euromillionsLottoPage #main { min-height:780px; }
+	#eurojackpotLottoPage #main { min-height:780px; }
+	#superEnalottoLottoPage #main { min-height:870px; }
+	#ozLottoPage #main { min-height:640px; }
+	#canadianLottoPage #main { min-height:640px; }
+	#usMegaMillionsLottoPage #main { min-height:970px; }
+	#usPowerballLottoPage #main { min-height:970px; }
+	#ausPowerballLottoPage #main { min-height:750px; }
+	#spanishLottoPage #main { min-height:750px; }
+	#main{ width:100%; padding:0px 15px 100px 15px; }	
+	#main #tickets_section { width:320px; min-height:185px; padding:10px 0 0 0; overflow: unset; clear:both; }
+	#main .ticketSectionFeatures { width:320px; margin:0 auto; height:27px; }
+	.mobileLinesSection { margin-top:0!important; }
+	#main #quickpickClearAll { display:none; }
+	#main #tickets_section span { width:28px; height:28px; border-radius:4px; font-size:19px; font-weight:500; }
+	#main #tickets_section .lines { height:61px; width:99%; float:none; min-width:290px; margin: 0 0 15px 0; }
+	#frenchLottoPage #main #tickets_section .lines, #frenchLottoPage #main #tickets_section .addLines, #frenchLottoPage #main #tickets_section .lines:hover,
+	#frenchLottoPromoPage #main #tickets_section .lines, #frenchLottoPromoPage #main #tickets_section .addLines, #frenchLottoPromoPage #main #tickets_section .lines:hover,
+	#irishLottoPage #main #tickets_section .lines, #irishLottoPage #main #tickets_section .addLines, #irishLottoPage #main #tickets_section .lines:hover,
+	#euromillionsLottoPage #main #tickets_section .lines, #euromillionsLottoPage #main #tickets_section .addLines, #euromillionsLottoPage #main #tickets_section .lines:hover,
+	#eurojackpotLottoPage #main #tickets_section .lines, #eurojackpotLottoPage #main #tickets_section .addLines, #eurojackpotLottoPage #main #tickets_section .lines:hover,
+	#ozLottoPage #main #tickets_section .lines, #ozLottoPage #main #tickets_section .addLines, #ozLottoPage #main #tickets_section .lines:hover,
+	#canadianLottoPage #main #tickets_section .lines, #canadianLottoPage #main #tickets_section .addLines, #canadianLottoPage #main #tickets_section .lines:hover,
+	#usMegaMillionsLottoPage #main #tickets_section .lines, #usMegaMillionsLottoPage #main #tickets_section .addLines, #usMegaMillionsLottoPage #main #tickets_section .lines:hover,
+	#usPowerballLottoPage #main #tickets_section .lines, #usPowerballLottoPage #main #tickets_section .addLines, #usPowerballLottoPage #main #tickets_section .lines:hover,
+	#ausPowerballLottoPage #main #tickets_section .lines, #ausPowerballLottoPage #main #tickets_section .addLines, #ausPowerballLottoPage #main #tickets_section .lines:hover,
+	#superEnalottoLottoPage #main #tickets_section .lines, #superEnalottoLottoPage #main #tickets_section .addLines, #superEnalottoLottoPage #main #tickets_section .lines:hover,
+	#spanishLottoPage #main #tickets_section .lines, #spanishLottoPage #main #tickets_section .addLines, #spanishLottoPage #main #tickets_section .lines:hover
+	{ height:61px; }
+	#frenchLottoPage .showTicket .mobileLinesSection .lines { height:535px!important; }
+	#frenchLottoPromoPage .showTicket .mobileLinesSection .lines { height:535px!important; }
+	#irishLottoPage .showTicket .mobileLinesSection .lines { height:360px!important; }
+	#euromillionsLottoPage .showTicket .mobileLinesSection .lines { height:515px!important; }
+	#eurojackpotLottoPage .showTicket .mobileLinesSection .lines { height:515px!important; }
+	#superEnalottoLottoPage .showTicket .mobileLinesSection .lines { height:515px!important; }
+	#ozLottoPage .showTicket .mobileLinesSection .lines { height:360px!important; }
+	#canadianLottoPage .showTicket .mobileLinesSection .lines { height:360px!important; }
+	#main #tickets_section .lines #webUpperTicketSection { display:none; }
+	#main #tickets_section .lines #upperTicketSection #choosenNumber { display:block; opacity:10; position:absolute; left:54px; margin-top:17px; }
+	#main #tickets_section .lines #mobileUpperTicketSection { display:block; width:100%; }
+	#main #tickets_section .lines #mobileUpperTicketSection img.ticketCompleteImage { display:none !important; }
+	#main #tickets_section .lines #mobileUpperTicketSection button.trashButton { display:inline-block; width:14px; height:18px; background:none; color:inherit; border:none; padding:0; outline:inherit; position:absolute; left:0; margin: 20px 0 0 18px;}
+	#main #tickets_section .lines #mobileUpperTicketSection .editTicket { margin:20px 5px 22px 0; position:absolute; right:15px; }
+	#main #tickets_section .lines #mobileUpperTicketSection .clearButton { display:none; }
+	#main #tickets_section .lines #mobileUpperTicketSection button.trashButton img { filter:brightness(0.5); }
+	#main #tickets_section .lines #mobileUpperTicketSection button.trashButton.accountSubmitButtonInactive { display:none; }
+	#main #tickets_section .lines #mobileUpperTicketSection #closeTicketWindow { display:none; }
+	#main #tickets_section .lines #mobileUpperTicketSection .done { display:none; }	
+	#main #tickets_section .lines #mobileUpperTicketSection .quickPickButton { display:none; }
+	#main #tickets_section .lines #lowerTicketSection { display:none; }
+	#main #tickets_section .ticketComplete #upperTicketSection .bonusTicketNumber, #main #tickets_section .ticketComplete .bonusTicketNumber .selectedNumber { color:#FFFFFF; background-color:#0c4970!important; border-color:#0c4970; }
+	#main #tickets_section .lines #lowerTicketSection .ticketNumber { opacity:1; }
+	#main #tickets_section .lines #lowerTicketSection .bonusTicketNumber { opacity:1; }
+	#main #tickets_section .ticketComplete #lowerTicketSection .ticketNumber { opacity:0.5; }
+	#main #tickets_section .lines:hover #upperTicketSection button.clearButton { display:none; }
+	#main #tickets_section .lines:hover { position:unset; width:99%; height:61px; border-width:1px; box-shadow:none; margin: 0 0 15px 0; padding-top:0; background-color:#FFD8D8; border:2px solid #FF5454; }
+	#main #tickets_section .ticketComplete:hover { background-color:#EDFAFA; border:1px solid #C1E0E0; }
+	#main #tickets_section .lines:hover #upperTicketSection button.quickPickButton { display:none; }
+	#main #tickets_section .lines #upperTicketSection { margin:0 0 0 15px; }
+	#main #tickets_section .lines ul li.ticketNumber:hover{background-color:#FFFFFF; border: 1px solid #CECECE; color:#2B2B2B;}
+	#main #tickets_section .lines ul li.bonusTicketNumber:hover { background-color: #FECF6B; border: 1px solid #E4B34B; color: #2B2B2B;}
+	#main #tickets_section .lines ul li.selectedNumber:hover { background-color:#0c4970!important; border-color:#0c4970; color:#FFFFFF }
+	#main #tickets_section .lines ul.availableNumbersComplete li { opacity:0.5; }
+	#main #tickets_section .lines ul.availableNumbersComplete li.ticketNumber { opacity:0.5 !important; }
+	#main #tickets_section .lines ul.availableNumbersComplete li.selectedNumber { opacity:1 !important; }
+	#main #tickets_section .lines ul.availableBonusNumbersComplete li.bonusTicketNumber { opacity: 0.5 !important; }
+	.promoPage #main #tickets_section .lines ul.availableBonusNumbersComplete li { opacity: 0.15 !important; }
+	#main #tickets_section .lines ul.availableBonusNumbersComplete li { opacity:0.5; }
+	#main #tickets_section .lines ul.availableBonusNumbersComplete li.selectedNumber { opacity:1 !important; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection .quickPickButton{ margin:20px 4px 0 0; padding:0; width:100px!important; height:38px!important; border-radius:5px; font-size:16px!important; font-weight:400; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection .clearButton{ display:block; margin:20px 4px 0 0; width:80px; height:39px; font-size:16px!important; padding-top:7px!important; border-radius:7px; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection .done{ display:block; margin-top:20px; width:78px!important; height:38px!important; font-size:16px; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection #closeTicketWindow { display:block; margin-top:20px; margin-left:-14px; float:left; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection #closeTicketWindow img { margin:10px 0 0 10px; filter:brightness(0.5); }
+	#main #tickets_section .showTicket .lines { height:540px; background-color:unset; border:none; width:100%;}	
+	#main #tickets_section .showTicket .lines:hover #upperTicketSection button.quickPickButton { display:block; }
+	#main #tickets_section .showTicket .lines:hover #upperTicketSection button.clearButton { display:block; }	
+	#main #tickets_section .showTicket .lines p { opacity: 1; font-size:16px; font-weight:500; margin:0 0 1px 0px; padding-top:20px; }
+	#main #tickets_section .showTicket .lines ul { margin: 0 8px; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection button.trashButton { display:none; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection .editTicket { display:none; }
+	#main #tickets_section .showTicket .lines #upperTicketSection #choosenNumber { display:none; margin-top:75px; left:0px; }
+	#main #tickets_section .showTicket .lines #lowerTicketSection { display:block; }
+	#main #tickets_section .showTicket .lines ul li { width:38px; height:38px; font-size:19px; line-height:40px; }
+	#main #tickets_section .showTicket { position:absolute; /*top:-118px;*/ z-index:5; }
+	#main #tickets_section .ticketComplete img { opacity:10 !important; }
+	#main #tickets_section .ticketComplete button.quickPickButton { display:none !important; }
+	#main #tickets_section .ticketComplete:hover button.quickPickButton { display:none !important; }
+	#main #tickets_section .addLines { float:none; width:99%; height:61px; margin:0 0 15px 0; }
+	#main #tickets_section .addLines #upperTicketSection { height:0; margin:0; }
+	#main #tickets_section .addLines span { width:200px; margin-right:auto; margin-left:auto; }
+	#main #tickets_section .addLines #addLineImage { position:unset; width:27px; height:27px; margin:17px 0 0 -5px; font-size:20px;  }
+	#main #tickets_section .addLines #addLineText { display:none; }
+	#main #tickets_section .addLines #addLineText { position: absolute; left: 0; right: 0; bottom: 0; top: 195px; margin: auto; opacity: 1; text-align: center; font-size: 16px; font-weight:500; }
+	#main #tickets_section .addLines #addQuickPickText { display:block; position: absolute; top:20px; left:35px; right: 0; bottom: 0; margin: auto; opacity: 1; text-align: center; font-size: 16px; font-weight:500; }
+	#main #tickets_section #addLineContent { width:135px; margin-right:auto; margin-left:auto; }
+	#main .unclickableButton { background-color:#FCFCFC!important; border:1px solid #E9E9E9!important; color:#CECECE!important; text-shadow:none; background-image:none!important; box-shadow:none!important; pointer-events:none; }
+	#main #mobileViewTickets { position:relative; z-index:5; width:334px; margin:-75px auto 0 auto; text-align:center; padding-bottom:10px; }
+	#main #mobileViewTickets .nextPrevButton { width:80px; height:38px; font-size:16px!important; padding-top:6px; }
+	#main #mobileViewTickets #prevLine { float:left; }
+	#main #mobileViewTickets #nextLine { float:right;  }
+	#main #mobileViewTickets #mobileCurrentTicket { text-align:center; font-size:16px; color:#4E4E4E; font-family:'Heebo', sans-serif; display:inline-block; margin-top:6px; }
+	#main #mobileViewTickets .done { width:174px!important; height:54px!important; margin-top:30px; }
+	#placeBetButton  { right:0; width:174px; height:67px; }
+	.singleOrderDetails { height:420px; }
+	#superEnalottoLottoPage .singleOrderDetails { height:850px; }
+	.singleOrderDetails .singleOrderDetailColumn { float:none; display:block; margin:0 auto 10px auto; padding:0; }
+	.singleOrderDetails .singleOrderDetailColumn + .singleOrderDetailColumn { float:none; display:block; margin:10px auto 10px auto; padding:0; }
+	.singleOrderDetailColumn #lottoDrawDays label { vertical-align:text-bottom; padding-top:3px; }
+	#placeBetButton { display:block; width:100%; }
+	.lotteryDetailOdds .oddsAmount { text-align:left; }
+	/*#main #lotteryHeaders { margin-left:-15px; }*/
+	#lotteryHeaders { padding-top:10px; }
+	.singleOrderDetailColumn #lottoDrawDays label { margin-right:9px; }
+	.singleOrderDetailColumn #lottoDrawDays p.lottoDrawDays { margin:4px 0 25px 7px; }
+	.superdrawPage .singleOrderDetailColumn #lottoDrawDays p.lottoDrawDaysTitle { padding-top:20px; }
+	.singleOrderDetails .columnPromoImage { display:none; }
+	.lotteryNotAvailableInCountry { padding:50px 15px 0 15px; }
+	.lotteryNotAvailableInCountry p { font-size:27px; }
+	.singleOrderDetailColumn #lottoDrawDays label .drawDayOfWeek { display:inline-block; }
+	/* START: SYNDICATES */
+	.removeSyndMobile { margin:0; }
+	#syndicateSection { width:100%; padding:0px 15px 100px 15px; margin-top:0; }
+	#syndicatePromoBanner { height:252px; }
+	#syndicatePromoBanner .bannerContentleft img { margin-top:0; width:378px; height:auto; }
+	#syndicatePromoBanner .bannerContentRight { top:38px; }
+	#syndicateSection ::-webkit-scrollbar { display:none; }
+	#syndicateSection .syndicateBoxes { padding:0; }
+	#syndicateSection #syndicateBoxes { display:block; width:100%; padding-top:20px; }
+	.multiSyndicate #syndicateBoxes { position:absolute; overflow-x:scroll; overflow-y:hidden; }
+	#syndicateBoxSection { width:305px; margin:0 auto; }
+	#syndicateSection .syndicateBox { margin:0 auto; }
+	.multiSyndicate #syndicateBoxSection { width:645px; margin-left:15px; }
+	#syndicateSection .syndicateBetSection { border-right:none; border-left: none; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #cccccc; min-height: 560px; }
+	#syndicateSection .syndicateBetSection .syndicateBox { margin:0 5px; }
+	#syndicateSection .syndicateBetSection .syndicateBox .syndicateBoxHeader .syndicateBestValue { margin-top:5px; }
+	#syndicateSection .syndicateBetSection .superSyndicate .syndicatePricePerLine { margin-top:5px; }	
+	.syndicateTicketWindow { width:100%; height:100%; position:fixed; }
+	.syndicateTicketWindow .ticketWindowHeader p { margin-right:25px; }
+	.syndicateTicketWindow .ticketWindowBody { text-align:center; padding-bottom:175px; }
+	.syndicateTicketWindow .ticketWindowBody { height:100%; }
+	.syndicateTicketWindow .ticketWindowFooter { position:fixed; bottom:0; width:100%; }
+	.lotteryDetails { padding:0; }
+	.lotteryDetails .accordion { margin-top:20px; }
+	.lotteryDetails #lottoPageImage { margin-top:25px; }
+	.lotteryDetails .accordion .row { margin-bottom:15px; line-height:15px; }
+	.lotteryDetailOdds .lottoDetailHeader { display:none; }
+	.lotteryDetailOdds .lotteryDetailOddsMobile { display:block; font-weight:500; }
+	.lotteryDetailOdds { font-size:12px; }
+	#superSyndicateInfoWindow, #regSyndicateInfoWindow { margin: auto; right: 0; left: 0; top: 0; bottom: 0; }
+	#syndicateSection .pageHeading { margin:25px 0px 20px 0px; line-height:33px; }
+	/* START: ALL LOTTO PAGE STYLES */
+	#singleSyndicateTabs { padding-left:10px; margin-top:1px; }
+	#singleSyndicateTabs .lottoTabActive { border-radius:10px 10px 0px 0px!important; }
+	#singleSyndicateTabs #singleTab { border-radius:10px 0 0 0; }
+	#singleSyndicateTabs #syndicateTab { border-radius:0 10px 0 0; }
+	#singleSyndicateTabs li { width:130px; font-size:15px }
+	#singleSyndicateTabs a { position:relative; }
+	#singleSyndicateTabs li.infoButton { position:relative; margin-top:3px; margin-left:-15px; width:12px; height:12px; background-image:linear-gradient(#818181, #818181); color:#E6E6E6; font-size:10px; line-height:10px;     z-index:2; }
+	#singleSyndicateTabs li.infoButtonAltered { margin-top:10px; margin-left:-17px; }
+	/*#lotteryBanner .lotteryBanners,#syndicateBanner .lotteryBanners { height:130px; margin:0; }*/
+	.lotteryBanners .lotteryBannerBall { left:10px; top:11px; width:128px; }
+	.lotteryBanners .bannerHeader { left:unset; right:10px; top:4px; }
+	.lotteryBanners .bannerHeader p { text-align:right; font-size:22px; line-height:22px; }
+	.lotteryBanners .bannerHeader #bannerJackpotAmount { font-size:42px; }
+	.lotteryBanners .bannerTimeToDraw { top:78px; right:5px; }
+	.lotteryBanners .bannerTimeToDraw p { display:inline-block; font-size:14px; }
+	.lotteryBanners .bannerTimeToDraw #drawCounterReact { background-color:transparent; width:120px; height:auto; display:inline-block; padding:0; }
+	.lotteryBanners .bannerTimeToDraw #drawCounterReact span { color:#0B4775; font-weight:500; font-size:14px; }
+	/* There is no middle to centre in at this size: the logo holds the left of
+	   the banner at a fixed 128px whatever the screen is, so the clock takes
+	   the space beside it and is centred in that. The width is measured from
+	   the right edge, which keeps its left edge in the same place on a 360px
+	   phone as on a 430px one instead of sliding under the logo on the narrow
+	   one. The stacked layout turns the counter into inline text on a
+	   transparent background; here it stays a block with its box, because on
+	   this page it is what the banner is for. */
+	.lotteryOfferPages .leOfferHeroSyndicate .bannerTimeToDraw { top:30px; left:auto; right:10px; width:calc(100% - 158px); }
+	.lotteryOfferPages .leOfferHeroSyndicate .bannerTimeToDraw p { display:block; font-size:14px; line-height:18px; }
+	.lotteryOfferPages .leOfferHeroSyndicate .bannerTimeToDraw #drawCounterReact { display:block; width:100%; height:auto; margin:4px 0 0 0; padding:6px 0; background-color:#0B4775; }
+	.lotteryOfferPages .leOfferHeroSyndicate .bannerTimeToDraw #drawCounterReact span { color:#FFFFFF; font-size:20px; letter-spacing:normal; }
+	.lotteryBanners .bannerEighteenPlus { right:8px; bottom:-10px; }
+	.lotteryBanners .bannerEighteenPlus p { font-size:14px; }
+	.lotteryBanners .bannerHeader p.prizePool { font-size:13px; margin-top:-9px!important; }
+	#syndicateBanner.lotteryBanners .bannerTimeToDraw { top:91px; }
+	.freePlayCopy { margin-top: 32px !important; font-size: 18px !important; padding: 0 20px;}
+	.howToPlay { height:160px; margin:-14px 0 32px 0; }
+	.superdrawPage .howToPlay { height:120px; }
+	.howToPlay div { height:40px; border-right:none; border-bottom:1px solid #0C4970; float:none; }
+	.howToPlaySectionTitle,.superdrawPage .howToPlaySectionTitle { width:100%; }
+	.howToPlaySectionTitle p { font-size:17px; }
+	.howToPlaySection,.superdrawPage .howToPlaySection { width:100%; }
+	.howToPlayNumber { font-size:25px!important; text-align:right; width:35%; padding:0 15px 0 0; }
+	.howToPlayDirections,.superdrawPage .howToPlayDirections { width:65% }
+	
+	/* START: GENERAL PAGE STYLES */
+	.lePages { width:100%; padding:20px 0 50px 0; }
+	.lePages p, .lePages li { font-size:14px; }
+	.container .chat-app-sidebar figure { max-width: 115px; }
+	.container .chat-app-sidebar figure~div{ width:100%; max-width: 260px; }
+	.container .contactUs img { display: block; margin-right:0; }
+	.container .about-us-side-image { width:85px; }
+	/* START: FOOTER */
+	footer { width:100%; }
+	footer .firstFooterContent { padding:0 15px; }
+    footer #footerSections section { width:100%; text-align:center; margin:0 auto; }
+	footer #footerContents .footerSections section { padding-left:0; }
+	footer p { float:none; text-align:center; }
+	footer .footerHeader { margin:30px 0 3px 0; }
+	footer .helpIcon { padding:6px 7px 20px 7px; }
+	footer #footerSections #footerSocialMediaLinks { padding:0; }
+	footer #footerSocialMediaLinks a { padding:0 7px; }
+	footer #footerSocialMediaLinks a img { margin-top:10px; }
+	footer .colNoMargin { padding-left: 15px; }
+	footer .colNoMargin .colNoMargin { padding:0; }
+	footer #footerSections ul { display:contents; }
+	footer #footerSections ul li { margin:8px 0; }
+	/* START: PAYMENT TOP UP FORM */
+	/*#paymentFormPopUp.addFundsForms, #paymentForBetFormPopUp.addFundsForms { width:344px; margin-top:6px; }*/
+	/*#paymentForPromoFormPopUp.addFundsForms { width:344px; margin-top:6px; }*/
+	.addFundsForms .editCardCheckbox { padding-right:30px; }
+	.addFundsForms .formPopupHeader .infoWindowHeaderContent { width:100%; clear:both; padding:0 15px 10px 15px; }
+	.addFundsForms .infoHeader #infoWindowHeaderContent {  width:270px; padding-top:0px;  }
+	.addFundsForms .formHeader, .addFundsForms .addFundsContent { width:312px; }
+	.addFundsForms .paymentTopUpFormLeft { float:none; }
+	.addFundsForms .paymentTopUpFormRight { float:none; display: inline-block; }
+	.addFundsForms .topUpAmount { position:initial; }
+	.addFundsForms img.paymentTopUpFooter{ display:none }
+	.addFundsForms img.paymentTopUpFooterMobile { margin:30px auto 0 auto; display:block; }
+	/*.addFundsForms hr { border-color: transparent; padding-top:0px; margin-bottom:15; }*/
+	.addFundsForms .addFundsContent hr { margin:10px 0; }
+	.addFundsForms .topUpPaymentOverlay { background-color:rgba(0,0,0,0.7); }
+	.addFundsForms .cardOnFile .reEnterCVVInfoWindow { margin: auto; right: 0; left: 0; top: 0; bottom: 0; height:395px;}
+	.addFundsForms #rightTopUpColumn .cvvInfoWindow { margin: auto; right: 0; left: 0; top: 0; bottom: 0; height:395px;}
+	.addFundsForms .billingAddressInfo { margin-top:25px; }
+	.addFundsForms .addressCheckbox { line-height:27px; }
+	#addFundsForPromo.addFundsForms .addressCheckbox { margin:30px 0 0 0; }
+	.billingAddressInfo input, .billingAddressInfo select { width:312px; }
+	/* START: TERMS & CONDITIONS */
+	.blueLink { overflow-wrap:break-word; word-wrap: break-word; -ms-word-break: break-all; word-break: break-all; word-break: break-word; }
+	#termsConditions table { width: 100%; display: block; overflow-y: scroll;}
+	/* START: CONTACT US */
+	.container .contactUs form { float:none; width:100%; }
+	#cookie-prompt #cookieContent { width:75%; }
+	#cookie-prompt.container-fixed-position { position:fixed; }
+	/* START: PROMOS PAGE */
+	.promosMainPage #promosMainPageHeader { padding:20px 15px; }
+	.promosMainPage .promoLotteries .promoLotteriesHeader  { display:none; }
+	.promosMainPage .row { margin:0; }
+	.promosMainPage .promoLotteries { border-top: 1px solid #2C7AAB; }
+	.promosMainPage .promoLotteries .row { margin: 0 15px; }
+	.promosMainPage .promoLotteries .promoLotteriesRows { height: 235px; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails .promoLotteriesDetailsImg { display:none; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails { width:100%; padding:5px 0; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails .promoLotteriesMobile { display:block; }
+	.promosMainPage .promoLotteries .promoLotteriesHeaders { display:none; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails .promoLotteryCopy { padding:0; }
+	.promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing { padding:0; }
+	/* START: RESULTS PAGE */
+	.resultsMainPage #resultsMainPageHeader { padding:20px 15px; }
+	.resultsMainPage .row { margin:0; }
+	.resultsMainPage .resultLotteries .resultLotteriesHeader  { display:none; }
+	.resultsMainPage .resultLotteries .resultLotteriesRows { height:235px; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails { width:100%; padding:5px 0; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails.resultLotteriesLogo { display:none; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteryCopy { padding-top:0; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteriesMobile { display:block; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .tertiaryLink { text-align:left; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails a br { display:none; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteriesLogoImg { padding-top:0; }
+	.resultsMainPage .resultLotteries .resultLotteriesDetails .secondaryFormButton { width:100%; }
+	.leUpsellCard { flex-direction:column; }
+	.leUpsellPrice { min-width:0; text-align:left; padding-left:22px; }
+	.leUpsellDescription { margin-left:22px; }
+	.lotteryResultsPages .lotteryResults { display:initial; }
+	.lotteryResultsPages #lotteryResultsColumnTitles { display:none; }
+	.lotteryResultsPages.container .accordion header { height:77px; padding:23px 0 23px 15px; }
+	.lotteryResultsPages .accordionLotteryResults .row { margin:0; }
+	.lotteryResultsPages .lotteryResultsColumns .lotteryResultsDate { width:70px;}
+	.lotteryResultsPages .lotteryResultsColumns .lotteryResultsTotalPrizes { display:none; }
+	.lotteryResultsPages .resultsBall { width: 31px; height: 31px; margin-right:4px; font-size: 15px; padding-top: 6px; }
+	.lotteryResultsPages .resultsBreakdown { padding:5px 15px 5px 5px; }
+	.lotteryResultsPages .resultsBreakdown .row { border-bottom:1px solid #549CC9; margin:0; }
+	.lotteryResultsPages .resultsBreakdown .resultsBreakdownDetails { border:none; }
+	.lotteryResultsPages .resultsBreakdown .resultsBreakdownDetails:last-child { text-align:right; float:right; }
+	.lotteryResultsPages .resultsBreakdown .resultsBreakdownTotals { display:none; }
+	.lotteryResultsPages .resultsBreakdown .resultsBreakdownTotalsMobile { display:block; }
+	.lotteryResultsPages .resultsBreakdown .resultsBreakdownTotalsMobile .resultsBreakdownHeader { text-align:left; border-bottom:none; height:28px; font-size:15px; }
+	.lotteryResultsPages #lotteryResultsGetConnected { margin-bottom:15px; }
+	.lotteryResultsPages #lotteryResultsGetConnected .lotteryResultsGetConnectedImg { width:282px; }
+	.lotteryResultsPages #resultsCheckNumberSection { display:none; position:fixed; z-index:4; width:100%; height:100%; top:0; bottom:0; right:0; left:0; margin:0; overflow:scroll; padding-bottom:19px; }
+	.lotteryResultsPages #resultsCheckNumberSection #tickets_section p { font-size:16px; margin:0 0 2px 16px; }
+	.lotteryResultsPages #tickets_section .lines ul { margin:0 4px; }
+	.lotteryResultsPages #tickets_section .lines ul li { width:40px; height:36px; font-size:20px; padding:6px 0 0 0; }
+	.lotteryResultsPages .resultsBreakdown .row.resultsBreakdownTotalsMobile { border-bottom:none; height:53px; }
+	.lotteryResultsPages #resultsCheckNumbersMobile { display: block; position: fixed; bottom: 0; width:100%; height:100px; right: 0; left: 0; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-left-radius: 0;   border-bottom-right-radius: 0; z-index:4; padding:9px 17px 0 17px; }
+	.lotteryResultsPages #resultsCheckNumbersMobile img { position:absolute; top:14px; right:14px; }
+	.lotteryResultsPages #checkNumbersWindowShow { display:none; position:fixed; bottom:0; width:50px; height:100px; right:0; border-top-left-radius:5px; border-top-right-radius:0px; border-bottom-left-radius: 0;   border-bottom-right-radius: 0; z-index:4; }
+	.lotteryResultsPages #checkNumbersWindowShow svg { width:35px; position:absolute; left:10px; top:33px; }
+	.lotteryResultsPages #resultsCheckNumbersMobile p { text-align:left; color:#FFFFFF!important; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberContent { width:475px; margin:0 auto; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberContent .sub-heading { font-size:25px!important; }
+	.lotteryResultsPages #resultsCheckNumberSection p { text-align:left; }
+	.lotteryResultsPages #resultsCheckNumbersButton { display:none; }
+	.lotteryResultsPages #resultsCheckNumbersButtonMobile { display:block; }
+	.lotteryResultsPages #resultsCheckNumberSection .secondaryFormButton { width:150px; margin:7px 10px 0 0; text-align:center; }
+	.lotteryResultsPages #resultsCheckNumberSection .primaryFormButton { width:291px!important; font-size:19px; text-align:center; }
+	.lotteryResultsPages #resultsCheckMobileClose { display:block; margin:20px 18px 0 0; }
+	.lotteryResultsPages #resultsCheckNumberSection #tickets_section { margin:17px 0; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound { width:475px; margin:0 auto; padding-top:0; clear:initial; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberMobile { width:100%; margin:0 auto; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultNumbersChecked { background-color:#EDFAFA; border:1px solid #C1E0E0; height:61px; padding-left:5px; border-radius:6px; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberMobile ul { list-style-type:none; padding-left:9px; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberMobile ul li { margin:13px 3px; padding-top:2px; float:left; text-align:center; width:32px; height:32px; border-radius:4px; font-size:19px; font-weight:500; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberMobile ul li.resultNumberChecked { border:0.5px solid #b1b1b1; color:#2B2B2B; background:#FFFFFF; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberMobile ul li.resultBonusNumberChecked { color:#FFFFFF; background-color:#0c4970!important; border-color:#0c4970; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberMobile img { float:right; margin:7px 5px 0 0; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberMobile p { font-weight:500; margin:15px 0 3px 0px; font-size:17px; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberMobile p.sub-heading { margin-top:0; font-size:25px!important; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerPromoImg { width:170px; margin-top:9px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerLottoLogo { width:90px; margin:9px 0px 0 0px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton { float:right; margin-right:12px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .linkAsButton { width:155px!important; font-size:19px; padding-top:11px; }
+	.lotteryResultsPages .lotteryResultsAd { height:240px; padding:1px 15px 0 15px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdPromoImg { margin-top:-10px; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo { width:200px; margin:15px auto 0 auto; display: flow-root; }
+	.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdPromoList {  }
+	.lotteryResults .leftSection { min-width:auto; }
+	.lotteryResults .rightSection { min-width:auto; }
+	.resultsContainerJPP { width:350px; float:none; margin:0 auto; padding:0; }
+	.resultsContainerJPP:first-of-type { padding-top:15px; }
+	.resultsContainerJPP:last-of-type { padding-bottom:15px; margin-bottom:20px; }
+	.resultCounter { font-size:14px; }
+	.lotteryDetails #lotteryAccordionBanner { height:84px; }
+	.lotteryDetails #lotteryAccordionBanner p { font-size:17px; margin:0; padding-top:10px; }
+	.lotteryDetails #lotteryAccordionBanner p:last-child { font-size:41px; line-height: 45px; }
+	#accountOrderHistory .winAmountInfoWindow, #accountOrderHistory .totalWinsInfoWindow { margin: auto; right: 0; left: 0; top: 0; bottom: 0;  height:250px;}
+	
+	/*
+	.lotteryPageCopyImg { width:60px; margin-right:18px; }
+	.lotteryPageCopyImg img { width:100%; height:auto; }
+	*/
+	.lotteryPageCopyContent { padding:0 15px; }
+	.lotteryPageCopyImg { display:none; }
+	.lotteryPageCopyImgM { display:block; float:left; margin:0 18px 8px 0; }
+	
+	.gordoPrizeListS { height:66px!important; }
+	.gordoPrizeListM { height:118px!important; }
+}
+
+@media (max-width: 600px) {
+	.accountHistorySearch { padding:0;width:95%; margin:0 auto; float:none; }
+	#accountOrderHistory .orderHistorySearchItems { width:100%; float:none; clear:both; margin:0 auto; }
+	#accountBetHistory .betHistorySearchItems { width:100%; float:none; clear:both; margin:0 auto; }
+	#accountBetHistory .accountHistorySearch { width:95%; margin:0 auto; float:none; }
+	#accountBetHistory #betHistoryTable { margin-top:30px; }
+	#accountSubscriptionHistory .subscriptionHistorySearchItems { width:100%; float:none; clear:both; margin:0 auto; }
+	footer #footerSections ul li { padding:0 3px; }
+	footer #footerSections ul li a { font-size:14px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerPromoImg { display:none; margin-right:17px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .linkAsButton { width:200px!important; }
+	#lotteryTabs li.lottoTab { width:130px; }
+	.lotteryNotAvailableInCountry p { font-size:23px; }
+	#syndicatePromoBanner .bannerContent { left:-35px; width:500px; }
+	#syndicatePromoBanner .bannerContentleft img { width:350px; margin-top:13px; }
+	#syndicatePromoBanner .bannerJackpotAmount { font-size:67px; }
+	#syndicatePromoBanner .syndicateBannerLinesCopy { font-size:23px; width:165px; }
+	#syndicatePromoBanner .syndicateBannerPriceCopy { font-size:17px; }
+	.howToPlayNumber { width:27%; }
+	.howToPlayDirections { width:73% }
+	
+	.gordoWinNumber { width:43px; height:25px; }
+	.gordoWinNumber p { font-size:11px; padding-top:6px!important; }
+	.gordoPrize p { font-size:12px; }
+	.gordoResultsSpecial p { font-size:12px; }
+}
+
+@media (max-width: 500px) {
+	.accountPage #accountWalletCurrencyCopy { float:left; clear:both; }
+	.availableLotteries #lotteryContent { margin:0; }
+	.availableLotteries .lotteryItem.lotteryTicketBG { width:100%; /*background-size:100% 100%;*/ background-size:cover; }
+	.availableLotteries .lotteryItem .lottoTicketInfo a { margin-right:25px; width:90px!important; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketImg { width:85px; padding-top:21px; margin:0 0px 0 15px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketCounter span { margin-right:25px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile { margin:14px -15px 0 -30px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile .lottoTicketName { font-size:13px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile .lottoTicketAmountM { font-size:35px; }
+	#homepage .homepageFeaturedPromos { width:380px; margin:0 auto; }
+	#homepage .homepageFeaturedPromos #homepagePromoContent { margin:5px 0px 0 0px; }
+	footer #footerSections nav { margin-bottom:20px; }
+	footer #footerSections ul li { display:block; border:none; }
+	footer #footerSections ul li a { font-size:16px; text-decoration:underline; }
+	.lotteryResultsPages .lotteryResultsColumns .lotteryResultsDate { width:55px;}
+	.lotteryResultsPages .resultsBall { width:25px; height: 25px; margin-right: 3px; font-size: 14px; padding-top: 4px; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberContent { width:336px; }
+	.lotteryResultsPages #resultsCheckNumberSection .secondaryFormButton { width:120px; margin-right:5px; }
+	.lotteryResultsPages #resultsCheckNumberSection .primaryFormButton { width:194px!important; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound { width:375px; }
+	.resultsMainPage .resultLotteries .resultLotteriesRows { height:262px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .linkAsButton { display:none; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .lotteryResultsAdBannerButtonMobile { display:block; pointer-events:auto; width:85px; margin-top:3px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .lotteryResultsAdBannerButtonMobile img { width:100%; height:auto; }
+	.resultsContainerJPP { width:275px; }
+	.resultCounter { font-size:12px; }
+	#syndicatePromoBanner .bannerContent { left:0; width:400px; }
+	#syndicatePromoBanner .bannerContentleft { left:-45px; }
+	#syndicatePromoBanner .bannerContentleft img { width:300px; margin-top:27px; }
+	#syndicatePromoBanner .bannerTimeToDraw span, #syndicatePromoBanner #drawCounterReact span { font-size:11px; }
+	.howToPlayNumber { width:15%; }
+	.howToPlayDirections { width:85% }
+	.processOrderContent { width:100%; }
+	.processOrderContent .pageHeading { font-size: 19px!important; }
+	
+	.gordoWinNumber { width:43px; height:15px; border-radius:3px; }
+	.gordoWinNumber p { padding-top:1px!important; }
+	.gordoPrizeList { padding:0 5px; }
+	.gordoPrize p { font-size: 11px; }
+	.resultsBreakdown .gordoPrize p { padding:0; }
+	.gordoResultsSpecial { padding-top:0; }
+	.gordoResultsSpecial p { font-size:11px; }
+	.gordoListMobileM .gordoWinNumber { margin-bottom:18px; }
+}
+
+@media (max-width: 400px) {
+	.secondaryFormButton { width:100%; }
+	.lotteriesArrow.secondaryFormButton { width:37px; }
+	.accountSubmitCancel { float:none; }
+	#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive { width:100%; min-width:230px; }
+	#acctPaymentMethod .accountPaymentMethodList { width:100%; min-width:230px; }
+	#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .newPayMethod { width:85%;}
+	#accountWithdrawal #searchWithdrawalButton { width:160px!important; height:51px!important; }
+	#accountWithdrawal #searchWithdrawalReset { margin-top:55px; }
+	button.accountSearchButtons { width:160px!important; }
+	.account-accordion .accountPageContent { margin:0 auto; }
+	.accountPage form label { margin:0 0 3px 0; }
+	#accountSelfExclusion .accountExcludeRight { margin:0 auto; }
+	button.accountSubmitButtons { width:68%!important; }
+	#acctPaymentMethod #removePaymentMethodPopup button { width:100%!important; }
+	#accountSelfExclusion button.accountSubmitButtons { height:55px!important; }
+	#accountSelfExclusion .accountSubmitCancel { margin-top:58px; }
+	.lotteryResultsPages.container .accordion header { padding:23px 0 23px 5px; }
+	.lotteryResultsPages .lotteryResultsColumns .lotteryResultsDate { width:50px;}
+	.lotteryResultsPages .resultsBall { width: 22px; height: 22px; margin-right: 3px; font-size: 14px; padding-top: 2px; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound { width:320px; }
+	.lotteryResultsPages #lotteryResultsGetConnected .lotteryResultsGetConnectedImg { width:270px; }
+	
+	.resultsMainPage .resultLotteries .resultLotteriesRows { height:262px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketImg { width:75px; padding-top:24px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile .lottoTicketAmountM { font-size:32px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo a { margin-right:20px; width:85px!important; }
+	#homepage .homepageFeaturedPromos { width:350px; margin:0 auto; }
+	#homepage .homepageFeaturedPromos .homepagePromoTicketBG { width:330px; }
+	.lotteryBanners .lotteryBannerBall { width:115px; top:30px; }
+	#lotteryTabs li.lottoTab { width:118px; font-size:14px; padding-top:13px; font-weight:400; }
+	#syndicatePromoBanner .bannerContent { width:360px; }
+	#syndicatePromoBanner .bannerContentleft { left:-38px; }
+	#syndicatePromoBanner .bannerContentleft img { width:280px; margin-top:33px; }
+	.howToPlayNumber { width:8%; padding:0 5px 0 0; }
+	.howToPlayDirections { width:92% }
+	.addFundsResult .formHeaderContent .linkAsButton { width:100%!important; float:none; }
+	.addFundsResult .formHeaderContent .secondaryFormButton { display:block; width:100%!important; float:none; }
+	/*---------------- EXTERNAL PAYMENT PAGE --------------------*/
+	.externalPaymentForm { width:300px; }
+	.externalPaymentForm .alignInput div:first-child { margin-right:5px; }
+	.externalPaymentForm .largeInput { width:210px; }
+	.externalPaymentForm .smallInput { width:85px; }
+	.freePlayCopy { font-size:16px !important;}
+}
+
+@media (max-width: 360px) {
+	#signInFormPopUp { width:100%; }
+	/*#registerFormPopUp { width:100%; }*/
+	.addFundsForms { width:100%; }
+	.addFundsForms .formPopupContent { width:280px; }
+	.addFundsForms .paymentTopUpFormLeft { width:100%; }
+	.addFundsForms .fundsTopUpAmounts li { width:52px; }
+	.addFundsForms .inputCurrencyAmount .inputTopUpAmount, .addFundsForms .inputCurrencyAmount .inputTopUpBetAmount { width:100%; }
+	.addFundsForms .paymentTopUpFormRight { width:100%; }
+	.addFundsForms .creditCardName { width:100%; }
+	.addFundsForms .creditCardNumber { width:170px; }
+	/*.addFundsForms select { width:140px; }*/
+	.addFundsForms .formPopupCheckbox { white-space:inherit; }
+	.addFundsForms .paymentPopupCountry, .addFundsForms .billingAddressForm .billingAddressTwo { width:100%; }
+	.addFundsForms .billingAddressForm .billingAddressStreet, .addFundsForms .billingAddressForm .addressCity { width:100%; }
+	.addFundsForms .reEnterCreditCardCVV { width:100%; }
+	.addFundsForms #leftTopUpColumn { float:none; }
+	.addFundsForms #rightTopUpColumn { float:none; }
+	.addFundsForms .creditCardNumber, .addFundsForms .creditCardCVV, .billingAddressInfo input, .billingAddressInfo select, #addFundsForPromo .billingAddressInfo input, #addFundsForPromo .billingAddressInfo select { width:100%; }
+	.addFundsForms select.ccExpireMM, .addFundsForms select.ccExpireYY,
+	.addFundsForms input.ccExpireMM, .addFundsForms input.ccExpireYY { width:140px; }
+	.addFundsForms .billingAddressInfo { display:block; padding-top:35px; }
+	.billingAddressInfo .leftField, .billingAddressInfo .rightField { float:none; }
+	.lotteryBanners .lotteryBannerBall { width:125px; left:-5px; }
+	.lotteryBanners .bannerHeader #bannerJackpotAmount { font-size:43px; }
+	#main #tickets_section { width:100%; }
+	#main .ticketSectionFeatures { width:100%; }
+	#main #tickets_section .lines { min-width:100%; }
+	#main #tickets_section .lines #mobileUpperTicketSection .editTicket { margin-right:0px; right:12px; }
+	.lotteryCounter p { width:100%; }
+	.singleOrderDetails { height: 475px; }
+	/*#superEnalottoLottoPage .singleOrderDetails { height:575px; }*/
+	.singleOrderDetailColumn .lotteryCounter p.lotteryCount { width:95%; }
+	.singleOrderDetails .singleOrderDetailColumn { width:100%; margin-bottom:50px; }
+	.singleOrderDetails .singleOrderDetailColumn #linesDrawsCount { width:190px }
+	.singleOrderDetailColumn #lottoDrawDays label { float:none; font-size:14px; padding:0 0 0 40px; }
+	.singleOrderDetailColumn #lottoDrawDays label .drawDayOfWeek { display:block; }
+	.singleOrderDetailColumn #lottoDrawDays p.lottoDrawDays { margin:8px 0 0 8px; }
+	#accountTabs li { padding:0 10px; }
+	#main #tickets_section .showTicket { right:0; left:0; }
+	#main #tickets_section .showTicket .lines ul { width:294px; margin:0 auto; }
+	#main #mobileViewTickets { width:294px; }
+	.container .accordion header.active + div { padding:10px 5px; }
+	#accountSelfExclusion .acctAccordionHeaders, #accountSelfExclusion .acctExclusionDescription { padding:0 15px; }
+	#accountWithdrawal { width:95%; margin:0 auto; float:none; }
+	#acctPaymentMethod .paymentMethodSplitColumn .paymentMethodSplitColumns select { width:110px; text-indent:3px; }
+	#accountSelfExclusion .accountExcludeRight { width:100%; }
+	#accountSelfExclusion select { width:100%; }
+	#uploadAgeVerificationDocsForm { width:100%; }
+	.lotteryResultsPages.container .accordion header { padding:23px 0 23px 2px; }
+	.lotteryResultsPages .lotteryResultsColumns .lotteryResultsDate { width:45px;}
+	.lotteryResultsPages .resultsBall { width:21px; height:21px; margin-right:2px; font-size:13px; padding-top:2px; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberContent { width:310px; }
+	.lotteryResultsPages #tickets_section .lines ul li { width:36px; height:34px; }
+	.lotteryResultsPages #resultsCheckNumberSection .secondaryFormButton { width:100px; }
+	.lotteryResultsPages #resultsCheckNumberSection .primaryFormButton { width:188px!important; font-size:19px; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound { width:290px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerLottoLogo { width:59px; margin-top:20px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerInfo p { font-size:13px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton { margin:0 3px 0 3px; }
+	.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .lotteryResultsAdBannerButtonMobile { width:75px; margin-top:7px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo a { width:65px!important; margin-right:20px; margin-top:29px; font-size:14px; padding-top:11px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketImg { width:63px; padding-top:28px; margin-left:10px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile .lottoTicketAmountM { font-size:25px; margin-bottom:4px; }
+	.availableLotteries .homePagePromoTicket .promoTicketImage { top:5px; }
+	.availableLotteries .lotteryItem.lotteryTicketBG { width:100%; background-size:100% 100%; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile { margin-top:15px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile .lottoTicketName { margin-bottom:8px; }
+	/*#availableLotteries .lotteryItem .lottoTicketInfoMobile .lottoTicketCounterM { font-size:10px; }*/
+	#homepage .homepageFeaturedPromos { width:315px; margin:0 auto; }
+	#homepage .homepageFeaturedPromos .homepagePromoTicketBG { width:295px; margin:35px 8px 0 8px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent { width:287px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .blue-white-red-stars-banner-left { top:44px; left:55px }
+	#homepage .homepageFeaturedPromos .promoTicketContent .blue-white-red-stars-banner-right { top:44px; right:55px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .yellow-white-stars-banner-left { top:44px; left:34px }
+	#homepage .homepageFeaturedPromos .promoTicketContent .yellow-white-stars-banner-right { top:44px; right:34px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketName { font-size:20px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketDescription { font-size:26px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketJackpot { font-size:35px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketDeal { width:100%; height:auto; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing { width:190px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing p { font-size:12px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing p span { font-size:13px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPlay { width:95px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPlay img { width:95px; height:43px; }
+	.resultsMainPage .resultLotteries .resultLotteriesRows { height:300px; }
+	#lotteryTabs li.lottoTab { width:109px; font-size:13px; padding-top:14px; }
+	.lotteryBanners #bannerBackground_10toWin { background: url(../images/BG_10ToWin_French_Mobile.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.lotteryBanners #bannerBackground_lucky5_eu { background:url(../images/BG_Lucky5_Euro_Mobile.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.lotteryBanners #bannerBackground_lucky5_fr { background:url(../images/BG_Lucky5_French_Mobile.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.lotteryBanners #bannerBackground_lucky5_ir { background:url(../images/BG_Lucky5_Irish_Mobile.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.lotteryBanners #bannerBackground_lucky5_oz { background:url(../images/BG_Lucky5_Oz_Mobile.jpg) center no-repeat; background-size:cover; width:100%; height:100%; }
+	.container .about-us-side-image { width:75px; }
+	#syndicatePromoBanner .bannerContent { width:300px; }
+	#syndicatePromoBanner .bannerContentRight { right:0px; }
+	#syndicatePromoBanner .bannerContentleft { left:-56px; }
+	#syndicatePromoBanner .bannerContentleft img { width:233px; margin-top:45px; }
+	#syndicatePromoBanner .syndicateBannerLinesCopy { font-size:20px; width:130px; line-height:23px; }
+	.tickets_section_top { padding:0; }
+	.howToPlayNumber { width:15%; padding:0 15px 0 0; }
+	.howToPlayDirections { width:85%; font-size:14px!important; }
+	#syndicateBanner.lotteryBanners .bannerTimeToDraw p { display:none; }
+	.gordoListMobileM { height:85px!important; }
+}
+
+@media (max-width: 330px) {
+	/*.addFundsForms { width:255px; }*/
+	.addFundsForms .fundsTopUpAmounts li { width:45px; }
+	.addFundsForms .fundsTopUpAmounts li { font-size:20px!important; padding-top:19px; }
+	.addFundsForms select.ccExpireMM, .addFundsForms select.ccExpireYY,
+	.addFundsForms input.ccExpireMM, .addFundsForms input.ccExpireYY { width:123px; }
+	.lotteryBanners .lotteryBannerBall { width:115px; }
+	.lotteryBanners .bannerHeader { top:0; }
+	.lotteryBanners .bannerHeader #bannerJackpotAmount { font-size:39px; }
+	.lotteryBanners .bannerTimeToDraw { top:72px; }
+	.lotteryBanners .bannerTimeToDraw p { display:block; }
+	.lotteryBanners .bannerTimeToDraw #drawCounterReact { display:block; }
+	.lotteryBanners .bannerEighteenPlus { bottom:0; }
+	.lotteryBanners .bannerEighteenPlus p { margin:0; font-size:14px; }
+	#main #tickets_section .lines #upperTicketSection #choosenNumber { left:43px; }
+	.singleOrderDetails { height:530px; }
+	.singleOrderDetailColumn #promoDiscountImageMobile { margin-top:17px; }
+	.singleOrderDetailColumn #promoDiscountImageMobile img { width:68px; height:100%; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection .done { width:57px; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection .quickPickButton { width:90px!important; }
+	#main #tickets_section .showTicket .lines #mobileUpperTicketSection .clearButton { width:57px; }
+	#main #tickets_section .showTicket .lines ul { width:253px; }
+	#main #tickets_section .showTicket .lines ul li { width:32px; height:32px; line-height:32px; }
+	#main #mobileViewTickets { width:253px; margin-top:-115px; }
+	#lotteryTabs li.lottoTab { width:100px; }
+	#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .newPayMethod { width:80%;}
+	#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive .acctPaymentMethodListContent .newPayMethod span { float:left; margin:7px 5px 0 -3px; }
+	#accountWithdrawal #searchWithdrawalButton { width:140px!important; }
+	button.accountSearchButtons { width:140px!important; }
+	.navbar-default .container-fluid .headerLogo { width:113px; }
+	.navbar-default .container-fluid .navbar-header-mobile p#userNameHeader { font-size:13px; }
+	.navbar-default .container-fluid .navbar-header-mobile p#userBalanceHeader { font-size:11px; }
+	.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberContent { width:290px; }
+	.lotteryResultsPages #tickets_section .lines ul li { width:34px; height:33px; padding-top:5px; }
+	.lotteryResultsPages #resultsCheckNumberSection .secondaryFormButton { width:100px; }
+	.lotteryResultsPages #resultsCheckNumberSection .primaryFormButton { width:174px!important; font-size:18px; }
+	.singleOrderDetails .singleOrderDetailColumn #linesDrawsCount { width:155px }
+	.lotteryBanners .bannerPromoInfo { width:100%; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft {  }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .gradient_for_banner { width:98%; margin:0 auto 0 3px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount { width:180px; margin-left:2px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount p { font-size:12px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount .bannerPromoPriceInfo { font-size:13px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle { width:110px; float:right; margin-right:5px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle .promoWarrenty_Mobile { bottom:59px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle .linkAsButton { width:100%!important; height:53px!important; padding-top:14px; }
+	.lotteryBanners .bannerPromoInfo .bannerPromoDealImgMobile { width:100%; height:auto; }
+	.custom-select__trigger { padding:0 10px; }
+	.custom-select__trigger b, .custom-option b { margin-right:5px; }
+	.custom-option { padding-left:10px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo .lottoTicketImg { width:56px; margin-left:8px; }
+	.availableLotteries .lotteryItem .lottoTicketInfoMobile .lottoTicketName { word-spacing:-1px; font-size:11px; }
+	.availableLotteries .lotteryItem .lottoTicketInfo a { margin-right:15px; }
+	#homepage .homepageFeaturedPromos { width:285px; }
+	#homepage .homepageFeaturedPromos .homepagePromoTicketBG { width:275px; margin:35px 5px 0 5px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent { width:270px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .blue-white-red-stars-banner-left { top:43px; left:49px }
+	#homepage .homepageFeaturedPromos .promoTicketContent .blue-white-red-stars-banner-right { top:43px; right:49px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .yellow-white-stars-banner-left { top:43px; left:27px }
+	#homepage .homepageFeaturedPromos .promoTicketContent .yellow-white-stars-banner-right { top:43px; right:27px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketDescription { font-size:24px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing { width:180px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPlay { width:87px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPlay a { font-size:17px; }
+	#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPlay img { width:87px; height:40px; }
+	#syndicatePromoBanner .bannerContentleft { left:-27px; }
+	#syndicatePromoBanner .bannerContentleft img { width:223px; }
+	.addFundsForms .formHeader, .addFundsForms .addFundsContent { width:280px; }
+	.addFundsForms .addressCheckbox { font-size:13px; white-space:initial; }
+	#regularSyndicateBoxSection .regularSyndicate { margin:0 10px; }
+	#syndicateSection .syndicateBox { width:270px; }
+	#syndicateSection .syndicateBox .syndicateBoxHeader .syndicatePricePerLine { width:80px; height:80px;  }
+	.syndicateBox .syndicatePricePerLine { font-size:18px; padding-top:22px; }
+	.syndicateBoxes .lotteryCounter p.lotteryCount { width:95%;margin: 0 auto!important;  }
+}
+
+/* START: FULL-SCREEN LINE EDITOR (mobile)
+   Opened by the edit icon on a collapsed line. The .showTicket rules above do
+   the styling; these keep the open line usable on every game: it stays in the
+   page flow (a fixed 540px clips games with tall grids, and the per-game
+   overrides for it are written against markup this site does not use) and the
+   controls sit in one row with the close icon apart from Clear/Done. */
+@media (max-width: 767px) {
+	body.leEditingLine #main #tickets_section { min-height:0; }
+	body.leEditingLine #main #tickets_section .showTicket { position:relative; z-index:5; }
+	body.leEditingLine #main #tickets_section .showTicket .lines { height:auto; padding-bottom:24px; }
+	body.leEditingLine #main #tickets_section .showTicket .lines #upperTicketSection { height:auto; margin:0 8px 4px 8px; }
+	body.leEditingLine #main #tickets_section .showTicket .lines #mobileUpperTicketSection { display:flex; align-items:flex-start; }
+	body.leEditingLine #main #tickets_section .showTicket .lines #mobileUpperTicketSection #closeTicketWindow { float:none; margin:20px auto 0 0; }
+	body.leEditingLine #main #tickets_section .showTicket .lines #mobileUpperTicketSection .quickPickButton { display:inline-block; margin-top:20px; }
+}
+/* END: FULL-SCREEN LINE EDITOR (mobile) */
+
+/* Offer landing pages (Marketing Module bundles)
+   The desktop rules are in style.css. These undo the play page's fixed 320px
+   board column, which a bundle has no reason to inherit, and anchor the
+   collapsed row's absolutely-placed pieces to their own card instead of to the
+   section — with one board per page that distinction never came up. */
+@media (max-width: 1199px) {
+	.lotteryOfferPages .leOfferAssurances { grid-template-columns:repeat(2, 1fr); }
+}
+
+@media (max-width: 767px) {
+	.lotteryOfferPages .leOfferMasthead { padding:18px; }
+	.lotteryOfferPages .leOfferPriceAmount { font-size:26px; }
+	.lotteryOfferPages .leOfferAssurances { grid-template-columns:1fr; }
+	.lotteryOfferPages .leOfferBuildHead { display:block; }
+	.lotteryOfferPages #leOfferQuickPickAll { width:100%; margin-top:14px; }
+	.lotteryOfferPages .leOfferSummary { display:block; }
+	.lotteryOfferPages #leOfferSubmit { width:100%!important; margin-top:16px; }
+
+	.lotteryOfferPages #main { width:100%; padding:0; }
+	.lotteryOfferPages #main #tickets_section { width:100%; min-height:0; padding:0; }
+	.lotteryOfferPages #leOfferTickets { grid-template-columns:1fr; gap:12px; }
+	.lotteryOfferPages .leOfferTicket { position:relative; padding:10px; }
+	/* Collapsed, the card is header plus whatever has been picked. Before
+	   anything is picked there is nothing under the rule, so the rule goes too
+	   rather than fencing off an empty strip. */
+	.lotteryOfferPages .leOfferTicketHead { border-bottom:none; padding-bottom:2px; }
+	.lotteryOfferPages #main #tickets_section .lines #upperTicketSection #choosenNumber:empty { display:none; }
+	/* The extra number's chip is navy on the play page's cream card, which on
+	   this one is the card colour. Gold is what the board already calls it. */
+	.lotteryOfferPages #main #tickets_section .lines #upperTicketSection .bonusTicketNumber,
+	.lotteryOfferPages #main #tickets_section .ticketComplete #upperTicketSection .bonusTicketNumber { background-color:#FECF6B!important; border-color:#E4B34B; color:#013658; }
+	.lotteryOfferPages #main #tickets_section .lines,
+	.lotteryOfferPages #main #tickets_section .lines:hover { height:auto; width:auto; min-width:0; margin:0; background-color:transparent; border:none; }
+	.lotteryOfferPages #main #tickets_section .lines #upperTicketSection { margin:0; }
+	/* The phone row replaces the desktop one here, and its own rules have to
+	   win: the desktop grid is scoped a class deeper than the legacy rule. */
+	.lotteryOfferPages #main #tickets_section .lines #webUpperTicketSection { display:none; }
+	.lotteryOfferPages #main #tickets_section .lines #upperTicketSection #choosenNumber { position:static; margin:10px 0 0 4px; }
+	.lotteryOfferPages #main #tickets_section .lines #mobileUpperTicketSection .editTicket { margin:0; right:4px; top:14px; }
+
+	/* Editing: the card's own frame would double the editor's, and the grid has
+	   nothing left to lay out once the other cards are hidden. */
+	body.leEditingLine .lotteryOfferPages #leOfferTickets { display:block; }
+	/* The cream sheet is fixed at z-index 3 and only the open board is lifted
+	   above it, so the card carrying that board has to come up too or its
+	   header is painted over. */
+	body.leEditingLine .lotteryOfferPages .leOfferTicket { position:relative; z-index:5; background-color:transparent; border:none; padding:0; }
+	body.leEditingLine .lotteryOfferPages #main #tickets_section .showTicket .lines #upperTicketSection { margin:0 8px 4px 8px; }
+
+	/* The editor opens on the site's cream sheet, so the board goes back to the
+	   colours it wears on the play page and the card header is re-inked to
+	   match. A customer should not meet a different editor here. */
+	body.leEditingLine .lotteryOfferPages .leOfferTicketHead { border-bottom-color:#E8DCAE; }
+	body.leEditingLine .lotteryOfferPages .leOfferTicketCount { color:#0C4970; }
+	body.leEditingLine .lotteryOfferPages .leOfferTicketGame { color:#165D8A; }
+	body.leEditingLine .lotteryOfferPages .leOfferTicketBoard,
+	body.leEditingLine .lotteryOfferPages .leOfferTicketSchedule,
+	body.leEditingLine .lotteryOfferPages #main #tickets_section .leOfferTicketState { color:#6D6244; }
+	body.leEditingLine .lotteryOfferPages #main #tickets_section .showTicket .lines p { color:#0C4970; }
+	body.leEditingLine .lotteryOfferPages #main #tickets_section .showTicket .lines ul li.ticketNumber { background-color:#FFFFFF; border-color:#CECECE; color:#2B2B2B; }
+	body.leEditingLine .lotteryOfferPages #main #tickets_section .showTicket .lines ul li.bonusTicketNumber { background-color:#FECF6B; border-color:#E4B34B; color:#2B2B2B; }
+	body.leEditingLine .lotteryOfferPages #main #tickets_section .showTicket .lines ul li.selectedNumber { background-color:#0C4970!important; border-color:#0C4970; color:#FFFFFF; }
+}

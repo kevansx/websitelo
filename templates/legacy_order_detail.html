@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% macro render_board_data(bd) %}
+  {#- Render structured board data in a readable way, tolerating the common
+      shapes: mapping of pools to numbers, list of lines, or a flat list. -#}
+  {% if bd is mapping %}
+    {% for key, value in bd.items() %}
+      <div><strong>{{ key|replace('_', ' ')|title }}:</strong>
+        {% if value is sequence and value is not string %}{{ value|join(', ') }}{% else %}{{ value }}{% endif %}
+      </div>
+    {% endfor %}
+  {% elif bd is sequence and bd is not string %}
+    {% for line in bd %}
+      <div>
+        {% if line is mapping %}
+          {% for key, value in line.items() %}
+            <strong>{{ key|replace('_', ' ')|title }}:</strong>
+            {% if value is sequence and value is not string %}{{ value|join(', ') }}{% else %}{{ value }}{% endif %}
+          {% endfor %}
+        {% elif line is sequence and line is not string %}
+          {{ line|join(', ') }}
+        {% else %}
+          {{ line }}
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <div>{{ bd }}</div>
+  {% endif %}
+{% endmacro %}
+
+{% macro render_board(ticket) %}
+  {#- Per API.md: board_data is parsed JSON when the stored board is valid JSON,
+      otherwise null; board is the original LottoExpress display string. -#}
+  {%- set board_data = ticket.get('board_data') -%}
+  {% if board_data is not none %}
+    {{ render_board_data(board_data) }}
+  {% else %}
+    <div>{{ ticket.get('board') or '—' }}</div>
+  {% endif %}
+{% endmacro %}
+
+{% block content %}
+<div class="noSelect container lePages">
+  <h1 class="pageHeading">Legacy order detail</h1>
+  {% if order %}
+    {% set display_number = order.get('display_number') or order.get('order_number') or order.get('id') %}
+    {% set status = order.get('status') or '—' %}
+    {% set placed = order.get('placed_at') or order.get('created_at') or '' %}
+    {% set cur = order.get('currency') or (display_currency_code if display_currency_code is defined else '') %}
+    {% set total_cents = order.get('total_cents') or 0 %}
+    <p class="sub-heading">Order #{{ display_number }}</p>
+    <p>Status: {{ status }}</p>
+    <p>Placed: {{ placed }}</p>
+    <p>Total: {{ cur }} {{ '%.2f'|format((total_cents or 0) / 100) }}</p>
+    <p><em>This order was imported from our previous system and is shown for reference only.</em></p>
+
+    {% set items = order.get('items') or [] %}
+    {% if items and items|length %}
+      <h2 class="sub-heading">Items</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product</th>
+              <th>SKU</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for it in items %}
+              {% set item = it if it is mapping else {} %}
+              {% set item_label = item.get('product_description') or item.get('lottery_name') or '—' %}
+              {% set unit_cents = item.get('unit_price_cents') %}
+              {% set amount_cents = item.get('amount_cents') %}
+              <tr>
+                <td>{{ item.get('ordinal') or loop.index }}</td>
+                <td>{{ item_label }}</td>
+                <td>{{ item.get('sku') or '—' }}</td>
+                <td>{{ item.get('quantity') or '—' }}</td>
+                <td>
+                  {% if unit_cents is not none %}
+                    {{ cur }} {{ '%.2f'|format((unit_cents or 0) / 100) }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </td>
+                <td>
+                  {% if amount_cents is not none %}
+                    {{ cur }} {{ '%.2f'|format((amount_cents or 0) / 100) }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+    {% set tickets = order.get('tickets') or [] %}
+    {% if tickets and tickets|length %}
+      <h2 class="sub-heading">Tickets</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Lottery</th>
+              <th>Draw Date</th>
+              <th>Status</th>
+              <th>Cost</th>
+              <th>Serial</th>
+              <th>Board</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in tickets %}
+              {% set ticket = t if t is mapping else {} %}
+              {% set cost_cents = ticket.get('cost_cents') %}
+              <tr>
+                <td>{{ ticket.get('ticket_index') or loop.index }}</td>
+                <td>{{ ticket.get('lottery_name') or '—' }}</td>
+                <td>{{ ticket.get('draw_date') or '—' }}</td>
+                <td>{{ ticket.get('status') or '—' }}</td>
+                <td>
+                  {% if cost_cents is not none %}
+                    {{ ticket.get('currency') or cur }} {{ '%.2f'|format((cost_cents or 0) / 100) }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </td>
+                <td>{{ ticket.get('serial_number') or '—' }}</td>
+                <td>{{ render_board(ticket) }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>No tickets recorded for this order.</p>
+    {% endif %}
+
+    <p><a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('legacy_orders') }}">Back to Legacy Orders</a></p>
+  {% else %}
+    <p>Order not found.</p>
+  {% endif %}
+</div>
+{% endblock %}

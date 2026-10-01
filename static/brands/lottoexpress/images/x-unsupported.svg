@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="42.001" height="31.194" viewBox="0 0 42.001 31.194">
+  <defs>
+    <filter id="Unsupported" x="0" y="0" width="42.001" height="31.194" filterUnits="userSpaceOnUse">
+      <feOffset dy="1.5" input="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood flood-color="#fff"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Unsupported)">
+    <path id="Unsupported-2" data-name="Unsupported" d="M11228.43,11221.516l-19.431-13.452-19.43,13.452a1,1,0,1,1-1.139-1.646l18.811-13.023-18.811-13.024a1,1,0,1,1,1.139-1.646l19.43,13.452,19.431-13.452a1,1,0,1,1,1.139,1.646l-18.811,13.024,18.811,13.023a1,1,0,0,1-1.139,1.646Z" transform="translate(-11188 -11192)" fill="#ff5454"/>
+  </g>
+</svg>

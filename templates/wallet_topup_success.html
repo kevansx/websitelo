@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect container lePages">
+  <h1 class="pageHeading">Payment successful</h1>
+  <p>Your payment has completed and your wallet balance has been updated.</p>
+  {% if intent_id %}
+    <p class="footnote">Reference: {{ intent_id }}</p>
+  {% endif %}
+  {% if next %}
+    <a class="primaryFormButton linkAsButton centerLinkCopy" href="{{ next }}">Continue</a>
+    <br /><br />
+  {% endif %}
+  <a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('account') }}#wallet">Back to wallet</a>
+</div>
+{% endblock %}
+

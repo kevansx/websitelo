@@ -1,0 +1,372 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="accountTabs">
+  <ul>
+    <a href="/account#details">
+      <li onclick="accountPageDisplay(1)" id="myDetailsTab" class="accountTabActive">Account</li>
+    </a>
+    <a href="/account#wallet">
+      <li onclick="accountPageDisplay(2)" id="lotteryWalletTab">Wallet</li>
+    </a>
+    <a href="/account#orders">
+      <li onclick="accountPageDisplay(3)" id="lotteryOrderTab">Orders</li>
+    </a>
+  </ul>
+</div>
+
+<div class="container">
+  <div class="col-xs-12 col-sm-12 col-md-12">
+    <section class="accordion accountPage">
+      {# Show Account tab content by default so the page isn't blank if JS/CDN fails. #}
+      <div class="accountTab" id="myDetailsSection" style="display:block;">
+        {% if features and features.email_verification_banner and show_email_verify_banner %}
+          <div class="accountLimitDescription" style="margin-bottom:20px; padding:15px; background-color:#013658; border-radius:5px; border:1px solid #0C4970;">
+            <p style="margin-bottom:12px; color:#C7E9FE;">Please verify your email address. Verification helps us secure your account and contact you about orders and winnings.</p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <form method="post" action="{{ url_for('verify_email_resend') }}" style="margin:0;">
+                <button type="submit" class="primaryFormButton linkAsButton" style="min-width:220px; line-height:1.2; white-space:nowrap;">Resend verification email</button>
+              </form>
+              <form method="post" action="{{ url_for('verify_email_dismiss') }}" style="margin:0;">
+                <button type="submit" class="secondaryFormButton linkAsButton" style="min-width:120px;">Dismiss</button>
+              </form>
+            </div>
+          </div>
+        {% endif %}
+        <p class="accountStatusText">
+          <span class="acctStatusText">Current Account Status:</span>
+          <span id="statusActive">Active</span>
+        </p>
+
+        <div class="account-accordion">
+          <header id="customerProfileDropDown">
+            <span class="glyphicon glyphicon-triangle-bottom"></span>
+            <div>Profile</div>
+          </header>
+          <div>
+            {% include "partials/account-page/account-details.html" %}
+          </div>
+        </div>
+
+        <div class="account-accordion">
+          <header>
+            <span class="glyphicon glyphicon-triangle-bottom"></span>
+            <div>Communication Preferences</div>
+          </header>
+          <div>
+            {% include "partials/account-page/notifications.html" %}
+          </div>
+        </div>
+
+        {% if features and features.account_password_change %}
+          <div class="account-accordion">
+            <header>
+              <span class="glyphicon glyphicon-triangle-bottom"></span>
+              <div>Password Change</div>
+            </header>
+            <div>
+              {% include "partials/account-page/change-password.html" %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if features and features.account_security_questions %}
+          <div class="account-accordion">
+            <header>
+              <span class="glyphicon glyphicon-triangle-bottom"></span>
+              <div>Security Question And Answer Change</div>
+            </header>
+            <div>
+              {% include "partials/account-page/security-questions.html" %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if features and features.account_limits %}
+          <div class="account-accordion">
+            <header id="setLimitsDropdown">
+              <span class="glyphicon glyphicon-triangle-bottom"></span>
+              <div>Limits</div>
+            </header>
+            <div>
+              {% include "partials/account-page/account-set-limits.html" %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if features and features.account_self_exclusion %}
+          <div class="account-accordion">
+            <header>
+              <span class="glyphicon glyphicon-triangle-bottom"></span>
+              <div>Time Out, Self Exclusion, Close Account</div>
+            </header>
+            <div>
+              {% include "partials/account-page/self-exclusion.html" %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="accountTab" id="lotteryWalletSection" style="display:none;">
+        <div id="accountWalletCopy">
+          <p class="accountWalletText" id="accountWalletBalanceCopy">
+            Wallet Balance:
+            <span>
+              <span id="accountWalletTextGreen">
+                {% if wallet %}{{ wallet.currency }} {{ '%.2f'|format((wallet.balance_cents or 0) / 100) }}{% else %}—{% endif %}
+              </span>
+              {% if wallet and wallet.withdrawable_cents is defined %}
+                (Withdrawable: {{ wallet.currency }} {{ '%.2f'|format((wallet.withdrawable_cents or 0) / 100) }})
+              {% endif %}
+            </span>
+          </p>
+          {# Where a balance and what can be spent from it differ, this is the
+             only place that says so. Without it the difference surfaces as a
+             refusal at checkout for money the customer can see, which reads as
+             the site being broken - and is the complaint that brought us here. #}
+          {# The balance above is deposits and winnings together, and orders are
+             paid from deposits alone unless the customer authorises winnings at
+             checkout. Showing only the total is what made a refusal look like a
+             malfunction, so the split is spelled out here. #}
+          {% if wallet and wallet_funding %}
+            <div id="accountWalletSplit">
+              <p class="accountWalletText" id="accountWalletAddedCopy">
+                Added funds:
+                <span><span id="accountWalletAddedAmount">{{ wallet.currency }} {{ '%.2f'|format((wallet_funding.spendable_cents or 0) / 100) }}</span></span>
+              </p>
+              <p class="accountWalletText" id="accountWalletWinsCopy">
+                Winnings:
+                <span><span id="accountWalletWinsAmount">{{ wallet.currency }} {{ '%.2f'|format((wallet_funding.available_wins_cents or 0) / 100) }}</span></span>
+              </p>
+              {% if wallet_funding.available_wins_cents %}
+                <p class="accountWalletText" id="accountWalletWinsNote">
+                  Orders are paid from your added funds first. Your winnings are kept for you and are only
+                  used if you choose to at checkout, or you can withdraw them.
+                </p>
+              {% endif %}
+              {% if wallet_on_hold_cents %}
+                <p class="accountWalletText" id="accountWalletOnHoldCopy">
+                  {{ wallet.currency }} {{ '%.2f'|format(wallet_on_hold_cents / 100) }} of your balance is on hold
+                  and cannot be used yet. This is normal while a deposit or a win is being confirmed.
+                  <a class="tertiaryLink" href="{{ url_for('contact') }}">Contact us</a> if it stays on hold.
+                </p>
+              {% endif %}
+            </div>
+          {% endif %}
+          <p class="accountWalletText" id="accountWalletCurrencyCopy">
+            Account Currency:
+            <span>{% if wallet %}{{ wallet.currency }}{% else %}—{% endif %}</span>
+          </p>
+        </div>
+
+        <div class="account-accordion">
+          <header>
+            <span class="glyphicon glyphicon-triangle-bottom"></span>
+            <div>Withdrawal</div>
+          </header>
+          <div>
+            {% include "partials/account-page/account-withdrawal.html" %}
+          </div>
+        </div>
+
+        {% if features and features.account_refund %}
+          <div class="account-accordion">
+            <header>
+              <span class="glyphicon glyphicon-triangle-bottom"></span>
+              <div>Refund</div>
+            </header>
+            <div style="padding:15px;">
+              <p>Need a refund review for a specific order? Submit a request and our support team will help.</p>
+              <a class="primaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('contact', topic='refund') }}">Request refund support</a>
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="account-accordion">
+          <header>
+            <span class="glyphicon glyphicon-triangle-bottom"></span>
+            <div>Transaction History</div>
+          </header>
+          <div>
+            {% include "partials/account-page/account-transaction-history.html" %}
+          </div>
+        </div>
+
+        <div class="account-accordion">
+          <header id="winningsTableDropdown">
+            <span class="glyphicon glyphicon-triangle-bottom"></span>
+            <div>Winnings</div>
+          </header>
+          <div>
+            {% include "partials/account-page/account-winnings.html" %}
+          </div>
+        </div>
+
+        <div class="account-accordion">
+          <header class="transactionSummary">
+            <span class="glyphicon glyphicon-triangle-bottom"></span>
+            <div>Transaction Summary</div>
+          </header>
+          <div id="accountTransactionSummaryWallet" class="accountTransactionSummary">
+            {% include "partials/account-page/account-transaction-summary.html" %}
+          </div>
+        </div>
+      </div>
+
+      <div class="accountTab" id="lotteryOrderSection" style="display:none;">
+        <div class="account-accordion">
+          {# Open on arrival. Orders placed on this website are what somebody
+             clicking Orders came to see; the imported AS400 history below is
+             the older, rarer thing and opening that instead has customers
+             reading a list that stops before their recent purchases. #}
+          <header id="orderHistoryDropDown" class="orderHistoryDropDown active">
+            <span class="glyphicon glyphicon-triangle-bottom"></span>
+            <div>Order History</div>
+          </header>
+          <div>
+            {% include "partials/account-page/account-order-history.html" %}
+          </div>
+        </div>
+
+        {% if legacy_orders_visible %}
+        <div class="account-accordion">
+          <header id="legacyOrderHistoryDropDown" class="orderHistoryDropDown">
+            <span class="glyphicon glyphicon-triangle-bottom"></span>
+            <div>Legacy Orders</div>
+          </header>
+          <div>
+            {% include "partials/account-page/account-legacy-orders.html" %}
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="account-accordion">
+          <header class="transactionSummary">
+            <span class="glyphicon glyphicon-triangle-bottom"></span>
+            <div>Transaction Summary</div>
+          </header>
+          <div id="accountTransactionSummaryOrders" class="accountTransactionSummary">
+            {% include "partials/account-page/account-transaction-summary.html" %}
+          </div>
+        </div>
+      </div>
+
+      <div class="accountTab" id="notificationSection" style="display:none;"></div>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Vanilla hash router for Account tabs. This makes /account#wallet and /account#orders
+// work even if legacy jQuery/CDN scripts fail to load.
+// This runs early to set initial state, but legacy account.js will take over if jQuery loads.
+(function () {
+  function setActive(tab) {
+    var detailsTab = document.getElementById('myDetailsTab');
+    var walletTab = document.getElementById('lotteryWalletTab');
+    var ordersTab = document.getElementById('lotteryOrderTab');
+
+    var detailsSection = document.getElementById('myDetailsSection');
+    var walletSection = document.getElementById('lotteryWalletSection');
+    var ordersSection = document.getElementById('lotteryOrderSection');
+
+    if (!detailsTab || !walletTab || !ordersTab || !detailsSection || !walletSection || !ordersSection) return;
+
+    detailsSection.style.display = 'none';
+    walletSection.style.display = 'none';
+    ordersSection.style.display = 'none';
+
+    detailsTab.classList.remove('accountTabActive');
+    walletTab.classList.remove('accountTabActive');
+    ordersTab.classList.remove('accountTabActive');
+
+    if (tab === 'wallet') {
+      walletSection.style.display = 'block';
+      walletTab.classList.add('accountTabActive');
+    } else if (tab === 'orders') {
+      ordersSection.style.display = 'block';
+      ordersTab.classList.add('accountTabActive');
+    } else {
+      detailsSection.style.display = 'block';
+      detailsTab.classList.add('accountTabActive');
+    }
+  }
+
+  function route() {
+    var h = (window.location.hash || '').toLowerCase();
+    if (h === '#wallet') return setActive('wallet');
+    if (h === '#orders') return setActive('orders');
+    if (h === '#details' || !h) return setActive('details');
+    // For other hashes (#winnings, #showOrderId, etc.), let legacy account.js handle it
+    return setActive('details');
+  }
+
+  // Run on DOM ready, but also set initial state immediately if DOM is already loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', route);
+  } else {
+    // DOM already loaded, run immediately
+    route();
+  }
+  
+  // Also listen for hash changes (legacy account.js may also handle this, but that's OK)
+  window.addEventListener('hashchange', route);
+})();
+</script>
+
+<script>
+// Account page accordion controller (legacy-compatible).
+// This is intentionally independent of jQuery so it works even if account.js fails.
+(function () {
+  function onReady(fn) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+
+  function syncChevron(header) {
+    if (!header) return;
+    var glyph = header.querySelector ? header.querySelector('.glyphicon') : null;
+    if (!glyph || !glyph.classList) return;
+    if (header.classList.contains('active')) glyph.classList.add('open');
+    else glyph.classList.remove('open');
+  }
+
+  function closeSiblings(header) {
+    try {
+      var wrap = header.closest('.accountTab') || document;
+      wrap.querySelectorAll('.account-accordion > header.active').forEach(function (h) {
+        if (h !== header) {
+          h.classList.remove('active');
+          syncChevron(h);
+        }
+      });
+    } catch (e) {}
+  }
+
+  onReady(function () {
+    // Ensure chevrons match any headers that legacy code pre-opens via .addClass("active").
+    try {
+      document.querySelectorAll('.account-accordion > header').forEach(function (h) { syncChevron(h); });
+    } catch (e) {}
+
+    // Capture-phase handler so legacy scripts can't block accordion toggling.
+    document.addEventListener('click', function (e) {
+      var header = e.target && e.target.closest ? e.target.closest('.account-accordion > header') : null;
+      if (!header) return;
+      var interactive = e.target && e.target.closest ? e.target.closest('a, button, input, select, textarea, label') : null;
+      if (interactive && header.contains(interactive) && interactive !== header) return;
+      // Prevent legacy jQuery handlers from interfering (some bind click handlers that may
+      // immediately re-render or reset state).
+      try { e.preventDefault(); } catch (err) {}
+      try { e.stopImmediatePropagation(); } catch (err) {}
+      try { e.stopPropagation(); } catch (err) {}
+      header.classList.toggle('active');
+      syncChevron(header);
+      if (header.classList.contains('active')) closeSiblings(header);
+    }, true);
+  });
+})();
+</script>
+{% endblock %}
+

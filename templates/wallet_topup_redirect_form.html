@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect container lePages">
+  <h1 class="pageHeading">Redirecting…</h1>
+  <p>Submitting payment form.</p>
+  <form id="payform" method="{{ redirect_obj.method }}" action="{{ redirect_obj.action_url }}">
+    {% for k, v in redirect_obj.form_fields.items() %}
+      <input type="hidden" name="{{ k }}" value="{{ v }}" />
+    {% endfor %}
+    <noscript>
+      <button class="primaryFormButton linkAsButton centerLinkCopy" type="submit">Continue</button>
+    </noscript>
+  </form>
+  <script>
+    document.getElementById('payform').submit();
+  </script>
+</div>
+{% endblock %}
+

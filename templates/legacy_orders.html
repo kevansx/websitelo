@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect container lePages">
+  <h1 class="pageHeading">Orders</h1>
+  {% include "partials/orders-tabs.html" %}
+  <p>Imported order history from our previous system. These records are read-only.</p>
+  {% if not legacy_orders %}
+    <p>No legacy orders.</p>
+  {% else %}
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Date</th>
+          <th>Products</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Tickets</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in legacy_orders %}
+          {% set oid = o.get('id') %}
+          {% set display_number = o.get('display_number') or o.get('order_number') or oid %}
+          {% set placed = o.get('placed_at') or o.get('created_at') or '' %}
+          {% set labels = o.get('product_labels') or [] %}
+          {% set cur = o.get('currency') or (display_currency_code if display_currency_code is defined else '') %}
+          {% set total_cents = o.get('total_cents') or 0 %}
+          {% set status = o.get('status') or '—' %}
+          {% set tickets_count = o.get('tickets_count') or 0 %}
+          <tr>
+            <td>#{{ display_number }}</td>
+            <td>{{ placed }}</td>
+            <td>{{ labels|join(', ') if labels else '—' }}</td>
+            <td>{{ cur }} {{ '%.2f'|format((total_cents or 0) / 100) }}</td>
+            <td>{{ status }}</td>
+            <td>{{ tickets_count }}</td>
+            <td>
+              <a class="primaryLink" href="{{ url_for('legacy_order_detail', legacy_order_id=oid) }}">View</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if total_pages > 1 %}
+    <p>
+      {% if page > 1 %}
+        <a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('legacy_orders', page=page - 1) }}">Previous page</a>
+      {% endif %}
+      <span>Page {{ page }} of {{ total_pages }} ({{ total }} orders)</span>
+      {% if page < total_pages %}
+        <a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('legacy_orders', page=page + 1) }}">Next page</a>
+      {% endif %}
+    </p>
+  {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

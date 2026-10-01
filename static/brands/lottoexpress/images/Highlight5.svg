@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="74" viewBox="0 0 74 74">
+  <defs>
+    <filter id="Ellipse_477" x="0" y="0" width="74" height="74" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feFlood flood-opacity="0.349"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Highlight1" transform="translate(-208.5 -1089.5)">
+    <g transform="matrix(1, 0, 0, 1, 208.5, 1089.5)" filter="url(#Ellipse_477)">
+      <circle id="Ellipse_477-2" data-name="Ellipse 477" cx="32.5" cy="32.5" r="32.5" transform="translate(4.5 3.5)" fill="#186495"/>
+    </g>
+    <g id="Win" transform="translate(-948.5 -68.5)">
+      <path id="Path_26498" data-name="Path 26498" d="M1191.913,1200.848h0a11.413,11.413,0,0,1-11.413-11.413V1176.5h22.826v12.935A11.413,11.413,0,0,1,1191.913,1200.848Z" transform="translate(2.087)" fill="rgba(0,0,0,0)" stroke="#c7e9fe" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.44"/>
+      <path id="Path_26499" data-name="Path 26499" d="M1190.259,1192.5c-.761,3.043.352,8.686-6.589,10.652h13.178C1189.908,1201.186,1191.02,1195.543,1190.259,1192.5Z" transform="translate(3.741 8.348)" fill="rgba(0,0,0,0)" stroke="#c7e9fe" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.44"/>
+      <path id="Path_26500" data-name="Path 26500" d="M1195.5,1189.674h0V1177.5h6.087v6.087A6.087,6.087,0,0,1,1195.5,1189.674Z" transform="translate(9.913 0.522)" fill="rgba(0,0,0,0)" stroke="#c7e9fe" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.44"/>
+      <path id="Path_26501" data-name="Path 26501" d="M1182.587,1189.674h0V1177.5H1176.5v6.087A6.087,6.087,0,0,0,1182.587,1189.674Z" transform="translate(0 0.522)" fill="rgba(0,0,0,0)" stroke="#c7e9fe" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.44"/>
+      <path id="Path_26528" data-name="Path 26528" d="M-12513.988-13173.086h8.337v11.146s-1.851,7.8-8.337,7.8C-12514.082-13154.141-12513.988-13173.086-12513.988-13173.086Z" transform="translate(13708.02 14352.006)" fill="rgba(0,0,0,0)" stroke="#c7e9fe" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.44"/>
+    </g>
+  </g>
+</svg>

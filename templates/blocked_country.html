@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row lePages">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <h1 class="pageHeading">Service Unavailable</h1>
+      <p class="sub-heading">Sorry, we are not able to provide services in your country.</p>
+      {% if country %}
+        <p style="opacity:0.85;">Detected country: <span class="text-mono">{{ country }}</span></p>
+      {% endif %}
+      <p style="margin-top:18px;">
+        If you believe this is a mistake, please contact support.
+      </p>
+      <a class="linkAsButton" href="/contact-us">Contact Us</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

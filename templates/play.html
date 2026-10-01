@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect" id="mobileTicketWindow" style="display:none"></div>
+<div class="noSelect container lotteryPages" id="{{ legacy_page_id or (game.game_code if game else 'lotteryPage') }}">
+  <div class="lotteryPageContent">
+    {% if not game %}
+      <div class="lePages">
+        <h1 class="pageHeading">Play</h1>
+        <p>Game not found.</p>
+      </div>
+    {% else %}
+      <div class="lotteryBanners" id="lotteryBanner">
+        <div id="bannerContent">
+          <div class="lotteryBannerBall">
+            {% if hero_logo_url %}
+              <img src="{{ hero_logo_url }}" width="175" height="112" alt="Play {{ game.game_name or game.game_code }} online" />
+            {% else %}
+              <img src="/resources/images/LELogo.png" width="175" height="112" alt="" />
+            {% endif %}
+          </div>
+          <div class="bannerHeader">
+            <p>{{ banner_title or ("Next " ~ (game.game_name or game.game_code)) }}</p>
+            <p id="bannerJackpotAmount">{{ jackpot_display or "—" }}</p>
+          </div>
+          <div class="bannerTimeToDraw">
+            <p>Draw Cutoff Timer</p>
+            <div id="drawCounterReact">
+              {% if remaining_seconds is not none %}
+                <span class="wl-countdown" data-remaining="{{ remaining_seconds }}">—</span>
+              {% else %}
+                <span>—</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="bannerEighteenPlus"><p>18+</p></div>
+        </div>
+      </div>
+
+      <ul id="lotteryTabs">
+        <li id="singleLottoTab" class="lottoTab lottoTabActive">Single Play</li>
+        <a href="{{ url_for('results_game', game_code=game.game_code) }}"><li class="lottoTab">Results</li></a>
+      </ul>
+
+      <div id="lotterySection">
+        <div id="main">
+          <div class="col-xs-12 col-sm-12 col-lg-12 tickets_section_top">
+            <div id="lotteryHeaders">
+              <h1 class="pageHeading">Play {{ game.game_name or game.game_code }} Online</h1>
+            </div>
+            <div class="howToPlay col-xs-12 col-sm-12 col-lg-12 no-padding">
+              <div class="howToPlaySectionTitle"><p>How to Play</p></div>
+              <div class="howToPlaySection"><p class="howToPlayNumber">1</p><p class="howToPlayDirections">Choose your numbers or select quickpick</p></div>
+              <div class="howToPlaySection"><p class="howToPlayNumber">2</p><p class="howToPlayDirections">Choose duration and draw days</p></div>
+              <div class="howToPlaySection"><p class="howToPlayNumber">3</p><p class="howToPlayDirections">Buy tickets</p></div>
+            </div>
+            <div class="ticketSectionFeatures">
+              <div id="quickpickClearAll">
+                <p class="secondaryFormButton" id="clearAll">Clear All</p>
+                <p class="secondaryFormButton" id="quickPickAll">Quick Pick All</p>
+              </div>
+              <p class="lottoSecondaryHeader">Quickpick, Edit or Delete lines</p>
+            </div>
+          </div>
+
+          {% if game.products and game.products|length > 0 %}
+            <div id="tickets_section">
+              <div id="linesContainer"></div>
+
+              <a id="addLine" href="#" onclick="return false;">
+                <div class="addLines">
+                  <div id="upperTicketSection"></div>
+                  <div id="addLineContent">
+                    <p id="addLineImage">+</p>
+                    <p id="addLineText">Add Line</p>
+                    <p id="addQuickPickText">Add Quick Pick</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 singleOrderDetails">
+              <form id="singlePlayBetForm" method="post" action="{{ url_for('cart_add') }}">
+                <div class="col-xs-12 col-sm-5 col-md-5 singleOrderDetailColumn">
+                  <input type="hidden" name="lines_json" id="leLinesJson" value="[]" />
+                  <input type="hidden" name="options_json" id="leOptionsJson" value="{}" />
+                  <input type="hidden" name="edit_order_url" value="{{ request.path }}" />
+                  <input type="hidden" name="game_code" value="{{ game.game_code }}" />
+                  <input type="hidden" name="game_name" value="{{ game.game_name or game.game_code }}" />
+                  <input type="hidden" name="line_edit_item_idx" value="{{ line_edit_ctx.item_idx if line_edit_ctx else '' }}" />
+                  <input type="hidden" name="line_edit_line_idx" value="{{ line_edit_ctx.line_idx if line_edit_ctx else '' }}" />
+
+                  <div id="lottoDrawDays">
+                    <p class="lottoDrawDaysTitle">Select your Draw Days</p>
+                    <p class="orderDetails" id="billingPeriodOrDuration">Duration</p>
+                    <div class="lotteryCounter" id="leWeeksCounter">
+                      <div class="row lotteryCounterUnits">
+                        <div class="col-xs-2 col-sm-2 col-lg-2">
+                          <p class="lotteryCountMinus secondaryFormButton" id="leWeeksMinus">-</p>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-lg-8">
+                          <p class="lotteryCount">
+                            <span id="singlePlayWeekCount">
+                              <input id="weekCount" type="number" value="1" readonly />
+                            </span>
+                            <br />
+                            <span id="subscriptionWeekCopy">Week</span>
+                          </p>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-lg-2">
+                          <p class="lotteryCountPlus secondaryFormButton" id="leWeeksPlus">+</p>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="lottoDrawDays" id="leDrawDays">
+                      {# Populated by /resources/js/play_picker.js #}
+                    </p>
+                  </div>
+
+                  {% if game.products and game.products|length == 1 %}
+                    {% set p0 = game.products[0] %}
+                    <input type="hidden" id="leProductCode" name="product_code" value="{{ (line_edit_ctx.product_code if line_edit_ctx and line_edit_ctx.product_code else (p0.code or p0.product_code)) }}" />
+                  {% else %}
+                    <p class="formLabels">Select product</p>
+                    <select id="leProductCode" name="product_code" style="width:100%; max-width:420px;">
+                      {% for p in game.products %}
+                        {% set p_code = (p.code or p.product_code) %}
+                        <option value="{{ p_code }}" {% if line_edit_ctx and line_edit_ctx.product_code and line_edit_ctx.product_code == p_code %}selected{% endif %}>{{ p.name or p.code or p.product_code }}</option>
+                      {% endfor %}
+                    </select>
+                  {% endif %}
+
+                  <div id="leAddons" style="margin-top:14px;"></div>
+                </div>
+
+                <div class="col-xs-12 col-sm-5 col-md-5 singleOrderDetailColumn">
+                  <div class="orderDetailsBreakdown">
+                    <p class="orderDetails">{{ game.game_name or game.game_code }}</p>
+                    <p>
+                      <span id="linesDrawsCount">0 Lines x 1 Draw</span>
+                      <span class="orderAmounts">
+                        <span id="leCurrencySymbol">{{ picker_display_currency_symbol or '€' }}</span><span class="linesDrawsAmount" id="leLinesDrawsAmount">0.00</span>
+                      </span>
+                    </p>
+                  </div>
+                  <hr>
+                  <p class="orderDetails">
+                    Total:
+                    <span id="lotteryTotalAmount" class="orderAmounts">
+                      <span id="leCurrencySymbolTotal">{{ picker_display_currency_symbol or '€' }}</span><span class="linesDrawsAmount" id="leTotalAmount">0.00</span>
+                    </span>
+                  </p>
+                  <button type="submit" id="placeBetButton">Play Now</button>
+                </div>
+              </form>
+            </div>
+
+            <template id="leLineTemplate">
+              <div class="leLineWrapper" data-line-index="__IDX__">
+                <div class="lines">
+                  <div id="upperTicketSection">
+                    <div id="choosenNumber"></div>
+                    <div id="mobileUpperTicketSection">
+                      <a id="closeTicketWindow" href="#" data-action="close-editor" aria-label="Close number selection"><img src="/resources/images/Close_Icon.svg" width="22" height="22" alt="" /></a>
+                      <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
+                      <button class="clearButton secondaryFormButton" type="button" data-action="clear">Clear</button>
+                      <button class="done primaryFormButton" type="button" data-action="done">Done</button>
+                      <button class="trashButton" type="button" data-action="trash"><img src="/resources/images/IconTrash_PA.SVG" width="14" height="16"></button>
+                      <img class="editTicket" src="/resources/images/edit.png" width="20" height="20" data-action="edit" role="button" tabindex="0" aria-label="Edit numbers" />
+                    </div>
+                    <div id="webUpperTicketSection">
+                      <img class="ticketCompleteImage" src="/resources/images/Check.svg" style="display:none" width="25" height="23" />
+                      <img class="ticketIncompleteImage" src="/resources/images/Error.svg" width="23" height="27" />
+                      <button class="trashButton secondaryFormButton" type="button" data-action="trash"><img src="/resources/images/IconTrash_PA.SVG" width="12" height="14"></button>
+                      <button class="clearButton secondaryFormButton" type="button" data-action="clear">Clear</button>
+                      <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
+                    </div>
+                  </div>
+                  <div id="lowerTicketSection">
+                    <div class="leGroups"></div>
+                  </div>
+                </div>
+              </div>
+            </template>
+
+            <script id="lePickerProducts" type="application/json">{{ picker_products|tojson }}</script>
+            <script id="leJackpot" type="application/json">{{ jackpot_payload|tojson }}</script>
+            <script id="leCartLineEdit" type="application/json">{{ line_edit_ctx|tojson if line_edit_ctx else '{}' }}</script>
+            <div id="leDefaultCurrency" data-currency="{{ picker_display_currency or '' }}" aria-hidden="true" style="display:none"></div>
+          {% else %}
+            <p>No products returned for this game.</p>
+          {% endif %}
+        </div>
+
+        {# Game-specific informational content (details/accordion) goes inside the lottery section. #}
+        {% if content_details_template %}
+          {% include content_details_template ignore missing %}
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{# Long-form "Know more..." copy renders OUTSIDE the .lotteryPages container in the legacy PHP site. #}
+{% if content_copy_template %}
+  <div style="clear:both;"></div>
+  {% include content_copy_template ignore missing %}
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+{# Cache-buster tied to the build so shipped fixes take effect without a manual
+   version bump (a stale ?v= silently served the old picker). #}
+<script defer src="/resources/js/line_editor_core.js?v={{ build_id }}"></script>
+<script defer src="/resources/js/play_picker.js?v={{ build_id }}"></script>
+{% endblock %}
+

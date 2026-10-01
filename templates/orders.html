@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect container lePages">
+  <h1 class="pageHeading">Orders</h1>
+  {% include "partials/orders-tabs.html" %}
+  {% if orders %}
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Tickets</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for o in orders %}
+            {% set oid = o.id or o.get('id') %}
+            {% set status = o.status or o.get('status') or '—' %}
+            {% set created = o.placed_at or o.created_at or o.get('placed_at') or o.get('created_at') or '' %}
+            {% set cur = o.currency or o.get('currency') or (display_currency_code if display_currency_code is defined else '') %}
+            {% set total_cents = o.total_cents or o.total_eur_cents or o.get('total_cents') or o.get('total_eur_cents') or 0 %}
+            {% set tickets_count = o.tickets_count or o.get('tickets_count') or 0 %}
+            <tr>
+              <td>#{{ oid }}</td>
+              <td>{{ status }}</td>
+              <td>{{ created }}</td>
+              <td>{{ cur }} {{ (total_cents or 0) / 100 }}</td>
+              <td>{{ tickets_count }}</td>
+              <td>
+                <a class="primaryLink" href="{{ url_for('order_detail', order_id=oid) }}">View</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p><a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('orders', page=(page or 1) + 1) }}">Next page</a></p>
+  {% else %}
+    <p>No orders.</p>
+  {% endif %}
+</div>
+{% endblock %}
+

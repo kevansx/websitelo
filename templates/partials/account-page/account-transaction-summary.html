@@ -1,0 +1,74 @@
+<div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+  <div class="walletPageContent">
+    {% set s = txn_summary if txn_summary is defined and txn_summary else {} %}
+    {% set sym = s.currency_symbol or (wallet.currency if wallet and wallet.currency is defined else '') %}
+
+    <div class="acctTransBetSection acctTransSection">
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-6 col-sm-4 col-md-6"></div>
+        <div class="col-xs-3 col-sm-4 col-md-3 textBold">Settled</div>
+        <div class="col-xs-3 col-sm-4 col-md-3 textBold">Unsettled</div>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-6 col-sm-4 col-md-6 acctTransHeader textBold">Number of Plays</div>
+        <div class="col-xs-3 col-sm-4 col-md-3">{{ s.plays_settled_count or 0 }}</div>
+        <div class="col-xs-3 col-sm-4 col-md-3">{{ s.plays_unsettled_count or 0 }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-6 col-sm-4 col-md-6 acctTransHeader textBold">Play Amount</div>
+        <div class="col-xs-3 col-sm-4 col-md-3">{{ sym }}{{ s.plays_settled_amount or '0.00' }}</div>
+        <div class="col-xs-3 col-sm-4 col-md-3">{{ sym }}{{ s.plays_unsettled_amount or '0.00' }}</div>
+      </div>
+      <div class="col-xs-6 col-sm-12 no-padding acctTransEmptyRow"></div>
+      <div class="col-xs-3 col-sm-12 no-padding acctTransEmptyRow"></div>
+      <div class="col-xs-3 col-sm-12 no-padding acctTransEmptyRow"></div>
+    </div>
+
+    <div class="acctTransDepositSection acctTransSection">
+      <div class="col-xs-12 col-sm-12 no-padding acctTransEmptyRow"></div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-8 col-sm-8 acctTransHeader textBold">Number of Deposits</div>
+        <div class="col-xs-4 col-sm-4">{{ s.deposits_count or 0 }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-8 col-sm-8 acctTransHeader textBold">Deposit Amount</div>
+        <div class="col-xs-4 col-sm-4">{{ sym }}{{ s.deposits_amount or '0.00' }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-8 col-sm-8 acctTransHeader textBold">Number of Withdrawals</div>
+        <div class="col-xs-4 col-sm-4">{{ s.withdrawals_count or 0 }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-8 col-sm-8 acctTransHeader textBold">Withdrawal Amount</div>
+        <div class="col-xs-4 col-sm-4">{{ sym }}{{ s.withdrawals_amount or '0.00' }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-8 col-sm-8 acctTransHeader textBold">Net Deposit</div>
+        <div class="col-xs-4 col-sm-4">{{ sym }}{{ s.net_deposit or '0.00' }}</div>
+      </div>
+    </div>
+
+    <div class="acctTransWinSection acctTransSection">
+      <div class="col-xs-12 col-sm-12 no-padding acctTransEmptyRow"></div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-8 col-sm-8 acctTransHeader textBold">Number of Wins</div>
+        <div class="col-xs-4 col-sm-4">{{ s.wins_count or 0 }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-8 col-sm-8 acctTransHeader textBold">Win Amount</div>
+        <div class="col-xs-4 col-sm-4">{{ sym }}{{ s.wins_amount or '0.00' }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-8 col-sm-8 acctTransHeader textBold">Number of Losses</div>
+        <div class="col-xs-4 col-sm-4">{{ s.losses_count or 0 }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding acctTransRow">
+        <div class="col-xs-8 col-sm-8 acctTransHeader textBold">Loss Amount</div>
+        <div class="col-xs-4 col-sm-4">{{ sym }}{{ s.losses_amount or '0.00' }}</div>
+      </div>
+    </div>
+
+    <p id="accountTransactionSummaryInfo"><span class="infoButton">i</span>Updates hourly</p>
+  </div>
+</div>
+

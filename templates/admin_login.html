@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="padding: 24px 0;">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+      <div style="background:#0c4970; border:1px solid #2c7aab; border-radius:10px; padding:18px;">
+        <h1 style="margin:0 0 12px; color:#00ADEF; font-size:24px; line-height:1.2;">Admin login</h1>
+        <form method="post">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          {% if next_url %}
+          <input type="hidden" name="next" value="{{ next_url }}">
+          {% endif %}
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" class="form-control" name="password" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="secondaryFormButton" type="submit" style="width:100%; display:block;">Continue</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

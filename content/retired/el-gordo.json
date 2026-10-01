@@ -1,0 +1,167 @@
+{
+  "slug": "el-gordo",
+  "name": "El Gordo",
+  "legacy_path": "/lotteries/Syndicate/El-Gordo",
+  "results_slug": "el-gordo-winning-numbers",
+  "results_aliases": [],
+  "alternatives": [
+    "euromillions",
+    "eurojackpot",
+    "superenalotto"
+  ],
+  "source": "https://web.archive.org/web/20260214165003/https://www.lottoexpress.com/lotteries/Syndicate/El-Gordo",
+  "captured": "20260214165003",
+  "title": "Play Online and Win El Gordo Jackpot Today | Lotto Express",
+  "description": "",
+  "h1": "Play El Gordo",
+  "intro": "The Spanish Christmas Lottery or El Gordo, as it is commonly called, is the largest single-day lottery event in the world! … This draw happens only once a year during the Christmas season and €2,520,000,000 in prizing will be awarded!",
+  "highlights": [
+    {
+      "heading": "Share the Wealth!",
+      "text": "Higher than virtually all major worldwide lotteries, El Gordo boasts a 70% payout ratio and is designed to create multiple major prize winners."
+    },
+    {
+      "heading": "Incredible Prize Odds",
+      "text": "Your chances of winning a prize are better than 1 in 7!"
+    },
+    {
+      "heading": "Top Prizes are Massive",
+      "text": "Don’t miss this limited opportunity to win your share of El Gordo billions. Buy your ticket today!"
+    },
+    {
+      "heading": "Join a Syndicate",
+      "text": "Combine your purchasing power with other lotto enthusiasts for your chance to share a big prize."
+    }
+  ],
+  "quick_facts": [
+    {
+      "label": "El Gordo Total Prize Payout",
+      "value": "€2,520,000,000"
+    },
+    {
+      "label": "Draw Type",
+      "value": "Classic Pre-printed Raffle Format. Each ticket contains a 5 digit number. 10 Decimas per ticket."
+    },
+    {
+      "label": "Draw Date",
+      "value": "December 22, 2023"
+    },
+    {
+      "label": "Cut-off Time",
+      "value": "December 19, 2023"
+    },
+    {
+      "label": "200+ years of Lottery Tradition",
+      "value": "Spain’s first official national lottery draw took place in 1812 in the city of Cadiz"
+    },
+    {
+      "label": "Incredible Prizes",
+      "value": "El Gordo combines big jackpots with excellent prize-winning odds making it a lucrative lottery choice."
+    },
+    {
+      "label": "One Day Only",
+      "value": "El Gordo 2023 takes place December 22 and €2,520,000,000 will be awarded. Tickets are limited. Buy early to ensure you won’t be disappointed."
+    },
+    {
+      "label": "Good Luck!",
+      "value": "The professionals at Lotto Express want to help make your Jackpot winning dream a reality!"
+    }
+  ],
+  "prize_tiers": {
+    "intro": "*Each series contains 100,000 numbers - 00000 to 99999",
+    "headers": [
+      "Prize Tier",
+      "Winners per Series",
+      "Full Ticket Payout"
+    ],
+    "rows": [
+      [
+        "First Prize (El Gordo)",
+        "1",
+        "€4,000,000"
+      ],
+      [
+        "Second Prize",
+        "1",
+        "€1,250,000"
+      ],
+      [
+        "Third Prize",
+        "1",
+        "€500,000"
+      ],
+      [
+        "Fouth Prize",
+        "2",
+        "€200,000"
+      ],
+      [
+        "Fifth Prize",
+        "8",
+        "€60,000"
+      ],
+      [
+        "Sixth Prize (La Pedrea)",
+        "1794",
+        "€1,000"
+      ],
+      [
+        "The 2 numbers nearest to 1st prize",
+        "2",
+        "€20,000"
+      ],
+      [
+        "The 2 numbers nearest to 2nd prize",
+        "2",
+        "€12,500"
+      ],
+      [
+        "The 2 numbers nearest to 3rd prize",
+        "2",
+        "€9,600"
+      ],
+      [
+        "Same first 3 digits as 1st Prize",
+        "99",
+        "€1,000"
+      ],
+      [
+        "Same first 3 digits as 2nd Prize",
+        "99",
+        "€1,000"
+      ],
+      [
+        "Same first 3 digits as 3rd Prize",
+        "99",
+        "€1,000"
+      ],
+      [
+        "Same first 3 digits as 4th prizes",
+        "198",
+        "€1,000"
+      ],
+      [
+        "Same last 2 digits as 1st",
+        "999",
+        "€1,000"
+      ],
+      [
+        "Same last 2 digits as 2nd prize",
+        "999",
+        "€1,000"
+      ],
+      [
+        "Same last 2 digits as 3rd prize",
+        "999",
+        "€1,000"
+      ],
+      [
+        "Same last digit as 1st prize",
+        "9999",
+        "€200"
+      ]
+    ]
+  },
+  "copy_heading": "",
+  "sections": []
+}

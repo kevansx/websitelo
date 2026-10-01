@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container addFundsForms" id="addFundsForPromo">
+  <div class="row lePages">
+    <div class="formHeader">
+      <div class="formHeaderContent">
+        <p class="pageHeading">Play Now</p>
+        <p class="topUpTotal">Funds Required: (see cart)</p>
+      </div>
+    </div>
+
+    <div class="addFundsContent paymentPromoFormContent">
+      <p class="paymentTopUpText">To proceed with this promotion, please add funds to your wallet, then return to your cart.</p>
+      <a class="linkAsButton" href="{{ url_for('wallet_topup', next=url_for('cart')) }}">Add Funds</a>
+      <p style="margin-top:12px;">
+        <a class="confirmBetText tertiaryLink" href="{{ url_for('cart') }}">Or click here to go back to your cart</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

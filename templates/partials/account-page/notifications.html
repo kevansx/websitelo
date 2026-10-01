@@ -1,0 +1,50 @@
+{% set prefs = notif_prefs if notif_prefs is defined and notif_prefs else {} %}
+{% set email_marketing = (prefs.email_marketing if prefs.email_marketing is defined else true) %}
+{% set sms_marketing = (prefs.sms_marketing if prefs.sms_marketing is defined else false) %}
+<div class="col-xs-12 col-sm-12 col-md-12" id="accountNotifications">
+  <div class="accountPageContent">
+    <div class="row">
+      <form id="acctNotificationForm">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <p class="accountNotify acctAccordionHeaders">Email</p>
+          <br>
+          <p class="accountNotify">
+            <label class="checkboxRadioContainer">
+              <input type="radio" id="allNotifications" name="acctNotifications" value="allNotifications" {% if email_marketing %}checked{% endif %}>
+              <span class="acctNotificationCopy">
+                <span class="acctNotificationTitle">All Notifications</span><br>
+                I would like to receive emails regarding my lottery draws, results, and important account information, as well as special offers and jackpot opportunities.
+              </span>
+              <span class="redesignRadio"></span>
+            </label>
+          </p>
+          <p class="accountNotify">
+            <label class="checkboxRadioContainer">
+              <input type="radio" id="acctDetailsNotifications" name="acctNotifications" value="acctNotifications" {% if not email_marketing %}checked{% endif %}>
+              <span class="acctNotificationCopy">
+                <span class="acctNotificationTitle">Account Details Only</span><br>
+                I only want to receive emails regarding my draws, results and account status.<br>
+                (Warning: you could miss out on promotions and offers!)
+              </span>
+              <span class="redesignRadio"></span>
+            </label>
+          </p>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <p class="accountNotify acctAccordionHeaders">SMS</p>
+          <br>
+          <label class="checkboxRadioContainer" id="smsNotifictionLabel">
+            <input type="checkbox" id="smsNotifiction" name="smsNotifiction" {% if sms_marketing %}checked{% endif %}>
+            <span class="redesignCheckmark"></span>
+            Send SMS marketing messages.
+          </label>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <button class="accountSubmitButtons accountSubmitButtonInactive" id="updateAcctNotificationButton">Update</button>
+          <p id="acctNotificationCancel" class="accountSubmitCancel grayLink" style="display:none">Cancel</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

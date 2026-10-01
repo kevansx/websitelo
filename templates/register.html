@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row lePages">
+    <div id="registerContent">
+      <h1 class="pageHeading">Create an Account</h1>
+
+      {# Inline legacy-style messaging on this page. #}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <p class="{% if category == 'error' %}regSigninError{% elif category == 'success' %}successCopy{% else %}warningText{% endif %}">
+              {{ message }}
+            </p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      {% if legacy_invite %}
+        {# Someone who bought by post for years and has never seen this form.
+           Saying what is already filled in, before they meet a page of boxes,
+           is the difference between recognising the site and distrusting it. #}
+        <p class="successCopy" id="legacyInviteIntro">
+          Welcome back &mdash; we've filled in what we already hold. Check it's right, then choose a password.
+        </p>
+      {% endif %}
+
+      {# A soft-blocked country browses and plays as normal; only new accounts
+         are refused. Say so where the form is, rather than at the door. Shown
+         for the country the visitor is in, and again for the one they pick. #}
+      <p class="regSigninError" id="registerCountryBlocked" role="alert"
+         {% if not registration_blocked %}style="display:none"{% endif %}>{{ registration_blocked_message }}</p>
+
+      {# IMPORTANT: do NOT use id="registerForm" or legacy input names,
+         otherwise legacy index.js will enforce recaptcha + block submission.
+         We still use the legacy DOM structure/IDs for CSS parity. #}
+      <form id="leRegisterForm" action="{{ url_for('register_post') }}" method="post" autocomplete="off">
+        {# Someone registering to buy an offer is mid-purchase. Without this the
+           form always lands them on their account page and the cart they built
+           on the way here is left behind. #}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+
+        {# Says this form came from us, and when we served it, so a script
+           cannot post straight at the endpoint and cannot post instantly.
+           A plain hidden field on purpose: it must work with no JavaScript and
+           on whatever browser a customer happens to have. #}
+        <input type="hidden" name="form_token" value="{{ signup_form_token }}">
+
+        {# A field browsers hide, so only a script fills it in. It is labelled
+           and removed from the tab order rather than merely moved off-screen,
+           so nobody reaching this page with a screen reader is offered it. #}
+        <div class="signupDecoy" aria-hidden="true">
+          <label for="{{ signup_decoy_field }}">Leave this field empty</label>
+          <input
+            type="text"
+            name="{{ signup_decoy_field }}"
+            id="{{ signup_decoy_field }}"
+            tabindex="-1"
+            autocomplete="off"
+          >
+        </div>
+
+        <div id="registerLeftColumn">
+          <p class="formLabels">
+            Email <span class="inputRequiredStar">*</span>
+          </p>
+          <input
+            type="email"
+            name="email"
+            id="registerEmail"
+            class="required registerInputMaxLength registerInput{% if legacy_invite %} inputReadOnly{% endif %}"
+            placeholder="example@expl.com"
+            value="{{ prefill_email or '' }}"
+            required
+            {% if legacy_invite %}readonly aria-describedby="legacyInviteEmailNote"{% else %}autofocus{% endif %}
+          >
+          {% if legacy_invite %}
+            {# The address the invite was issued against, and already verified.
+               Editing it here would claim one person's history for another's
+               account, so the server never sends this field on an invite -
+               the box is locked to match, not to enforce. #}
+            <p class="formHelperText" id="legacyInviteEmailNote">
+              This is the email address we have for you. If it is wrong, please
+              <a class="tertiaryLink" href="{{ url_for('contact') }}">contact us</a> and we will update it.
+            </p>
+          {% endif %}
+
+          {% if legacy_invite %}
+            {# The claim does not take a password - the CRM answers it with a
+               set-password token instead - so a box here would be typed into
+               and thrown away, and then asked for again on the next page.
+               Three entries for one password, for a list whose median age is
+               71. They choose it once, on the page built for it. #}
+            <p class="formHelperText" id="legacyInvitePasswordNote">
+              You'll choose your password on the next step.
+            </p>
+          {% else %}
+          <p class="formLabels">
+            Password <span class="inputRequiredStar">*</span>
+          </p>
+          <div class="showPassword">
+            <input type="password" name="password" id="registerPassword" class="required registerInputMaxLength registerInput" required>
+            <img
+              id="registerPasswordImage"
+              src="/resources/images/eye_u25.svg"
+              onclick="showRegistationPassword()"
+              width="22"
+              height="15"
+              alt="Show password"
+            >
+          </div>
+
+          <p id="registerPasswordValidator" style="display:none">
+            <span id="registerPasswordLength">Passwords must be at least 8 characters,</span><br>
+            <span id="registerPasswordDigit">must include at least one digit ("0-9"),</span><br>
+            <span id="registerPasswordLower">one lowercase letter ("a-z"),</span><br>
+            <span id="registerPasswordUpper">one uppercase letter ("A-Z"),</span><br>
+            <span id="registerPasswordSpecial">and one special character, i.e. !@#$%</span>
+          </p>
+          {% endif %}
+
+          <div class="registerSplitColumn">
+            <div class="registerSplitColumns">
+              <p class="formLabels">
+                Title <span class="inputRequiredStar">*</span>
+              </p>
+              <select id="registerTitle" name="title">
+                <option value="Mr">Mr.</option>
+                <option value="Ms">Ms.</option>
+                <option value="Mrs">Mrs.</option>
+              </select>
+            </div>
+            <div class="registerSplitColumns">
+              <p class="formLabels">
+                First Name <span class="inputRequiredStar">*</span>
+              </p>
+              <input type="text" name="first_name" id="registerFirstName" class="required registerInput" value="{{ prefill_first_name or '' }}" required>
+            </div>
+          </div>
+
+          <p class="formLabels">
+            Last Name <span class="inputRequiredStar">*</span>
+          </p>
+          <input type="text" name="last_name" id="registerLastName" class="required registerInputMaxLength registerInput" value="{{ prefill_last_name or '' }}" required>
+
+          <div class="registerSplitColumn">
+            <p class="formLabels">
+              Date of Birth <span class="inputRequiredStar">*</span>
+            </p>
+            {# We render dropdowns like legacy, but keep a single hidden YYYY-MM-DD value for Flask. #}
+            <input type="hidden" name="birthdate" id="birthdate" value="{{ prefill_birthdate or '' }}">
+            {# On an invite this is the only age check before KYC: the CRM
+               judges under-18 when it is given a date, and a third of these
+               AS400 records have none to give. The server refuses the claim
+               without one; these only save the customer a round trip. #}
+            <div class="date-dropdowns" id="leRegisterDobDropdowns">
+              <select class="day" id="leDobDay" aria-label="Day"{% if birthdate_required %} required{% endif %}></select>
+              <select class="month" id="leDobMonth" aria-label="Month"{% if birthdate_required %} required{% endif %}></select>
+              <select class="year" id="leDobYear" aria-label="Year"{% if birthdate_required %} required{% endif %}></select>
+            </div>
+          </div>
+
+          <p class="formLabels">
+            Phone
+          </p>
+          <input type="tel" name="phone" id="registerPhone" class="registerInputMaxLength registerInput" value="{{ prefill_phone or '' }}">
+        </div>
+
+        <div id="registerRightColumn">
+          <p class="formLabels">
+            Select Country
+          </p>
+          <select id="registerCountry" name="country">
+            <option value="">Select Country</option>
+            {% if countries and countries|length %}
+              {% for c in countries %}
+                {% set iso2 = (c.iso2 or c.get('iso2') or '') %}
+                {% set name = (c.name or c.get('name') or iso2) %}
+                <option value="{{ iso2 }}"{% if c.get('soft_block') %} data-soft-block="1"{% endif %} {% if default_country and iso2 == default_country %}selected{% endif %}>{{ name }}</option>
+              {% endfor %}
+            {% else %}
+              {# Fallback (should be rare): keep minimal list so the form still
+                 works. It preselects on the same terms as the real list - an
+                 invited customer's country comes from the CRM record, and
+                 losing it here would quietly file them where they happen to
+                 be browsing from instead. #}
+              {% for iso2, name in [("AU", "Australia"), ("CA", "Canada"), ("DE", "Germany"),
+                                    ("IE", "Ireland"), ("IT", "Italy"), ("ES", "Spain"),
+                                    ("GB", "United Kingdom"), ("US", "United States")] %}
+                <option value="{{ iso2 }}"{% if default_country and iso2 == default_country %} selected{% endif %}>{{ name }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+
+          <p class="formLabels">
+            Select Currency
+          </p>
+          <select id="registerCurrency" name="currency">
+            <option value="EUR" {% if (selected_currency or 'EUR') == 'EUR' %}selected{% endif %}>EUR</option>
+            <option value="USD" {% if selected_currency == 'USD' %}selected{% endif %}>USD</option>
+            <option value="GBP" {% if selected_currency == 'GBP' %}selected{% endif %}>GBP</option>
+          </select>
+
+          <div class="registerConfirmSection">
+            <label class="formPopupCheckbox checkboxRadioContainer" id="specialOffersCheckbox">
+              YES, I wish to receive offers and updates from Lotto Express. I understand that I can unsubscribe at any time, and update my contact preferences by logging in to "My Account".
+              <input type="checkbox" name="marketing_opt_in">
+              <span class="redesignCheckmark"></span>
+            </label>
+            <label class="formPopupCheckbox checkboxRadioContainer termsCheckbox" id="confirmTermsConditionsCheckbox">
+              I confirm that I am over 18 years of age, and have read and accepted the
+              <a class="tertiaryLink" href="/terms-and-conditions" target="_blank">T&amp;C</a> &amp;
+              <a class="tertiaryLink" href="/privacy-policy" target="_blank">Privacy Policy</a>.
+              Please <a class="tertiaryLink" href="/responsible-gaming" target="_blank">Gamble Responsibly</a>.
+              <input type="checkbox" name="accept_terms" required>
+              <span class="redesignCheckmark"></span>
+            </label>
+          </div>
+
+          {% if recaptcha_enable %}
+            <div class="g-recaptcha" id="recaptcha"></div>
+          {% else %}
+            <div id="recaptchaPlaceholder" aria-hidden="true"></div>
+          {% endif %}
+
+          <input type="submit" id="registerSubmit" value="{% if legacy_invite %}Continue{% else %}Create New Account{% endif %}"{% if registration_blocked %} disabled{% endif %}>
+
+          <p id="signInFormText">Already a member?</p>
+          <a href="{{ url_for('login') }}" id="signInFormButton" class="signInFormLink secondaryFormButton">Sign In Here</a>
+        </div>
+      </form>
+    </div>
+
+    <p class="registerBottomCopy">
+      You must be over 18 years of age, and have read and accepted the
+      <a class="tertiaryLink" href="/terms-and-conditions">T&amp;C</a> &amp;
+      <a class="tertiaryLink" href="/privacy-policy">Privacy Policy</a>.
+      <br>Please <a class="tertiaryLink" href="/responsible-gaming">Gamble Responsibly</a>.
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Registration is refused on the country the customer says they live in, so the
+// refusal has to follow the dropdown and not just where they happen to be
+// browsing from. The server checks both again on submit; this only saves them
+// filling the form out first.
+(function initRegisterCountryRestriction() {
+  var select = document.getElementById("registerCountry");
+  var notice = document.getElementById("registerCountryBlocked");
+  var submit = document.getElementById("registerSubmit");
+  if (!select || !notice || !submit) return;
+
+  var geoBlocked = submit.disabled;
+
+  function apply() {
+    var option = select.options[select.selectedIndex];
+    var picked = !!(option && option.getAttribute("data-soft-block"));
+    // With nothing chosen yet, the visitor's own country is all we know.
+    var blocked = picked || (geoBlocked && !select.value);
+    notice.style.display = blocked ? "" : "none";
+    submit.disabled = blocked;
+  }
+
+  select.addEventListener("change", apply);
+  apply();
+})();
+</script>
+<script>
+// Lightweight DOB dropdowns that match the legacy look (day/month/year selects),
+// while keeping a single hidden YYYY-MM-DD value for Flask (`birthdate`).
+(function initRegisterDob() {
+  var day = document.getElementById("leDobDay");
+  var month = document.getElementById("leDobMonth");
+  var year = document.getElementById("leDobYear");
+  var out = document.getElementById("birthdate");
+  if (!day || !month || !year || !out) return;
+
+  function opt(sel, val, label) {
+    var o = document.createElement("option");
+    o.value = val;
+    o.textContent = label;
+    sel.appendChild(o);
+  }
+
+  function pad2(n) { return String(n).padStart(2, "0"); }
+
+  function rebuild() {
+    var y = year.value, m = month.value, d = day.value;
+    if (!y || !m || !d) { out.value = ""; return; }
+    out.value = String(y) + "-" + pad2(m) + "-" + pad2(d);
+  }
+
+  // Defaults / placeholders
+  opt(day, "", "Day");
+  for (var d = 1; d <= 31; d++) opt(day, String(d), String(d));
+
+  opt(month, "", "Month");
+  for (var mm = 1; mm <= 12; mm++) opt(month, String(mm), String(mm));
+
+  opt(year, "", "Year");
+  var nowY = (new Date()).getFullYear();
+  for (var yy = nowY - 18; yy >= nowY - 120; yy--) opt(year, String(yy), String(yy));
+
+  // A prefilled date of birth arrives as YYYY-MM-DD on the hidden field, and
+  // the dropdowns have to be told about it. Otherwise the three of them read
+  // "Day Month Year" over a date the customer cannot see, and the moment they
+  // touch any one of them the date they were never shown is wiped.
+  var prefilled = /^(\d{4})-(\d{2})-(\d{2})$/.exec(out.value || "");
+  if (prefilled) {
+    year.value = prefilled[1];
+    month.value = String(parseInt(prefilled[2], 10));
+    day.value = String(parseInt(prefilled[3], 10));
+    // Anything the year list does not reach - a date older than the list, or
+    // one the selects otherwise refused - must not be left half-shown.
+    rebuild();
+  }
+
+  day.addEventListener("change", rebuild);
+  month.addEventListener("change", rebuild);
+  year.addEventListener("change", rebuild);
+})();
+</script>
+
+<script>
+// Register page: initialize intl-tel-input so the phone field scales like legacy.
+(function initRegisterPhone() {
+  try {
+    var input = document.querySelector("#registerPhone");
+    if (!input || !window.intlTelInput) return;
+    if (window.__leRegisterIti) return;
+    window.__leRegisterIti = true;
+
+    window.iti = window.intlTelInput(input, {
+      initialCountry: "auto",
+      geoIpLookup: function (cb) {
+        try {
+          if (!window.jQuery) { cb(""); return; }
+          window.jQuery.get("https://ipinfo.io", function () {}, "jsonp").always(function (resp) {
+            var cc = (resp && resp.country) ? resp.country : "";
+            cb(cc);
+          });
+        } catch (e) { cb(""); }
+      },
+      utilsScript: "/resources/js/utils.js"
+    });
+  } catch (e) {}
+})();
+</script>
+
+{% if recaptcha_enable %}
+<script>
+// Only load real reCAPTCHA when explicitly enabled (e.g. production domain).
+window.addEventListener('DOMContentLoaded', function() {
+  try { if (typeof loadRecaptcha === "function") loadRecaptcha(); } catch (e) {}
+});
+</script>
+{% endif %}
+
+<script>
+// Phone and country are optional for this website signup flow.
+(function setOptionalRegisterFields() {
+  var p = document.getElementById("registerPhone");
+  var c = document.getElementById("registerCountry");
+  if (p) {
+    p.required = false;
+    p.classList.remove("required");
+  }
+  if (c) {
+    c.required = false;
+    c.classList.remove("required");
+  }
+})();
+</script>
+{% endblock %}
+

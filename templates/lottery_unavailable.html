@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row lePages">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <h1 class="pageHeading">Lottery Unavailable</h1>
+      <p class="sub-heading">This lottery is not currently available.</p>
+      {% if slug %}
+        <p style="opacity:0.85;">Requested: <span class="text-mono">{{ slug }}</span></p>
+      {% endif %}
+      <p>
+        Please browse our currently available lotteries.
+      </p>
+      <a class="linkAsButton" href="/catalog">Browse Lotteries</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

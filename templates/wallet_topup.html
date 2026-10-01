@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect container lePages">
+  <h1 class="pageHeading">Add Funds</h1>
+  <form method="post" action="{{ url_for('wallet_topup_post') }}">
+    <p class="formLabels">Amount (cents)</p>
+    <input name="amount_cents" value="{{ amount_cents if amount_cents is not none else 1000 }}" />
+    <input type="hidden" name="next" value="{{ next or '' }}" />
+    <br /><br />
+    <button class="primaryFormButton linkAsButton centerLinkCopy" type="submit">Continue</button>
+  </form>
+</div>
+{% endblock %}
+

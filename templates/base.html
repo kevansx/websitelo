@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>{% block page_title %}{% if title %}{{ title }}{% else %}{{ seo.title }}{% endif %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {# Search engines: one canonical URL per page, a description per page, and no
+     indexing of private or transactional pages. `seo` comes from the app's
+     context processor, so every template that extends this layout gets them. #}
+  <meta name="description" content="{{ seo.description }}">
+  <link rel="canonical" href="{{ seo.canonical }}">
+  <meta name="robots" content="{{ noindex if noindex is defined and noindex else seo.robots }}">
+  <meta property="og:site_name" content="{{ seo.site_name }}">
+  <meta property="og:type" content="{{ seo.og_type or 'website' }}">
+  <meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ seo.title }}{% endif %}">
+  <meta property="og:description" content="{{ seo.description }}">
+  <meta property="og:url" content="{{ seo.canonical }}">
+  <meta property="og:image" content="{{ seo.og_image }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% if title %}{{ title }}{% else %}{{ seo.title }}{% endif %}">
+  <meta name="twitter:description" content="{{ seo.description }}">
+  <meta name="twitter:image" content="{{ seo.og_image }}">
+
+  {# Legacy site uses <base> so relative links/scripts resolve from the site root. #}
+  <base href="/" />
+
+  {# Legacy site used /Favicon.ico; keep our config-driven favicon too. #}
+  <link rel="icon" href="/Favicon.ico" type="image/x-icon" />
+
+  {% if gtm_id %}
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+  <!-- End Google Tag Manager -->
+  {% endif %}
+
+  <link defer rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link defer rel="stylesheet" href="/resources/css/daterangepicker.min.css">
+  <link defer rel="stylesheet" href="/resources/css/intlTelInput.min.css">
+  {# Cache-bust CSS per server restart to avoid stale overlay behavior (Chrome can 304 old CSS). #}
+  <link defer rel="stylesheet" href="/resources/css/style.css?v={{ build_id }}">
+  <link defer rel="stylesheet" href="/resources/css/mobile.css?v={{ build_id }}">
+  <link defer rel="stylesheet" href="https://fonts.googleapis.com/css?family=Heebo:300,400,500,900&display=swap">
+  <style> @font-face { font-family:'impact'; src:url('/resources/css/impact.ttf') format('truetype'); font-display:swap; } </style>
+  <style>
+    /* When the date range picker is open, never allow the global overlay to block clicks. */
+    body.wl-daterange-open #overlay,
+    body.wl-daterange-open .topUpPaymentOverlay,
+    body.wl-daterange-open .loader { display:none !important; }
+    /* Safety: the overlay should never block clicks (it is purely visual). */
+    #overlay, .topUpPaymentOverlay { pointer-events: none; }
+    /* Safety: never darken the whole page. Legacy scripts may toggle #overlay unexpectedly. */
+    #overlay { background-color: transparent !important; }
+  </style>
+
+  {# Load local vendor copies so core UI (date range pickers, account UI) works even if CDN is blocked. #}
+  <script defer src="/resources/js/jquery.min.js"></script>
+  <script defer src="/resources/js/moment.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" integrity="sha512-DNeDhsl+FWnx5B1EQzsayHMyP6Xl/Mg+vcnFPXGNjUZrW28hQaa1+A4qL9M+AiOMmkAhKAWYHh1a+t6qxthzUw==" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  <script defer src="/resources/js/daterangepicker.min.js"></script>
+
+  {# Legacy scripts (some depend on legacy PHP endpoints; disable on play pages where we reimplement in Flask/JS) #}
+  <script>
+    // Disable heavy legacy polling loops that hit deprecated PHP endpoints every second.
+    window.__wlDisableLegacySessionPolling = true;
+    window.__wlDisableRealityCheckPolling = true;
+  </script>
+  <script defer src="/resources/js/jquery.date-dropdowns.min.js"></script>
+  {% if not disable_legacy_ticket_js %}
+    <script defer src="/resources/js/numberPicker.min.js"></script>
+    <script defer src="/resources/js/numberControl.js"></script>
+    <script defer src="/resources/js/numberControlPromo.js"></script>
+  {% endif %}
+  <script defer src="/resources/js/index.js"></script>
+  <script defer src="/resources/js/account.js"></script>
+  <script defer src="/resources/js/googleAddress.js"></script>
+  {% if not no_analytics %}
+  {# Suppressed on pages reached by a URL that carried a credential: the
+     pageview would file that path in analytics. #}
+  <script defer src="/resources/js/track.js"></script>
+  {% endif %}
+
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+  <script defer src="/resources/js/react.js"></script>
+
+  {# Entity markup: tells search engines the brand behind these pages. #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ seo.site_name }}",
+    "url": "{{ seo.canonical_root }}",
+    "logo": "{{ seo.brand_logo }}"
+  }
+  </script>
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body{% if support_read_only %} class="supportReadOnly"{% endif %}>
+  {% if gtm_id %}
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  {% endif %}
+
+  {# Legacy cookie banner is injected by /resources/js/index.js before this anchor. #}
+  <div id="cookieWarning" style="display:none;"></div>
+
+  <div class="LEBGColor"></div>
+  {# Legacy React session timer expects this hidden node with elapsed seconds in data-drawdate. #}
+  {% if customer and time_on_site_seconds is defined %}
+    <div id="timeOnSiteCounter" class="timeOnSiteCounter" data-drawdate="{{ time_on_site_seconds }}"></div>
+  {% endif %}
+  <div id="overlay" style="display:none;"></div>
+  <div class="loader noSelect" style="display:none;">
+    <span></span><span></span><span></span>
+  </div>
+
+  {# Legacy-style global success/fail popup used by account.js and other legacy scripts. #}
+  <div class="alertWindow infoPopup updateSuccessFailAlert" id="accountUpdatedPopup" style="display:none">
+    <div class="infoWindowHeader">
+      <img
+        class="formPopupHeaderClose"
+        src="/resources/images/Close_Icon.svg"
+        onclick="formPopupHeaderClose('accountUpdatedPopup')"
+        alt="Close"
+      >
+    </div>
+    <div class="infoWindowBody">
+      <p class="accountUpdateSuccess" style="display:none"><img src="/resources/images/Check.svg"><span class="accountSuccessMessage"></span></p>
+      <p class="accountUpdateFail" style="display:none"><img src="/resources/images/FailedIcon.svg"><span class="accountFailedMessage"></span></p>
+    </div>
+  </div>
+
+  {# --- Legacy navbar (CRM-driven content comes from `layout` in the next todo) --- #}
+  <div class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"><img class="headerLogo" src="/resources/images/LELogo.png" /></a>
+      </div>
+      <div class="mobile-nav">
+        <img id="mobileMenuButton" class="mobileMenuButton" src="/resources/images/Mobile_Menu.svg" alt="Open menu" />
+        <img id="mobileMenuButtonClose" class="mobileMenuButton" src="/resources/images/Mobile_Menu_Close.svg" alt="Close menu" style="display:none;" />
+        <a class="navbarHeaderLogo navbar-brand" href="/" style="display:none;">
+          <img class="headerLogo" src="/resources/images/LELogo.png" alt="Lotto Express" />
+        </a>
+        {% if customer %}
+          <a class="mobileTopRightLink" href="/account#details" aria-label="Account">
+            <img class="mobile-nav-buttons mobileAcctImg" src="/resources/images/Mobile_Menu_Account.svg" alt="Account" />
+          </a>
+        {% else %}
+          <a class="mobileTopRightLink" href="/login" aria-label="Login">
+            <img class="mobile-nav-buttons mobileSignInImg" src="/resources/images/Mobile_Menu_SignIn.svg" alt="Login" />
+          </a>
+        {% endif %}
+        <ul class="mobile-nav-dropdown">
+          {% if customer %}
+            <li>
+              <a href="/account#details">
+                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Account.svg" alt=""></span>
+                Account
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('wallet_add_funds') }}">
+                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_AddFunds.svg" alt=""></span>
+                Add Funds
+              </a>
+            </li>
+            <li>
+              <a href="/account#wallet">
+                <span class="mobileMenuListImage"><img src="/resources/images/Icon_MenuDrop_Wallet.svg" alt=""></span>
+                Wallet
+              </a>
+            </li>
+            <li>
+              <a href="/account#orders">
+                <span class="mobileMenuListImage"><img src="/resources/images/Icon_MenuDrop_Orders.svg" alt=""></span>
+                Orders
+              </a>
+            </li>
+            <li>
+              <a href="{{ url_for('logout') }}">
+                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Logout.svg" alt=""></span>
+                Logout
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a href="/login">
+                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_SignInRegister.svg" alt=""></span>
+                Login
+              </a>
+            </li>
+            <li>
+              <a href="/register">
+                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_SignInRegister.svg" alt=""></span>
+                Register
+              </a>
+            </li>
+          {% endif %}
+          <li class="mobile-nav-lotto-1">
+            <a href="/catalog">
+              <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Lotteries.svg" alt=""></span>
+              Lotteries
+            </a>
+          </li>
+          <li>
+            <a href="/lotteries/promotions">
+              <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Promotions.svg" alt=""></span>
+              Promotions
+            </a>
+          </li>
+          <li>
+            <a href="/lottery-results">
+              <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Results.svg" alt=""></span>
+              Lottery Results
+            </a>
+          </li>
+          <li>
+            <a href="/contact-us">
+              <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Contact.svg" alt=""></span>
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
+          <li class="dropdown singleLotteryNav">
+            <a class="topLotteriesNav">Lotteries&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% for g in (layout.nav_lotteries if layout and layout.nav_lotteries else []) %}
+                <li>
+                  <a href="{{ g.href }}">
+                    {% if g.logo_url %}<img src="{{ g.logo_url }}">{% endif %}
+                    {{ g.name }}<br>
+                    {% if g.jackpot %}<span>{{ g.jackpot }}</span>{% endif %}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="dropdown promotionsNav">
+            <a class="topLotteriesNav">Promotions&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% for b in (layout.nav_promos if layout and layout.nav_promos else []) %}
+                <li>
+                  <a href="{{ b.href }}">
+                    {% if b.logo_url %}<img src="{{ b.logo_url }}">{% endif %}
+                    {{ b.title }}<br>
+                    {% if b.subtitle %}{{ b.subtitle }}<br>{% endif %}
+                  </a>
+                </li>
+              {% endfor %}
+              <a href="/lotteries/promotions" class="primaryLink promosMainPageNav">View List</a>
+            </ul>
+          </li>
+          <li class="dropdown lotteryResultsNav">
+            <a class="topLotteriesNav">Lottery Results&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% for r in (layout.nav_results if layout and layout.nav_results else []) %}
+                <li>
+                  <a href="{{ r.href }}">
+                    {% if r.logo_url %}<img src="{{ r.logo_url }}">{% endif %}
+                    {{ r.name }}<br>
+                    {% if r.date %}<span class="lotteryResultsDate">{{ r.date }}</span>{% endif %}
+                    {% if r.board %}<span class="lotteryResultsBoard">{{ r.board | safe }}</span>{% endif %}
+                  </a>
+                </li>
+              {% endfor %}
+              <a href="/lottery-results" class="primaryLink">View List</a>
+            </ul>
+          </li>
+          <li class="contactUsNav"><a href="/contact-us">Contact Us</a></li>
+        </ul>
+      </div>
+      <div id="navbarAccountInfo" class="navbar-collapse collapse nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
+          {% if customer %}
+            <li class="nav_times">
+              <span id="currentReactTime"></span><br>
+              <span id="displayTimeOnSite"></span>
+            </li>
+            {% if not support_read_only %}
+            <li class="nav_right_space addFundsLink secondaryFormButton">
+              <a href="{{ url_for('wallet_add_funds') }}">
+                <img class="mobile-nav-buttons" src="/resources/images/Icon_SecMen_AddFunds_Web.svg" alt="Add Funds">
+                Add Funds
+              </a>
+            </li>
+            {% endif %}
+            <li class="nav_right_space balanceLink">
+              {# The total, and beside it the split, because checkout spends
+                 added funds and leaves winnings alone unless the customer
+                 authorises them. A lone total here reads as money to spend
+                 and is how a customer came to be refused four times over a
+                 wallet holding nearly three times her cart. #}
+              <a href="/account#wallet">
+                <img class="mobile-nav-buttons" src="/resources/images/Icon_MenuDrop_Wallet.svg" alt="Wallet">
+                <span class="balanceText">
+                  <span class="balanceTotal">Balance {{ header_balance_currency }}{{ header_balance_amount }}</span>
+                  {% if header_balance_split %}
+                    <span class="balanceSplit">Funds {{ header_balance_added }} &middot; Wins {{ header_balance_wins }}</span>
+                  {% endif %}
+                </span>
+              </a>
+            </li>
+            {% if header_cart_count and header_cart_count > 0 %}
+            <li class="nav_right_space cartLink secondaryFormButton">
+              <a href="{{ url_for('cart') }}">
+                <img class="mobile-nav-buttons" src="/resources/images/Icon_MenuDrop_Wallet.svg" alt="Cart">
+                Cart {{ header_cart_count }}
+              </a>
+            </li>
+            {% endif %}
+            <li class="nav_right_space loggedInDetails acctLogin">
+              <button class="menuDropBtn" type="button">
+                <img class="mobile-nav-buttons" src="/resources/images/Icon_SecMenu_Account.svg" alt="Account">
+                <span class="navCustomerName">{{ customer_full_name }}</span>
+                <span class="glyphicon glyphicon-triangle-bottom glyph-accordion"></span>
+              </button>
+              <div class="accountDropdown">
+                <a>
+                  <img class="mobile-nav-buttons" src="/resources/images/Icon_MenuDropTop_Account.svg" alt="Account">
+                  {{ customer_full_name }}
+                  <span class="glyphicon glyphicon-triangle-bottom glyph-accordion"></span>
+                </a>
+                <hr>
+                <a class="custInfoMenuItem" href="/account#details">
+                  <img src="/resources/images/Icon_MenuDrop_Account.svg" class="mobile-nav-buttons svgSymbol" alt="Account">Account
+                </a>
+                <a class="custInfoMenuItem" href="/account#wallet">
+                  <img src="/resources/images/Icon_MenuDrop_Wallet.svg" class="mobile-nav-buttons svgSymbol" alt="Wallet">Wallet
+                </a>
+                <a class="custInfoMenuItem" href="/account#orders">
+                  <img src="/resources/images/Icon_MenuDrop_Orders.svg" class="mobile-nav-buttons svgSymbol" alt="Orders">Orders
+                </a>
+                <a class="custInfoMenuItem" href="{{ url_for('logout') }}">
+                  <img src="/resources/images/Icon_MenuDrop_Logout.svg" class="mobile-nav-buttons svgSymbol" alt="Logout">Logout
+                </a>
+              </div>
+            </li>
+          {% else %}
+            <li class="nav_right_space loginOptions acctLogin">
+              <img src="/resources/images/Icon_SecMen_LoginRegister.svg" alt="Login / Register Icon" />
+              <a href="/login" class="signInFormLink">Login</a> | <a href="/register" class="registrationFormLink"> Register</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  {% if support_read_only %}
+    {# Not a flash. A flash is read once and gone, and a support session lasts
+       an hour across every page, so this states the situation for as long as
+       it is the situation. Child templates cannot suppress it. #}
+    <div class="container">
+      <div class="supportReadOnlyBanner" id="supportReadOnlyBanner" role="status">
+        <p><strong>{{ support_banner_message }}</strong></p>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Global flash banner; child templates can override this block to suppress. #}
+  {% block global_flash %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="container">
+          <div class="lePages">
+            {% for category, message in messages %}
+              <p class="{% if category == 'error' %}redText{% elif category == 'success' %}successCopy{% else %}warningText{% endif %}">{{ message }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endwith %}
+  {% endblock %}
+
+  {% block content %}{% endblock %}
+
+  <footer class="footer">
+    <div id="footerSections">
+      <section class="row container-fluid footerSection">
+        <div id="footerContents">
+          <div class="col-lg-12 footerSections">
+            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4 firstFooterContent">
+              <p class="footerHeader">Learn About Lotto Express</p>
+              <p>
+                <a href="/about-us">About Lotto Express</a><br />
+                <a href="/blog/">Lotto Blog</a><br />
+              </p>
+            </section>
+            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+              <p class="footerHeader">Play Lotteries Online</p>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  {% for g in (layout.footer_lotteries if layout and layout.footer_lotteries else []) %}
+                    <a href="{{ g.href }}">{{ g.name }}</a><br>
+                  {% endfor %}
+                </div>
+              </div>
+            </section>
+            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+              <p class="footerHeader">Lottery Results & Winnings</p>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  {% for r in (layout.footer_results if layout and layout.footer_results else []) %}
+                    <a href="{{ r.href }}">{{ r.name }}</a><br>
+                  {% endfor %}
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="col-lg-12 footerSections">
+            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+              <p class="footerHeader">Useful Links</p>
+              <p>
+                <a href="/responsible-gaming">Responsible Gaming</a><br />
+                <a href="/contact-us">Contact Us</a><br />
+              </p>
+            </section>
+            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4 colNoMargin">
+              <p class="footerHeader">Need Help?</p>
+              <div class="col-xs-12 colNoMargin">
+                <div class="helpIcon"><a href="mailto:info@lottoexpress.com?subject=Website%20Enquiry%20for%20Lotto%20Express"><img src="/resources/images/footerEmail.png" width="40" height="40" /><br />Email</a></div>
+                <div class="helpIcon"><a href="/contact-us#call" ><img src="/resources/images/footerCall.png" width="40" height="40" /><br />Call</a></div>
+              </div>
+            </section>
+            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="footerSocialMediaLinks">
+              <p class="footerHeader footerHeaderCenter">Find Us On!</p>
+              <a href="https://www.facebook.com/PlayLottoExpress" target="_blank"><img src="/resources/images/Footer_FB.svg" width="48" height="48"></a>
+              <a href="https://twitter.com/Lotto_Express" target="_blank"><img src="/resources/images/Footer_Twitter.svg" width="48" height="48"></a>
+            </section>
+          </div>
+        </div>
+      </section>
+      <section class="container-fluid">
+        <div class="">
+          <nav>
+            <ul>
+              <li><a href="/responsible-gaming">Responsible Gaming</a></li>
+              <li><a href="/terms-and-conditions">Terms and Conditions</a></li>
+              <li><a href="/privacy-policy">Privacy Policy</a></li>
+              <li><a href="/contact-us">Contact Us</a></li>
+            </ul>
+          </nav>
+          <div id="footCopyRightText" class="text-center">
+            <p>LottoExpress.com (Ralseft Limited) strictly prohibits access and services to those under the legal age of eighteen (18) years old.</p>
+            <p>Copyright © 2022, Ralseft Limited: LottoExpress. E.&O.E.</p>
+            {% if build_id %}
+              <div style="margin-top:10px; font-size:11px; opacity:.6;">
+                Dev build: {{ build_id }}
+              </div>
+            {% endif %}
+            <div class="col-sm-11 col-xs-12" id="footerLegalImgs">
+              <div class="footerLegalImgs">
+                <img src="/resources/images/ssl.png" width="136" height="39" />
+              </div>
+              <div class="footerLegalImgs">
+                <img src="/resources/images/18year.png" width="39" height="39" />
+              </div>
+              <div class="footerLegalImgs">
+                <a href="https://www.begambleaware.org/" target="_blank">
+                  <img src="/resources/images/gambleAware.svg" width="136" height="18" />
+                </a>
+              </div>
+              <div class="footerLegalImgs gamCare">
+                <a href="https://www.gamcare.org.uk/" target="_blank">
+                  <img src="/resources/images/logo-gamcare-white.svg" width="105" height="30" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </footer>
+
+  <script>
+// Global countdown ticker (Winnow-style).
+// Any element with class "wl-countdown" and data-remaining="<seconds>" will be updated.
+(function initCountdown() {
+  if (window.__wlCountdownInit) return;
+  window.__wlCountdownInit = true;
+  var cached = [];
+  var tickN = 0;
+  function fmt(seconds) {
+    if (seconds === null || seconds === undefined) return "—";
+    var s = parseInt(seconds, 10);
+    if (isNaN(s)) return "—";
+    if (s < 0) s = 0;
+    var d = Math.floor(s / 86400); s = s % 86400;
+    var h = Math.floor(s / 3600); s = s % 3600;
+    var m = Math.floor(s / 60); s = s % 60;
+    var parts = [];
+    if (d) parts.push(d + "d");
+    parts.push(String(h).padStart(2, "0") + "h");
+    parts.push(String(m).padStart(2, "0") + "m");
+    parts.push(String(s).padStart(2, "0") + "s");
+    return parts.join(" ");
+  }
+  function scan() {
+    try {
+      cached = Array.from(document.querySelectorAll(".wl-countdown[data-remaining]"));
+    } catch (e) {
+      cached = [];
+    }
+  }
+  function tick() {
+    try { if (document.hidden) return; } catch (e) {}
+    tickN += 1;
+    if (!cached.length || (tickN % 5) === 0) scan();
+    if (!cached.length) return;
+    if (cached.length > 24 && (tickN % 2) === 1) return;
+    var els = cached.slice(0);
+    window.requestAnimationFrame(function () {
+      els.forEach(function (el) {
+        if (!el || !el.getAttribute) return;
+        // Already finished on an earlier tick and given its final label. `cached`
+        // is only rebuilt every fifth tick, so a retired element lingers in this
+        // list; without this the branch below would overwrite the label with a dash.
+        if (!el.hasAttribute("data-remaining")) return;
+        var raw = el.getAttribute("data-remaining") || "";
+        var s = parseInt(raw, 10);
+        if (isNaN(s)) {
+          el.textContent = "—";
+          return;
+        }
+        if (s <= 0) {
+          // A countdown to something other than a draw needs its own ending.
+          // "Results pending" against a closed offer reads as a draw the
+          // customer is waiting on rather than a sale that is over.
+          el.textContent = el.getAttribute("data-ended-label") || "Results pending";
+          el.classList.remove("wl-countdown");
+          el.removeAttribute("data-remaining");
+          return;
+        }
+        el.textContent = fmt(s);
+        el.setAttribute("data-remaining", String(s - 1));
+      });
+    });
+  }
+  if (window.__wlCountdownTimer) return;
+  scan();
+  tick();
+  window.__wlCountdownTimer = window.setInterval(tick, 1000);
+  window.addEventListener("pageshow", tick);
+})();
+  </script>
+
+  <script>
+// Vanilla fallbacks for critical UI behaviors in case legacy jQuery/CDN scripts fail:
+// - Accordion dropdowns on account pages and other pages using `.accordion header`
+// - Account dropdown menu toggle on click (touch devices)
+(function () {
+  function onReady(fn) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+
+  function isVisible(el) {
+    if (!el) return false;
+    // offsetParent is null for display:none and for fixed elements in some cases; use bounding box too.
+    var style = window.getComputedStyle ? window.getComputedStyle(el) : null;
+    if (style && style.display === 'none') return false;
+    if (style && style.visibility === 'hidden') return false;
+    var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+    if (rect && rect.width === 0 && rect.height === 0) return false;
+    return true;
+  }
+
+  function hasAnyOpenPopup() {
+    var selectors = [
+      '.alertWindow',
+      '.formPopup',
+      '.infoWindow'
+    ];
+    for (var i = 0; i < selectors.length; i++) {
+      var nodes = document.querySelectorAll(selectors[i]);
+      for (var j = 0; j < nodes.length; j++) {
+        if (isVisible(nodes[j])) return true;
+      }
+    }
+    return false;
+  }
+
+  function isDateRangePickerOpen() {
+    try {
+      var el = document.querySelector('.daterangepicker');
+      if (!el) return false;
+      var style = window.getComputedStyle ? window.getComputedStyle(el) : null;
+      if (!style) return false;
+      return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function clearStuckOverlays() {
+    try {
+      var overlay = document.getElementById('overlay');
+      var loader = document.querySelector('.loader');
+      var topupOverlay = document.querySelector('.topUpPaymentOverlay');
+      // Date range picker should never be blocked by the legacy full-page overlay.
+      // If it's open, ensure overlays are hidden so the calendars are clickable.
+      if (isDateRangePickerOpen()) {
+        try { document.body.classList.add('wl-daterange-open'); } catch (e) {}
+        if (overlay) overlay.style.display = 'none';
+        if (loader) loader.style.display = 'none';
+        if (topupOverlay) topupOverlay.style.display = 'none';
+        return;
+      }
+      try { document.body.classList.remove('wl-daterange-open'); } catch (e) {}
+      // If overlay is visible but no popup is open, it's stuck; hide it so the page is usable.
+      if (overlay && isVisible(overlay) && !hasAnyOpenPopup()) {
+        overlay.style.display = 'none';
+      }
+      if (loader && isVisible(loader) && !hasAnyOpenPopup()) {
+        loader.style.display = 'none';
+      }
+      if (topupOverlay && isVisible(topupOverlay) && !hasAnyOpenPopup()) {
+        topupOverlay.style.display = 'none';
+      }
+    } catch (e) {}
+  }
+
+  onReady(function () {
+    // First paint safety: some legacy scripts can show #overlay without rendering the popup
+    // (e.g., missing DOM nodes). Clear it so the UI is always clickable.
+    clearStuckOverlays();
+    window.setTimeout(clearStuckOverlays, 250);
+    window.setTimeout(clearStuckOverlays, 1000);
+
+    // If a user is interacting with a date range field, ensure overlays are cleared.
+    document.addEventListener('focusin', function (e) {
+      var el = e.target;
+      if (!el) return;
+      if (el.classList && el.classList.contains('accountDateRange')) {
+        clearStuckOverlays();
+      }
+    }, true);
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      // Clicking inside the daterangepicker UI should not be blocked by overlays.
+      if (t && t.closest && t.closest('.daterangepicker')) {
+        clearStuckOverlays();
+      }
+    }, true);
+
+    // Some environments show #overlay right as the calendar opens. Make it bulletproof:
+    // when user interacts with a date field, poll briefly to keep overlays off while the
+    // daterangepicker is being constructed/positioned.
+    function startDateRangeOverlayGuard() {
+      var endAt = Date.now() + 1500; // 1.5s is enough for the picker to appear
+      try { document.body.classList.add('wl-daterange-open'); } catch (e) {}
+      (function tick() {
+        clearStuckOverlays();
+        if (Date.now() < endAt) {
+          window.setTimeout(tick, 50);
+        } else {
+          // If picker isn't open, remove guard class.
+          if (!isDateRangePickerOpen()) {
+            try { document.body.classList.remove('wl-daterange-open'); } catch (e) {}
+          }
+        }
+      })();
+    }
+
+    document.addEventListener('mousedown', function (e) {
+      var t = e.target;
+      if (!t) return;
+      if (t.closest && (t.closest('.acctDateRangeDiv') || t.closest('input.accountDateRange'))) {
+        startDateRangeOverlayGuard();
+      }
+    }, true);
+
+    // Observe DOM for datepicker insertion and keep overlays off while it exists.
+    try {
+      var mo = new MutationObserver(function () {
+        if (isDateRangePickerOpen()) {
+          startDateRangeOverlayGuard();
+        }
+      });
+      mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+    } catch (e) {}
+
+    // Prevent legacy code from showing the overlay while the date picker is open.
+    // This avoids flicker caused by competing show/hide logic.
+    try {
+      if (window.jQuery && window.jQuery.fn) {
+        var $ = window.jQuery;
+        if (!window.__wlOverlayPatched) {
+          window.__wlOverlayPatched = true;
+          var _show = $.fn.show;
+          $.fn.show = function () {
+            try {
+              if (this && this.length && this.is && this.is('#overlay') && document.body.classList.contains('wl-daterange-open')) {
+                return this;
+              }
+              if (this && this.length && this.is && this.is('.topUpPaymentOverlay') && document.body.classList.contains('wl-daterange-open')) {
+                return this;
+              }
+            } catch (e) {}
+            return _show.apply(this, arguments);
+          };
+        }
+      }
+    } catch (e) {}
+
+    // Accordion: toggle `active` on header; CSS controls showing the sibling <div>.
+    // Use capture phase so it still works even if legacy jQuery handlers stop propagation.
+    function toggleAccordionHeader(header) {
+      if (!header || !header.classList) return;
+      header.classList.toggle('active');
+      var glyph = header.querySelector ? header.querySelector('.glyphicon') : null;
+      if (glyph && glyph.classList) glyph.classList.toggle('open');
+    }
+
+    // Sync chevrons for any pre-opened headers (legacy JS sometimes adds .active directly).
+    try {
+      document.querySelectorAll('.accordion header.active .glyphicon').forEach(function (g) {
+        if (g && g.classList) g.classList.add('open');
+      });
+    } catch (e) {}
+
+    document.addEventListener('click', function (e) {
+      var header = e.target && e.target.closest ? e.target.closest('.accordion header') : null;
+      if (!header) return;
+      // Account page has its own accordion controller (legacy-compatible).
+      // Avoid double-toggling when both scripts are present.
+      try {
+        if (header.closest && header.closest('.accountPage')) return;
+      } catch (e) {}
+      // Don't toggle when clicking inside an interactive control nested in a header (rare, but safe).
+      var interactive = e.target && e.target.closest ? e.target.closest('a, button, input, select, textarea, label') : null;
+      if (interactive && header.contains(interactive) && interactive !== header) return;
+      toggleAccordionHeader(header);
+    }, true);
+
+    // Account dropdown: toggle on click for touch devices (hover still works via CSS).
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('#navbarAccountInfo li.loggedInDetails button.menuDropBtn') : null;
+      var isInsideDropdown = e.target && e.target.closest ? e.target.closest('#navbarAccountInfo li.loggedInDetails .accountDropdown') : null;
+      var li = document.querySelector('#navbarAccountInfo li.loggedInDetails');
+      if (!li) return;
+      var dropdown = li.querySelector('.accountDropdown');
+      if (!dropdown) return;
+
+      if (btn) {
+        e.preventDefault();
+        var isOpen = dropdown.style.display === 'block';
+        dropdown.style.display = isOpen ? '' : 'block';
+        return;
+      }
+
+      // Close if clicking outside.
+      if (!isInsideDropdown) {
+        dropdown.style.display = '';
+      }
+    });
+  });
+})();
+  </script>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>
+

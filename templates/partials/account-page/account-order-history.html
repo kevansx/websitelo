@@ -1,0 +1,141 @@
+<div class="col-xs-12 col-sm-12 col-md-12 no-padding" id="accountOrderHistory">
+  {% set f = order_filters if order_filters is defined and order_filters else {} %}
+  {% set account_cur = account_currency_code if account_currency_code is defined else (wallet.currency if wallet and wallet.currency is defined else '') %}
+  <div class="walletPageContent">
+    <form id="accountOrderHistoryForm">
+      <div class="col-xs-12 col-sm-12 col-md-12 no-padding accountHistorySearch">
+        <div class="orderHistorySearchItems">
+          <p class="formLabels">Date Range</p>
+          <div class="acctDateRangeDiv">
+            <input type="text" id="dateRangerOrderHistory" class="accountDateRange" name="dateRangerOrderHistory" autocomplete="off" value="{{ f.date_range or '' }}">
+          </div>
+        </div>
+        <div class="orderHistorySearchItems">
+          <p class="formLabels">Order Number</p>
+          <input type="text" name="orderHistoryNo" id="orderHistoryNo" value="{{ f.order_id or '' }}" />
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 no-padding accountHistorySearch">
+        <button id="searchOrderHistoryButton" class="accountSearchButtons">Search</button>
+        <p id="accountOrderHistoryReset" class="accountSubmitCancel accountSubmitReset">Reset</p>
+      </div>
+    </form>
+
+    <div id="orderHistoryTable">
+      <div class="orderHistoryTableHeader">
+        <div class="orderHistoryTableHeaderCell lrg-td">Sale Date<span class="glyphicon glyphicon-arrow-down"></span></div>
+        <div class="orderHistoryTableHeaderCell lrg-td">Order Number</div>
+        <div class="orderHistoryTableHeaderCell mid-td">Order Via</div>
+        <div class="orderHistoryTableHeaderCell sml-td">Status</div>
+        <div class="orderHistoryTableHeaderCell sml-td">Total Play<br>Amount</div>
+        <div class="orderHistoryTableHeaderCell sml-td"></div>
+      </div>
+
+      {% if recent_orders and recent_orders|length %}
+        {% for o in recent_orders %}
+          {% set sale_date = o.created_at or o.createdAt or o.get('created_at') or o.get('createdAt') or '' %}
+          {% set oid = o.id or o.get('id') %}
+          {% set status = o.status or o.get('status') or '' %}
+          {% set cur = o.currency or o.get('currency') or account_cur %}
+          {% set total_cents = o.total_cents or o.totalCents or o.get('total_cents') or o.get('totalCents') or 0 %}
+          <div class="orderHistoryTableBody orderHistoryTableBodyOne">
+            <div class="orderHistoryTableRow">
+              <div class="orderHistoryTableBodyCell lrg-td"><span class="glyphicon glyphicon-chevron-right glyph-accordion"></span>{{ sale_date }}</div>
+              <div class="orderHistoryTableBodyCell lrg-td">{{ oid }}</div>
+              <div class="orderHistoryTableBodyCell mid-td">Wallet</div>
+              <div class="orderHistoryTableBodyCell sml-td">{{ status }}</div>
+              <div class="orderHistoryTableBodyCell sml-td">{{ cur }} {{ (total_cents or 0) / 100 }}</div>
+              <div class="orderHistoryTableBodyCell sml-td">
+                <a class="primaryLink" href="{{ url_for('order_detail', order_id=oid) }}">View</a>
+              </div>
+            </div>
+          </div>
+          <div class="orderHistoryTableTwo">
+            <div class="orderHistoryTableHeader">
+              <div class="orderHistoryTableHeaderCell sml-td">Item #</div>
+              <div class="orderHistoryTableHeaderCell xlrg-td">Product</div>
+              <div class="orderHistoryTableHeaderCell sml-td">Type</div>
+              <div class="orderHistoryTableHeaderCell lrg-td">Numbers</div>
+              <div class="orderHistoryTableHeaderCell sml-td">Line(s)</div>
+              <div class="orderHistoryTableHeaderCell sml-td">Draw Date</div>
+              <div class="orderHistoryTableHeaderCell sml-td">Price<br>per Unit</div>
+              <div class="orderHistoryTableHeaderCell sml-td">Play<br>Amount</div>
+              <div class="orderHistoryTableHeaderCell sml-td">Billing<br>Interval</div>
+              <div class="orderHistoryTableHeaderCell lrg-td">Total Winnings<br><span>(product currency)</span></div>
+            </div>
+            {% set dtickets = o.get('detail_tickets') or [] %}
+            {% set ditems = o.get('detail_items') or [] %}
+            <div class="orderHistoryTableBody orderHistoryTableBodyTwo">
+              {% if dtickets %}
+                {% for t in dtickets %}
+                  {% set lines_count = t.get('lines_count') or (t.get('lines')|length if t.get('lines') else 0) %}
+                  {% set win_cents = t.get('winnings_total_cents') %}
+                  {% set win_cur = t.get('customer_currency') or cur %}
+                  <div class="orderHistoryTableRow">
+                    <div class="orderHistoryTableBodyCell mid-td"><span class="glyphicon glyphicon-chevron-right glyph-accordion"></span>{{ loop.index }}</div>
+                    <div class="orderHistoryTableBodyCell xlrg-td">{{ t.get('game_name') or t.get('game_code') or t.get('product_code') or '—' }}</div>
+                    <div class="orderHistoryTableBodyCell sml-td">{{ 'Wheel' if t.get('catalog_wheel') else 'Single' }}</div>
+                    <div class="orderHistoryTableBodyCell lrg-td">{{ t.get('boards_display') or '—' }}</div>
+                    <div class="orderHistoryTableBodyCell sml-td">{{ lines_count or '—' }}</div>
+                    <div class="orderHistoryTableBodyCell sml-td">{{ t.get('draw_date') or '—' }}</div>
+                    <div class="orderHistoryTableBodyCell sml-td">—</div>
+                    <div class="orderHistoryTableBodyCell sml-td">—</div>
+                    <div class="orderHistoryTableBodyCell sml-td">—</div>
+                    <div class="orderHistoryTableBodyCell lrg-td">
+                      {% if win_cents is not none %}
+                        {{ win_cur }} {{ '%.2f'|format((win_cents or 0) / 100) }}
+                      {% else %}
+                        —
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endfor %}
+              {% elif ditems %}
+                {% for it in ditems %}
+                  {% set unit_cents = it.get('unit_price_cents') or it.get('price_cents') %}
+                  {% set amount_cents = it.get('amount_cents') or it.get('total_cents') %}
+                  <div class="orderHistoryTableRow">
+                    <div class="orderHistoryTableBodyCell mid-td"><span class="glyphicon glyphicon-chevron-right glyph-accordion"></span>{{ loop.index }}</div>
+                    <div class="orderHistoryTableBodyCell xlrg-td">{{ it.get('product_description') or it.get('product_name') or it.get('name') or it.get('description') or '—' }}</div>
+                    <div class="orderHistoryTableBodyCell sml-td">{{ it.get('type') or '—' }}</div>
+                    <div class="orderHistoryTableBodyCell lrg-td">{{ it.get('sku') or '—' }}</div>
+                    <div class="orderHistoryTableBodyCell sml-td">{{ it.get('quantity') or '—' }}</div>
+                    <div class="orderHistoryTableBodyCell sml-td">—</div>
+                    <div class="orderHistoryTableBodyCell sml-td">
+                      {% if unit_cents is not none %}{{ cur }} {{ '%.2f'|format((unit_cents or 0) / 100) }}{% else %}—{% endif %}
+                    </div>
+                    <div class="orderHistoryTableBodyCell sml-td">
+                      {% if amount_cents is not none %}{{ cur }} {{ '%.2f'|format((amount_cents or 0) / 100) }}{% else %}—{% endif %}
+                    </div>
+                    <div class="orderHistoryTableBodyCell sml-td">—</div>
+                    <div class="orderHistoryTableBodyCell lrg-td">—</div>
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="orderHistoryTableRow">
+                  <div class="orderHistoryTableBodyCell mid-td"><span class="glyphicon glyphicon-chevron-right glyph-accordion"></span>1</div>
+                  <div class="orderHistoryTableBodyCell xlrg-td">—</div>
+                  <div class="orderHistoryTableBodyCell sml-td">—</div>
+                  <div class="orderHistoryTableBodyCell lrg-td">—</div>
+                  <div class="orderHistoryTableBodyCell sml-td">—</div>
+                  <div class="orderHistoryTableBodyCell sml-td">—</div>
+                  <div class="orderHistoryTableBodyCell sml-td">—</div>
+                  <div class="orderHistoryTableBodyCell sml-td">—</div>
+                  <div class="orderHistoryTableBodyCell sml-td">—</div>
+                  <div class="orderHistoryTableBodyCell lrg-td">—</div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="accountNoResults">No orders</p>
+      {% endif %}
+    </div>
+
+    {% if recent_orders_has_more %}
+      <p id="loadMoreOrderHistory" class="accountLoadMoreButton">Load More</p>
+    {% endif %}
+  </div>
+</div>
+

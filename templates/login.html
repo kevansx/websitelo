@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block global_flash %}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row lePages">
+    <div id="signInFormContent">
+      <h1 class="pageHeading">Sign In to Your Account</h1>
+
+      {# Prefer inline legacy-style messaging on this page. #}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <p class="{% if category == 'error' %}regSigninError{% elif category == 'success' %}successCopy{% else %}warningText{% endif %}">
+              {{ message }}
+            </p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form id="signInForm" method="post" action="{{ url_for('login_post') }}">
+        <input type="hidden" name="next" value="{{ next or '' }}" />
+
+        <p class="formLabels">
+          Email <span class="inputRequiredStar">*</span>
+        </p>
+        <input
+          type="email"
+          name="email"
+          id="signInEmail"
+          class="required"
+          placeholder="example@expl.com"
+          required
+          autofocus
+        >
+
+        <p class="formLabels">
+          Password <span class="inputRequiredStar">*</span>
+        </p>
+        <div class="showPassword">
+          <input type="password" name="password" id="signInPassword" class="required" required>
+          <img
+            id="signInPasswordImage"
+            src="/resources/images/eye_u25.svg"
+            onclick="showSignInPassword()"
+            width="22"
+            height="15"
+            alt="Show password"
+          >
+        </div>
+
+        <a id="forgotPassword" class="forgotPasswordLink tertiaryLink" href="{{ url_for('forgot_password') }}">Forgot your password?</a>
+
+        <input type="submit" value="Sign-In" id="signInSubmit">
+      </form>
+
+      <div id="notYetAMemberSection">
+        <p id="registrationFormText">Not a member yet?</p>
+        <a href="{{ url_for('register') }}" id="registrationFormButton" class="registrationFormLink secondaryFormButton">
+          Register Here
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

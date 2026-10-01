@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="/resources/css/blog.css?v={{ build_id }}">
+  {# Article and breadcrumb markup, as the WordPress install emitted before. #}
+  <script type="application/ld+json">{{ article_ld|safe }}</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row lePages">
+    <div class="col-xs-12">
+      <article class="leBlog leBlogPost">
+
+        <nav class="leBlogCrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a> <span class="leBlogDot">&rsaquo;</span>
+          <a href="/blog/">Blog</a> <span class="leBlogDot">&rsaquo;</span>
+          <span>{{ post.heading }}</span>
+        </nav>
+
+        <header class="leBlogPostHeader">
+          <h1 class="pageHeading">{{ post.heading }}</h1>
+          <p class="leBlogCardMeta">
+            {% if post.display_date %}<time datetime="{{ post.iso_date }}">{{ post.display_date }}</time>{% endif %}
+            <span class="leBlogDot">&middot;</span>{{ post.reading_minutes }} min read
+            {% if post.author %}<span class="leBlogDot">&middot;</span>{{ post.author }}{% endif %}
+          </p>
+        </header>
+
+        {% if post.show_hero %}
+        <img class="leBlogHero" src="{{ post.hero_image }}" alt="" decoding="async">
+        {% endif %}
+
+        {# Recovered post body. Sanitised at harvest time: scripts, tracking and
+           third-party embeds were removed and every asset points back here. #}
+        <div class="leBlogBody">{{ post.body_html|safe }}</div>
+
+        {% if post_terms %}
+        <footer class="leBlogTaxonomy">
+          {% for name, url in post_terms %}
+            <a class="leBlogTerm" href="{{ url }}">{{ name|title }}</a>
+          {% endfor %}
+        </footer>
+        {% endif %}
+
+        {% if related %}
+        <section class="leBlogRelated">
+          <h2 class="sub-heading">More from the blog</h2>
+          <div class="leBlogList">
+            {% for other in related %}
+            <article class="leBlogCard">
+              {% if other.card_image %}
+              <a class="leBlogCardImage" href="{{ other.url }}" tabindex="-1" aria-hidden="true">
+                <img src="{{ other.card_image }}" alt="" loading="lazy" decoding="async">
+              </a>
+              {% endif %}
+              <div class="leBlogCardBody">
+                <h3 class="leBlogCardTitle"><a href="{{ other.url }}">{{ other.heading }}</a></h3>
+                <p class="leBlogCardMeta">
+                  {% if other.display_date %}<time datetime="{{ other.iso_date }}">{{ other.display_date }}</time>{% endif %}
+                </p>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+        {% endif %}
+
+        <p class="leBlogBack"><a class="tertiaryLink" href="/blog/">&laquo; All blog posts</a></p>
+
+      </article>
+    </div>
+  </div>
+</div>
+{% endblock %}

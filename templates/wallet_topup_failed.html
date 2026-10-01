@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="noSelect container lePages">
+  <h1 class="pageHeading">Payment failed</h1>
+  <p>We could not complete your payment this time.</p>
+  {% if reason %}
+    <p class="processOrderCopy">{{ reason }}</p>
+  {% endif %}
+  {% if intent_id %}
+    <p class="footnote">Reference: {{ intent_id }}</p>
+  {% endif %}
+  <a class="primaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('wallet_add_funds', next=next or None) }}">Try again</a>
+  <br /><br />
+  {% if next %}
+    <a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ next }}">Back to checkout</a>
+  {% else %}
+    <a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('account') }}#wallet">Back to wallet</a>
+  {% endif %}
+</div>
+{% endblock %}
+

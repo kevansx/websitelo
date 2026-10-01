@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+{#
+  A top-up an agent raised and emailed a link to. The customer is not signed in
+  and may never have been, so this page has to be able to stand on its own: what
+  is being paid, in what currency, and what the payment needs from them.
+
+  Nothing here starts the payment. The provider is contacted when Pay Now is
+  pressed and not before, because provider sessions expire in minutes and mail
+  is read hours after it lands.
+#}
+<div class="container addFundsForms lePaymentLink" id="addFunds">
+  <div class="row lePages">
+    <div class="formHeader">
+      <div class="formHeaderContent">
+        <p class="pageHeading">Complete Your Payment</p>
+
+        {% if unavailable %}
+          <p class="paymentTopUpText">{{ unavailable }}</p>
+        {% elif intent_status == 'completed' %}
+          <p class="paymentTopUpText">This payment has already been received. There is nothing more to pay.</p>
+        {% else %}
+          <p class="paymentTopUpText">
+            Your wallet will be credited with
+            {{ wallet_currency_symbol }}{{ '%.2f'|format((wallet_amount_cents or 0) / 100) }}
+            {%- if wallet_currency and wallet_currency_symbol != wallet_currency %} {{ wallet_currency }}{% endif %}.
+          </p>
+          {% if show_charge %}
+            {# The figure their bank will show them, which is not the figure
+               their wallet is credited with. Saying only one of the two makes
+               the other look like a mistake when they see it. #}
+            <p class="paymentTopUpText">
+              Amount to transfer: <strong>{{ charge_currency }} {{ '%.2f'|format((charge_amount_cents or 0) / 100) }}</strong>
+            </p>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="addFundsContent">
+      {% if unavailable or intent_status == 'completed' %}
+        <div class="paymentTopUpFormLeft">
+          <a class="primaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('login', next=url_for('wallet_add_funds')) }}">Sign in to your wallet</a>
+          <br /><br />
+          <a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('contact') }}">Contact us</a>
+        </div>
+      {% else %}
+        <div class="addCardToFile">
+          {# `autocomplete="off"` throughout: these identify a person to their
+             tax authority and should not be left in a browser's saved form
+             values on what may be a shared machine. #}
+          <form method="post" action="{{ url_for('wallet_payment_link_post') }}" id="paymentLinkForm" autocomplete="off">
+            {% if error %}
+              <p class="addFundsDepositError" style="display:block;">{{ error }}</p>
+            {% endif %}
+
+            {% if fields %}
+              <div class="paymentTopUpFormLeft" style="margin-top:0;">
+                <label>Your details</label>
+                <p class="paymentTopUpText">
+                  Your bank requires these to accept the transfer. We use them for this payment only and do not keep them.
+                </p>
+                {% for field in fields %}
+                  <label style="margin-top:8px;">{{ field.label }}<span class="inputRequiredStar">*</span></label>
+                  <input
+                    type="text"
+                    name="{{ field.name }}"
+                    id="paymentLink_{{ field.name }}"
+                    value="{{ values.get(field.name, '') }}"
+                    {% if field.max_length %}maxlength="{{ field.max_length }}"{% endif %}
+                    autocomplete="off"
+                    autocapitalize="characters"
+                    spellcheck="false"
+                    required
+                  />
+                  <p class="footnote">
+                    {%- if field.min_length and field.min_length == field.max_length -%}
+                      {{ field.min_length }} characters
+                    {%- elif field.min_length -%}
+                      {{ field.min_length }} to {{ field.max_length }} characters
+                    {%- endif -%}
+                  </p>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <div style="clear:both;"></div>
+
+            <div class="paymentTopUpFormLeft" style="margin-top:14px;">
+              <button type="submit" class="primaryFormButton" id="paymentLinkSubmit">Pay Now</button>
+            </div>
+          </form>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if intent_reference and not unavailable %}
+      <div style="clear:both;"></div>
+      <p class="leTransferIntro footnote">If you need to contact us about this payment, quote number {{ intent_reference }}.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

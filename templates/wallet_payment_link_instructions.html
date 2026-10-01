@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block content %}
+{#
+  A transfer the customer makes themselves, from their own bank, to the account
+  below. There is no payment page to send them to, so these details have to be
+  readable and copyable here - and the money arrives minutes or hours after they
+  close this page, which is why the wallet stays pending and why the reference
+  matters more than anything else on the screen.
+#}
+<div class="container lePages" id="paymentLinkInstructions">
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="pageHeading" id="paymentLinkHeading">Transfer to Complete Your Payment</p>
+
+      <div id="paymentLinkPaid" class="leTransferPaid" style="display:none;">
+        <p class="leTransferPaidTitle">Payment received</p>
+        <p>Your wallet has been credited. Thank you.</p>
+      </div>
+
+      {# Shown if the payment reaches a state it cannot come back from. The
+         transfer details are taken off the screen with it: a CLABE left in
+         front of someone whose payment has failed invites a transfer we would
+         have nothing to match it to. #}
+      <div id="paymentLinkFailed" class="leTransferFailed" style="display:none;">
+        <p class="leTransferFailedTitle">This payment did not complete</p>
+        <p>
+          Please do not make the transfer. Nothing has been taken. Sign in to your wallet to
+          try again, or contact us and we will help.
+        </p>
+      </div>
+
+      <div id="paymentLinkPending">
+      <p class="leTransferIntro">
+        Make a transfer for the amount below using your bank's app or website. Your wallet is
+        credited once the transfer arrives, which is usually within a few minutes.
+      </p>
+
+      <div class="leTransfer">
+        {% if instructions.get('amount') %}
+          <div class="leTransferRow leTransferAmountRow">
+            <span class="leTransferLabel">Amount</span>
+            <span class="leTransferAmount">{{ instructions.get('currency') or '' }} {{ instructions.get('amount') }}</span>
+          </div>
+        {% endif %}
+        {% if instructions.get('clabe') %}
+          {# The one field a transfer cannot be made without, and eighteen digits
+             is too many to retype from memory, so it gets its own copy button. #}
+          <div class="leTransferRow">
+            <span class="leTransferLabel">CLABE</span>
+            <span class="leTransferValue leTransferMono" id="paymentLinkClabe">{{ instructions.get('clabe') }}</span>
+            <button type="button" class="leTransferCopy" data-copy-target="paymentLinkClabe">Copy</button>
+          </div>
+        {% endif %}
+        {% if instructions.get('bank_name') %}
+          <div class="leTransferRow">
+            <span class="leTransferLabel">Bank</span>
+            <span class="leTransferValue">{{ instructions.get('bank_name') }}</span>
+          </div>
+        {% endif %}
+        {% if instructions.get('beneficiary') %}
+          <div class="leTransferRow">
+            <span class="leTransferLabel">Beneficiary</span>
+            <span class="leTransferValue">{{ instructions.get('beneficiary') }}</span>
+          </div>
+        {% endif %}
+        {% if reference %}
+          <div class="leTransferRow">
+            <span class="leTransferLabel">Reference</span>
+            <span class="leTransferValue leTransferMono" id="paymentLinkReference">{{ reference }}</span>
+            <button type="button" class="leTransferCopy" data-copy-target="paymentLinkReference">Copy</button>
+          </div>
+        {% endif %}
+      </div>
+
+      <p class="footnote">
+        Please include the reference exactly as shown. Without it we cannot match your
+        transfer to your account.
+      </p>
+
+      </div>
+
+      {% if intent_reference %}
+        {# Not called a reference. The transfer has one of those already, and a
+           customer who mixes the two sends money we cannot match to them. #}
+        <p class="footnote">If you need to contact us about this payment, quote number {{ intent_reference }}.</p>
+      {% endif %}
+
+      <br />
+      <a class="secondaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('login', next=url_for('account') + '#wallet') }}">Sign in to your wallet</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    document.querySelectorAll(".leTransferCopy").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var source = document.getElementById(button.getAttribute("data-copy-target"));
+        if (!source) return;
+        var text = (source.textContent || "").trim();
+        var done = function () {
+          var was = button.textContent;
+          button.textContent = "Copied";
+          setTimeout(function () { button.textContent = was; }, 1500);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () {});
+          return;
+        }
+        // Older mobile browsers, where a banking customer is quite likely to be.
+        var field = document.createElement("textarea");
+        field.value = text;
+        document.body.appendChild(field);
+        field.select();
+        try { document.execCommand("copy"); done(); } catch (e) {}
+        document.body.removeChild(field);
+      });
+    });
+
+    // The transfer lands out of band, so the page asks rather than waits. It
+    // gives up after ten minutes: by then the customer has almost certainly
+    // left, and the wallet will show the credit whenever they come back.
+    var statusUrl = {{ status_url|tojson }};
+    var attempts = 0;
+    var timer = setInterval(function () {
+      attempts += 1;
+      if (attempts > 40) { clearInterval(timer); return; }
+      fetch(statusUrl, { credentials: "same-origin" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data) return;
+          // "pending" is the normal answer for a transfer not yet made, and
+          // "unknown" means we could not read the answer. Neither is news.
+          // "expired" is the link, not the payment: nothing to say, but no
+          // point asking again either.
+          if (data.status === "expired") { clearInterval(timer); return; }
+          var finished = data.status === "success" || data.status === "failed" || data.status === "cancelled";
+          if (!finished) return;
+          clearInterval(timer);
+          var paid = data.status === "success";
+          var pending = document.getElementById("paymentLinkPending");
+          if (pending) pending.style.display = "none";
+          var banner = document.getElementById(paid ? "paymentLinkPaid" : "paymentLinkFailed");
+          if (banner) banner.style.display = "block";
+          // The heading asks for a transfer, which is not what is being said
+          // any more once one is either done or pointless.
+          var heading = document.getElementById("paymentLinkHeading");
+          if (heading) heading.textContent = paid ? "Payment Received" : "Payment Not Completed";
+        })
+        .catch(function () {});
+    }, 15000);
+  })();
+</script>
+{% endblock %}
