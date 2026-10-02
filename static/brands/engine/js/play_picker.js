@@ -303,7 +303,8 @@
     ".lotteryDetails",
     "#lotteryPageCopy",
     "#placeBetButton",
-    "footer"
+    "footer",
+    ".lo-hide-when-editing"
   ].join(",");
 
   function openLineEditor(lineEl) {
@@ -829,6 +830,61 @@
     // Kick off
     renderWeeks();
     state.setProduct(getSelectedProductCode());
+
+    // Control surface for the LottosOnline play page (lo_picker_fx.js): line-count chips, shuffle all,
+    // per-line shuffle, add line, own numbers. Every change goes through the same state + refresh as the
+    // buttons above, so lines_json / options_json reach /cart/add exactly as before.
+    function notify(name, detail) {
+      try { document.dispatchEvent(new CustomEvent(name, { detail: detail || {} })); } catch (e) {}
+    }
+    window.LOPicker = {
+      groups: function () { return state.groups; },
+      lineCount: function () { return state.lines.length; },
+      unitPrice: function () {
+        var p = priceForCurrency(state.product, state.defaultCurrency);
+        if (p) return p;
+        if (state.product && state.product.price_in_base_cents != null) {
+          return { cents: parseInt(state.product.price_in_base_cents, 10), currency: state.product.base_currency || "EUR" };
+        }
+        return null;
+      },
+      currencySymbol: currencySymbol,
+      setLineCount: function (n) {
+        if (state.lineEdit) return;
+        n = Math.max(1, Math.min(50, parseInt(n, 10) || 1));
+        state.lines = [];
+        for (var i = 0; i < n; i++) state.lines.push(quickPickLine(state.groups));
+        state.rebuildLines();
+        state.refresh();
+        notify("lopicker:quickpicked", { all: true });
+      },
+      ownNumbers: function () {
+        if (state.lineEdit) return;
+        state.lines = [defaultEmptyLine(state.groups)];
+        state.rebuildLines();
+        state.refresh();
+        notify("lopicker:own", {});
+      },
+      shuffleAll: function () {
+        for (var i = 0; i < state.lines.length; i++) state.lines[i] = quickPickLine(state.groups);
+        state.refresh();
+        notify("lopicker:quickpicked", { all: true });
+      },
+      shuffleLine: function (idx) {
+        if (idx < 0 || idx >= state.lines.length) return;
+        state.lines[idx] = quickPickLine(state.groups);
+        state.refresh();
+        notify("lopicker:quickpicked", { index: idx });
+      },
+      addLine: function (quick) {
+        if (state.lineEdit) return;
+        state.lines.push(quick ? quickPickLine(state.groups) : defaultEmptyLine(state.groups));
+        state.rebuildLines();
+        state.refresh();
+        notify(quick ? "lopicker:quickpicked" : "lopicker:own", { index: state.lines.length - 1 });
+      }
+    };
+    notify("lopicker:ready", {});
   }
 
   if (document.readyState === "loading") {

@@ -1,111 +1,135 @@
 {# Play page: /lottery-tickets/<slug> (and /uk/lottery-tickets/<slug>). H1, title and the long copy are the
-   live page's, word for word. The number picker is the engine's (static/brands/engine/js/play_picker.js +
-   line_editor_core.js): every element id and class those scripts look up is kept below, restyled by
-   brands/lottosonline/css/picker.css. Form posts to cart_add exactly as before. #}
+   live page's, word for word.
+
+   Layout combines the best of LottoGo and theLotter (reviewed 2 Oct 2026), in the LottosOnline style:
+   - LottoGo: celebratory hero (radial gradient, animated fireworks + twinkling stars, "It's a rollover!"
+     ribbon, ball, jackpot on a dark tag, time left); price per line on the right of every line.
+   - theLotter: "How many lines?" chips (3 5 7 10 15 25) on the same page; slot-reel quick-pick animation;
+     compact lines with shuffle / edit / delete; Shuffle all + "+1 line"; entry type section; sticky total bar.
+
+   The number picker is still the engine's (play_picker.js + line_editor_core.js): every element id those
+   scripts use is kept, and lo_picker_fx.js drives it through window.LOPicker, so the form posts to cart_add
+   exactly as before. #}
 {% extends "lo/base.html" %}
 {% set lot = lo_lottery(game.game_code) if game else None %}
 {% set page = lo_page(request.path) %}
 {% set jp = lo_jackpot(game.game_code) if game else None %}
-{% set breadcrumbs = [("Home", "/"), ("Play Lottos", "/lottery-tickets"), ((page.h1 if page else None) or ("Play " ~ (lot.name if lot else "")), request.path)] %}
+{% set name = lot.name if lot else (game.game_name if game else "") %}
+{% set breadcrumbs = [("Home", "/"), ("Play Lottos", "/lottery-tickets"), ((page.h1 if page else None) or ("Play " ~ name), request.path)] %}
 {% block extra_head %}<link rel="stylesheet" href="{{ lo_asset('css/picker.css') }}">{% endblock %}
 {% block jsonld %}{% if game and lot %}<script type="application/ld+json">{{ lo_product_jsonld(lot, game, jp)|safe }}</script>{% endif %}{% endblock %}
+{% block body_class %} lo-playpage{% endblock %}
 {% block content %}
 <div class="noSelect" id="mobileTicketWindow" style="display:none"></div>
 {% if not game %}
   <section class="lo-section"><div class="lo-wrap"><div class="lo-panel"><h1>Play</h1><p>This lottery is not available right now.</p></div></div></section>
 {% else %}
-<section class="lo-pagehead lo-pagehead--play">
-  <div class="lo-wrap">
-    <nav class="lo-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/lottery-tickets">Play Lottos</a> / <span>{{ lot.name if lot else game.game_name }}</span></nav>
-    <div class="lo-pagehead__row">
-      {% if lot %}<span class="lo-pagehead__ball"><img src="{{ lo_ball(lot) }}" alt="{{ lot.name }}" width="88" height="88"></span>{% endif %}
-      <div class="lo-playhead">
-        <h1>{{ (page.h1 if page else None) or ("Play " ~ (lot.name if lot else game.game_name) ~ " Online") }}</h1>
-        <div class="lo-playhead__facts">
-          <span class="lo-playhead__jackpot" id="bannerJackpotAmount">{{ (jp.display if jp and jp.display) or jackpot_display or "Results Pending" }}</span>
-          {% if jp and jp.rise_pct %}<span class="lo-game__rise">🔥 {{ jp.rise_pct }}% above base</span>{% endif %}
-        </div>
-        <p class="lo-playhead__cutoff">Sales close in
-          <span id="drawCounterReact">{% if remaining_seconds is not none %}<span class="wl-countdown" data-remaining="{{ remaining_seconds }}">&nbsp;</span>{% elif jp and jp.cutoff_iso %}<span class="lo-countdown lo-countdown--onbrand" data-until="{{ jp.cutoff_iso }}">&nbsp;</span>{% else %}<span>soon</span>{% endif %}</span>
+
+{# ---------------- hero ---------------- #}
+<section class="lo-playhero lo-hide-when-editing" aria-labelledby="playTitle">
+  <div class="lo-playhero__fx" aria-hidden="true">
+    {% for fw in [("8%","18%","1.0","0s"),("78%","10%","1.25","1.1s"),("62%","62%","0.8","2.2s"),("18%","70%","0.7","3.1s")] %}
+    <svg class="lo-firework" style="left:{{ fw[0] }};top:{{ fw[1] }};--s:{{ fw[2] }};animation-delay:{{ fw[3] }}" width="140" height="140" viewBox="-70 -70 140 140">
+      {% for a in range(0, 360, 30) %}<line x1="0" y1="-14" x2="0" y2="-58" transform="rotate({{ a }})" />{% endfor %}
+      {% for a in range(15, 360, 30) %}<circle cx="0" cy="-46" r="3.2" transform="rotate({{ a }})" />{% endfor %}
+    </svg>
+    {% endfor %}
+    {% for st in [("4%","64%","0s",14),("26%","12%",".7s",10),("44%","78%","1.4s",12),("70%","34%",".3s",16),("88%","70%","1.9s",11),("93%","22%","1.1s",9),("56%","8%","2.4s",10)] %}
+    <svg class="lo-twinkle" style="left:{{ st[0] }};top:{{ st[1] }};animation-delay:{{ st[2] }}" width="{{ st[3] }}" height="{{ st[3] }}" viewBox="0 0 24 24"><path d="M12 0l2.9 8.6L24 12l-9.1 3.4L12 24l-2.9-8.6L0 12l9.1-3.4z"/></svg>
+    {% endfor %}
+  </div>
+  <div class="lo-wrap lo-playhero__inner">
+    <nav class="lo-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/lottery-tickets">Play Lottos</a> / <span>{{ name }}</span></nav>
+    {% if jp and jp.rise_pct and jp.rise_pct >= 50 %}<p class="lo-playhero__ribbon">It's a rollover! <span>🔥 {{ jp.rise_pct }}% above base</span></p>{% endif %}
+    <div class="lo-playhero__row">
+      {% if lot %}<span class="lo-playhero__ball"><img src="{{ lo_ball(lot) }}" alt="{{ name }}" width="112" height="112"></span>{% endif %}
+      <div class="lo-playhero__copy">
+        <h1 id="playTitle">{{ (page.h1 if page else None) or ("Play " ~ name ~ " Online") }}</h1>
+        <div class="lo-jackpot-tag lo-jackpot-tag--gold lo-playhero__tag"><span id="bannerJackpotAmount">{{ (jp.display if jp and jp.display) or jackpot_display or "Results Pending" }}</span></div>
+        <p class="lo-playhero__time">
+          {% if jp and jp.closed %}Results Pending{% else %}Time left:
+          <span id="drawCounterReact">{% if remaining_seconds is not none %}<span class="wl-countdown" data-remaining="{{ remaining_seconds }}">&nbsp;</span>{% elif jp and jp.cutoff_iso %}<span class="lo-countdown lo-countdown--onbrand" data-until="{{ jp.cutoff_iso }}">&nbsp;</span>{% else %}<span>soon</span>{% endif %}</span>{% endif %}
         </p>
       </div>
     </div>
   </div>
 </section>
 
+{% if game.products and game.products|length > 0 %}
 <section class="lo-section lo-section--tight">
   <div class="lo-wrap lo-playgrid">
-    <div class="lo-panel lo-picker" id="{{ legacy_page_id or game.game_code }}">
-      <div class="lo-picker__head">
-        <ol class="lo-steps">
-          <li>Choose your numbers or Quick Pick</li>
-          <li>Choose how many weeks and draw days</li>
-          <li>Buy your tickets</li>
-        </ol>
-        <div class="lo-picker__tools" id="quickpickClearAll">
-          <button type="button" class="lo-btn lo-btn--quiet lo-btn--sm" id="quickPickAll">Quick Pick All</button>
-          <button type="button" class="lo-btn lo-btn--quiet lo-btn--sm" id="clearAll">Clear All</button>
+    <div class="lo-playmain">
+
+      {# ---- 1. how many lines (theLotter) ---- #}
+      <div class="lo-panel lo-card lo-hide-when-editing">
+        <div class="lo-card__head"><span class="lo-card__step">1</span><h2>How many lines?</h2><span class="lo-card__hint">{{ (lo_rules(game) or "") }}</span></div>
+        <div class="lo-card__body lo-qp">
+          <div class="lo-qp__chips" role="group" aria-label="Popular quick pick entries">
+            {% for n in [3, 5, 7, 10, 15, 25] %}<button type="button" class="lo-chip" data-lo-lines="{{ n }}" aria-pressed="{{ 'true' if n == 3 else 'false' }}">{{ n }}<small>lines</small></button>{% endfor %}
+          </div>
+          <span class="lo-qp__or">or</span>
+          <button type="button" class="lo-btn lo-btn--secondary lo-qp__own" data-lo-own>Choose your own numbers</button>
         </div>
       </div>
 
-      {% if game.products and game.products|length > 0 %}
-        <div id="tickets_section">
-          <div id="linesContainer"></div>
-          <a id="addLine" href="#" onclick="return false;" class="lo-addline">
-            <div class="addLines">
-              <div id="upperTicketSection"></div>
-              <div id="addLineContent">
-                <span id="addLineImage" aria-hidden="true">+</span>
-                <span id="addLineText">Add Line</span>
-                <span id="addQuickPickText">Add Quick Pick</span>
-              </div>
-            </div>
-          </a>
+      {# ---- 2. your lines ---- #}
+      <div class="lo-panel lo-card lo-picker" id="{{ legacy_page_id or game.game_code }}">
+        <div class="lo-card__head lo-hide-when-editing"><span class="lo-card__step">2</span><h2>Your lines</h2><span class="lo-card__hint">Tap a line to choose your own numbers</span></div>
+        <div class="lo-card__body">
+          <div id="tickets_section"><div id="linesContainer"></div></div>
+          <div class="lo-lineactions lo-hide-when-editing">
+            <button type="button" class="lo-btn lo-btn--quiet" data-lo-shuffle-all>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+              Shuffle Quick Picks</button>
+            <button type="button" class="lo-btn lo-btn--quiet" data-lo-add-line>+1 line</button>
+          </div>
         </div>
-      {% else %}
-        <p>No tickets are on sale for this draw right now.</p>
-      {% endif %}
+      </div>
+
+      {# ---- 3. entry type (theLotter) ---- #}
+      <div class="lo-panel lo-card lo-hide-when-editing">
+        <div class="lo-card__head"><span class="lo-card__step">3</span><h2>Draws</h2><span class="lo-card__hint">Choose your draw days and how many weeks to play</span></div>
+        <div class="lo-card__body" id="lottoDrawDays">
+          <p class="lo-ordercard__label">Draw days</p>
+          <div class="lottoDrawDays" id="leDrawDays"></div>
+          <div class="lo-weeks">
+            <div>
+              <p class="lo-ordercard__label" style="margin:0">Play for</p>
+              <p class="lo-weeks__hint">Your numbers are entered in every draw you choose, for each week.</p>
+            </div>
+            <div class="lo-stepper" id="leWeeksCounter">
+              <button type="button" class="lo-stepper__btn lotteryCountMinus" id="leWeeksMinus" aria-label="Fewer weeks">&minus;</button>
+              <span class="lo-stepper__value"><input id="weekCount" type="number" value="1" readonly aria-label="Number of weeks"> <span id="subscriptionWeekCopy">Week</span></span>
+              <button type="button" class="lo-stepper__btn lotteryCountPlus" id="leWeeksPlus" aria-label="More weeks">+</button>
+            </div>
+          </div>
+          <div id="leAddons"></div>
+        </div>
+      </div>
     </div>
 
-    {% if game.products and game.products|length > 0 %}
-    <aside class="lo-panel lo-ordercard">
+    {# ---- order summary (desktop: sticky side card; phone: sticky bottom bar below) ---- #}
+    <aside class="lo-panel lo-ordercard lo-hide-when-editing">
       <form id="singlePlayBetForm" method="post" action="{{ url_for('cart_add') }}">
         <input type="hidden" name="lines_json" id="leLinesJson" value="[]">
         <input type="hidden" name="options_json" id="leOptionsJson" value="{}">
         <input type="hidden" name="edit_order_url" value="{{ request.path }}">
         <input type="hidden" name="game_code" value="{{ game.game_code }}">
-        <input type="hidden" name="game_name" value="{{ lot.name if lot else (game.game_name or game.game_code) }}">
+        <input type="hidden" name="game_name" value="{{ name }}">
         <input type="hidden" name="line_edit_item_idx" value="{{ line_edit_ctx.item_idx if line_edit_ctx else '' }}">
         <input type="hidden" name="line_edit_line_idx" value="{{ line_edit_ctx.line_idx if line_edit_ctx else '' }}">
-
-        <h2 class="lo-ordercard__title">Your {{ lot.name if lot else game.game_name }} order</h2>
-
-        <div id="lottoDrawDays" class="lo-ordercard__block">
-          <p class="lo-ordercard__label">Duration</p>
-          <div class="lo-stepper" id="leWeeksCounter">
-            <button type="button" class="lo-stepper__btn lotteryCountMinus" id="leWeeksMinus" aria-label="Fewer weeks">&minus;</button>
-            <span class="lo-stepper__value"><input id="weekCount" type="number" value="1" readonly aria-label="Number of weeks"> <span id="subscriptionWeekCopy">Week</span></span>
-            <button type="button" class="lo-stepper__btn lotteryCountPlus" id="leWeeksPlus" aria-label="More weeks">+</button>
-          </div>
-          <p class="lo-ordercard__label" style="margin-top:var(--space-4)">Select your draw days</p>
-          <div class="lottoDrawDays" id="leDrawDays"></div>
-        </div>
-
         {% if game.products|length == 1 %}
           {% set p0 = game.products[0] %}
           <input type="hidden" id="leProductCode" name="product_code" value="{{ (line_edit_ctx.product_code if line_edit_ctx and line_edit_ctx.product_code else (p0.code or p0.product_code)) }}">
         {% else %}
-          <div class="lo-field" style="margin-top:var(--space-4)">
+          <div class="lo-field" style="margin-bottom:var(--space-4)">
             <label class="lo-field__label" for="leProductCode">Ticket type</label>
             <select class="lo-input" id="leProductCode" name="product_code">
-              {% for p in game.products %}{% set p_code = (p.code or p.product_code) %}
-                <option value="{{ p_code }}"{% if line_edit_ctx and line_edit_ctx.product_code == p_code %} selected{% endif %}>{{ p.name or p_code }}</option>
-              {% endfor %}
+              {% for p in game.products %}{% set p_code = (p.code or p.product_code) %}<option value="{{ p_code }}"{% if line_edit_ctx and line_edit_ctx.product_code == p_code %} selected{% endif %}>{{ p.name or p_code }}</option>{% endfor %}
             </select>
           </div>
         {% endif %}
-        <div id="leAddons"></div>
-
+        <h2 class="lo-ordercard__title">Your {{ name }} order</h2>
         <div class="lo-summary">
           <div class="lo-summary__row"><span id="linesDrawsCount">0 Lines x 1 Draw</span>
             <span><span id="leCurrencySymbol">{{ picker_display_currency_symbol or '€' }}</span><span class="linesDrawsAmount" id="leLinesDrawsAmount">0.00</span></span></div>
@@ -113,47 +137,58 @@
             <span id="lotteryTotalAmount"><span id="leCurrencySymbolTotal">{{ picker_display_currency_symbol or '€' }}</span><span class="linesDrawsAmount" id="leTotalAmount">0.00</span></span></div>
         </div>
         <button type="submit" class="lo-btn lo-btn--block lo-btn--lg" id="placeBetButton">Play Now</button>
-        <p class="lo-ordercard__note">Official tickets, bought for you. A scan of every ticket appears in your account.</p>
-        {% if lot %}<p class="lo-ordercard__links"><a class="lo-link" href="/winning-lottery-numbers/{{ lot.slug }}">{{ lot.name }} results</a> · <a class="lo-link" href="/lotteries/{{ lot.slug }}">How {{ lot.name }} works</a></p>{% endif %}
+        <ul class="lo-trust">
+          <li>Official {{ name }} tickets</li>
+          <li>A scan of every ticket in your account</li>
+          <li>No commission on winnings</li>
+        </ul>
+        {% if lot %}<p class="lo-ordercard__links"><a class="lo-link" href="/winning-lottery-numbers/{{ lot.slug }}">{{ name }} results</a> · <a class="lo-link" href="/lotteries/{{ lot.slug }}">How {{ name }} works</a></p>{% endif %}
       </form>
     </aside>
-
-    <template id="leLineTemplate">
-      <div class="leLineWrapper" data-line-index="__IDX__">
-        <div class="lines">
-          <div id="upperTicketSection">
-            <div id="choosenNumber"></div>
-            <div id="mobileUpperTicketSection">
-              <a id="closeTicketWindow" href="#" data-action="close-editor" aria-label="Close number selection">&times;</a>
-              <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
-              <button class="clearButton" type="button" data-action="clear">Clear</button>
-              <button class="done" type="button" data-action="done">Done</button>
-              <button class="trashButton" type="button" data-action="trash" aria-label="Delete line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
-              <span class="editTicket" data-action="edit" role="button" tabindex="0" aria-label="Edit numbers">Edit</span>
-            </div>
-            <div id="webUpperTicketSection">
-              <span class="ticketCompleteImage" style="display:none" aria-label="Line complete">&#10003;</span>
-              <span class="ticketIncompleteImage" aria-label="Line incomplete">!</span>
-              <button class="trashButton" type="button" data-action="trash" aria-label="Delete line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
-              <button class="clearButton" type="button" data-action="clear">Clear</button>
-              <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
-            </div>
-          </div>
-          <div id="lowerTicketSection"><div class="leGroups"></div></div>
-        </div>
-      </div>
-    </template>
-
-    <script id="lePickerProducts" type="application/json">{{ picker_products|tojson }}</script>
-    <script id="leJackpot" type="application/json">{{ jackpot_payload|tojson }}</script>
-    <script id="leCartLineEdit" type="application/json">{{ line_edit_ctx|tojson if line_edit_ctx else '{}' }}</script>
-    <div id="leDefaultCurrency" data-currency="{{ picker_display_currency or '' }}" aria-hidden="true" hidden></div>
-    {% endif %}
   </div>
 </section>
 
+{# sticky total bar for phones (theLotter) #}
+<div class="lo-stickybar lo-hide-when-editing" id="loStickyBar">
+  <div><span class="lo-stickybar__lines" data-lo-bar-lines>Total (3 lines)</span><strong class="lo-stickybar__total" data-lo-bar-total>€0.00</strong></div>
+  <button type="button" class="lo-btn" data-lo-play data-lo-bar-play>Play Now</button>
+</div>
+
+<template id="leLineTemplate">
+  <div class="leLineWrapper" data-line-index="__IDX__">
+    <div class="lines">
+      <div id="upperTicketSection">
+        <div id="choosenNumber"></div>
+        <div id="mobileUpperTicketSection">
+          <a id="closeTicketWindow" href="#" data-action="close-editor" aria-label="Close number selection">&times;</a>
+          <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
+          <button class="clearButton" type="button" data-action="clear">Clear</button>
+          <button class="done" type="button" data-action="done">Done</button>
+          <button class="trashButton" type="button" data-action="trash" aria-label="Delete line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+          <span class="editTicket" data-action="edit" role="button" tabindex="0" aria-label="Edit numbers">Edit</span>
+        </div>
+        <div id="webUpperTicketSection">
+          <span class="ticketCompleteImage" style="display:none" aria-label="Line complete">&#10003;</span>
+          <span class="ticketIncompleteImage" aria-label="Line incomplete">!</span>
+          <button class="lo-iconaction quickPickButton" type="button" data-action="quickpick" aria-label="Shuffle this line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></button>
+          <button class="lo-iconaction trashButton" type="button" data-action="trash" aria-label="Delete line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+          <button class="lo-iconaction clearButton" type="button" data-action="clear" aria-label="Clear this line">Clear</button>
+        </div>
+      </div>
+      <div id="lowerTicketSection"><div class="leGroups"></div></div>
+    </div>
+  </div>
+</template>
+<script id="lePickerProducts" type="application/json">{{ picker_products|tojson }}</script>
+<script id="leJackpot" type="application/json">{{ jackpot_payload|tojson }}</script>
+<script id="leCartLineEdit" type="application/json">{{ line_edit_ctx|tojson if line_edit_ctx else '{}' }}</script>
+<div id="leDefaultCurrency" data-currency="{{ picker_display_currency or '' }}" aria-hidden="true" hidden></div>
+{% else %}
+<section class="lo-section"><div class="lo-wrap"><div class="lo-panel"><p>No tickets are on sale for this draw right now.</p></div></div></section>
+{% endif %}
+
 {% if page and page['copy'] %}
-<section class="lo-section" style="padding-top:0">
+<section class="lo-section lo-hide-when-editing" style="padding-top:0">
   <div class="lo-wrap"><article class="lo-panel lo-prose">{% for block in page['copy'] %}{{ block.html|safe }}{% endfor %}</article></div>
 </section>
 {% endif %}
@@ -163,4 +198,5 @@
 {% block extra_scripts %}
 <script defer src="{{ lo_engine_asset('js/line_editor_core.js') }}"></script>
 <script defer src="{{ lo_engine_asset('js/play_picker.js') }}"></script>
+<script defer src="{{ lo_asset('js/lo_picker_fx.js') }}"></script>
 {% endblock %}

@@ -121,7 +121,7 @@ def test_play_page_countdown_absent_gracefully(anon_client, stub_crm):
     # No cached jackpot -> banner shows a placeholder, not an error.
     resp = anon_client.get("/lottery-tickets/us-powerball")
     assert resp.status_code == 200
-    assert "Sales close in" in resp.data.decode("utf-8")
+    assert "Time left:" in resp.data.decode("utf-8")
 
 
 def _home_counter(anon_client, monkeypatch, jackpot):

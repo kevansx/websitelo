@@ -1,116 +1,207 @@
-/* LottosOnline number picker. Styles the markup that play_picker.js / line_editor_core.js generate
-   (their class names are kept as-is: leLineWrapper, leNumberGrid, selectedNumber, drawDate, ...).
-   Phone first: under 768px a line opens full screen to pick numbers (the scripts add .showTicket). */
+/* LottosOnline play page. Hero after LottoGo (fireworks, rollover ribbon, jackpot tag); lines, chips, slot reel
+   and sticky bar after theLotter; all in the LottosOnline palette. Also styles the markup the engine scripts
+   generate (leLineWrapper, leNumberGrid, selectedNumber, drawDate, ...). Phone first. */
 
-/* ---- page layout ---- */
-.lo-pagehead--play { padding-bottom: var(--space-6); }
-.lo-playhead h1 { font-size: 24px; line-height: 30px; }
-.lo-playhead__facts { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-2); }
-.lo-playhead__jackpot { font: 800 30px/34px var(--font-display); color: var(--gold-400); letter-spacing: -0.01em; }
-.lo-playhead__cutoff { margin: var(--space-2) 0 0 !important; color: var(--ink-on-brand-muted); }
-.lo-playhead__cutoff .wl-countdown, .lo-playhead__cutoff .lo-countdown { color: #fff; font-weight: 700; font-variant-numeric: tabular-nums; }
-@media (min-width: 900px) { .lo-playhead h1 { font-size: 32px; line-height: 38px; } .lo-playhead__jackpot { font-size: 40px; line-height: 44px; } }
+/* ================= hero ================= */
+.lo-playhero { position: relative; overflow: hidden; color: #fff;
+  background: radial-gradient(circle at 28% 24%, var(--surface-brand-raised) 0%, var(--surface-brand) 45%, var(--surface-brand-deep) 100%); }
+.lo-playhero__fx { position: absolute; inset: 0; pointer-events: none; }
+.lo-firework { position: absolute; transform: translate(-50%, -50%) scale(calc(var(--s, 1) * .2)); opacity: 0;
+  stroke: var(--gold-400); stroke-width: 3; stroke-linecap: round; fill: var(--gold-400);
+  animation: lo-burst 3.6s cubic-bezier(.2,.7,.3,1) infinite; }
+.lo-firework circle { stroke: none; }
+@keyframes lo-burst {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(calc(var(--s, 1) * .2)) rotate(0deg); }
+  12% { opacity: .95; }
+  45% { opacity: .55; transform: translate(-50%, -50%) scale(var(--s, 1)) rotate(8deg); }
+  70%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(calc(var(--s, 1) * 1.1)) rotate(10deg); }
+}
+.lo-twinkle { position: absolute; fill: var(--gold-400); opacity: .2; animation: lo-twinkle 2.8s ease-in-out infinite; }
+@keyframes lo-twinkle { 0%, 100% { opacity: .15; transform: scale(.7) rotate(0deg); } 50% { opacity: 1; transform: scale(1.1) rotate(20deg); } }
+.lo-playhero__inner { position: relative; padding-top: var(--space-4); padding-bottom: var(--space-6); }
+.lo-playhero .lo-crumbs { margin-bottom: var(--space-3); }
+.lo-playhero__ribbon { display: inline-flex; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-3); padding: 6px 14px;
+  background: #1d1324; color: var(--gold-400); border-radius: var(--radius-sm); transform: rotate(-1.5deg);
+  font: 800 15px/20px var(--font-display); letter-spacing: .02em; text-transform: uppercase; box-shadow: var(--shadow-tag); }
+.lo-playhero__ribbon span { font: 700 12px/16px var(--font-body); text-transform: none; color: #fff; letter-spacing: 0; }
+.lo-playhero__row { display: flex; align-items: center; gap: var(--space-4); }
+.lo-playhero__ball { flex: none; width: 84px; height: 84px; border-radius: 50%; background: #fff; display: grid; place-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35); animation: lo-float 4s ease-in-out infinite; }
+.lo-playhero__ball img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+@keyframes lo-float { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(3deg); } }
+.lo-playhero h1 { margin: 0 0 var(--space-2); font: 800 22px/28px var(--font-display); }
+.lo-playhero__tag { display: inline-block; transform: rotate(-1deg); }
+.lo-playhero__tag > span { font-size: 26px; line-height: 30px; white-space: nowrap; }
+.lo-playhero__time { margin: var(--space-2) 0 0; color: var(--ink-on-brand-muted); font-size: 14px; }
+.lo-playhero__time .lo-countdown, .lo-playhero__time .wl-countdown { color: #fff; font-weight: 700; font-variant-numeric: tabular-nums; }
+@media (min-width: 900px) {
+  .lo-playhero__inner { padding-top: var(--space-6); padding-bottom: var(--space-10); }
+  .lo-playhero__ball { width: 124px; height: 124px; }
+  .lo-playhero h1 { font-size: 32px; line-height: 38px; }
+  .lo-playhero__tag > span { font-size: 44px; line-height: 46px; }
+}
 
-.lo-playgrid { display: grid; gap: var(--space-5); align-items: start; }
-@media (min-width: 1000px) { .lo-playgrid { grid-template-columns: minmax(0, 1fr) 360px; } .lo-ordercard { position: sticky; top: var(--space-4); } }
+/* ================= layout ================= */
+.lo-playgrid { display: grid; gap: var(--space-4); align-items: start; }
+.lo-playmain { display: grid; gap: var(--space-4); min-width: 0; }
+@media (min-width: 1000px) { .lo-playgrid { grid-template-columns: minmax(0, 1fr) 340px; gap: var(--space-5); } .lo-ordercard { position: sticky; top: var(--space-4); } }
 
-.lo-picker { padding: var(--space-4); }
-@media (min-width: 900px) { .lo-picker { padding: var(--space-6); } }
-.lo-picker__head { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; margin-bottom: var(--space-4); }
-.lo-steps { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin: 0; padding: 0; list-style: none; counter-reset: s; font-size: 13px; color: var(--ink-muted); }
-.lo-steps li { counter-increment: s; display: flex; align-items: center; gap: 6px; }
-.lo-steps li::before { content: counter(s); display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
-  background: var(--surface-brand); color: #fff; font: 700 11px/1 var(--font-display); }
-.lo-picker__tools { display: flex; gap: var(--space-2); }
+.lo-card { padding: 0; overflow: hidden; }
+.lo-card__head { display: flex; align-items: center; flex-wrap: wrap; gap: 4px var(--space-3); padding: var(--space-3) var(--space-4);
+  background: var(--surface-brand); color: #fff; }
+.lo-card__head h2 { margin: 0; font: 700 16px/22px var(--font-display); }
+.lo-card__step { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--gold-400);
+  color: var(--surface-brand-deep); font: 800 13px/1 var(--font-display); }
+.lo-card__hint { flex-basis: 100%; font-size: 12px; color: var(--ink-on-brand-muted); }
+@media (min-width: 640px) { .lo-card__hint { flex-basis: auto; margin-left: auto; } }
+.lo-card__body { padding: var(--space-4); }
 
-/* ---- lines ---- */
-#linesContainer { display: grid; gap: var(--space-3); }
-@media (min-width: 640px) { #linesContainer { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1200px) { #linesContainer { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.leLineWrapper .lines { border: 1px solid var(--border-hairline); border-radius: var(--radius-lg); background: var(--surface-card);
-  overflow: hidden; transition: border-color .15s ease, box-shadow .15s ease; }
-.leLineWrapper .lines.ticketComplete { border-color: var(--cta-600); box-shadow: 0 0 0 1px var(--cta-600) inset; }
-.leLineWrapper #upperTicketSection { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-2);
-  padding: var(--space-2) var(--space-3); background: var(--surface-sunken); min-height: 44px; }
-#choosenNumber { display: flex; flex-wrap: wrap; gap: 3px; min-height: 26px; align-items: center; flex: 1 1 100%; }
+/* ================= 1. how many lines ================= */
+.lo-qp { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.lo-qp__chips { display: grid; grid-template-columns: repeat(3, minmax(64px, 1fr)); gap: var(--space-2); flex: 1 1 100%; }
+@media (min-width: 640px) { .lo-qp__chips { grid-template-columns: repeat(6, 60px); flex: 0 0 auto; } }
+.lo-chip { display: grid; place-items: center; gap: 0; height: 52px; border-radius: var(--radius-pill); border: 2px solid var(--surface-brand);
+  background: var(--surface-card); color: var(--surface-brand); font: 800 18px/1 var(--font-display); cursor: pointer;
+  transition: background .15s ease, color .15s ease, transform .1s ease; }
+.lo-chip small { font: 600 10px/1 var(--font-body); color: var(--ink-muted); }
+.lo-chip:hover { background: #f6f0fa; }
+.lo-chip:active { transform: scale(.96); }
+.lo-chip[aria-pressed="true"] { background: var(--surface-brand); color: #fff; }
+.lo-chip[aria-pressed="true"] small { color: var(--ink-on-brand-muted); }
+.lo-qp__or { margin: 0 auto; font: 700 13px/1 var(--font-display); color: var(--ink-muted); text-transform: uppercase; }
+.lo-qp__own { flex: 1 1 100%; }
+@media (min-width: 640px) { .lo-qp__or { margin: 0; } .lo-qp__own { flex: 1 1 auto; } }
+
+/* ================= 2. lines ================= */
+#linesContainer { display: grid; gap: 6px; }
+.leLineWrapper .lines { border: 1px solid var(--border-hairline); border-radius: var(--radius-md); background: var(--surface-card); overflow: hidden;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease; }
+.leLineWrapper.lo-editing .lines { border-color: var(--surface-brand); box-shadow: 0 0 0 1px var(--surface-brand) inset; }
+.leLineWrapper #upperTicketSection { display: flex; align-items: center; gap: var(--space-2); padding: 8px var(--space-3); min-height: 52px; cursor: pointer; }
+.leLineWrapper.lo-editing #upperTicketSection { background: #f6f0fa; }
+.lo-linenum { flex: none; width: 18px; font: 700 13px/1 var(--font-display); color: var(--ink-muted); text-align: right; }
+#choosenNumber { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; flex: 1 1 auto; min-width: 0; min-height: 32px; }
 #choosenNumber .ticketNumber, #choosenNumber .bonusTicketNumber {
-  display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; font: 700 12px/1 var(--font-body);
-  background: var(--surface-brand); color: #fff; font-variant-numeric: tabular-nums; }
-#choosenNumber .bonusTicketNumber { background: var(--gold-400); color: var(--surface-brand-deep); }
+  position: relative; display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; overflow: hidden;
+  font: 700 14px/32px var(--font-body); font-variant-numeric: tabular-nums;
+  background: var(--surface-sunken); color: var(--ink); border: 1px solid var(--border-control); }
+#choosenNumber .bonusTicketNumber { background: #fff3cf; color: #7a5600; border-color: var(--gold-400); }
+.lo-lineprice { flex: none; margin-left: auto; font: 700 13px/1 var(--font-body); color: var(--ink-muted); font-variant-numeric: tabular-nums; }
 #webUpperTicketSection { display: flex; align-items: center; gap: 4px; flex: none; }
 #mobileUpperTicketSection { display: none; }
-.leLineWrapper .trashButton { display: inline-grid; place-items: center; }
-.leLineWrapper button, .leLineWrapper .editTicket { font: 600 12px/1 var(--font-body); border: 0; border-radius: var(--radius-sm);
-  padding: 7px 9px; background: var(--surface-card); color: var(--ink); cursor: pointer; box-shadow: inset 0 0 0 1px var(--border-hairline); }
-.leLineWrapper .quickPickButton { background: var(--surface-brand); color: #fff; box-shadow: none; }
-.leLineWrapper .done { background: var(--cta-600); color: #fff; box-shadow: none; }
-.ticketCompleteImage, .ticketIncompleteImage { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
-  font: 800 12px/1 var(--font-body); }
-.ticketCompleteImage { background: var(--cta-600); color: #fff; }
-.ticketIncompleteImage { background: var(--gold-100); color: var(--accent-700); }
+.ticketCompleteImage, .ticketIncompleteImage { display: none !important; }
+.lo-iconaction { display: inline-grid; place-items: center; min-width: 32px; height: 32px; padding: 0 8px; border: 0; border-radius: 50%;
+  background: var(--surface-sunken); color: var(--ink); cursor: pointer; font: 600 12px/1 var(--font-body); }
+.lo-iconaction.clearButton { border-radius: var(--radius-pill); }
+.lo-iconaction:hover { background: var(--border-hairline); }
+.lo-iconaction.quickPickButton { background: var(--surface-brand); color: #fff; }
+.leLineWrapper:not(.lo-editing) #webUpperTicketSection .clearButton { display: none; }
 
-#lowerTicketSection { padding: var(--space-3); }
+/* slot reel (theLotter): strip slides up, overshoots 3px, settles */
+.lo-reeling { color: transparent; }
+.lo-reel { position: absolute; left: 0; top: 0; width: 100%; display: flex; flex-direction: column; }
+.lo-reeling .lo-reel { color: var(--ink); }
+.bonusTicketNumber.lo-reeling .lo-reel { color: #7a5600; }
+.lo-reel > span { display: block; height: var(--reel-size, 32px); line-height: var(--reel-size, 32px); text-align: center; }
+@keyframes lo-reel {
+  0% { transform: translateY(0); opacity: 0; }
+  80% { transform: translateY(calc(var(--reel-to) - 3px)); opacity: 1; }
+  100% { transform: translateY(var(--reel-to)); opacity: 1; }
+}
+
+/* number grid: closed until the line is edited */
+#lowerTicketSection { display: none; padding: var(--space-3); border-top: 1px solid var(--border-hairline); }
+.leLineWrapper.lo-editing #lowerTicketSection { display: block; animation: lo-open .18s ease-out; }
+@keyframes lo-open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 .leGroups > p { margin: 0 0 var(--space-2); font: 700 13px/18px var(--font-display); color: var(--ink); }
 .leGroups > p ~ p { margin-top: var(--space-3); }
-ul.leNumberGrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 4px; }
-ul.leNumberGrid li { display: grid; place-items: center; aspect-ratio: 1; min-height: 30px; border-radius: 50%; cursor: pointer; user-select: none;
-  font: 600 12px/1 var(--font-body); font-variant-numeric: tabular-nums; color: var(--ink); background: var(--surface-sunken);
-  transition: background .1s ease, color .1s ease, transform .1s ease; }
+ul.leNumberGrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(34px, 1fr)); gap: 5px; }
+ul.leNumberGrid li { display: grid; place-items: center; aspect-ratio: 1; min-height: 34px; border-radius: 50%; cursor: pointer; user-select: none;
+  font: 600 13px/1 var(--font-body); font-variant-numeric: tabular-nums; color: var(--ink); background: var(--surface-sunken);
+  transition: background .1s ease, color .1s ease, transform .12s cubic-bezier(.3,1.6,.6,1); }
 ul.leNumberGrid li:hover { background: var(--border-hairline); }
-ul.leNumberGrid li.selectedNumber { background: var(--surface-brand); color: #fff; transform: scale(1.06); }
+ul.leNumberGrid li.selectedNumber { background: var(--surface-brand); color: #fff; transform: scale(1.08); }
 ul.leNumberGrid li.bonusTicketNumber.selectedNumber { background: var(--gold-400); color: var(--surface-brand-deep); }
 ul.leNumberGrid.availableNumbersComplete li:not(.selectedNumber),
 ul.leNumberGrid.availableBonusNumbersComplete li:not(.selectedNumber) { opacity: .35; }
 
-/* add line */
-.lo-addline { display: block; margin-top: var(--space-3); text-decoration: none; }
-.lo-addline .addLines { border: 2px dashed var(--border-control); border-radius: var(--radius-lg); padding: var(--space-4); color: var(--surface-brand);
-  display: grid; place-items: center; transition: background .15s ease; }
-.lo-addline:hover .addLines { background: var(--surface-sunken); }
-#addLineContent { display: flex; align-items: center; gap: var(--space-2); font: 700 15px/20px var(--font-display); }
-#addLineImage { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--surface-brand); color: #fff; }
-#addQuickPickText { display: none; }
+.lo-lineactions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); margin-top: var(--space-3); }
+.lo-lineactions .lo-btn { gap: 6px; }
 
-/* ---- order card ---- */
-.lo-ordercard { padding: var(--space-5); }
-.lo-ordercard__title { font: 700 18px/24px var(--font-display); margin: 0 0 var(--space-4); }
-.lo-ordercard__label { font: 700 13px/18px var(--font-display); margin: 0 0 var(--space-2); }
-.lo-ordercard__note { font-size: 12px; line-height: 18px; color: var(--ink-muted); margin: var(--space-3) 0 0; }
-.lo-ordercard__links { font-size: 13px; margin: var(--space-3) 0 0; }
-.lo-ordercard .lo-summary { padding: var(--space-4) 0; }
-.lo-stepper { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; border: 1px solid var(--border-control); border-radius: var(--radius-md); overflow: hidden; }
+/* ================= 3. draws ================= */
+#leDrawDays { display: grid; gap: var(--space-2); margin-bottom: var(--space-4); }
+@media (min-width: 640px) { #leDrawDays { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } }
+#leDrawDays .checkboxRadioContainer { position: relative; display: grid; grid-template-columns: 22px 1fr auto; grid-template-rows: auto auto; gap: 0 var(--space-2);
+  align-items: center; border: 1px solid var(--border-hairline); border-radius: var(--radius-md); padding: 10px var(--space-3); cursor: pointer; font-size: 13px; }
+#leDrawDays .checkboxRadioContainer:has(input:checked) { border-color: var(--surface-brand); background: #f6f0fa; }
+#leDrawDays input[type="checkbox"] { grid-row: 1 / span 2; width: 20px; height: 20px; margin: 0; accent-color: var(--surface-brand); }
+#leDrawDays .drawDayOfWeek { font: 700 14px/18px var(--font-display); }
+#leDrawDays .drawDate { grid-column: 2; color: var(--ink-muted); font-size: 12px; }
+#leDrawDays .drawDateCountdownClock, #leDrawDays .redesignCheckmark { display: none; }
+#leDrawDays .drawDateCountdownCopy { grid-column: 3; grid-row: 1 / span 2; font-size: 12px; color: var(--ink-muted); text-align: right; font-variant-numeric: tabular-nums; }
+.lo-weeks { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; border-top: 1px solid var(--border-hairline); padding-top: var(--space-4); }
+.lo-weeks__hint { margin: 2px 0 0; font-size: 12px; color: var(--ink-muted); max-width: 34ch; }
+.lo-stepper { display: grid; grid-template-columns: 44px 110px 44px; align-items: center; border: 1px solid var(--border-control); border-radius: var(--radius-md); overflow: hidden; }
 .lo-stepper__btn { height: 44px; border: 0; background: var(--surface-sunken); font: 700 20px/1 var(--font-body); color: var(--surface-brand); cursor: pointer; }
 .lo-stepper__btn.fadeoutCounter { opacity: .35; pointer-events: none; }
 .lo-stepper__value { text-align: center; font: 700 15px/20px var(--font-body); }
 .lo-stepper__value input { width: 3ch; border: 0; text-align: right; font: inherit; background: transparent; color: var(--ink); -moz-appearance: textfield; }
 .lo-stepper__value input::-webkit-inner-spin-button { -webkit-appearance: none; }
 
-/* draw days (generated: label.checkboxRadioContainer > input + .drawDayOfWeek + .drawDate + clock + countdown + checkmark) */
-#leDrawDays { display: grid; gap: var(--space-2); }
-#leDrawDays .checkboxRadioContainer { position: relative; display: grid; grid-template-columns: 22px auto 1fr auto; gap: 2px var(--space-2); align-items: center;
-  border: 1px solid var(--border-hairline); border-radius: var(--radius-md); padding: 10px var(--space-3); cursor: pointer; font-size: 13px; }
-#leDrawDays .checkboxRadioContainer:has(input:checked) { border-color: var(--surface-brand); background: #f6f0fa; }
-#leDrawDays input[type="checkbox"] { width: 20px; height: 20px; margin: 0; accent-color: var(--surface-brand); }
-#leDrawDays .drawDayOfWeek { font: 700 14px/18px var(--font-display); }
-#leDrawDays .drawDate { color: var(--ink-muted); }
-#leDrawDays .drawDateCountdownClock { display: none; }
-#leDrawDays .drawDateCountdownCopy { font-size: 12px; color: var(--ink-muted); text-align: right; font-variant-numeric: tabular-nums; }
-#leDrawDays .redesignCheckmark { display: none; }
-#placeBetButton.unclickableButton { opacity: var(--opacity-disabled); pointer-events: none; }
+/* ================= order card ================= */
+.lo-ordercard { padding: var(--space-5); }
+.lo-ordercard__title { font: 700 18px/24px var(--font-display); margin: 0 0 var(--space-2); }
+.lo-ordercard__label { font: 700 13px/18px var(--font-display); margin: 0 0 var(--space-2); }
+.lo-ordercard__links { font-size: 13px; margin: var(--space-3) 0 0; }
+.lo-ordercard .lo-summary { padding: var(--space-2) 0 var(--space-4); }
+#placeBetButton.unclickableButton, #placeBetButton[disabled] { opacity: var(--opacity-disabled); pointer-events: none; }
+.lo-trust { list-style: none; margin: var(--space-4) 0 0; padding: 0; display: grid; gap: 6px; font-size: 13px; color: var(--ink-muted); }
+.lo-trust li { position: relative; padding-left: 22px; }
+.lo-trust li::before { content: ""; position: absolute; left: 0; top: 3px; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cta-600) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/9px no-repeat; }
 
-/* ---- phone: a line opens full screen to pick numbers ---- */
+/* ================= sticky bar (phones) ================= */
+.lo-stickybar { display: none; }
+@media (max-width: 999px) {
+  .lo-stickybar { position: fixed; left: var(--space-2); right: var(--space-2); bottom: var(--space-2); z-index: 30; display: flex; align-items: center;
+    justify-content: space-between; gap: var(--space-3); padding: 10px 10px 10px var(--space-4); background: var(--surface-card); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sticky), 0 0 0 1px var(--border-hairline); }
+  .lo-stickybar > div { display: grid; }
+  .lo-stickybar__lines { font-size: 12px; color: var(--ink-muted); }
+  .lo-stickybar__total { font: 800 18px/22px var(--font-display); font-variant-numeric: tabular-nums; }
+  .lo-stickybar .lo-btn { min-width: 140px; }
+  body.lo-playpage .lo-site-footer { padding-bottom: 84px; }
+  .lo-ordercard #placeBetButton { display: none; }
+}
+
+/* ================= phone: a line opens full screen (engine adds .showTicket) ================= */
 #mobileTicketWindow { position: fixed; inset: 0; background: rgba(29,19,36,.55); z-index: 40; }
 @media (max-width: 767px) {
   .leLineWrapper.showTicket { position: fixed; inset: 0; z-index: 50; background: var(--surface-page); overflow-y: auto; padding: var(--space-3); }
   .leLineWrapper.showTicket .lines { min-height: 100%; border: 0; box-shadow: none; }
-  .leLineWrapper.showTicket #webUpperTicketSection { display: none; }
+  .leLineWrapper.showTicket #lowerTicketSection { display: block; }
+  .leLineWrapper.showTicket #webUpperTicketSection, .leLineWrapper.showTicket .lo-lineprice, .leLineWrapper.showTicket .lo-linenum { display: none; }
   .leLineWrapper.showTicket #mobileUpperTicketSection { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: flex-end; width: 100%; }
-  .leLineWrapper.showTicket #upperTicketSection { flex-direction: column; align-items: stretch; position: sticky; top: 0; z-index: 1; }
+  .leLineWrapper.showTicket #upperTicketSection { flex-wrap: wrap; position: sticky; top: 0; z-index: 1; background: var(--surface-sunken); }
   .leLineWrapper.showTicket ul.leNumberGrid { grid-template-columns: repeat(7, 1fr); gap: 6px; }
   .leLineWrapper.showTicket ul.leNumberGrid li { min-height: 40px; font-size: 15px; }
   .leLineWrapper.showTicket .editTicket { display: none; }
+  #mobileUpperTicketSection button, #mobileUpperTicketSection .editTicket { font: 600 13px/1 var(--font-body); border: 0; border-radius: var(--radius-sm);
+    padding: 9px 11px; background: var(--surface-card); color: var(--ink); box-shadow: inset 0 0 0 1px var(--border-hairline); }
+  #mobileUpperTicketSection .quickPickButton { background: var(--surface-brand); color: #fff; box-shadow: none; }
+  #mobileUpperTicketSection .done { background: var(--cta-600); color: #fff; box-shadow: none; }
   #closeTicketWindow { margin-right: auto; font-size: 26px; line-height: 1; color: var(--ink); text-decoration: none; padding: 0 6px; }
-  .leLineWrapper:not(.showTicket) #lowerTicketSection { display: none; }
-  .leLineWrapper:not(.showTicket) .lines { cursor: pointer; }
+  /* one clean row per line, as theLotter: the row itself opens the full-screen editor with every action */
+  #webUpperTicketSection { display: none; }
+  .leLineWrapper #upperTicketSection { gap: 6px; padding: 8px 10px; }
+  .lo-lineprice { font-size: 12px; }
+  .lo-linenum { width: 14px; }
+  #choosenNumber { gap: 3px; flex-wrap: nowrap; }
+  #choosenNumber .ticketNumber, #choosenNumber .bonusTicketNumber { width: 28px; height: 28px; font-size: 12px; line-height: 28px; flex: none; }
   body.leEditingLine { overflow: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lo-firework, .lo-twinkle, .lo-playhero__ball { animation: none !important; }
+  .lo-firework { opacity: .35; transform: translate(-50%, -50%) scale(var(--s, 1)); }
 }

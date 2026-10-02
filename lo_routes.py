@@ -155,6 +155,28 @@ def register(app) -> None:
         "zendesk_key": _tag("LO_ZENDESK_KEY", "c313db13-7d37-4ec8-9a85-06f112b0507d"),
     }
 
+    BONUS_NAMES = {"powerball": "Powerball", "megaball": "Mega Ball", "mega": "Mega number", "star": "Star Ball",
+                   "stars": "Lucky Stars", "euro": "Euro numbers", "key": "Key number", "super": "Superzahl",
+                   "chance": "Chance number", "thunderball": "Thunderball", "millionaire": "Millionaire Ball",
+                   "power": "Powerball", "bonus": "Bonus number"}
+
+    def lo_rules(game) -> str:
+        """'Pick 5 numbers (1-69) + 1 Powerball (1-26)', from the product's line schema (LottoGo shows this)."""
+        products = (game or {}).get("products") or []
+        schema = (products[0] or {}).get("line_schema") if products else None
+        if not isinstance(schema, dict) or not schema:
+            return ""
+        parts = []
+        for key, spec in schema.items():
+            if not isinstance(spec, dict):
+                continue
+            n, lo, hi = spec.get("count"), spec.get("min"), spec.get("max")
+            label = "numbers" if key == "main" else BONUS_NAMES.get(key, key.replace("_", " ").title())
+            parts.append(f"{'Pick ' if key == 'main' else ''}{n} {label} ({lo}-{hi})")
+        return " + ".join(parts)
+
+    app.jinja_env.globals["lo_rules"] = lo_rules
+
     def product_jsonld(lot, game, jp) -> str:
         """Valid Product markup for a play page. Replaces the old site's block, which was not valid JSON
         (it contained comments) and claimed a 5-star aggregate rating from one review."""
