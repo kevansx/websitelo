@@ -32,6 +32,9 @@ html.lo-install-open { overflow: hidden; }
   background: #1d1324; color: #fff; padding: 12px 18px; border-radius: var(--radius-pill); box-shadow: var(--shadow-modal); font: 600 14px/20px var(--font-body); text-align: center; }
 .lo-toast[hidden] { display: none; }
 html.lo-standalone [data-hide-in-app] { display: none !important; }
+/* the offer is for phones and tablets: no home-screen cards or menu item on a desktop computer (mouse + hover).
+   iPads are touch-only, so they keep them. */
+@media (hover: hover) and (pointer: fine) { [data-hide-in-app] { display: none !important; } }
 .lo-drawer .lo-drawer__app { color: var(--gold-400); }
 
 /* account / order-confirmation card */

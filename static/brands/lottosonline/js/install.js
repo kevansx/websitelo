@@ -3,7 +3,7 @@
  *  - Registers /sw.js (network only, no caching) so browsers offer installation.
  *  - Chrome/Edge/Android: keeps the beforeinstallprompt event and fires it from our "Add to home screen" button.
  *  - iPhone/iPad: shows the Share -> Add to Home Screen steps (Apple has no install API).
- *  - Opens by itself ~1.2s after load on phones (and on desktop Chrome once it says the site is installable),
+ *  - Opens by itself ~1.2s after load on phones and tablets only (never on a desktop computer),
  *    except on money/sign-up pages, when already installed, or within 7 days of "Not now".
  *  - When the page is running as the installed app: claims the free ticket once (POST /homescreen/claim) if
  *    logged in, or asks the customer to log in first.
@@ -21,7 +21,9 @@
   var ua = navigator.userAgent || "";
   var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   var isAndroid = /Android/i.test(ua);
-  var isMobile = isIOS || isAndroid || window.innerWidth < 768;
+  // A desktop computer = a mouse that hovers. Phones and tablets have touch only (iPads are caught by isIOS).
+  var isDesktop = !!(window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  var isMobile = isIOS || isAndroid || !isDesktop;
   var standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
   if (standalone) document.documentElement.classList.add("lo-standalone");
 
@@ -116,7 +118,7 @@
     if (autoTried || standalone || QUIET.test(path)) return;
     var until = parseInt(read(KEY) || "0", 10);
     if (until && Date.now() < until) return;
-    if (!isMobile && !deferred) return;        // desktop: only once Chrome/Edge says the site is installable
+    if (!isMobile) return;                     // phones and tablets only
     autoTried = true;
     setTimeout(function () { if (sheet.hasAttribute("hidden")) open(false); }, 1200);
   }
