@@ -6464,6 +6464,13 @@ def create_app() -> Flask:
         _after = app.config.get("LO_PACKS_AFTER_CHECKOUT")
         if _after:
             _after(token=token, order_id=order_id, items=items)
+        # Abandoned-checkout reminders stop the moment an order completes (lo_recover.py).
+        try:
+            _cust = session.get("customer") if isinstance(session.get("customer"), dict) else {}
+            if _cust.get("id") is not None and app.config.get("LO_RECOVER_COMPLETED"):
+                app.config["LO_RECOVER_COMPLETED"](int(_cust["id"]))
+        except Exception:
+            pass
         if order_id is not None:
             emit_marketing_event(
                 "purchase_completed",
@@ -11798,6 +11805,12 @@ def create_app() -> Flask:
     lo_push.register(app)
     import lo_alerts
     lo_alerts.register(app)
+    import lo_members
+    lo_members.register(app)
+    import lo_recover
+    lo_recover.register(app)
+    import lo_withdraw
+    lo_withdraw.register(app)
 
     return app
 

@@ -1,0 +1,18 @@
+{# The weekly syndicate offer (lo_members.py), placed where people already are: the cart, the order confirmation,
+   jackpot alerts and the account. `offers` = lo_share_offers(game codes). #}
+{% for o in offers %}
+  <a class="lo-shareoffer" href="{{ o.url }}">
+    <span class="lo-shareoffer__text"><strong>10 lines in every {{ o.name }} draw for {{ '€%.2f'|format(o.cents / 100) }} a week.</strong>
+      Join the {{ o.name }} syndicate: one of 40 shares, cancel any time.</span>
+    <span class="lo-shareoffer__go" aria-hidden="true">&rsaquo;</span>
+  </a>
+{% endfor %}
+{% if offers %}
+<style>
+  .lo-shareoffer { display: flex; gap: var(--space-3); align-items: center; padding: var(--space-3) var(--space-4); margin: var(--space-2) 0;
+    border: 1px solid var(--gold-400); border-radius: var(--radius-md); background: var(--gold-100); color: var(--ink); text-decoration: none; }
+  .lo-shareoffer:hover { border-color: var(--accent-500); }
+  .lo-shareoffer__text { flex: 1; font-size: 14px; line-height: 20px; }
+  .lo-shareoffer__go { font: 700 22px/1 var(--font-display); color: var(--accent-700); }
+</style>
+{% endif %}

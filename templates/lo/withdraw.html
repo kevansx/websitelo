@@ -1,0 +1,48 @@
+{# Withdraw winnings (lo_withdraw.py). Raises a request to support; moves no money. #}
+{% extends "lo/base.html" %}
+{% block content %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Withdraw winnings</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap lo-stack" style="max-width:640px">
+    {% with messages = get_flashed_messages(with_categories=true) %}{% for cat, m in messages %}
+      <p class="lo-flash lo-flash--{{ 'error' if cat in ('error', 'danger', 'warning') else 'success' }}">{{ m }}</p>
+    {% endfor %}{% endwith %}
+
+    <div class="lo-panel">
+      <p class="lo-muted" style="margin:0">Your winnings</p>
+      <p style="margin:0;font:800 30px/38px var(--font-display);color:var(--surface-brand)">{{ '€%.2f'|format(available / 100) }}</p>
+    </div>
+
+    {% if sent %}
+      <div class="lo-panel">
+        <p style="margin:0"><strong>Request received.</strong> We'll pay {{ '€%.2f'|format(sent.amount / 100) }} within {{ days }} working days (reference W{{ sent.id }}). We've emailed you a copy.</p>
+      </div>
+    {% elif not on %}
+      <div class="lo-panel">
+        <p style="margin:0">To withdraw your winnings, contact our support team at <a href="mailto:{{ support }}?subject=Withdraw%20winnings">{{ support }}</a> and we'll arrange it with you.</p>
+      </div>
+    {% elif available < min_cents %}
+      <div class="lo-panel"><p style="margin:0">The smallest withdrawal is {{ '€%.2f'|format(min_cents / 100) }}. Your winnings balance is below that.</p></div>
+    {% else %}
+      <form class="lo-panel lo-stack" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="lo-field">
+          <label class="lo-field__label" for="amount">Amount (EUR, up to {{ '€%.2f'|format(available / 100) }})</label>
+          <input class="lo-input" id="amount" name="amount" inputmode="decimal" required value="{{ '%.2f'|format(available / 100) }}">
+        </div>
+        <div class="lo-field">
+          <label class="lo-field__label" for="method">How would you like to be paid?</label>
+          <select class="lo-input" id="method" name="method">{% for k, v in methods.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select>
+        </div>
+        <div class="lo-field">
+          <label class="lo-field__label" for="details">Payment details</label>
+          <textarea class="lo-input" id="details" name="details" rows="4" required placeholder="For a bank transfer: account holder's name, IBAN (or account number) and bank"></textarea>
+        </div>
+        <p class="lo-muted" style="margin:0">Our support team pays withdrawals by hand. We'll pay within {{ days }} working days and may contact you to check details.</p>
+        <button class="lo-btn lo-btn--lg">Request withdrawal</button>
+      </form>
+    {% endif %}
+    <p class="legal">18+ only. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
+  </div>
+</section>
+{% endblock %}

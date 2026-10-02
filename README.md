@@ -65,7 +65,14 @@ The IT team owns Azure Front Door. The origin is this app behind gunicorn (and n
    Push needs a VAPID key pair in `.env`: run `.venv/bin/flask --app app push-keys` once and paste the three lines
    it prints into `.env`. Keep `LO_VAPID_PRIVATE_KEY` secret and never change the pair once customers subscribe
    (a new pair silently breaks every existing subscription).
-6. **Update**: `cd /opt/lottosonline-website && git pull && .venv/bin/pip install -r requirements.txt && sudo systemctl restart lottosonline-website`
+6. **Memberships and cart reminders**: two more jobs in the same crontab:
+   ```
+   5 * * * * cd /opt/lottosonline-website && set -a && . ./.env && set +a && .venv/bin/flask --app app membership-emails
+   */10 * * * * cd /opt/lottosonline-website && set -a && . ./.env && set +a && .venv/bin/flask --app app abandoned-checkout
+   ```
+   Emails go out over SMTP when `SMTP_HOST` is set (see Settings); until then every email is written to
+   `data/outbox/` instead, so nothing is sent by accident and nothing is lost.
+7. **Update**: `cd /opt/lottosonline-website && git pull && .venv/bin/pip install -r requirements.txt && sudo systemctl restart lottosonline-website`
 
 #### What Front Door must do (for the IT team)
 
@@ -90,5 +97,8 @@ See `env.example`. The ones that matter at launch:
 | `WEBSITE_ENV=production` | Turns on the tracking tags (GTM, Mixpanel, Facebook, Zendesk); they stay off everywhere else |
 | `CRM_CACHE_DB_PATH` | `/opt/lottosonline-website/data/crm_cache.sqlite` |
 | `WEBSITE_NOINDEX=1` | Hides the site from search engines. Not needed on `www1.` / `staging.` and other lottosonline.com test hosts: they are hidden automatically. Never set it on www |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` | The email sender for membership, jackpot-alert, withdrawal and cart emails (SendGrid: `smtp.sendgrid.net`, 587, user `apikey`) |
+| `LO_SUPPORT_EMAIL` | Where withdrawal requests go (default support@lottosonline.com, the help-desk inbox) |
+| `LO_WITHDRAWALS_ON`, `LO_WITHDRAWAL_DAYS` | Switch the withdrawal form on (`1`) and the promised turnaround in working days. Leave off until support's payout process is agreed |
 | `LO_HOMESCREEN_OFFER` | `0` switches the home-screen free-ticket offer off |
 | `LO_HOMESCREEN_PRODUCT_CODE` | The CRM product for the free Australia Saturday Lotto line (auto-detected if blank) |

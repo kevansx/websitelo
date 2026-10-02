@@ -1,0 +1,11 @@
+{% extends "lo/base.html" %}
+{% block content %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Lottery syndicates</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap lo-stack" style="max-width:720px">
+    <p>Play more lines for less: a weekly share in a syndicate gives you 10 lines in every draw, one of 40 shares. Each share receives 1/40th of any prize the syndicate's lines win. Cancel any time.</p>
+    {% if offers %}{% include "lo/_share_offer.html" %}{% else %}<p class="lo-muted">Syndicates are not open just now.</p>{% endif %}
+    <p class="legal">18+ only. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
+  </div>
+</section>
+{% endblock %}

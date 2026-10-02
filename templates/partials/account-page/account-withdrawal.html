@@ -1,49 +1,10 @@
+{# Withdraw winnings: the request page (lo_withdraw.py). The CRM has no customer payout call; support pays and
+   debits the Winnings bucket in the CRM. #}
 <div class="col-xs-12 col-sm-12 col-md-12 no-padding" id="accountWithdrawal">
   <div class="walletPageContent">
     <p class="accountLimitDescription" style="margin-bottom:10px;">
-      Withdrawals are handled by our support team on this site. Submit your request below and we will contact you.
+      Withdrawals of winnings are paid by our support team. Ask for one here and we'll take it from there.
     </p>
-    <form id="accountWithdrawSupportForm" method="get" action="{{ url_for('contact') }}">
-      <div class="accountWithdrawalSearch">
-        <p class="acctAccordionHeaders">Withdraw your Winnings!</p>
-        <p>Where possible, all withdrawals are processed using the payment method that the funds were initially deposited from. We advise that you ensure your registered payment method is the method that you wish to withdraw to.</p><br>
-        <p>If it is not possible to withdraw funds using your deposit method, then we will process your withdrawal using an alternate verified payment method.</p><br>
-        <p>All approved requests will be processed as soon as possible, and we will ensure your winnings are paid without delay.</p><br>
-        <div class="withdrawSearchField">
-          <div class="accountSearchItems">
-            <p class="formLabels">Available Funds:</p>
-            {# Falling back to `balance_cents` would offer money that is
-               reserved against a pending deposit or win as though it were
-               ready to withdraw. The available figure is the whole wallet too,
-               just with the reservations already taken off. #}
-            {% set withdrawable_cents = (wallet.withdrawable_cents if wallet and wallet.withdrawable_cents is defined else (wallet.available_balance_cents if wallet and wallet.available_balance_cents is defined else (wallet.balance_cents if wallet and wallet.balance_cents is defined else 0))) %}
-            {% set currency = (wallet.currency if wallet and wallet.currency is defined else '') %}
-            <input type="text" name="acctWithdrawAmountAvailable" id="acctWithdrawAmountAvailable" class="disabledState" value="{{ currency }} {{ (withdrawable_cents or 0) / 100 }}" readonly />
-            <input type="hidden" name="accountWithdrawAmountAvaiableNoCurrency" value="{{ (withdrawable_cents or 0) / 100 }}" />
-          </div>
-          <div class="accountSearchItems">
-            <p class="formLabels">Payment Method</p>
-            <div class="select_box">
-              <select readonly="">
-                <option>No Saved Payment Method</option>
-              </select>
-            </div>
-            <p class="useReplacePaymentMethod primaryLink">Add a New Payment Method</p>
-          </div>
-          <div class="accountSearchItems">
-            <p class="formLabels">Enter Amount <span class="acctWithdrawMinAmount">(min {{ account_currency_symbol or '£' }}10.00)</span></p>
-            <input type="text" name="acctWithdrawAmount" id="acctWithdrawAmount" />
-          </div>
-        </div>
-        <div class="accountWithdrawalSearch">
-          <input type="hidden" name="topic" value="withdrawal" />
-          <input type="hidden" name="order_id" value="" />
-          <input type="hidden" name="acctWithdrawalCCPosition" value="0" />
-          <button type="submit" id="searchWithdrawalButton" class="accountSearchButtons" style="min-width:240px; white-space:nowrap;">Request Withdrawal</button>
-          <p id="searchWithdrawalReset" class="accountSubmitCancel accountSubmitReset">Cancel</p>
-        </div>
-      </div>
-    </form>
+    <a class="primaryFormButton" style="display:inline-block;width:auto;padding:12px 24px;" href="{{ url_for('account_withdraw') }}">Withdraw winnings</a>
   </div>
 </div>
-

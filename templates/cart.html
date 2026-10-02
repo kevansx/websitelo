@@ -536,6 +536,8 @@
             </p>
             <p class="leCartHeadCount">{{ items|length }} item{{ '' if items|length == 1 else 's' }}</p>
           </div>
+          {# weekly syndicate offer for Powerball / Mega Millions / EuroMillions single entries (brief 2, 5.2) #}
+          {% with offers = lo_share_offers(items|selectattr('kind', 'equalto', 'single')|map(attribute='game_code')|list) %}{% include "lo/_share_offer.html" %}{% endwith %}
           <p class="leCartSectionLabel">Your cart details</p>
           {% set quote_items = (quote.get('items') if quote and quote.get('items') is iterable else []) %}
           {% for it in items %}

@@ -50,6 +50,7 @@
             <a href="{{ url_for('account') }}#orders">My tickets</a>
             <a href="{{ url_for('account_packs') }}">My gift packs</a>
             <a href="{{ url_for('account_alerts') }}">Jackpot alerts</a>
+            <a href="{{ url_for('account_memberships') }}">Syndicate memberships</a>
             {% if not support_read_only %}<a href="{{ url_for('wallet_add_funds') }}">Deposit</a>{% endif %}
             <a href="{{ url_for('logout') }}">Logout</a>
           </nav>
@@ -67,6 +68,7 @@
       <a href="{{ url_for('account') }}">My account</a>
       <a href="{{ url_for('account_packs') }}">My gift packs</a>
       <a href="{{ url_for('account_alerts') }}">Jackpot alerts</a>
+      <a href="{{ url_for('account_memberships') }}">Syndicate memberships</a>
       <a href="{{ url_for('wallet_add_funds') }}">Deposit</a>
       <a href="{{ url_for('logout') }}">Logout</a>
     {% else %}

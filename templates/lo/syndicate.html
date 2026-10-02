@@ -1,0 +1,63 @@
+{# A weekly syndicate share (lo_members.py, brief 2 part 5). Copy rules: say plainly that each share receives 1/40th
+   of any prize; never imply a win is likely; the weekly price and "renews every week until you cancel" before the
+   pay button; 18+ and a responsible-play link. #}
+{% extends "lo/base.html" %}
+{% block content %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>{{ lot.name }} syndicate</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap lo-stack" style="max-width:720px">
+    {% if not product or not cents %}
+      <div class="lo-panel"><p style="margin:0">The {{ lot.name }} syndicate is not open just now. <a href="/lottery-tickets">Play other lotteries</a>.</p></div>
+    {% else %}
+    <div class="lo-panel lo-sharehead">
+      <p class="lo-sharehead__price">{{ '€%.2f'|format(cents / 100) }} <span>a week</span></p>
+      <p style="margin:0">{{ lines }} lines in every {{ lot.name }} draw, every week{% if jp and jp.display %}. Next jackpot {{ jp.display }}{% endif %}.</p>
+    </div>
+
+    <div class="lo-panel lo-prose">
+      <h2 class="display-2">How a share works</h2>
+      <ul>
+        <li>A syndicate plays a large set of lines together. It is split into {{ shares }} shares.</li>
+        <li>Your share is {{ lines }} lines in every {{ lot.name }} draw that week.</li>
+        <li><strong>Each share receives 1/{{ shares }}th of any prize the syndicate's lines win.</strong> Prizes are paid to your account.</li>
+        <li>It costs {{ '€%.2f'|format(cents / 100) }} a week and renews every week until you cancel. Pause for up to {{ 12 }} weeks, or cancel any time in one tap from your account. No phone call.</li>
+        <li>We email you the day before each weekly payment.</li>
+      </ul>
+    </div>
+
+    <div class="lo-panel" id="join">
+      <h2 class="display-2" style="margin-top:0">Join</h2>
+      {% if not logged_in %}
+        <p>Log in or open an account to join.</p>
+        <a class="lo-btn lo-btn--lg" href="{{ url_for('login', next=request.path) }}">Log in to join</a>
+      {% elif not cards %}
+        <p>Each week's payment is taken from a saved card. Add one by making a deposit with <strong>"Save this card"</strong> ticked, and you'll come straight back here.</p>
+        <a class="lo-btn lo-btn--lg" href="{{ url_for('wallet_add_funds', next=request.path ~ '#join') }}">Add a card</a>
+      {% else %}
+        <form method="post" action="{{ url_for('syndicate_join', slug=request.view_args.slug) }}" class="lo-stack">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <div class="lo-field">
+            <label class="lo-field__label" for="saved_card_id">Pay each week with</label>
+            <select class="lo-input" id="saved_card_id" name="saved_card_id">
+              {% for c in cards %}<option value="{{ c.id }}">{{ c.brand or 'Card' }} ending {{ c.last4 or c.last_four or '' }}</option>{% endfor %}
+            </select>
+          </div>
+          <p class="lo-sharehead__terms"><strong>{{ '€%.2f'|format(cents / 100) }} a week, renewing every week until you cancel.</strong>
+            Your first week is paid from your wallet today.</p>
+          <label class="lo-check"><input type="checkbox" name="agree" value="1" required>
+            <span>I understand {{ '€%.2f'|format(cents / 100) }} is taken every week until I cancel, and that my share receives 1/{{ shares }}th of any prize.</span></label>
+          <button type="submit" class="lo-btn lo-btn--lg">Join for {{ '€%.2f'|format(cents / 100) }} a week</button>
+        </form>
+      {% endif %}
+    </div>
+    {% endif %}
+    <p class="legal">18+ only. Play for fun, not to make money. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
+  </div>
+</section>
+<style>
+  .lo-sharehead { display: grid; gap: var(--space-1); background: var(--surface-brand); color: var(--ink-on-brand); border: 0; }
+  .lo-sharehead__price { margin: 0; font: 800 34px/40px var(--font-display); color: var(--gold-400); }
+  .lo-sharehead__price span { font-size: 18px; color: var(--ink-on-brand-muted); }
+  .lo-sharehead__terms { margin: 0; }
+</style>
+{% endblock %}

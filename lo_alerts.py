@@ -5,8 +5,8 @@
 * Default threshold: twice the lottery's base (starting) jackpot, so an alert means a real rollover run; for a
   lottery with no known base, one and a half times the jackpot when the default was first worked out.
 * The watcher (`flask jackpot-alerts`, every 30 minutes) compares cached jackpots to each threshold and fires once
-  per lottery per draw, never twice. Delivery: push (lo_push.py). Email is the planned second channel; the site has
-  no email sender yet, so it is not sent.
+  per lottery per draw, never twice. Delivery: push first (lo_push.py), email second (lo_mail.py) for customers
+  with no push device who allow marketing email.
 """
 from __future__ import annotations
 
@@ -211,8 +211,28 @@ def register(app) -> None:
     @app.cli.command("jackpot-alerts")
     def jackpot_alerts_cmd():
         """Every 30 minutes: tell followers when a jackpot passes their threshold (once per draw)."""
+        import lo_mail
         with closing(lo_push._db()) as c:
-            customers = [r[0] for r in c.execute("SELECT DISTINCT customer_id FROM subscriptions")]
+            customers = {r[0] for r in c.execute("SELECT DISTINCT customer_id FROM subscriptions")}
+        customers |= {int(r["customer_id"]) for r in lo_mail.marketing_contacts()}
         with app.test_request_context("/"):
-            print(run_watcher(customers=customers, jackpot=_jackpot, fmt=app.jinja_env.globals["lo_fmt_jackpot"],
-                              send=lo_push.send))
+            print(run_watcher(customers=sorted(customers), jackpot=_jackpot, fmt=app.jinja_env.globals["lo_fmt_jackpot"],
+                              send=deliver))
+
+    def deliver(ids: list[int], payload: dict) -> dict:
+        """Push first; email second, for customers with no push device who allow marketing email."""
+        import lo_mail
+        res = dict(lo_push.send(ids, payload))
+        for cid in ids:
+            if lo_push.has_subscription(cid):
+                continue
+            ct = lo_mail.contact(cid) or {}
+            if ct.get("marketing_email") and ct.get("email"):
+                lo_mail.send(ct["email"], payload["title"],
+                             payload["body"] + "\n\nPlay here: " + lo_mail.SITE_URL + payload["url"] +
+                             "\n\nTo change or stop these alerts: " + lo_mail.SITE_URL + "/account/alerts",
+                             kind="jackpot-alert")
+                res["emailed"] = res.get("emailed", 0) + 1
+        return res
+
+    app.config["LO_ALERTS_DELIVER"] = deliver

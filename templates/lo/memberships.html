@@ -1,0 +1,75 @@
+{# Account: syndicate memberships (lo_members.py). Next charge date and amount; pause, resume, one-tap cancel;
+   past_due shows the card action. #}
+{% extends "lo/base.html" %}
+{% block content %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Your syndicate memberships</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap lo-stack" style="max-width:720px">
+    {% with messages = get_flashed_messages(with_categories=true) %}{% for cat, m in messages %}
+      <p class="lo-flash lo-flash--{{ 'error' if cat in ('error', 'danger', 'warning') else 'success' }}">{{ m }}</p>
+    {% endfor %}{% endwith %}
+    {% if request.args.get('joined') %}<p class="lo-flash lo-flash--success">You're in. We've emailed you the details.</p>{% endif %}
+    {% if failed %}<p class="lo-flash lo-flash--error">We couldn't load your memberships just now. Please try again in a moment.</p>{% endif %}
+
+    {% for s in subs %}
+      <div class="lo-panel lo-member">
+        <div class="lo-member__head">
+          <span class="lo-member__name">{{ s.name }} syndicate</span>
+          <span class="lo-member__status lo-member__status--{{ s.status }}">{{ {'active': 'Active', 'paused': 'Paused', 'past_due': 'Payment failed', 'cancelled': 'Cancelled'}.get(s.status, s.status|capitalize) }}</span>
+        </div>
+        {% if s.status == 'active' and s.next_at %}
+          <p class="lo-muted" style="margin:0">Next payment {{ '€%.2f'|format((s.next_amount_cents or 0) / 100) }} on {{ s.next_at.strftime('%A %d %B').replace(' 0', ' ') }}.</p>
+        {% elif s.status == 'paused' and s.paused_until_at %}
+          <p class="lo-muted" style="margin:0">Paused until {{ s.paused_until_at.strftime('%A %d %B').replace(' 0', ' ') }}. Nothing is taken while it is paused.</p>
+        {% elif s.status == 'past_due' %}
+          <p class="lo-flash lo-flash--error" style="margin:0">Your last weekly payment didn't go through, so you're not in this week's draws. We'll try again over the next few days.</p>
+          <a class="lo-btn" href="{{ url_for('wallet_add_funds', next='/account/memberships') }}">Update your card</a>
+        {% endif %}
+
+        {% if s.status != 'cancelled' %}
+        <div class="lo-member__actions">
+          {% if s.status == 'active' %}
+            <form method="post" action="{{ url_for('account_membership_action', sub_id=s.id, action='pause') }}" class="lo-member__pause">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <label class="lo-sr" for="w-{{ s.id }}">Weeks</label>
+              <select class="lo-input" id="w-{{ s.id }}" name="weeks">{% for w in range(1, pause_max + 1) %}<option value="{{ w }}"{% if w == pause_default %} selected{% endif %}>{{ w }} week{{ 's' if w != 1 }}</option>{% endfor %}</select>
+              <button class="lo-btn lo-btn--secondary lo-btn--sm">Pause</button>
+            </form>
+          {% elif s.status == 'paused' %}
+            <form method="post" action="{{ url_for('account_membership_action', sub_id=s.id, action='resume') }}">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button class="lo-btn lo-btn--sm">Resume</button>
+            </form>
+          {% endif %}
+          <form method="post" action="{{ url_for('account_membership_action', sub_id=s.id, action='cancel') }}"
+                {% if confirm_cancel|string == s.id|string %}class="lo-member__confirm"{% endif %}>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {% if confirm_cancel|string == s.id|string %}<p style="margin:0 0 var(--space-2)"><strong>Cancel your {{ s.name }} syndicate?</strong> Nothing more will be taken.</p>{% endif %}
+            <button class="lo-btn lo-btn--sm lo-btn--secondary">Cancel membership</button>
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    {% else %}
+      {% if not failed %}<p class="lo-muted">You don't have a syndicate membership yet.</p>{% endif %}
+    {% endfor %}
+
+    {% if offers %}
+      <h2 class="display-2">Syndicates</h2>
+      {% include "lo/_share_offer.html" %}
+    {% endif %}
+    <p class="legal">18+ only. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
+  </div>
+</section>
+<style>
+  .lo-member { display: grid; gap: var(--space-2); }
+  .lo-member__head { display: flex; justify-content: space-between; gap: var(--space-3); align-items: baseline; }
+  .lo-member__name { font: 700 17px/24px var(--font-display); color: var(--ink); }
+  .lo-member__status { font: 700 13px/18px var(--font-display); padding: 2px 10px; border-radius: var(--radius-pill); background: var(--surface-sunken); color: var(--ink-muted); }
+  .lo-member__status--active { background: var(--cta-100); color: var(--cta-700); }
+  .lo-member__status--past_due { background: var(--error-100); color: var(--error-600); }
+  .lo-member__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .lo-member__pause { display: flex; gap: var(--space-2); align-items: center; }
+  .lo-member__confirm { width: 100%; padding: var(--space-3); border-radius: var(--radius-md); background: var(--surface-sunken); }
+</style>
+{% endblock %}

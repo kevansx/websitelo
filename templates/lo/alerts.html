@@ -56,6 +56,7 @@
         </div>
       </form>
     {% endif %}
+    {% with offers = lo_share_offers(alerts|map(attribute='game_code')|list) %}{% include "lo/_share_offer.html" %}{% endwith %}
     <p class="legal">18+ only. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
   </div>
 </section>
