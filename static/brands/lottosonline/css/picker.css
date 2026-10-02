@@ -209,3 +209,15 @@ ul.leNumberGrid.availableBonusNumbersComplete li:not(.selectedNumber) { opacity:
   .lo-firework, .lo-twinkle, .lo-playhero__ball { animation: none !important; }
   .lo-firework { opacity: .35; transform: translate(-50%, -50%) scale(var(--s, 1)); }
 }
+
+/* how many draws (brief 2, part 4) */
+.lo-durations { display: grid; gap: var(--space-2); }
+@media (min-width: 640px) { .lo-durations { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.lo-duration { position: relative; display: grid; gap: 2px; padding: var(--space-3) var(--space-4) var(--space-3) 44px;
+  border: 2px solid var(--border-hairline); border-radius: var(--radius-md); background: var(--surface-card); cursor: pointer; }
+.lo-duration input { position: absolute; left: 14px; top: 16px; width: 20px; height: 20px; accent-color: var(--cta-600); margin: 0; }
+.lo-duration:has(input:checked) { border-color: var(--cta-600); background: var(--cta-100); }
+.lo-duration__label { font: 700 16px/22px var(--font-display); color: var(--ink); }
+.lo-duration__price { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.lo-duration__price b { color: var(--cta-700); }
+.lo-duration__note { font-size: 13px; line-height: 18px; color: var(--ink-subtle); }

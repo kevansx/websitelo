@@ -2013,6 +2013,9 @@ def create_app() -> Flask:
                     groups = raw["groups"]
                 else:
                     groups = [{"name": k, **v} for k, v in raw.items() if isinstance(v, dict)]
+            # German Lotto's Superzahl is drawn, not picked (CRM reply): the editor never asks for it
+            if lo_store.base_code(code) == "LO-DELOT":
+                groups = [g for g in groups if not (isinstance(g, dict) and str(g.get("name")).lower() in ("super", "superzahl"))]
             clean: list[dict[str, Any]] = []
             for g in groups:
                 if not isinstance(g, dict):
@@ -2053,6 +2056,10 @@ def create_app() -> Flask:
         max_lines = _pint(product.get("website_max_lines_per_item")) or 50
         if line_count > max_lines:
             return f"A maximum of {max_lines} lines per ticket is allowed. Please reduce your lines."
+        # LottosOnline's commercial minimum (CRM reply, "Send at least"): the CRM checkout does not enforce it.
+        lo_min = lo_store.min_lines(product_code)
+        if line_count < lo_min:
+            return f"Please choose at least {lo_min} lines for this lottery."
 
         bundle_min = _pint(product.get("bundle_min_lines"))
         if (
@@ -3932,7 +3939,8 @@ def create_app() -> Flask:
         fallback_prices = _get_cached_product_price_lookup()
         fallback_currency = (os.environ.get("CRM_PRICE_FALLBACK_CURRENCY") or "EUR").strip().upper() or "EUR"
         try:
-            for p in products:
+            # the base and its tiers: same numbers, and the cart's line editor may open a tier item
+            for p in [*products, *kinds["tiers"]]:
                 if not isinstance(p, dict):
                     continue
                 p_code = p.get("code") or p.get("product_code")
@@ -3951,8 +3959,9 @@ def create_app() -> Flask:
                         # the customer will actually be charged instead of labelling
                         # a base-currency amount with their currency symbol.
                         "prices_by_currency": p.get("prices_by_currency"),
-                        "line_schema": p.get("line_schema"),
-                        "addons": p.get("addons"),
+                        "line_schema": lo_store.pickable_schema(p.get("game_code") or game_code, p.get("line_schema")),
+                        # add-ons are off for LottosOnline (CRM reply): no Power Play, Megaplier, Superstar, Plus
+                        "addons": [],
                     }
                 )
         except Exception:
@@ -4136,6 +4145,8 @@ def create_app() -> Flask:
                 raise ValueError("options_json must be a JSON object")
         except Exception as e:
             abort(400, f"Invalid options_json: {e}")
+        # Add-ons are off for this brand (CRM reply): never send them, whatever the form carried.
+        options = {k: v for k, v in options.items() if str(k).startswith("_")}
 
         raw_edit_item_idx = (request.form.get("line_edit_item_idx") or "").strip()
         raw_edit_line_idx = (request.form.get("line_edit_line_idx") or "").strip()
@@ -4779,13 +4790,14 @@ def create_app() -> Flask:
                     _debug_print(f"DEBUG: _build_upsell_offer: no products found for {game_code} after all attempts", flush=True)
                     return None
                 
-                for p in products:
-                    ptype = str(p.get("product_type") or "").strip().lower()
-                    if ptype == "single":
-                        product_code = str(p.get("code") or p.get("product_code") or "").strip().upper()
-                        line_schema = p.get("line_schema")
-                        if product_code and line_schema:
-                            break
+                # The base single-draw product only (brief 2, part 1): never a multi-draw tier or a subscription.
+                _base = lo_store.split_products(products)["base"]
+                if _base:
+                    product_code = lo_store.product_code(_base).upper()
+                    line_schema = lo_store.pickable_schema(game_code, _base.get("line_schema"))
+                # never below the lottery's own minimum (CRM reply, "Send at least")
+                if product_code:
+                    num_lines = max(int(num_lines), lo_store.min_lines(product_code))
                 
                 if not product_code:
                     _debug_print(f"DEBUG: _build_upsell_offer: no single product_code found for {game_code}", flush=True)
@@ -6111,6 +6123,9 @@ def create_app() -> Flask:
             if not isinstance(_it, dict) or _it.get("kind", "single") != "single":
                 continue
             _err = lo_store.cart_item_error(_guard_product(_it.get("product_code")), _it.get("ticket_mode"), _it.get("draw_weeks"))
+            _lines = _it.get("lines") if isinstance(_it.get("lines"), list) else []
+            if not _err and _lines and len(_lines) < lo_store.min_lines(_it.get("product_code")):
+                _err = "under the minimum lines"
             if _err:
                 app.logger.warning("checkout guard refused %s (mode=%s, draw_weeks=%s)",
                                    _it.get("product_code"), _it.get("ticket_mode"), _it.get("draw_weeks"))

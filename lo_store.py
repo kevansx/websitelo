@@ -52,10 +52,21 @@ def schema_groups(line_schema: Any) -> list[dict]:
     return groups
 
 
-def quick_pick(line_schema: Any) -> dict:
+# Groups a CRM line_schema may list that the customer does not pick: German Lotto's Superzahl is drawn
+# (CRM reply, 2 Oct 2026: 6 numbers from 1-49, nothing else).
+DRAWN_NOT_PICKED = {"lotto-6aus49": ("super", "superzahl")}
+
+
+def pickable_schema(game_code: str | None, line_schema: Any) -> list[dict]:
+    """The groups a customer picks, as a list (the CRM's own shape)."""
+    drop = DRAWN_NOT_PICKED.get(str(game_code or "").lower(), ())
+    return [g for g in schema_groups(line_schema) if str(g.get("name")).lower() not in drop]
+
+
+def quick_pick(line_schema: Any, game_code: str | None = None) -> dict:
     """One random line in the CRM's grant format: main as "1,2,3", single bonus numbers as an int."""
     line: dict[str, Any] = {}
-    for g in schema_groups(line_schema):
+    for g in pickable_schema(game_code, line_schema):
         lo, hi, n = int(g.get("min", 1)), int(g.get("max", 45)), int(g.get("count", 1))
         nums = sorted(random.sample(range(lo, hi + 1), min(n, hi - lo + 1)))
         name = str(g["name"])

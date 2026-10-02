@@ -158,9 +158,6 @@ def register(app) -> None:
         "zendesk_key": _tag("LO_ZENDESK_KEY", "c313db13-7d37-4ec8-9a85-06f112b0507d"),
     }
 
-    # Groups the CRM lists but the customer does not pick (German Lotto's Superzahl is drawn: CRM reply).
-    DRAWN_NOT_PICKED = {"lotto-6aus49": ("super",)}
-
     BONUS_NAMES = {"powerball": "Powerball", "megaball": "Mega Ball", "mega": "Mega number", "star": "Star Ball",
                    "stars": "Lucky Stars", "euro": "Euro numbers", "key": "Key number", "super": "Superzahl",
                    "chance": "Chance number", "thunderball": "Thunderball", "millionaire": "Millionaire Ball",
@@ -170,12 +167,10 @@ def register(app) -> None:
         """'Pick 5 numbers (1-69) + 1 Powerball (1-26)', from the product's line schema (LottoGo shows this)."""
         # The base (single-draw) product's format, in whatever shape the CRM sends it (lo_store).
         base = lo_store.split_products((game or {}).get("products") or [])["base"]
-        groups = lo_store.schema_groups((base or {}).get("line_schema"))
+        groups = lo_store.pickable_schema((game or {}).get("game_code"), (base or {}).get("line_schema"))
         parts = []
         for g in groups:
             key = str(g.get("name"))
-            if key in DRAWN_NOT_PICKED.get((game or {}).get("game_code"), ()):
-                continue
             n, lo, hi = g.get("count"), g.get("min"), g.get("max")
             label = "numbers" if key == "main" else BONUS_NAMES.get(key, key.replace("_", " ").title())
             parts.append(f"{'Pick ' if key == 'main' else ''}{n} {label} ({lo}-{hi})")

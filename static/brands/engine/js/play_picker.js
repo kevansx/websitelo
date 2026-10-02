@@ -503,6 +503,14 @@
         if (isNaN(w) || w < 1) w = 1;
         if (w > MAX_WEEKS) w = MAX_WEEKS;
         var drawsSelected = weekdayCount * w;
+        // LottosOnline duration picker (brief 2, part 4): without the old draw-day/weeks controls the draws come
+        // from the chosen duration: 1 draw, a tier of N draws, or a tier of N weeks (2-3 draws a week, so a range).
+        var drawsRange = null;
+        if (!drawDaysHost) {
+          var dur = state.duration || { draws: 1 };
+          if (dur.weeks) { drawsRange = [dur.weeks * 3 - 1, dur.weeks * 3]; drawsSelected = drawsRange[1]; }
+          else { drawsSelected = dur.draws || 1; }
+        }
         optOut._weeks = w;
         optOut._draw_weekdays = Object.keys(state.selectedWeekdays || {}).filter(function (x) { return state.selectedWeekdays[x]; });
         optionsJsonEl.value = JSON.stringify(optOut);
@@ -515,6 +523,10 @@
           unitPerLineCents = unitPrice.cents;
         } else if (state.product && state.product.price_in_base_cents != null) {
           unitPerLineCents = parseInt(state.product.price_in_base_cents, 10);
+        }
+        // a multi-draw tier: its own locked price, never a percentage worked out here (the CRM rounds half-up)
+        if (state.duration && state.duration.cents != null) {
+          unitPerLineCents = parseInt(state.duration.cents, 10);
         }
         if (isNaN(unitPerLineCents)) unitPerLineCents = 0;
 
@@ -550,13 +562,20 @@
         if (currencyEl2) currencyEl2.textContent = currencySymbol(prodCurrency);
         if (unitAmountEl) unitAmountEl.textContent = (itemSubtotalCents / 100).toFixed(2);
         if (totalAmountEl) totalAmountEl.textContent = (totalCents / 100).toFixed(2);
+        if (drawsRange && completeLines > 0) {
+          // charged for the draws actually in the window: 8 or 9 for 3 weeks of a three-a-week lottery
+          var lowCents = completeLines * drawsRange[0] * (unitPerLineCents + addonPerLineCents);
+          if (unitAmountEl) unitAmountEl.textContent = (lowCents / 100).toFixed(2) + "–" + (totalCents / 100).toFixed(2);
+          if (totalAmountEl) totalAmountEl.textContent = (lowCents / 100).toFixed(2) + "–" + (totalCents / 100).toFixed(2);
+        }
 
         // Lines x Draws copy
         if (countCopyEl) {
           var n = completeLines;
           var dN = drawsSelected || 0;
-          countCopyEl.textContent =
-            n + (n === 1 ? " Line" : " Lines") + " x " + dN + (dN === 1 ? " Draw" : " Draws");
+          countCopyEl.textContent = (state.duration && state.duration.weeks)
+            ? n + (n === 1 ? " Line" : " Lines") + " x " + state.duration.weeks + (state.duration.weeks === 1 ? " week" : " weeks")
+            : n + (n === 1 ? " Line" : " Lines") + " x " + dN + (dN === 1 ? " Draw" : " Draws");
         }
 
         // Disable submit until all lines are complete (legacy behavior).
@@ -599,7 +618,9 @@
         if (editingThisLine) {
           state.lines = [lineFromEditPayload(state.lineEdit.line, state.groups)];
         } else {
-          var nLines = parseInt(DEFAULT_LINES_ON_LOAD, 10);
+          // LottosOnline: open on the lottery's minimum lines (#leMinLines), so the first order is a valid one
+          var minEl = document.getElementById("leMinLines");
+          var nLines = parseInt((minEl && minEl.value) || DEFAULT_LINES_ON_LOAD, 10);
           if (isNaN(nLines) || nLines < 1) nLines = 1;
           state.lines = [];
           // Land on a playable ticket: the customer edits or clears from there.
@@ -842,6 +863,9 @@
       lineCount: function () { return state.lines.length; },
       unitPrice: function () {
         var p = priceForCurrency(state.product, state.defaultCurrency);
+        if (state.duration && state.duration.cents != null) {
+          return { cents: parseInt(state.duration.cents, 10), currency: (p && p.currency) || (state.product && state.product.base_currency) || "EUR" };
+        }
         if (p) return p;
         if (state.product && state.product.price_in_base_cents != null) {
           return { cents: parseInt(state.product.price_in_base_cents, 10), currency: state.product.base_currency || "EUR" };
@@ -849,6 +873,12 @@
         return null;
       },
       currencySymbol: currencySymbol,
+      // LottosOnline duration picker: {cents, draws} or {cents, weeks}. Price and draws only: the lines stay.
+      setDuration: function (d) {
+        state.duration = d || null;
+        state.refresh();
+        notify("lopicker:duration", d || {});
+      },
       setLineCount: function (n) {
         if (state.lineEdit) return;
         n = Math.max(1, Math.min(50, parseInt(n, 10) || 1));

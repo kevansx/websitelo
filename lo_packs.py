@@ -341,7 +341,7 @@ def open_pack(pack_id: str, *, customer_id: int | None, crm: Any, games: list[di
             gift = choose_gift(p, a["games"], games)
             if gift is None:
                 raise PackError("no_gift_available")
-        lines = [lo_store.quick_pick(gift.get("line_schema")) for _ in range(int(gift["lines"]))]
+        lines = [lo_store.quick_pick(gift.get("line_schema"), gift.get("game_code")) for _ in range(int(gift["lines"]))]
         # Record the draw before calling the CRM: a retry grants the same gift with the same key.
         c.execute("UPDATE packs SET gift_json=? WHERE pack_id=?", (json.dumps(gift), pack_id))
         c.commit()

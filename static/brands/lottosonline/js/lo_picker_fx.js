@@ -151,6 +151,7 @@
     decorateLines();
 
     document.addEventListener("lopicker:quickpicked", function (e) { animateLines(e.detail || {}); });
+    document.addEventListener("lopicker:duration", function () { decorateLines(); });   // price per line per draw
     document.addEventListener("lopicker:own", function (e) {
       setTimeout(function () {
         decorateLines();
