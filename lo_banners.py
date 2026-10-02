@@ -43,9 +43,9 @@ def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] 
         slides.append({
             "id": "jackpot-" + lot.slug, "theme": "rollover", "art": "ball",
             "kicker": f"{lot.name} jackpot",
-            "title": "Don't Let This One Roll Away",
+            "title": "Help Stop The Rollover",
             "highlight": jp["display"],
-            "text": f"The {lot.name} jackpot keeps growing. Secure your tickets for the next draw.",
+            "text": f"Nobody has matched every number yet. Your {lot.name} lines could be the ones that do.",
             "cta_label": f"Play {lot.name}", "cta_href": f"/lottery-tickets/{lot.slug}",
             "countdown_iso": None if jp.get("closed") else jp.get("cutoff_iso"),
             "balls": [lo_ball(lot)],
