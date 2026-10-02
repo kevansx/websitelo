@@ -2706,6 +2706,13 @@ def create_app() -> Flask:
         except Exception:
             return 60
 
+    def _sync_timeout_seconds() -> int:
+        # Background jobs and admin syncs: nobody is waiting on a page, so allow a slow CRM to finish.
+        try:
+            return int(os.environ.get("CRM_SYNC_TIMEOUT_SECONDS", "30"))
+        except Exception:
+            return 30
+
     def _layout_timeout_seconds() -> int:
         # Keep page loads fast even if CRM is slow; we fall back to SQLite cache.
         try:
@@ -3770,6 +3777,44 @@ def create_app() -> Flask:
     def health() -> tuple[dict, int]:
         # Local app health check (for nginx/systemd). CRM health is separate.
         return {"ok": True, "brand": g.brand.slug}, 200
+
+    _crm_health_memo: dict[str, Any] = {"at": 0.0, "body": None}
+
+    @app.get("/health/crm")
+    def health_crm():
+        """What the site gets from the CRM: switches, status codes, counts and timings. No keys, no customer data.
+        Answered at most once a minute (the rest from memory), so it cannot be used to hammer the CRM."""
+        import time as _t
+        if _crm_health_memo["body"] is not None and _t.time() - _crm_health_memo["at"] < 60:
+            return _crm_health_memo["body"], 200
+
+        def probe(path: str, params: dict | None = None, key: str = "jackpots") -> dict:
+            t0 = _t.time()
+            try:
+                data = get_crm()._request("GET", path, params=params or None, service_key=True, timeout_seconds=_sync_timeout_seconds())
+                rows = data.get(key) if isinstance(data, dict) else None
+                return {"ok": True, "count": len(rows) if isinstance(rows, list) else None, "seconds": round(_t.time() - t0, 2)}
+            except CRMError as e:
+                return {"ok": False, "status": getattr(e, "status_code", None), "seconds": round(_t.time() - t0, 2)}
+            except Exception as e:  # timeout, connection
+                return {"ok": False, "error": type(e).__name__, "seconds": round(_t.time() - t0, 2)}
+
+        try:
+            cached = len(get_cache().get_cached_jackpots())
+        except Exception:
+            cached = None
+        body = {
+            "cache_only": _crm_cache_only_mode(),
+            "sync_enabled": os.environ.get("CRM_SYNC_ENABLE", "0").strip() == "1",
+            "page_timeout_seconds": _layout_timeout_seconds(),
+            "jackpots_configured_only": probe("/api/v1/jackpots", {"configured_only": 1}),
+            "jackpots_all": probe("/api/v1/jackpots"),
+            "jackpots_cached": cached,
+            "store_games": probe("/api/v1/store/games", key="games"),
+            "draw_results": probe("/api/v1/draw-results", {"limit": 5, "status": "completed"}, key="draws"),
+        }
+        _crm_health_memo.update(at=_t.time(), body=body)
+        return body, 200
 
     @app.get("/")
     def home():
@@ -11515,7 +11560,7 @@ def create_app() -> Flask:
             try:
                 acquired = cache.try_acquire_lock("jackpots", ttl_seconds=600)
                 if acquired:
-                    jackpots = run_with_backoff(lambda: _get_jackpots_live_or_cache(), cache, "jackpots")
+                    jackpots = run_with_backoff(lambda: _get_jackpots_live_or_cache(timeout_seconds=_sync_timeout_seconds()), cache, "jackpots")
                     msg = f"Synced jackpots: {len(jackpots) if isinstance(jackpots, list) else 0} rows."
                 else:
                     err = "Jackpots sync already running."
@@ -11724,7 +11769,8 @@ def create_app() -> Flask:
 
             # Jackpots (live-first + persisted)
             def _jackpots() -> None:
-                _get_jackpots_live_or_cache()
+                # background: no page is waiting, so give the CRM time to send the whole jackpot list
+                _get_jackpots_live_or_cache(timeout_seconds=_sync_timeout_seconds())
 
             if should_sync(cache.get_state("last_jackpots_fetch_at"), max(60, int(jackpots_interval_minutes) * 60)):
                 _job("jackpots", _jackpots)
