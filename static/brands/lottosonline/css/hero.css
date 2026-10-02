@@ -1,0 +1,107 @@
+/* Home banner carousel (after theLotter's top banner): text straight on each slide's background, one
+   illustration, pill button, small print. Six backgrounds within the LottosOnline palette. Phone first: art on
+   top, centred text; from 900px text left, art right. */
+.lo-banner { position: relative; overflow: hidden; color: #fff; background: var(--surface-brand-deep); }
+.lo-banner__viewport { overflow: hidden; }
+.lo-banner__track { display: flex; will-change: transform; }
+.lo-banner__slide { position: relative; flex: 0 0 100%; min-width: 0; overflow: hidden; display: flex; align-items: center;
+  padding: var(--space-6) 0 var(--space-10); }
+@media (min-width: 900px) { .lo-banner__slide { min-height: 400px; padding: var(--space-8) 0 var(--space-10); } }
+
+/* backgrounds */
+.lo-banner--brand   { background: radial-gradient(120% 140% at 85% 0%, var(--surface-brand-raised) 0%, var(--surface-brand) 45%, var(--surface-brand-deep) 100%); }
+.lo-banner--rollover{ background: radial-gradient(90% 120% at 80% 40%, #c2561a 0%, #7d2a6e 45%, #3e1456 100%); }
+.lo-banner--indigo  { background: radial-gradient(110% 130% at 80% 30%, #4c3aa8 0%, #2e1f73 50%, #1c1247 100%); }
+.lo-banner--night   { background: linear-gradient(160deg, #24103a 0%, #160822 100%); }
+.lo-banner--magenta { background: radial-gradient(110% 130% at 80% 40%, #b02a86 0%, #6e1a6e 50%, #3e1456 100%); }
+.lo-banner--gold    { background: radial-gradient(100% 130% at 80% 40%, #8a5a00 0%, #5a2a6e 50%, #2e0f42 100%); }
+.lo-banner__glow { position: absolute; right: -10%; top: -30%; width: 70%; aspect-ratio: 1; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(253,188,0,.22), transparent 62%); }
+.lo-banner__stars { position: absolute; inset: 0; pointer-events: none; opacity: .7;
+  background-image: radial-gradient(1.5px 1.5px at 10% 20%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 30% 70%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 55% 15%, #fdbc00 50%, transparent 51%), radial-gradient(1px 1px at 75% 60%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 90% 30%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 45% 85%, #fdbc00 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 20% 50%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 65% 40%, #fff 50%, transparent 51%); }
+
+/* layout */
+.lo-banner__grid { position: relative; z-index: 1; display: grid; gap: var(--space-4); width: 100%; justify-items: center; text-align: center; }
+.lo-banner__copy { order: 2; max-width: 34rem; }
+.lo-banner__art { order: 1; }
+@media (min-width: 900px) {
+  .lo-banner__grid { grid-template-columns: 1.15fr 1fr; align-items: center; justify-items: start; text-align: left; gap: var(--space-8); }
+  .lo-banner__copy { order: 1; }
+  .lo-banner__art { order: 2; justify-self: center; }
+}
+
+/* text straight on the background */
+.lo-banner__kicker { margin: 0 0 var(--space-2); font: 700 15px/20px var(--font-display); color: var(--gold-400); letter-spacing: .01em; }
+.lo-banner__title { margin: 0; font: 800 30px/36px var(--font-display); letter-spacing: -0.02em; text-wrap: balance; }
+.lo-banner__highlight { margin: var(--space-2) 0 0; font: 800 40px/44px var(--font-display); color: var(--gold-400); letter-spacing: -0.02em; }
+.lo-banner__tag { display: inline-block; margin-top: var(--space-4); font: 800 14px/20px var(--font-display); color: var(--surface-brand-deep);
+  background: var(--gold-400); padding: 6px 12px; border-radius: var(--radius-sm); transform: rotate(-2deg); }
+.lo-banner__text { margin: var(--space-3) 0 0; font-size: 16px; line-height: 24px; color: var(--ink-on-brand-muted); }
+.lo-banner__cta { margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
+.lo-banner__cta .lo-btn { border-radius: var(--radius-pill); padding-left: var(--space-8); padding-right: var(--space-8); }
+.lo-banner__small { margin: var(--space-3) 0 0; font-size: 12px; color: var(--ink-on-brand-muted); }
+.lo-banner__small a { color: inherit; }
+@media (min-width: 900px) {
+  .lo-banner__title { font-size: 46px; line-height: 52px; }
+  .lo-banner__highlight { font-size: 56px; line-height: 60px; }
+  .lo-banner__cta { justify-content: flex-start; }
+}
+
+/* illustrations */
+.lo-banner__art { position: relative; display: grid; place-items: center; width: 220px; height: 170px; }
+@media (min-width: 900px) { .lo-banner__art { width: 340px; height: 300px; } }
+.lo-banner__bigball { width: 150px; height: 150px; border-radius: 50%; background: #fff; box-shadow: 0 18px 40px rgba(0,0,0,.4); animation: lo-banner-float 5s ease-in-out infinite; position: relative; z-index: 1; }
+@media (min-width: 900px) { .lo-banner__bigball { width: 230px; height: 230px; } }
+.lo-banner__rays { position: absolute; inset: -20%; border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(253,188,0,.22) 0 8deg, transparent 8deg 22deg);
+  -webkit-mask: radial-gradient(circle, #000 25%, transparent 70%); mask: radial-gradient(circle, #000 25%, transparent 70%); animation: lo-banner-spin 30s linear infinite; }
+.lo-banner__clock { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); z-index: 2; white-space: nowrap; background: #1d1324; color: #fff;
+  font: 700 12px/16px var(--font-body); padding: 6px 12px; border-radius: var(--radius-pill); box-shadow: var(--shadow-tag); }
+.lo-banner__clock .lo-countdown { color: var(--gold-400); font-variant-numeric: tabular-nums; }
+
+.lo-banner__art--balls { width: 260px; }
+.lo-banner__minib { position: absolute; width: 74px; height: 74px; border-radius: 50%; background: #fff; box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  animation: lo-banner-float 5s ease-in-out infinite; animation-delay: calc(var(--i) * -0.7s); }
+.lo-banner__art--n3 .lo-banner__minib:nth-child(1) { left: 6%; top: 32%; width: 92px; height: 92px; }
+.lo-banner__art--n3 .lo-banner__minib:nth-child(2) { left: 36%; top: 6%; width: 110px; height: 110px; z-index: 2; }
+.lo-banner__art--n3 .lo-banner__minib:nth-child(3) { right: 4%; top: 38%; width: 84px; height: 84px; }
+.lo-banner__art--n7 .lo-banner__minib:nth-child(1) { left: 2%; top: 40%; }
+.lo-banner__art--n7 .lo-banner__minib:nth-child(2) { left: 22%; top: 8%; }
+.lo-banner__art--n7 .lo-banner__minib:nth-child(3) { left: 38%; top: 44%; width: 92px; height: 92px; z-index: 2; }
+.lo-banner__art--n7 .lo-banner__minib:nth-child(4) { left: 52%; top: 0; }
+.lo-banner__art--n7 .lo-banner__minib:nth-child(5) { right: 4%; top: 30%; }
+.lo-banner__art--n7 .lo-banner__minib:nth-child(6) { left: 14%; bottom: -4%; width: 60px; height: 60px; }
+.lo-banner__art--n7 .lo-banner__minib:nth-child(7) { right: 18%; bottom: -6%; width: 60px; height: 60px; }
+@media (min-width: 900px) {
+  .lo-banner__art--balls { width: 380px; }
+  .lo-banner__minib { width: 104px; height: 104px; }
+  .lo-banner__art--n3 .lo-banner__minib:nth-child(1) { width: 130px; height: 130px; }
+  .lo-banner__art--n3 .lo-banner__minib:nth-child(2) { width: 160px; height: 160px; }
+  .lo-banner__art--n3 .lo-banner__minib:nth-child(3) { width: 120px; height: 120px; }
+  .lo-banner__art--n7 .lo-banner__minib:nth-child(3) { width: 130px; height: 130px; }
+  .lo-banner__art--n7 .lo-banner__minib:nth-child(6), .lo-banner__art--n7 .lo-banner__minib:nth-child(7) { width: 84px; height: 84px; }
+}
+
+.lo-banner__wheel { width: 160px; height: 160px; filter: drop-shadow(0 16px 30px rgba(0,0,0,.45)); animation: lo-banner-spin 16s linear infinite; }
+.lo-banner__pointer { position: absolute; top: 0; left: 50%; transform: translate(-50%, -18%); width: 30px; height: 36px; filter: drop-shadow(0 4px 6px rgba(0,0,0,.4)); }
+@media (min-width: 900px) { .lo-banner__wheel { width: 260px; height: 260px; } .lo-banner__pointer { width: 40px; height: 46px; transform: translate(-50%, -8%); } }
+
+.lo-banner__art--crown svg, .lo-banner__art--gift svg { width: 170px; height: auto; filter: drop-shadow(0 16px 30px rgba(0,0,0,.45)); animation: lo-banner-float 5s ease-in-out infinite; }
+@media (min-width: 900px) { .lo-banner__art--crown svg, .lo-banner__art--gift svg { width: 250px; } }
+.lo-banner__coin { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffe8a0, #d68f00 70%);
+  border: 2px solid #7a4b00; left: calc(8% + var(--i) * 19%); bottom: 4%; animation: lo-banner-coin 3.2s ease-in-out infinite; animation-delay: calc(var(--i) * -0.6s); }
+
+@keyframes lo-banner-float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+@keyframes lo-banner-spin { to { transform: rotate(360deg); } }
+@keyframes lo-banner-coin { 0%, 100% { transform: translateY(0) rotateY(0deg); } 50% { transform: translateY(-14px) rotateY(180deg); } }
+
+/* dots */
+.lo-banner__dots { position: absolute; left: 0; right: 0; bottom: var(--space-4); display: flex; justify-content: center; gap: 8px; z-index: 2; }
+.lo-banner__dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 4px; background: rgba(255,255,255,.4); cursor: pointer; transition: width .25s ease, background .25s ease; }
+.lo-banner__dot[aria-selected="true"] { width: 26px; background: var(--gold-400); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lo-banner__bigball, .lo-banner__minib, .lo-banner__rays, .lo-banner__wheel, .lo-banner__art svg, .lo-banner__coin { animation: none !important; }
+}

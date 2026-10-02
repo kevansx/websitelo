@@ -3750,7 +3750,16 @@ def create_app() -> Flask:
     def home():
         # LottosOnline home (templates/lo/home.html): every lottery the site sells, ordered by
         # "% above base" as the old home page ordered them, with the old page's copy word for word.
-        return render_template("lo/home.html", rows=app.config["LO_HOME_ROWS"](), page=app.config["LO_LEGACY_PAGES"].get("/"))
+        import lo_banners
+        rows = app.config["LO_HOME_ROWS"]()
+        featured = app.jinja_env.globals["lo_featured_rows"](rows)
+        try:
+            crm_banners = marketing_banners_cached("home")
+        except Exception:
+            crm_banners = []
+        slides = lo_banners.home_slides(rows, featured, crm_banners, logged_in=bool(get_token()),
+                                        lo_ball=app.jinja_env.globals["lo_ball"])
+        return render_template("lo/home.html", rows=rows, slides=slides, page=app.config["LO_LEGACY_PAGES"].get("/"))
 
     @app.get("/lottery-tickets")
     def catalog():

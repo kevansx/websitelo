@@ -1,33 +1,11 @@
-{# Home. Same structure search engines see today: the banner line is text, not a heading; the single H1
+{# Home. Banner carousel at the top (lo/_hero_carousel.html, after theLotter). Same structure search engines see today: the banner line is text, not a heading; the single H1
    "Play Lotto Online" and H2 "Lottery Tickets Online" sit in the copy below the lottery table, word for
    word. Lotteries are ordered by "% above base", as the old page ordered them. #}
 {% extends "lo/base.html" %}
 {% set featured = lo_featured_rows(rows) %}
-{% set lead = featured[0] if featured else None %}
+{% block extra_head %}<link rel="stylesheet" href="{{ lo_asset('css/hero.css') }}">{% endblock %}
 {% block content %}
-<section class="lo-homehero">
-  <div class="lo-wrap lo-homehero__grid">
-    <div>
-      <p class="lo-homehero__kicker">Buy Official Lottery Tickets</p>
-      <p class="lo-homehero__title" style="margin:0;font:800 32px/38px var(--font-display);letter-spacing:-.02em">To Enter The Worlds Biggest Jackpots!</p>
-      <span class="lo-homehero__tag">Lowest Prices With Scanned Tickets!</span>
-      <div class="lo-homehero__cta">
-        <a class="lo-btn lo-btn--lg" href="/lottery-tickets">Play Now</a>
-        {% if not customer %}<a class="lo-btn lo-btn--lg lo-btn--onbrand" href="/create-account">Open Free Account</a>{% endif %}
-      </div>
-    </div>
-    {% if lead %}
-    <a class="lo-homehero__feature" href="/lottery-tickets/{{ lead.lottery.slug }}" style="text-decoration:none;color:inherit">
-      <img class="lo-game__ball" src="{{ lo_ball(lead.lottery) }}" alt="{{ lead.lottery.name }}" width="88" height="88">
-      <span class="lo-homehero__fname">{{ lead.lottery.name }}</span>
-      <span class="lo-homehero__fjackpot">{{ lead.jp.display }}</span>
-      {% if lead.jp.rise_pct %}<span class="lo-game__rise">🔥 {{ lead.jp.rise_pct }}% above base</span>{% endif %}
-      {% if lead.jp.closed %}<span class="lo-homehero__fname">Results Pending</span>{% elif lead.jp.cutoff_iso %}<span class="lo-countdown lo-countdown--lg lo-countdown--onbrand" data-until="{{ lead.jp.cutoff_iso }}">&nbsp;</span>{% endif %}
-      <span class="lo-btn">Play Now</span>
-    </a>
-    {% endif %}
-  </div>
-</section>
+{% include "lo/_hero_carousel.html" %}
 
 <section class="lo-section" style="padding-top:var(--space-6)">
   <div class="lo-wrap">
@@ -95,3 +73,4 @@
   </div>
 </section>
 {% endblock %}
+{% block extra_scripts %}<script defer src="{{ lo_asset('js/hero_carousel.js') }}"></script>{% endblock %}

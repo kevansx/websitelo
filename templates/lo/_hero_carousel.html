@@ -1,0 +1,87 @@
+{# Home banner carousel (after theLotter): text straight on each slide's own background, one illustration,
+   pill button, small print. Slides come from lo_banners.home_slides (built-in + CRM "home" banners).
+   Behaviour (static/brands/lottosonline/js/hero_carousel.js): slides left every 6.5s, 0.5s ease-in-out,
+   seamless loop, pauses on hover / focus / touch / hidden tab, swipe on phones, dots, no autoplay when the
+   visitor prefers reduced motion. The banner lines are text, not headings: the page's single H1 stays
+   "Play Lotto Online" further down, as on the old site. #}
+{% macro art(s) %}
+  {% if s.art == "ball" and s.balls %}
+    <div class="lo-banner__art lo-banner__art--ball">
+      <span class="lo-banner__rays" aria-hidden="true"></span>
+      <img class="lo-banner__bigball" src="{{ s.balls[0] }}" alt="" width="220" height="220" loading="lazy">
+      {% if s.countdown_iso %}<span class="lo-banner__clock">Closes in <span class="lo-countdown" data-until="{{ s.countdown_iso }}">&nbsp;</span></span>{% endif %}
+    </div>
+  {% elif s.art == "balls" and s.balls %}
+    <div class="lo-banner__art lo-banner__art--balls lo-banner__art--n{{ s.balls|length }}">
+      {% for b in s.balls %}<img class="lo-banner__minib" style="--i:{{ loop.index0 }}" src="{{ b }}" alt="" width="120" height="120" loading="lazy">{% endfor %}
+    </div>
+  {% elif s.art == "wheel" %}
+    <div class="lo-banner__art lo-banner__art--wheel" aria-hidden="true">
+      <svg class="lo-banner__wheel" viewBox="-110 -110 220 220" width="230" height="230">
+        <circle r="106" fill="#fdbc00"/><circle r="98" fill="#3e1456"/>
+        {% for i in range(8) %}
+          <path d="M0 0 L0 -94 A94 94 0 0 1 66.5 -66.5 Z" transform="rotate({{ i * 45 }})" fill="{{ ['#6a2a90','#ffffff','#d67900','#ffffff','#582178','#ffffff','#fdbc00','#ffffff'][i] }}"/>
+          <text x="0" y="-62" transform="rotate({{ i * 45 + 22.5 }})" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="15" fill="{{ '#3e1456' if i % 2 else '#ffffff' }}">{{ ['10%','SPIN','20%','WIN','30%','SPIN','BONUS','WIN'][i] }}</text>
+        {% endfor %}
+        {% for i in range(16) %}<circle cx="0" cy="-102" r="3" fill="#fff" transform="rotate({{ i * 22.5 }})"/>{% endfor %}
+        <circle r="20" fill="#fdbc00" stroke="#3e1456" stroke-width="5"/>
+      </svg>
+      <svg class="lo-banner__pointer" viewBox="0 0 40 46" width="40" height="46"><path d="M20 46 0 8a20 20 0 1 1 40 0z" fill="#fdbc00" stroke="#3e1456" stroke-width="4"/></svg>
+    </div>
+  {% elif s.art == "crown" %}
+    <div class="lo-banner__art lo-banner__art--crown" aria-hidden="true">
+      <svg viewBox="0 0 240 200" width="240" height="200">
+        <defs><linearGradient id="lohcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd95a"/><stop offset="1" stop-color="#d68f00"/></linearGradient></defs>
+        <path d="M30 150 20 60l55 40 45-70 45 70 55-40-10 90z" fill="url(#lohcg)" stroke="#7a4b00" stroke-width="4" stroke-linejoin="round"/>
+        <rect x="28" y="150" width="184" height="26" rx="8" fill="url(#lohcg)" stroke="#7a4b00" stroke-width="4"/>
+        <circle cx="120" cy="120" r="16" fill="#6a2a90" stroke="#fff" stroke-width="4"/>
+        <circle cx="70" cy="128" r="9" fill="#fff"/><circle cx="170" cy="128" r="9" fill="#fff"/>
+        <circle cx="20" cy="58" r="10" fill="#fff"/><circle cx="120" cy="28" r="12" fill="#fff"/><circle cx="220" cy="58" r="10" fill="#fff"/>
+        <text x="120" y="170" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="20" fill="#3e1456">VIP</text>
+      </svg>
+      {% for c in range(5) %}<span class="lo-banner__coin" style="--i:{{ c }}"></span>{% endfor %}
+    </div>
+  {% else %}
+    <div class="lo-banner__art lo-banner__art--gift" aria-hidden="true">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <rect x="30" y="92" width="160" height="110" rx="10" fill="#6a2a90" stroke="#fff" stroke-width="5"/>
+        <rect x="20" y="62" width="180" height="40" rx="10" fill="#8e3fb8" stroke="#fff" stroke-width="5"/>
+        <rect x="98" y="62" width="24" height="140" fill="#fdbc00"/>
+        <path d="M110 62c-18-30-56-34-56-12 0 18 34 14 56 12zm0 0c18-30 56-34 56-12 0 18-34 14-56 12z" fill="#fdbc00" stroke="#7a4b00" stroke-width="4"/>
+      </svg>
+    </div>
+  {% endif %}
+{% endmacro %}
+
+<section class="lo-banner" aria-roledescription="carousel" aria-label="Jackpots and special offers" data-hero>
+  <div class="lo-banner__viewport">
+    <div class="lo-banner__track" data-hero-track>
+      {% for s in slides %}
+      <div class="lo-banner__slide lo-banner--{{ s.theme }}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ slides|length }}" data-hero-slide>
+        <span class="lo-banner__glow" aria-hidden="true"></span>
+        {% if s.theme == "night" %}<span class="lo-banner__stars" aria-hidden="true"></span>{% endif %}
+        <div class="lo-wrap lo-banner__grid">
+          <div class="lo-banner__copy">
+            {% if s.kicker %}<p class="lo-banner__kicker">{{ s.kicker }}</p>{% endif %}
+            <p class="lo-banner__title">{{ s.title }}</p>
+            {% if s.highlight %}<p class="lo-banner__highlight">{{ s.highlight }}</p>{% endif %}
+            {% if s.tag %}<span class="lo-banner__tag">{{ s.tag }}</span>{% endif %}
+            {% if s.text %}<p class="lo-banner__text">{{ s.text }}</p>{% endif %}
+            <div class="lo-banner__cta">
+              <a class="lo-btn lo-btn--lg" href="{{ s.cta_href }}"{% if not loop.first %} tabindex="-1"{% endif %}>{{ s.cta_label }}</a>
+              {% if s.cta2_label %}<a class="lo-btn lo-btn--lg lo-btn--onbrand" href="{{ s.cta2_href }}"{% if not loop.first %} tabindex="-1"{% endif %}>{{ s.cta2_label }}</a>{% endif %}
+            </div>
+            {% if s.small_print %}<p class="lo-banner__small">{% if s.small_href %}<a href="{{ s.small_href }}"{% if not loop.first %} tabindex="-1"{% endif %}>{{ s.small_print }}</a>{% else %}{{ s.small_print }}{% endif %}</p>{% endif %}
+          </div>
+          {{ art(s) }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% if slides|length > 1 %}
+  <div class="lo-banner__dots" role="tablist" aria-label="Choose a slide">
+    {% for s in slides %}<button type="button" role="tab" class="lo-banner__dot" aria-label="Slide {{ loop.index }}: {{ s.kicker or s.title }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-hero-dot="{{ loop.index0 }}"></button>{% endfor %}
+  </div>
+  {% endif %}
+</section>
