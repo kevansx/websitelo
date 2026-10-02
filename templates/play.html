@@ -2,10 +2,10 @@
    live page's, word for word.
 
    Layout combines the best of LottoGo and theLotter (reviewed 2 Oct 2026), in the LottosOnline style:
-   - LottoGo: celebratory hero (radial gradient, animated fireworks + twinkling stars, "It's a rollover!"
+   - LottoGo: celebratory hero (radial gradient, animated fireworks + twinkling stars, "Rollover jackpot"
      ribbon, ball, jackpot on a dark tag, time left); price per line on the right of every line.
    - theLotter: "How many lines?" chips (3 5 7 10 15 25) on the same page; slot-reel quick-pick animation;
-     compact lines with shuffle / edit / delete; Shuffle all + "+1 line"; entry type section; sticky total bar.
+     compact lines with shuffle / edit / delete; Reshuffle all lines + "Add a line"; entry type section; sticky total bar.
 
    The number picker is still the engine's (play_picker.js + line_editor_core.js): every element id those
    scripts use is kept, and lo_picker_fx.js drives it through window.LOPicker, so the form posts to cart_add
@@ -40,7 +40,7 @@
   </div>
   <div class="lo-wrap lo-playhero__inner">
     <nav class="lo-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/lottery-tickets">Play Lottos</a> / <span>{{ name }}</span></nav>
-    {% if jp and jp.rise_pct and jp.rise_pct >= 50 %}<p class="lo-playhero__ribbon">It's a rollover! <span>🔥 {{ jp.rise_pct }}% above base</span></p>{% endif %}
+    {% if jp and jp.rise_pct and jp.rise_pct >= 50 %}<p class="lo-playhero__ribbon">Rollover jackpot <span>🔥 {{ jp.rise_pct }}% above base</span></p>{% endif %}
     <div class="lo-playhero__row">
       {% if lot %}<span class="lo-playhero__ball"><img src="{{ lo_ball(lot) }}" alt="{{ name }}" width="112" height="112"></span>{% endif %}
       <div class="lo-playhero__copy">
@@ -64,11 +64,11 @@
       <div class="lo-panel lo-card lo-hide-when-editing">
         <div class="lo-card__head"><span class="lo-card__step">1</span><h2>How many lines?</h2><span class="lo-card__hint">{{ (lo_rules(game) or "") }}</span></div>
         <div class="lo-card__body lo-qp">
-          <div class="lo-qp__chips" role="group" aria-label="Popular quick pick entries">
+          <div class="lo-qp__chips" role="group" aria-label="Number of quick pick lines">
             {% for n in [3, 5, 7, 10, 15, 25] %}<button type="button" class="lo-chip" data-lo-lines="{{ n }}" aria-pressed="{{ 'true' if n == 3 else 'false' }}">{{ n }}<small>lines</small></button>{% endfor %}
           </div>
           <span class="lo-qp__or">or</span>
-          <button type="button" class="lo-btn lo-btn--secondary lo-qp__own" data-lo-own>Choose your own numbers</button>
+          <button type="button" class="lo-btn lo-btn--secondary lo-qp__own" data-lo-own>Pick my own numbers</button>
         </div>
       </div>
 
@@ -80,8 +80,8 @@
           <div class="lo-lineactions lo-hide-when-editing">
             <button type="button" class="lo-btn lo-btn--quiet" data-lo-shuffle-all>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
-              Shuffle Quick Picks</button>
-            <button type="button" class="lo-btn lo-btn--quiet" data-lo-add-line>+1 line</button>
+              Reshuffle all lines</button>
+            <button type="button" class="lo-btn lo-btn--quiet" data-lo-add-line>Add a line</button>
           </div>
         </div>
       </div>

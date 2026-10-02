@@ -1,6 +1,6 @@
 /* LottosOnline play page: the layer on top of the engine picker (play_picker.js).
  *
- *  - "How many lines?" chips (3 / 5 / 7 / 10 / 15 / 25, after theLotter) and "Choose your own numbers",
+ *  - "How many lines?" chips (3 / 5 / 7 / 10 / 15 / 25, after theLotter) and "Pick my own numbers" (our wording),
  *    on the same page: they call window.LOPicker, which updates the engine's state, so the cart payload is
  *    unchanged.
  *  - Slot-reel quick pick (after theLotter): each ball holds a strip of 6-8 numbers that slides up, overshoots
