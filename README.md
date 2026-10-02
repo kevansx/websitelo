@@ -1,119 +1,81 @@
-## Lotto Express Website (Flask)
+## LottosOnline website (Flask)
 
-Standalone Flask website repo for **Lotto Express**, backed by **CRM Public Website API v1** (`/api/v1`).
+The LottosOnline.com website, rebuilt from the legacy PHP site onto the CRM. It runs on the same engine as the
+Lotto Express website (CRM Public Website API v1, `/api/v1`) with a LottosOnline layer on top:
 
-### Key goals
-- **Isolated repo** (single-brand; no Winnow secrets reused)
-- Uses **brand-scoped CRM service key** (`X-CRM-API-Key`) so CRM resolves the correct tenant/brand
-- Preserves legacy Lotto Express URLs:
-  - `/index.php`, `*.php` static pages
-  - `/lotteries/<...>`, `/lottery-results/<...>`, `/promotions/<...>`
-  - Wallet topup legacy redirects
+- `lo_routes.py`: every legacy URL (the URL contract), redirects, captured page content, sitemap, robots,
+  tracking tags.
+- `lo_lotteries.py`: the 19 lotteries, their slugs and CRM game codes.
+- `lo_banners.py`, `lo_homescreen.py`: home carousel; Add to Home Screen and its free-ticket offer.
+- `templates/lo/`, `static/brands/lottosonline/`: the LottosOnline design (Live Lottos design system, LottosOnline
+  brand). `money.css` restyles the engine's cart, wallet and account pages.
 
-### Local run
-Create a `.env` (copy from `env.example`) and set:
-- `CRM_BASE_URL`
-- `CRM_API_SERVICE_KEY` (Lotto Express service key)
-- `WEBSITE_SECRET_KEY` (new random secret for this repo)
-- `WEBSITE_BRAND=lottoexpress`
-
-Then:
+### Run locally
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
+.venv\Scripts\activate          # Windows; on Linux: source .venv/bin/activate
 pip install -r requirements.txt
+copy env.example .env           # then fill in the values (see Settings)
 python app.py
 ```
 
-### Branding + legacy slug mapping
-Edit `brand_config.py`:
-- **logos/favicon**
-- analytics IDs (or set `ANALYTICS_GTM_ID` / `ANALYTICS_GA4_ID` in env)
-- mapping tables:
-  - legacy lottery slugs → `game_code` (preferred) or `game_name` (fallback)
-  - legacy results slugs → `game_code` (preferred) or `game_name` (fallback)
-  - legacy promo slugs → `bundle_slug`
+Without a CRM key, set `CRM_FAKE=1` and `WEBSITE_ENV=local` in `.env` to use the local stand-in CRM
+(`fake_crm.py`; it refuses to run anywhere else). Tests: `python -m pytest -q`.
 
-If a legacy lottery/results slug is not mapped, the website will attempt a best-effort resolution by calling `GET /api/v1/store/games` and matching by `game_name`.
+### Deploy (Linux): gunicorn + systemd behind Azure Front Door
 
-### Deployment (Linux) – gunicorn + systemd + nginx
-Recommended server layout (mirrors Winnow pattern):
-- Code: `/opt/lottoexpress-website/`
-- Venv: `/opt/lottoexpress-website/.venv/`
-- Writable data: `/opt/lottoexpress-website/data/` (cache DB lives here)
-- Env file: `/opt/lottoexpress-website/.env`
+The IT team owns Azure Front Door. The origin is this app behind gunicorn (and nginx if the server uses it).
 
-#### 1) Install + venv
+1. **Code and Python**
+   ```bash
+   sudo mkdir -p /opt/lottosonline-website && cd /opt/lottosonline-website
+   sudo git clone https://github.com/kevansx/websitelo.git .
+   python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+   mkdir -p data            # writable by the service user: CRM cache and home-screen claims live here
+   cp env.example .env      # fill in; never commit .env
+   ```
+2. **systemd** `/etc/systemd/system/lottosonline-website.service`
+   ```ini
+   [Unit]
+   Description=LottosOnline website (gunicorn)
+   After=network.target
 
-```bash
-sudo mkdir -p /opt/lottoexpress-website
-sudo chown -R lottoexpress:lottoexpress /opt/lottoexpress-website
+   [Service]
+   User=lottosonline
+   WorkingDirectory=/opt/lottosonline-website
+   EnvironmentFile=/opt/lottosonline-website/.env
+   ExecStart=/opt/lottosonline-website/.venv/bin/gunicorn -w 2 --timeout 120 -b 127.0.0.1:${WEBSITE_PORT} app:app
+   Restart=always
 
-cd /opt/lottoexpress-website
-python3 -m venv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
-```
+   [Install]
+   WantedBy=multi-user.target
+   ```
+   Then `sudo systemctl daemon-reload && sudo systemctl enable --now lottosonline-website`.
+3. **Health check** for the Front Door origin probe: `GET /health` returns 200.
+4. **Update**: `cd /opt/lottosonline-website && git pull && .venv/bin/pip install -r requirements.txt && sudo systemctl restart lottosonline-website`
 
-#### 2) systemd unit
-Create `/etc/systemd/system/lottoexpress-website.service`:
+#### What Front Door must do (for the IT team)
 
-```ini
-[Unit]
-Description=Lotto Express Website (gunicorn)
-After=network.target
+- **Forward** `X-Forwarded-For`, `X-Forwarded-Proto` and `X-Forwarded-Host` (the app trusts one proxy hop), so
+  canonical tags, redirects and payment return URLs use `https://www.lottosonline.com`.
+- **Set `X-Geo-Country`** on every request, overwriting any value the visitor sent. Country blocks depend on it
+  (the header name is the `GEO_COUNTRY_HEADER` setting).
+- **Caching**: static files are served from content-hashed paths (`/assets/lo/<hash>/...`, `/assets/engine/<hash>/...`),
+  so they can be cached for a long time, and ignoring query strings is safe. Do not cache HTML, `/cart`,
+  `/checkout`, `/wallet`, `/account`, `/login` or any response that sets a session cookie.
+- **No edge redirects for old URLs**: the app answers every legacy URL itself (301s included) from the URL
+  contract. Edge rules on top risk redirect chains and lost rankings. The old Cloudflare rules are not needed.
 
-[Service]
-User=lottoexpress
-Group=lottoexpress
-WorkingDirectory=/opt/lottoexpress-website
-EnvironmentFile=/opt/lottoexpress-website/.env
-ExecStart=/opt/lottoexpress-website/.venv/bin/gunicorn -w 2 -b 127.0.0.1:${WEBSITE_PORT} app:app
-Restart=always
-RestartSec=3
+### Settings
 
-[Install]
-WantedBy=multi-user.target
-```
+See `env.example`. The ones that matter at launch:
 
-Then:
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable --now lottoexpress-website
-sudo systemctl status lottoexpress-website
-```
-
-#### 3) nginx reverse proxy + TLS
-Example nginx server block (adjust domain + port):
-
-```nginx
-server {
-  server_name lottoexpress.example.com;
-
-  location / {
-    proxy_pass http://127.0.0.1:8003;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-  }
-}
-```
-
-Use certbot to add HTTPS (Let’s Encrypt):
-- Install certbot for nginx
-- Run `certbot --nginx -d lottoexpress.example.com`
-
-#### 4) Health check
-- Website local health: `GET /health` returns 200
-- CRM health: `GET /api/v1/health` on the CRM host
-
-### CRM cache (Winnow-style)
-This site uses a persistent SQLite cache (WAL mode) for outage tolerance and multi-worker deployments.\n+\n+Required env:\n+- `CRM_CACHE_DB_PATH=/opt/lottoexpress-website/data/crm_cache.sqlite`\n+- `WEBSITE_BRAND=lottoexpress`\n+\n+Optional:\n+- `CRM_SYNC_ENABLE=1` (background sync jackpots + draw results)\n+- `CRM_CACHE_ONLY=1` (offline mode: serve cache only; never call CRM)\n+\n+Server permissions:\n+- Ensure `/opt/lottoexpress-website/data/` is writable by the `lottoexpress` service user.
-
-### Notes / gaps
-- **Syndicate checkout** is not supported by `POST /api/v1/checkout` (CRM limitation per API doc).
-- Promo pages require CRM bundles to exist (`GET /api/v1/bundles/<bundle_slug>`).
-- Wallet topup return URLs must be allowlisted in CRM for the brand.
-
+| Setting | Purpose |
+|---|---|
+| `CRM_BASE_URL`, `CRM_API_SERVICE_KEY` | The CRM and the **LottosOnline brand's** service key |
+| `WEBSITE_SECRET_KEY` | A new long random value for this site only |
+| `WEBSITE_ENV=production` | Turns on the tracking tags (GTM, Mixpanel, Facebook, Zendesk); they stay off everywhere else |
+| `CRM_CACHE_DB_PATH` | `/opt/lottosonline-website/data/crm_cache.sqlite` |
+| `LO_HOMESCREEN_OFFER` | `0` switches the home-screen free-ticket offer off |
+| `LO_HOMESCREEN_PRODUCT_CODE` | The CRM product for the free Australia Saturday Lotto line (auto-detected if blank) |
