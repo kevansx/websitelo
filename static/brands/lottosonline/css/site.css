@@ -215,3 +215,20 @@ body.lo { margin: 0; background: var(--surface-page); font-family: var(--font-bo
 .lo-authside p { color: var(--ink-muted); margin: var(--space-4) 0 0; }
 .lo-row2 { display: grid; gap: var(--space-4); }
 @media (min-width: 560px) { .lo-row2 { grid-template-columns: 1fr 1fr; } }
+
+/* ---- create-account extras ---- */
+.lo-authgrid--wide { max-width: 1040px; }
+@media (min-width: 900px) { .lo-authgrid--wide { grid-template-columns: 1.5fr 1fr; } }
+.lo-formtitle { font: 700 20px/26px var(--font-display); margin: 0 0 var(--space-4); }
+.lo-decoy { position: absolute !important; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.lo-ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
+.lo-ticks li { position: relative; padding-left: 30px; }
+.lo-ticks li::before { content: ""; position: absolute; left: 0; top: 2px; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--surface-brand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat; }
+.lo-promo { background: linear-gradient(160deg, var(--surface-brand), var(--surface-brand-deep)); color: var(--ink-on-brand); border: 0; }
+.lo-promo h2 { font: 700 18px/24px var(--font-display); margin: 0 0 var(--space-2); }
+.lo-promo p { color: var(--ink-on-brand-muted); margin: 0 0 var(--space-3); }
+.lo-promo__big { font: 800 22px/28px var(--font-display) !important; color: var(--gold-400) !important; }
+.lo-promo .lo-btn--secondary { color: #fff; box-shadow: inset 0 0 0 2px var(--gold-400); }
+.lo-promo .lo-btn--secondary:hover { background: rgba(255,255,255,.08); }
+select.lo-input { appearance: auto; }

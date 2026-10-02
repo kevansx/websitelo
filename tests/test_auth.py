@@ -48,7 +48,7 @@ def test_logout_clears_session(client, stub_crm):
 
 def test_register_success_sets_session(anon_client, stub_crm):
     resp = anon_client.post(
-        "/register",
+        "/create-account",
         data={
             "title": "Mr",
             "first_name": "Test",
@@ -70,7 +70,7 @@ def test_register_crm_failure_redirects_back(anon_client, stub_crm, monkeypatch)
 
     monkeypatch.setattr(CRMClient, "auth_register", bad_register)
     resp = anon_client.post(
-        "/register",
+        "/create-account",
         data={
             "title": "Mr",
             "first_name": "Test",
@@ -93,7 +93,7 @@ def test_register_crm_500_shows_friendly_error(anon_client, stub_crm, monkeypatc
 
     monkeypatch.setattr(CRMClient, "auth_register", crash)
     resp = anon_client.post(
-        "/register",
+        "/create-account",
         data={
             "title": "Mr",
             "first_name": "Test",
@@ -118,7 +118,7 @@ def test_register_crm_500_with_phone_hints_duplicate_phone(anon_client, stub_crm
 
     monkeypatch.setattr(CRMClient, "auth_register", crash)
     resp = anon_client.post(
-        "/register",
+        "/create-account",
         data={
             "title": "Mr",
             "first_name": "Test",

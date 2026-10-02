@@ -243,7 +243,7 @@ def test_static_and_entry_pages_render(anon_client, stub_crm, path):
 
 
 def test_register_page_renders(anon_client, stub_crm):
-    resp = anon_client.get("/register")
+    resp = anon_client.get("/create-account")
     assert resp.status_code == 200
 
 

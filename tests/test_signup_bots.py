@@ -50,7 +50,7 @@ def created(monkeypatch):
 
 def _token(client) -> str:
     """The token from a freshly served form, as a browser would have it."""
-    body = client.get("/register").get_data(as_text=True)
+    body = client.get("/create-account").get_data(as_text=True)
     return body.split('name="form_token" value="')[1].split('"')[0]
 
 
@@ -62,7 +62,7 @@ def test_a_script_that_never_loaded_the_form_creates_nothing(bot_client, stub_cr
     The reported attack. A script posts at the endpoint; it does not fetch the
     page first, so it has no token to send and nothing to copy one from.
     """
-    done = bot_client.post("/register", data=FORM)
+    done = bot_client.post("/create-account", data=FORM)
 
     assert created == []
     assert done.status_code == 302
@@ -70,14 +70,14 @@ def test_a_script_that_never_loaded_the_form_creates_nothing(bot_client, stub_cr
 
 def test_a_browser_that_loaded_the_form_creates_an_account(anon_client, stub_crm, created):
     """The same submission, from something that behaved like a browser."""
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     assert len(created) == 1
     assert created[0]["email"] == "len.pantlin@gmail.com"
 
 
 def test_a_made_up_token_is_not_good_enough(bot_client, stub_crm, created):
-    bot_client.post("/register", data={**FORM, "form_token": "eyJhbGciOi.bW9j.a2Vk"})
+    bot_client.post("/create-account", data={**FORM, "form_token": "eyJhbGciOi.bW9j.a2Vk"})
 
     assert created == []
 
@@ -91,7 +91,7 @@ def test_a_token_we_did_not_sign_is_refused(bot_client, stub_crm, created):
     genuine = _token(bot_client)
     forged = genuine[:-6] + ("a" if genuine[-6] != "a" else "b") + genuine[-5:]
 
-    bot_client.post("/register", data={**FORM, "form_token": forged})
+    bot_client.post("/create-account", data={**FORM, "form_token": forged})
 
     assert created == []
 
@@ -105,8 +105,8 @@ def test_submitting_the_same_form_twice_is_not_treated_as_an_attack(
     invalidating it would turn a slipped finger into a lost registration.
     """
     token = _token(anon_client)
-    anon_client.post("/register", data={**FORM, "form_token": token})
-    anon_client.post("/register", data={**FORM, "form_token": token})
+    anon_client.post("/create-account", data={**FORM, "form_token": token})
+    anon_client.post("/create-account", data={**FORM, "form_token": token})
 
     assert len(created) == 2
 
@@ -118,7 +118,7 @@ def test_the_form_needs_no_javascript_to_be_submitted(anon_client, stub_crm):
     switched off, must still be able to register - and on a list with a median
     age of 71 a good few will be.
     """
-    body = anon_client.get("/register").get_data(as_text=True)
+    body = anon_client.get("/create-account").get_data(as_text=True)
     token_tag = body.split('name="form_token"')[0].rsplit("<input", 1)[1]
     scripts = "".join(chunk.split("</script>")[0] for chunk in body.split("<script")[1:])
 
@@ -132,7 +132,7 @@ def test_the_form_needs_no_javascript_to_be_submitted(anon_client, stub_crm):
 def test_a_form_returned_in_milliseconds_is_refused(anon_client, stub_crm, created):
     anon_client.application.config["SIGNUP_MIN_SECONDS"] = 2.0
     try:
-        anon_client.post("/register", data=FORM)
+        anon_client.post("/create-account", data=FORM)
     finally:
         anon_client.application.config["SIGNUP_MIN_SECONDS"] = 0.0
 
@@ -149,7 +149,7 @@ def test_somebody_who_took_their_time_is_not_refused(anon_client, stub_crm, crea
     anon_client.application.config["SIGNUP_MIN_SECONDS"] = 0.05
     try:
         time.sleep(0.2)
-        anon_client.post("/register", data={**FORM, "form_token": token})
+        anon_client.post("/create-account", data={**FORM, "form_token": token})
     finally:
         anon_client.application.config["SIGNUP_MIN_SECONDS"] = 0.0
 
@@ -159,7 +159,7 @@ def test_somebody_who_took_their_time_is_not_refused(anon_client, stub_crm, crea
 def test_the_threshold_can_be_loosened_without_a_deploy(anon_client, stub_crm, created):
     """If it ever catches someone real, it can be turned down from config."""
     anon_client.application.config["SIGNUP_MIN_SECONDS"] = 0.0
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     assert len(created) == 1
 
@@ -168,7 +168,7 @@ def test_the_threshold_can_be_loosened_without_a_deploy(anon_client, stub_crm, c
 
 
 def test_filling_in_the_hidden_field_creates_nothing(anon_client, stub_crm, created):
-    anon_client.post("/register", data={**FORM, "signup_ref": "http://spam.example"})
+    anon_client.post("/create-account", data={**FORM, "signup_ref": "http://spam.example"})
 
     assert created == []
 
@@ -179,8 +179,8 @@ def test_the_hidden_field_is_hidden_from_sight_and_from_screen_readers(anon_clie
     is out of the tab order, marked hidden to assistive technology, labelled,
     and told not to autofill.
     """
-    body = anon_client.get("/register").get_data(as_text=True)
-    block = body.split('class="signupDecoy"')[1].split("</div>")[0]
+    body = anon_client.get("/create-account").get_data(as_text=True)
+    block = body.split('class="lo-decoy"')[1].split("</div>")[0]
 
     assert 'aria-hidden="true"' in block.split(">")[0]
     assert 'tabindex="-1"' in block
@@ -193,15 +193,15 @@ def test_a_password_manager_would_not_recognise_the_hidden_field(anon_client, st
     `website`, `url` and `company` are exactly the names a password manager
     fills in for you, which would make the decoy catch its own customers.
     """
-    body = anon_client.get("/register").get_data(as_text=True)
-    block = body.split('class="signupDecoy"')[1].split("</div>")[0]
+    body = anon_client.get("/create-account").get_data(as_text=True)
+    block = body.split('class="lo-decoy"')[1].split("</div>")[0]
 
     for tempting in ('name="website"', 'name="url"', 'name="company"', 'name="email_confirm"'):
         assert tempting not in block
 
 
 def test_leaving_the_hidden_field_alone_registers_normally(anon_client, stub_crm, created):
-    anon_client.post("/register", data={**FORM, "signup_ref": ""})
+    anon_client.post("/create-account", data={**FORM, "signup_ref": ""})
 
     assert len(created) == 1
 
@@ -211,7 +211,7 @@ def test_leaving_the_hidden_field_alone_registers_normally(anon_client, stub_crm
 
 def test_an_address_churning_out_accounts_is_stopped(anon_client, stub_crm, created):
     for n in range(9):
-        anon_client.post("/register", data={**FORM, "email": f"bot{n}@example.com"})
+        anon_client.post("/create-account", data={**FORM, "email": f"bot{n}@example.com"})
 
     # Six an hour, and the rest refused.
     assert len(created) == 6
@@ -224,7 +224,7 @@ def test_a_household_or_a_care_home_is_not_stopped(anon_client, stub_crm, create
     customers, so the ceiling sits well above any plausible household.
     """
     for n in range(4):
-        anon_client.post("/register", data={**FORM, "email": f"resident{n}@example.com"})
+        anon_client.post("/create-account", data={**FORM, "email": f"resident{n}@example.com"})
 
     assert len(created) == 4
 
@@ -233,10 +233,10 @@ def test_being_refused_says_how_to_get_help_rather_than_accusing_them(
     anon_client, stub_crm, created
 ):
     for n in range(7):
-        done = anon_client.post("/register", data={**FORM, "email": f"bot{n}@example.com"})
+        done = anon_client.post("/create-account", data={**FORM, "email": f"bot{n}@example.com"})
 
     page = anon_client.get(done.headers["Location"]).get_data(as_text=True)
-    told = page.split('class="redText">')[1].split("</p>")[0].lower()
+    told = page.split('lo-flash--error" role="status">')[1].split("</div>")[0].lower()
 
     assert "contact us" in told
     for accusation in ("bot", "abuse", "suspicious", "blocked", "fraud"):
@@ -252,7 +252,7 @@ def test_a_refusal_names_the_address_so_a_wrong_ceiling_can_be_found(
     """
     with caplog.at_level(logging.WARNING):
         for n in range(7):
-            anon_client.post("/register", data={**FORM, "email": f"bot{n}@example.com"})
+            anon_client.post("/create-account", data={**FORM, "email": f"bot{n}@example.com"})
 
     assert "has reached the limit" in caplog.text
     assert "127.0.0.1" in caplog.text
@@ -264,9 +264,9 @@ def test_fumbling_the_form_does_not_count_against_them(anon_client, stub_crm, cr
     mistypes their password four times has spent none of their allowance.
     """
     for _ in range(8):
-        anon_client.post("/register", data={**FORM, "password": ""})
+        anon_client.post("/create-account", data={**FORM, "password": ""})
 
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     assert len(created) == 1
 
@@ -282,7 +282,7 @@ def test_a_broken_counter_leaves_registration_open(anon_client, stub_crm, create
     monkeypatch.setattr("crm_cache.CRMCache.count_signup_attempts", broken)
 
     with caplog.at_level(logging.WARNING):
-        anon_client.post("/register", data=FORM)
+        anon_client.post("/create-account", data=FORM)
 
     assert len(created) == 1
     assert "rate limit unavailable" in caplog.text
@@ -301,7 +301,7 @@ def test_a_broken_counter_leaves_registration_open(anon_client, stub_crm, create
 )
 def test_machine_typed_names_are_recorded(anon_client, stub_crm, created, caplog, first, last):
     with caplog.at_level(logging.INFO):
-        anon_client.post("/register", data={**FORM, "first_name": first, "last_name": last})
+        anon_client.post("/create-account", data={**FORM, "first_name": first, "last_name": last})
 
     assert "looks machine-typed" in caplog.text
 
@@ -312,7 +312,7 @@ def test_a_machine_typed_name_is_still_allowed_through(anon_client, stub_crm, cr
     real names, and a customer turned away because an algorithm disliked their
     surname is a far worse outcome than a junk account in the CRM.
     """
-    anon_client.post("/register", data={**FORM, "first_name": "Xkjhgf", "last_name": "Qwertyu"})
+    anon_client.post("/create-account", data={**FORM, "first_name": "Xkjhgf", "last_name": "Qwertyu"})
 
     assert len(created) == 1
 
@@ -336,7 +336,7 @@ def test_real_names_are_not_called_machine_typed(anon_client, stub_crm, created,
     that look implausible to an English eye and are somebody's actual surname.
     """
     with caplog.at_level(logging.INFO):
-        anon_client.post("/register", data={**FORM, "first_name": first, "last_name": last})
+        anon_client.post("/create-account", data={**FORM, "first_name": first, "last_name": last})
 
     assert "looks machine-typed" not in caplog.text
     assert len(created) == 1
@@ -356,7 +356,7 @@ def test_turning_on_the_legacy_recaptcha_says_it_protects_nothing(
     monkeypatch.setenv("RECAPTCHA_ENABLE", "1")
 
     with caplog.at_level(logging.WARNING):
-        anon_client.get("/register")
+        anon_client.get("/create-account")
 
     assert "decorative" in caplog.text
 
@@ -364,6 +364,6 @@ def test_turning_on_the_legacy_recaptcha_says_it_protects_nothing(
 def test_the_real_controls_do_not_depend_on_that_flag(bot_client, stub_crm, created, monkeypatch):
     monkeypatch.setenv("RECAPTCHA_ENABLE", "0")
 
-    bot_client.post("/register", data=FORM)
+    bot_client.post("/create-account", data=FORM)
 
     assert created == []

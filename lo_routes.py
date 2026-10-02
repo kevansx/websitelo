@@ -250,6 +250,10 @@ def register(app) -> None:
     # ------------------------------------------------------------------ redirects + affiliates
     @app.before_request
     def _lo_legacy_redirect():
+        # The tables describe what the OLD site did at a path. Where the new site has its own page at that
+        # path (/logout, /login, /checkout, ...) the page wins: a table entry must never pre-empt a real view.
+        if request.url_rule is not None:
+            return None
         full = request.full_path.rstrip("?") if request.query_string else request.path
         target = redirects.get(full) or redirects.get(request.path)
         if target and target != request.path:

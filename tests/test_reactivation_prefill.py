@@ -94,7 +94,7 @@ def test_a_reactivation_link_leads_to_a_sign_up_form_with_their_details_in_it(
     buy = _arrive_and_buy(anon_client)
 
     assert buy.status_code == 302
-    assert "/register" in buy.headers["Location"]
+    assert "/create-account" in buy.headers["Location"]
 
     body = anon_client.get(buy.headers["Location"]).get_data(as_text=True)
 
@@ -111,7 +111,7 @@ def test_someone_with_no_account_is_not_sent_to_a_cart_that_asks_them_to_sign_in
     These people have no account at all, so the cart's "sign in to see your
     quote" is a dead end. The sign-up form is the only way forward.
     """
-    assert "/register" in _arrive_and_buy(anon_client).headers["Location"]
+    assert "/create-account" in _arrive_and_buy(anon_client).headers["Location"]
 
 
 def test_registering_from_an_offer_goes_on_to_the_cart_and_not_to_the_account_page(
@@ -124,7 +124,7 @@ def test_registering_from_an_offer_goes_on_to_the_cart_and_not_to_the_account_pa
     _register_payload(monkeypatch)
     _arrive_and_buy(anon_client)
 
-    done = anon_client.post("/register", data={**FORM, "next": "/cart"})
+    done = anon_client.post("/create-account", data={**FORM, "next": "/cart"})
 
     assert done.status_code == 302
     assert done.headers["Location"].endswith("/cart")
@@ -139,7 +139,7 @@ def test_the_date_of_birth_dropdowns_are_set_from_the_prefilled_date(
     check, and touching any one of them wipes it.
     """
     _arrive_and_buy(anon_client)
-    body = anon_client.get("/register").get_data(as_text=True)
+    body = anon_client.get("/create-account").get_data(as_text=True)
 
     assert "prefilled[1]" in body
     assert 'id="birthdate" value="1969-07-14"' in body
@@ -160,7 +160,7 @@ def test_what_they_corrected_is_what_gets_saved(
     _arrive_and_buy(anon_client)
 
     anon_client.post(
-        "/register",
+        "/create-account",
         data={**FORM, "email": "len.pantlin@gmail.com", "last_name": "Pantlin-Shaw", "birthdate": "1969-07-15"},
     )
 
@@ -171,7 +171,7 @@ def test_what_they_corrected_is_what_gets_saved(
 
 def test_no_prefilled_field_is_locked(anon_client, stub_crm, stub_mkt, promo_offer):
     _arrive_and_buy(anon_client)
-    body = anon_client.get("/register").get_data(as_text=True)
+    body = anon_client.get("/create-account").get_data(as_text=True)
 
     for field_id in ("registerEmail", "registerFirstName", "registerLastName"):
         tag = body.split(f'id="{field_id}"')[1].split(">")[0]
@@ -190,7 +190,7 @@ def test_they_still_choose_a_password_and_accept_the_terms(
     _arrive_and_buy(anon_client)
 
     without_terms = {k: v for k, v in FORM.items() if k != "accept_terms"}
-    anon_client.post("/register", data=without_terms)
+    anon_client.post("/create-account", data=without_terms)
 
     assert sent == []
 
@@ -205,9 +205,9 @@ def test_the_prefilled_currency_is_a_default_they_can_change(
     sent = _register_payload(monkeypatch)
     _arrive_and_buy(anon_client)
 
-    assert 'value="GBP" selected' in anon_client.get("/register").get_data(as_text=True)
+    assert 'value="GBP" selected' in anon_client.get("/create-account").get_data(as_text=True)
 
-    anon_client.post("/register", data={**FORM, "currency": "EUR"})
+    anon_client.post("/create-account", data={**FORM, "currency": "EUR"})
 
     assert sent[0]["currency"] == "EUR"
 
@@ -225,8 +225,8 @@ def test_refreshing_the_sign_up_page_keeps_the_details(
     """
     _arrive_and_buy(anon_client)
 
-    first = anon_client.get("/register").get_data(as_text=True)
-    second = anon_client.get("/register").get_data(as_text=True)
+    first = anon_client.get("/create-account").get_data(as_text=True)
+    second = anon_client.get("/create-account").get_data(as_text=True)
 
     assert _value_of(first, "registerFirstName") == "Len"
     assert _value_of(second, "registerFirstName") == "Len"
@@ -242,7 +242,7 @@ def test_their_name_and_date_of_birth_are_not_kept_in_the_session_cookie(
     date of birth has no business riding along in one.
     """
     _arrive_and_buy(anon_client)
-    anon_client.get("/register")
+    anon_client.get("/create-account")
 
     with anon_client.session_transaction() as s:
         held = json.dumps({k: v for k, v in s.items()})
@@ -266,7 +266,7 @@ def test_a_dead_token_gives_an_ordinary_empty_form_and_no_error(
     stub_mkt.response = {"ok": False, "reason": reason}
     _arrive_and_buy(anon_client)
 
-    page = anon_client.get("/register")
+    page = anon_client.get("/create-account")
     body = page.get_data(as_text=True)
 
     assert page.status_code == 200
@@ -302,7 +302,7 @@ def test_a_module_that_is_down_or_slow_still_lets_them_register(
     stub_mkt.error = failure
     _arrive_and_buy(anon_client)
 
-    page = anon_client.get("/register")
+    page = anon_client.get("/create-account")
 
     assert page.status_code == 200
     assert _value_of(page.get_data(as_text=True), "registerFirstName") == ""
@@ -319,7 +319,7 @@ def test_a_module_that_is_not_configured_at_all_is_not_an_error(
     monkeypatch.delenv("MM_API_KEY", raising=False)
     _arrive_and_buy(anon_client)
 
-    assert anon_client.get("/register").status_code == 200
+    assert anon_client.get("/create-account").status_code == 200
 
 
 def test_a_module_failure_does_not_put_the_url_it_called_in_the_log(
@@ -334,7 +334,7 @@ def test_a_module_failure_does_not_put_the_url_it_called_in_the_log(
     _arrive_and_buy(anon_client)
 
     with caplog.at_level(logging.DEBUG):
-        anon_client.get("/register")
+        anon_client.get("/create-account")
 
     assert TOKEN not in caplog.text
     assert "ConnectionError" in caplog.text
@@ -358,13 +358,13 @@ def test_an_ordinary_registration_still_lands_on_the_account_page(
 ):
     _register_payload(monkeypatch)
 
-    done = anon_client.post("/register", data=FORM)
+    done = anon_client.post("/create-account", data=FORM)
 
     assert done.headers["Location"].endswith("/account")
 
 
 def test_an_ordinary_sign_up_page_stays_indexable(anon_client, stub_crm, stub_mkt):
-    page = anon_client.get("/register")
+    page = anon_client.get("/create-account")
 
     assert "noindex" not in page.get_data(as_text=True)
     assert page.headers.get("Referrer-Policy") != "no-referrer"
@@ -392,7 +392,7 @@ def test_the_new_account_carries_the_customer_number(
     sent = _register_payload(monkeypatch)
     _arrive_and_buy(anon_client)
 
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     assert sent[0]["customer_number"] == "E9654293"
 
@@ -408,7 +408,7 @@ def test_the_customer_number_cannot_be_claimed_by_editing_the_form(
     sent = _register_payload(monkeypatch)
     _arrive_and_buy(anon_client)
 
-    anon_client.post("/register", data={**FORM, "customer_number": "E0000001"})
+    anon_client.post("/create-account", data={**FORM, "customer_number": "E0000001"})
 
     assert sent[0]["customer_number"] == "E9654293"
 
@@ -418,7 +418,7 @@ def test_an_ordinary_registration_sends_no_customer_number(
 ):
     sent = _register_payload(monkeypatch)
 
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     assert "customer_number" not in sent[0]
 
@@ -444,7 +444,7 @@ def test_a_crm_that_refuses_the_customer_number_does_not_stop_the_sign_up(
     _arrive_and_buy(anon_client)
 
     with caplog.at_level(logging.ERROR):
-        done = anon_client.post("/register", data={**FORM, "next": "/cart"})
+        done = anon_client.post("/create-account", data={**FORM, "next": "/cart"})
 
     assert done.headers["Location"].endswith("/cart")
     assert len(sent) == 2
@@ -466,7 +466,7 @@ def test_a_crm_that_accepts_the_customer_number_and_drops_it_is_reported(
     _arrive_and_buy(anon_client)
 
     with caplog.at_level(logging.ERROR):
-        anon_client.post("/register", data=FORM)
+        anon_client.post("/create-account", data=FORM)
 
     assert "did not keep customer_number" in caplog.text
     assert "E9654293" in caplog.text
@@ -479,7 +479,7 @@ def test_a_registration_that_kept_the_number_is_not_reported_as_a_problem(
     _arrive_and_buy(anon_client)
 
     with caplog.at_level(logging.ERROR):
-        anon_client.post("/register", data=FORM)
+        anon_client.post("/create-account", data=FORM)
 
     assert "customer_number" not in caplog.text
 
@@ -498,7 +498,7 @@ def test_a_failed_registration_returns_to_the_form_without_losing_the_cart(
     )
     _arrive_and_buy(anon_client)
 
-    back = anon_client.post("/register", data={**FORM, "next": "/cart"})
+    back = anon_client.post("/create-account", data={**FORM, "next": "/cart"})
 
     assert "next=%2Fcart" in back.headers["Location"] or "next=/cart" in back.headers["Location"]
 
@@ -526,7 +526,7 @@ def test_the_source_and_campaign_survive_registration_and_reach_the_order(
 
     anon_client.get(f"{LINK}&tid=c2_lou9sv44yj13ti")
     anon_client.post(f"/offer/{SLUG}/start", data={"lines_json": ONE_LINE})
-    anon_client.post("/register", data={**FORM, "next": "/cart"})
+    anon_client.post("/create-account", data={**FORM, "next": "/cart"})
 
     assert sent[0]["acquisition_campaign_code"] == "01-probe-priority"
     assert sent[0]["acquisition_click_id"] == "c2_lou9sv44yj13ti"
@@ -552,7 +552,7 @@ def test_the_campaign_is_taken_from_the_module_when_the_link_forgot_it(
 
     anon_client.get(f"/offer/{SLUG}?src=reactivation&intent=lifecycle&rt={TOKEN}")
     anon_client.post(f"/offer/{SLUG}/start", data={"lines_json": ONE_LINE})
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     assert sent[0]["acquisition_campaign_code"] == "01-probe-priority"
 
@@ -563,7 +563,7 @@ def test_a_campaign_named_in_the_link_is_not_overruled_by_the_module(
     sent = _register_payload(monkeypatch)
     anon_client.get(f"/offer/{SLUG}?cmp=02-holdback&intent=lifecycle&rt={TOKEN}")
     anon_client.post(f"/offer/{SLUG}/start", data={"lines_json": ONE_LINE})
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     assert sent[0]["acquisition_campaign_code"] == "02-holdback"
 
@@ -578,8 +578,8 @@ def test_the_token_is_in_no_log_line_anywhere_in_the_journey(
 
     with caplog.at_level(logging.DEBUG):
         _arrive_and_buy(anon_client)
-        anon_client.get("/register")
-        anon_client.post("/register", data={**FORM, "next": "/cart"})
+        anon_client.get("/create-account")
+        anon_client.post("/create-account", data={**FORM, "next": "/cart"})
 
     assert TOKEN not in caplog.text
 
@@ -593,7 +593,7 @@ def test_the_token_is_in_no_analytics_call(
     )
 
     _arrive_and_buy(anon_client)
-    anon_client.get("/register")
+    anon_client.get("/create-account")
     anon_client.post("/api/track/pageview", json={"path": f"/offer/{SLUG}?rt={TOKEN}"})
     anon_client.post("/api/track/click", json={"metadata": {"cta": "register", "href": f"/x?rt={TOKEN}"}})
 
@@ -637,7 +637,7 @@ def test_the_token_leaves_the_address_bar_and_is_not_in_the_page(
     anon_client, stub_crm, stub_mkt, promo_offer
 ):
     _arrive_and_buy(anon_client)
-    page = anon_client.get("/register")
+    page = anon_client.get("/create-account")
 
     assert TOKEN not in page.get_data(as_text=True)
 
@@ -647,7 +647,7 @@ def test_the_module_key_never_reaches_the_browser(
 ):
     _arrive_and_buy(anon_client)
 
-    assert "test-mm-key" not in anon_client.get("/register").get_data(as_text=True)
+    assert "test-mm-key" not in anon_client.get("/create-account").get_data(as_text=True)
 
 
 # --- the hardening ---
@@ -663,7 +663,7 @@ def test_a_sign_up_page_carrying_a_token_stays_out_of_search_and_referrers(
     button.
     """
     _arrive_and_buy(anon_client)
-    page = anon_client.get("/register")
+    page = anon_client.get("/create-account")
     body = page.get_data(as_text=True)
 
     assert '<meta name="robots" content="noindex, nofollow">' in body
@@ -678,7 +678,7 @@ def test_a_dead_token_is_still_protected(anon_client, stub_crm, stub_mkt, promo_
     """
     stub_mkt.response = {"ok": False, "reason": "expired"}
     _arrive_and_buy(anon_client)
-    page = anon_client.get("/register")
+    page = anon_client.get("/create-account")
 
     assert page.headers["Referrer-Policy"] == "no-referrer"
     assert "noindex" in page.get_data(as_text=True)
@@ -696,7 +696,7 @@ def test_finishing_the_form_is_reported_back_to_the_module(
     """
     _register_payload(monkeypatch)
     _arrive_and_buy(anon_client)
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     assert stub_mkt.registered_calls == [("lottoexpress", TOKEN)]
 
@@ -710,7 +710,7 @@ def test_a_form_that_was_not_finished_is_not_reported(
         lambda self, payload, *a, **kw: (_ for _ in ()).throw(CRMError("CRM HTTP 409", status_code=409)),
     )
     _arrive_and_buy(anon_client)
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     assert stub_mkt.registered_calls == []
 
@@ -726,7 +726,7 @@ def test_a_module_that_cannot_be_told_does_not_spoil_the_registration(
         raise ConnectionError("no route to host")
 
     monkeypatch.setattr("mkt_api.MktClient.prefill_registered", refuse)
-    done = anon_client.post("/register", data={**FORM, "next": "/cart"})
+    done = anon_client.post("/create-account", data={**FORM, "next": "/cart"})
 
     assert done.status_code == 302
     assert done.headers["Location"].endswith("/cart")
@@ -741,7 +741,7 @@ def test_the_token_is_forgotten_once_they_have_an_account(
     """
     _register_payload(monkeypatch)
     _arrive_and_buy(anon_client)
-    anon_client.post("/register", data=FORM)
+    anon_client.post("/create-account", data=FORM)
 
     with anon_client.session_transaction() as s:
         assert "reactivation_token" not in s

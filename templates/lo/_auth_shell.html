@@ -1,0 +1,11 @@
+{# Shared shell for the small account pages (forgot / reset / set password, email verification). #}
+{% macro shell(title) %}
+<section class="lo-pagehead">
+  <div class="lo-wrap"><h1>{{ title }}</h1></div>
+</section>
+<section class="lo-section">
+  <div class="lo-wrap" style="max-width:560px">
+    <div class="lo-panel">{{ caller() }}</div>
+  </div>
+</section>
+{% endmacro %}

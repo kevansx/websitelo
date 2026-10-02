@@ -82,7 +82,7 @@ LEGACY_STATIC_URLS = [
     ("/lottery-results/", "/results"),
     ("/lottery-results/index.php", "/results"),
     ("/login.php", "/login"),
-    ("/register.php", "/register"),
+    ("/register.php", "/create-account"),
 ]
 
 # This domain ran two generations of site before the PHP one, and the archive

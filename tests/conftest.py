@@ -101,12 +101,12 @@ class BrowserClient(FlaskClient):
     def post(self, *args, **kwargs):
         path = str(args[0] if args else kwargs.get("path", ""))
         data = kwargs.get("data")
-        if path.rstrip("/").endswith("/register") and isinstance(data, dict) and "form_token" not in data:
+        if path.rstrip("/").endswith("/create-account") and isinstance(data, dict) and "form_token" not in data:
             kwargs["data"] = {**data, "form_token": self.signup_form_token()}
         return super().post(*args, **kwargs)
 
     def signup_form_token(self) -> str:
-        body = self.get("/register").get_data(as_text=True)
+        body = self.get("/create-account").get_data(as_text=True)
         marker = 'name="form_token" value="'
         return body.split(marker)[1].split('"')[0] if marker in body else ""
 

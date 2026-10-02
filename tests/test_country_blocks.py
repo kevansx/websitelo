@@ -285,7 +285,7 @@ def test_the_admin_console_is_reachable_from_a_blocked_country(anon_client, stub
 def test_registering_from_a_blocked_country_is_refused(anon_client, stub_crm, block_malta):
     """Someone browsing from an allowed country cannot register a blocked one."""
     resp = anon_client.post(
-        "/register",
+        "/create-account",
         data={
             "title": "Mr",
             "first_name": "Test",
@@ -349,7 +349,7 @@ def test_a_soft_blocked_country_browses_the_site_normally(anon_client, stub_crm,
 
 
 def test_a_soft_blocked_country_is_told_at_the_form_that_it_cannot_register(anon_client, stub_crm, three_modes):
-    body = anon_client.get("/register", headers={TRUSTED: "DE"}).get_data(as_text=True)
+    body = anon_client.get("/create-account", headers={TRUSTED: "DE"}).get_data(as_text=True)
 
     assert SOFT_BLOCK_TEXT in body
     assert "disabled" in body.split('id="registerSubmit"')[1].split(">")[0]
@@ -358,7 +358,7 @@ def test_a_soft_blocked_country_is_told_at_the_form_that_it_cannot_register(anon
 def test_a_soft_blocked_country_is_still_offered_in_the_dropdown(anon_client, stub_crm, three_modes):
     """It is an active country, so it belongs in the select; only the submit is
     refused. A Block Website country has no business being listed at all."""
-    body = anon_client.get("/register", headers={TRUSTED: "IE"}).get_data(as_text=True)
+    body = anon_client.get("/create-account", headers={TRUSTED: "IE"}).get_data(as_text=True)
     options = body.split('id="registerCountry"')[1].split("</select>")[0]
 
     assert 'value="DE"' in options
@@ -372,7 +372,7 @@ def test_registering_a_soft_blocked_country_is_refused_without_closing_the_site(
     monkeypatch.setattr(CRMClient, "auth_register", lambda self, payload: calls.append(payload))
 
     resp = anon_client.post(
-        "/register",
+        "/create-account",
         data={
             "title": "Mr",
             "first_name": "Test",
@@ -386,7 +386,7 @@ def test_registering_a_soft_blocked_country_is_refused_without_closing_the_site(
     )
 
     assert resp.status_code == 302
-    assert resp.headers["Location"].endswith("/register")
+    assert resp.headers["Location"].endswith("/create-account")
     assert not calls, "a soft-blocked registration reached the CRM"
 
 
@@ -396,7 +396,7 @@ def test_a_soft_block_where_the_visitor_is_refuses_the_registration_too(anon_cli
     monkeypatch.setattr(CRMClient, "auth_register", lambda self, payload: calls.append(payload))
 
     resp = anon_client.post(
-        "/register",
+        "/create-account",
         data={
             "title": "Mr",
             "first_name": "Test",
@@ -436,14 +436,14 @@ def test_the_crms_own_refusal_decides_where_the_customer_ends_up(anon_client, st
     }
 
     monkeypatch.setattr(CRMClient, "auth_register", refuse("soft_block", SOFT_BLOCK_TEXT))
-    soft = anon_client.post("/register", data=form, headers={TRUSTED: "IE"})
+    soft = anon_client.post("/create-account", data=form, headers={TRUSTED: "IE"})
     assert soft.status_code == 302
-    assert soft.headers["Location"].endswith("/register")
+    assert soft.headers["Location"].endswith("/create-account")
 
     monkeypatch.setattr(
         CRMClient, "auth_register", refuse("block_website", "Website access is not available in your country.")
     )
-    hard = anon_client.post("/register", data=form, headers={TRUSTED: "IE"})
+    hard = anon_client.post("/create-account", data=form, headers={TRUSTED: "IE"})
     assert hard.status_code == 403
     assert BLOCKED_TEXT in hard.get_data(as_text=True)
 
@@ -466,7 +466,7 @@ def test_the_registration_carries_the_country_even_when_the_form_omitted_it(
     )
 
     anon_client.post(
-        "/register",
+        "/create-account",
         data={
             "title": "Mr",
             "first_name": "Test",

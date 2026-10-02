@@ -1,16 +1,12 @@
-{% extends "base.html" %}
+{% extends "lo/base.html" %}
+{% from "lo/_auth_shell.html" import shell %}
 {% block content %}
-<div class="noSelect container lePages">
-  <h1 class="pageHeading">Email Verification</h1>
-  {% if verify_success %}
-    <p class="successCopy">{{ verify_message }}</p>
-  {% else %}
-    <p class="redText">{{ verify_message }}</p>
-  {% endif %}
+{% call shell("Email Verification") %}
+  <div class="lo-flash {{ 'lo-flash--success' if verify_success else 'lo-flash--error' }}" role="status" style="margin-top:0">{{ verify_message }}</div>
   {% if customer %}
-    <p><a class="primaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('account') }}">Go to Account</a></p>
+    <a class="lo-btn lo-btn--block" href="{{ url_for('account') }}">Go to My Account</a>
   {% else %}
-    <p><a class="primaryFormButton linkAsButton centerLinkCopy" href="{{ url_for('login') }}">Go to Login</a></p>
+    <a class="lo-btn lo-btn--block" href="{{ url_for('login') }}">Go to Login</a>
   {% endif %}
-</div>
+{% endcall %}
 {% endblock %}

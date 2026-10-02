@@ -204,7 +204,7 @@ def test_register_persists_the_selected_country(anon_client, stub_crm, monkeypat
     monkeypatch.setattr(CRMCache, "is_country_active", lambda self, iso2: True)
     monkeypatch.setattr(CRMCache, "is_country_blocked_for_website", lambda self, iso2: False)
     resp = anon_client.post(
-        "/register",
+        "/create-account",
         data={
             "title": "Mr",
             "first_name": "Test",

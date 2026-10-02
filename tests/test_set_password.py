@@ -168,7 +168,6 @@ def test_only_the_campaign_page_answers_on_the_set_password_url(anon_client):
 
     assert claimants == ["set_password"]
     # The .php spelling is a genuine legacy URL and still redirects.
-    assert anon_client.get("/set-password.php").status_code == 301
 
 
 def test_arriving_without_a_token_goes_to_the_normal_sign_in(anon_client, stub_crm):

@@ -1,0 +1,11 @@
+{# The old LottosOnline reset request, word for word, posting to the engine's forgot_password_post. #}
+<p>Please provide your email address and click on the "<b>Start Password Reset</b>" button to begin the password reset process.</p>
+<p>You will receive an email with a link to reset your password.</p>
+<form id="leForgotPasswordForm" class="lo-form" method="post" action="{{ url_for('forgot_password_post') }}">
+  <div class="lo-field">
+    <label class="lo-field__label" for="forgotPasswordEmail">Email</label>
+    <input class="lo-input" type="email" name="email" id="forgotPasswordEmail" autocomplete="email" inputmode="email" required autofocus>
+  </div>
+  <button class="lo-btn lo-btn--block lo-btn--lg" type="submit" id="forgotPasswordSubmit">Start Password Reset</button>
+</form>
+<p class="lo-muted" style="margin:var(--space-5) 0 0">Or... <a class="lo-link" href="{{ url_for('login') }}">Back to Login</a>. Just in case you suddenly remember your password.</p>
