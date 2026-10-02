@@ -3780,12 +3780,11 @@ def create_app() -> Flask:
         session["last_play_url"] = request.path
         try:
             resp = get_crm().store_game(game_code)
-        except CRMError as e:
-            # A game code that does not exist is a missing page, not a server
-            # fault: without this the CRM's 404 became our 500, which tells a
-            # crawler to come back and keep the URL indexed.
-            if (getattr(e, "status_code", None) or 0) == 404:
-                abort(404)
+        except CRMError:
+            # Every code reaching here is one of LottosOnline's own lotteries (the
+            # lo_play converter only matches those), so a CRM 404 means the
+            # brand's product is missing or switched off: temporary. A 404 here
+            # would tell search engines a ranking page is gone.
             return _play_unavailable(game_code)
         except Exception:
             # CRM unreachable (connection refused, timeout): a temporary outage,
@@ -3841,10 +3840,11 @@ def create_app() -> Flask:
         except CRMError:
             pass
 
-        # Some CRM builds answer an unknown code with 200 and an empty payload.
-        # Rendering the shell would be a soft 404.
-        if not game and not products:
-            abort(404)
+        # No product to sell (empty payload, or the game with nothing enabled):
+        # an empty picker would be a soft error page, and a 404 would de-index
+        # one of LottosOnline's own lottery pages. Temporarily unavailable.
+        if not products:
+            return _play_unavailable(game_code)
 
         if isinstance(game, dict):
             game["products"] = products

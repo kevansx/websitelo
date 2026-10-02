@@ -43,3 +43,20 @@ def test_play_page_during_a_crm_outage(anon_client, stub_crm, monkeypatch, failu
     body = r.get_data(as_text=True)
     assert "Ticket sales for EuroMillions are temporarily unavailable" in body
     assert "/winning-lottery-numbers/euromillions" in body
+
+
+@pytest.mark.parametrize("answer", ["crm_404", "empty", "no_products"])
+def test_a_missing_crm_product_never_404s_a_lottery_page(anon_client, stub_crm, monkeypatch, answer):
+    # Launch-day case: the brand's product is missing or switched off. The page must stay "temporarily
+    # unavailable" (503), never 404, which would tell search engines the ranking page is gone.
+    def store_game(self, *a, **k):
+        if answer == "crm_404":
+            raise CRMError("CRM HTTP 404: not found", status_code=404)
+        if answer == "empty":
+            return {}
+        return {"game": {"game_code": "euromillions", "game_name": "EuroMillions", "products": []}}
+    monkeypatch.setattr(CRMClient, "store_game", store_game)
+    monkeypatch.setattr(CRMClient, "store_products", lambda self, *a, **k: {"products": []})
+    r = anon_client.get("/lottery-tickets/euromillions", base_url=WWW)
+    assert r.status_code == 503
+    assert "temporarily unavailable" in r.get_data(as_text=True)
