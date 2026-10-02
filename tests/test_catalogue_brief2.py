@@ -149,3 +149,29 @@ def test_new_game_codes():
 def test_cash4life_goes_to_millionaire_for_life(anon_client, stub_crm):
     r = anon_client.get("/lottery-tickets/cash4life")
     assert r.status_code == 301 and r.headers["Location"].endswith("/lottery-tickets/millionaire4life")
+
+
+def test_millionaire_for_life_has_its_own_ball_not_cash4life(client, catalogue):
+    html = client.get("/lottery-tickets/millionaire4life").get_data(as_text=True)
+    assert "logo-millionaire-for-life.svg" in html and "logo_large_round_uslif" not in html
+
+
+def test_jackpots_fall_back_to_the_global_feed_for_our_lotteries(client, stub_crm, monkeypatch):
+    monkeypatch.setenv("CRM_CACHE_ONLY", "0")
+    calls = []
+
+    def fake(self, method, path, *a, **k):
+        if path == "/api/v1/jackpots":
+            calls.append(k.get("params"))
+            if (k.get("params") or {}).get("configured_only"):
+                return {"jackpots": []}                       # no jackpot games switched on for the brand
+            return {"jackpots": [{"game_code": "powerball", "currency": "USD", "jackpot": {"amount": 440_000_000, "currency": "USD"}},
+                                 {"game_code": "lotto-pl", "currency": "PLN", "jackpot": {"amount": 1, "currency": "PLN"}}]}
+        return {}
+    monkeypatch.setattr(CRMClient, "_request", fake)
+    import crm_cache
+    monkeypatch.setattr(crm_cache.CRMCache, "upsert_jackpots", lambda self, rows: None)   # keep the shared test cache clean
+    with client.application.test_request_context("/"):
+        rows, from_cache = client.application.config["LO_ENGINE"]["jackpots_live_or_cache"]()
+    assert (from_cache, len(calls)) == (False, 2), (from_cache, calls)
+    assert [r["game_code"] for r in rows] == ["powerball"]

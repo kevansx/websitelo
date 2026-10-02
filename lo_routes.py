@@ -314,7 +314,12 @@ def register(app) -> None:
             "raw": j,
         }
 
+    # Millionaire for Life replaced Cash4Life; the old site's ball for this code is Cash4Life's artwork.
+    OWN_BALLS = {"millionaire4life": "img/logo-millionaire-for-life.svg"}
+
     def lo_ball(lot) -> str:
+        if lot.slug in OWN_BALLS:
+            return lo_asset(OWN_BALLS[lot.slug])
         return f"/images/lottery-assets/logo_large_round_{lot.legacy_code}.png"
 
     @app.get("/favicon.ico")

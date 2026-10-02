@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Millionaire for Life">
+  <defs>
+    <radialGradient id="g" cx="38%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#7fd06b"/>
+      <stop offset=".55" stop-color="#2e9a3c"/>
+      <stop offset="1" stop-color="#17652a"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="98" fill="url(#g)"/>
+  <circle cx="100" cy="100" r="92" fill="none" stroke="#fdbc00" stroke-width="3" opacity=".9"/>
+  <g font-family="Montserrat, 'Arial Narrow', Arial, sans-serif" font-weight="800" fill="#fff" text-anchor="middle">
+    <text x="100" y="52" font-size="15" letter-spacing="1">USA</text>
+    <text x="100" y="92" font-size="25">MILLIONAIRE</text>
+    <text x="100" y="122" font-size="22" fill="#fdbc00">FOR</text>
+    <text x="100" y="152" font-size="27">LIFE</text>
+  </g>
+</svg>

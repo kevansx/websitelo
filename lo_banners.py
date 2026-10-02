@@ -5,7 +5,7 @@ small print. Slides come from two places:
 
 * built-in slides below: the brand promise (the old home banner's own words), the biggest jackpots right now
   (live from the CRM jackpot feed), the lotteries available, and the two standing offers whose terms are
-  published on the site (Spin to Win, VIP Rewards);
+  published on the site;
 * special offers created in the CRM as marketing banners for the "home" placement
   (GET /api/v1/marketing/banners?placement=home: title, body, cta_label, cta_href, start/end, priority).
   They are slotted in after the first jackpot slide, highest priority first, so a new offer appears on the
@@ -87,23 +87,6 @@ def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] 
         "balls": [lo_ball(r["lottery"]) for r in rows[:7]],
     })
 
-    # 5. Spin to Win (terms published at /spin-to-win and /spin-to-win-terms-and-conditions)
-    slides.append({
-        "id": "spin-to-win", "theme": "magenta", "art": "wheel",
-        "kicker": "Spin to Win",
-        "title": "Deposit, Spin And Win",
-        "text": "Your first three deposits of €5 or more earn up to 30% back in rewards, plus free spins on our Prize Wheel.",
-        "cta_label": "How It Works", "cta_href": "/spin-to-win",
-        "small_print": "Terms and Conditions apply.", "small_href": "/spin-to-win-terms-and-conditions",
-    })
-
-    # 6. VIP Rewards (terms published at /VIP-rewards)
-    slides.append({
-        "id": "vip", "theme": "gold", "art": "crown",
-        "kicker": "VIP Rewards",
-        "title": "10% Cash Back For VIPs",
-        "text": "Spend €50 or more in 30 days and get 10% cash back on everything you buy for the next 30 days.",
-        "cta_label": "Join The VIP Club", "cta_href": "/VIP-rewards",
-        "small_print": "Terms and Conditions apply.", "small_href": "/VIP-rewards",
-    })
+    # The old site's Spin to Win and VIP Rewards banners are gone: neither promotion is offered any more (Joey,
+    # 2 Oct 2026). Live offers arrive as CRM "home" marketing banners (inserted above).
     return slides

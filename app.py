@@ -2941,7 +2941,7 @@ def create_app() -> Flask:
         # LottosOnline: its own lottery artwork, by CRM game code (the round logo the old site used).
         _lot = lo_lotteries.by_game_code(code)
         if _lot:
-            return f"/images/lottery-assets/logo_large_round_{_lot.legacy_code}.png"
+            return app.jinja_env.globals["lo_ball"](_lot)
 
         images_dir = os.path.join(app.config["LEGACY_RESOURCES_DIR"], "images")
         base_name = re.sub(r"\s*\([^)]*\)\s*", " ", name).strip()
@@ -3235,15 +3235,16 @@ def create_app() -> Flask:
             return cache.get_cached_jackpots(), True
 
         try:
-            data = get_crm()._request(
-                "GET",
-                "/api/v1/jackpots",
-                params={"configured_only": 1},
-                service_key=True,
-                timeout_seconds=timeout_seconds if timeout_seconds is not None else _layout_timeout_seconds(),
-            )
-            jackpots = data.get("jackpots") or []
-            jackpots = [j for j in jackpots if isinstance(j, dict)]
+            tmo = timeout_seconds if timeout_seconds is not None else _layout_timeout_seconds()
+            data = get_crm()._request("GET", "/api/v1/jackpots", params={"configured_only": 1}, service_key=True,
+                                      timeout_seconds=tmo)
+            jackpots = [j for j in (data.get("jackpots") or []) if isinstance(j, dict)]
+            if not jackpots:
+                # No jackpot games switched on for the brand in the CRM: the jackpot feed is global (the same
+                # figures for every brand), so take all of it and keep LottosOnline's own lotteries.
+                data = get_crm()._request("GET", "/api/v1/jackpots", service_key=True, timeout_seconds=tmo)
+                ours = {l.game_code for l in lo_lotteries.LOTTERIES}
+                jackpots = [j for j in (data.get("jackpots") or []) if isinstance(j, dict) and j.get("game_code") in ours]
             try:
                 cache.upsert_jackpots(jackpots)
             except Exception:

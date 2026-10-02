@@ -7,8 +7,9 @@ def test_banner_renders_the_built_in_slides(anon_client, stub_crm):
     body = anon_client.get("/").get_data(as_text=True)
     assert 'data-hero-track' in body
     assert "To Enter The Worlds Biggest Jackpots!" in body   # the old home banner, word for word
-    assert "Deposit, Spin And Win" in body
-    assert "10% Cash Back For VIPs" in body
+    # promotions that are no longer offered are not advertised (Spin to Win, VIP cash back)
+    assert "Deposit, Spin And Win" not in body
+    assert "10% Cash Back For VIPs" not in body
     # banner lines are text, not headings: the page keeps its single H1
     assert body.count("<h1") == 1
 
