@@ -438,11 +438,11 @@ function showChangePassword() {
 	var y = document.getElementById("changePasswordImage");
 	if (x.type === "password") {
 		x.type = "text";
-		y.src = "https://lottoexpress.com/resources/images/eye___u26.svg";
+		y.src = "/resources/images/eye___u26.svg";
 		y.setAttribute("class", "showPassword");
 	} else {
 		x.type = "password";
-		y.src = "https://lottoexpress.com/resources/images/eye_u25.svg";
+		y.src = "/resources/images/eye_u25.svg";
 		y.setAttribute("class", "hidePassword");
 	}
 }
@@ -850,11 +850,11 @@ $("#accountTimeOutPasswordImage").click(function(){
 	var y = document.getElementById("accountTimeOutPasswordImage");
 	if (x.type === "password") {
 		x.type = "text";
-		y.src = "https://lottoexpress.com/resources/images/eye___u26.svg";
+		y.src = "/resources/images/eye___u26.svg";
 		y.setAttribute("class", "showPassword");
 	} else {
 		x.type = "password";
-		y.src = "https://lottoexpress.com/resources/images/eye_u25.svg";
+		y.src = "/resources/images/eye_u25.svg";
 		y.setAttribute("class", "hidePassword");
 	}
 });
@@ -864,11 +864,11 @@ $("#accountSelfExcludePasswordImage").click(function(){
 	var y = document.getElementById("accountSelfExcludePasswordImage");
 	if (x.type === "password") {
 		x.type = "text";
-		y.src = "https://lottoexpress.com/resources/images/eye___u26.svg";
+		y.src = "/resources/images/eye___u26.svg";
 		y.setAttribute("class", "showPassword");
 	} else {
 		x.type = "password";
-		y.src = "https://lottoexpress.com/resources/images/eye_u25.svg";
+		y.src = "/resources/images/eye_u25.svg";
 		y.setAttribute("class", "hidePassword");
 	}
 });
@@ -888,11 +888,11 @@ $("#accountClosePasswordImage").click(function(){
 	var y = document.getElementById("accountClosePasswordImage");
 	if (x.type === "password") {
 		x.type = "text";
-		y.src = "https://lottoexpress.com/resources/images/eye___u26.svg";
+		y.src = "/resources/images/eye___u26.svg";
 		y.setAttribute("class", "showPassword");
 	} else {
 		x.type = "password";
-		y.src = "https://lottoexpress.com/resources/images/eye_u25.svg";
+		y.src = "/resources/images/eye_u25.svg";
 		y.setAttribute("class", "hidePassword");
 	}
 });

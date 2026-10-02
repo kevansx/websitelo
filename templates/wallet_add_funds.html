@@ -92,7 +92,6 @@
           <input type="hidden" name="next" value="{{ next or '' }}">
           <input type="hidden" name="edit_order_url" value="{{ edit_order_url or '' }}">
           <input type="submit" value="Continue to Payment" id="addFundsSubmit">
-          <p>lottoexpress.com will show on your statement</p>
           {% if purchase_mode %}
             <p style="margin-top:8px;">
               <a class="confirmBetText tertiaryLink" href="{{ edit_order_url or url_for('catalog') }}">Or click here to edit your order</a>

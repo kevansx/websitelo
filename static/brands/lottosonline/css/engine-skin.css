@@ -6,10 +6,7 @@ body.lo-engine .LEBGColor { display: none; }
 body.lo-engine h1, body.lo-engine h2, body.lo-engine h3, body.lo-engine .pageHeading { font-family: var(--font-display); color: var(--ink); }
 body.lo-engine .pageHeading { font-weight: 800; font-size: 28px; line-height: 34px; margin: var(--space-6) 0 var(--space-4); }
 body.lo-engine .container { max-width: 1160px; }
-/* Interim: the engine's money pages were designed on a dark background (white text). They sit on a deep
-   LottosOnline purple until each is rebuilt in the light design; the public, indexed pages are light. */
-body.lo-engine { background: linear-gradient(180deg, var(--surface-brand-deep) 0%, #2a0d3b 100%) fixed; }
-body.lo-engine .pageHeading { color: #fff; }
+/* The light design for these pages (cards, ink text, form controls) is in money.css. */
 body.lo-engine input[type="submit"], body.lo-engine .primaryFormButton, body.lo-engine button.primaryFormButton {
   background: var(--cta-600); border-color: var(--cta-600); color: #fff; border-radius: var(--radius-md); font-family: var(--font-display); font-weight: 700; }
 body.lo-engine input[type="submit"]:hover, body.lo-engine .primaryFormButton:hover { background: var(--cta-700); }

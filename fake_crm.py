@@ -128,7 +128,6 @@ def install() -> None:
         "winnings_tickets": {"tickets": []},
         "orders": {"orders": []},
         "legacy_orders": {"success": True, "page": 1, "per_page": 25, "total": 0, "orders": []},
-        "checkout_quote": {"quote": {"currency": "EUR", "subtotal_cents": 0, "items": []}},
         "marketing_banners": {"banners": []},
         "marketing_events": {"ok": True},
     }
@@ -187,3 +186,21 @@ def install() -> None:
         if hasattr(CRMClient, name):
             setattr(CRMClient, name, make(payload))
     CRMClient.store_game = store_game
+
+    price_by_product = {p["product_code"]: p["price_in_base_cents"] for p in products}
+
+    def checkout_quote(self, payload, *a, **k):
+        # Price each item as product price x lines x quantity (x draws for a multi-draw run), so the cart
+        # preview shows realistic totals. The real CRM does its own pricing.
+        out, total = [], 0
+        for it in (payload or {}).get("items") or []:
+            lines = max(len(it.get("lines") or []), 1)
+            run = int(((it.get("schedule") or {}).get("draws")) or 1)
+            cents = price_by_product.get(it.get("product_code"), 300) * lines * int(it.get("quantity") or 1) * run
+            total += cents
+            out.append({"product_code": it.get("product_code"), "quantity": it.get("quantity") or 1,
+                        "item_total_in_customer_cents": cents})
+        return {"quote_id": 1, "quote": {"currency": "EUR", "items": out,
+                                         "subtotal_in_customer_cents": total, "total_in_customer_cents": total}}
+
+    CRMClient.checkout_quote = checkout_quote

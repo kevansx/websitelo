@@ -17,7 +17,7 @@ var iti = window.intlTelInput(input, {
 	// Set onlyCountries option to just European country codes.
 	/*	onlyCountries: ["ca","al","ad"], */
 	 // Use the isValidNumber method (which utilises Google's libphonenumber) to validate the telephone number
-	utilsScript: "https://lottoexpress.com/resources/js/utils.js?<%= time %>"
+	utilsScript: "/resources/js/utils.js?<%= time %>"
 });
 
 var reset = function() {

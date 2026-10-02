@@ -92,7 +92,7 @@
     border-radius: 2px !important;
     background: transparent !important;
     box-shadow: none !important;
-    color: #fff !important;
+    color: var(--ink-muted) !important;
     font-size: 18px !important;
     font-weight: 700 !important;
     line-height: 24px !important;
@@ -100,7 +100,7 @@
     cursor: pointer !important;
   }
   .processOrderContent button.cart-line-remove-btn:hover {
-    background: rgba(255,255,255,0.12) !important;
+    background: var(--surface-sunken) !important;
   }
   .processOrderContent .cart-line-title {
     /* `.processOrderCopy` is a fixed 315px column, which leaves a line's
@@ -152,24 +152,25 @@
     justify-content: space-between;
     gap: 12px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #165D8A;
+    border-bottom: 1px solid var(--border-hairline);
   }
   .processOrderContent p.leCartHeadTitle {
     margin: 0;
-    color: #FFFFFF;
+    color: var(--ink);
+    font-family: var(--font-display);
     font-size: 22px;
     font-weight: 500;
     line-height: 28px;
   }
   .processOrderContent p.leCartHeadCount {
     margin: 0;
-    color: #A4D3F1;
+    color: var(--ink-muted);
     font-size: 14px;
     white-space: nowrap;
   }
   .processOrderContent p.leCartSectionLabel {
     margin: 15px 0 9px;
-    color: #00ADEF;
+    color: var(--surface-brand-raised);
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 1.1px;
@@ -184,9 +185,10 @@
     position: relative;
     overflow: hidden;
     margin-bottom: 12px;
-    border: 1px solid #165D8A;
-    border-radius: 8px;
-    background-image: linear-gradient(90deg, #0A456C, #013658);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-md);
+    background-color: var(--surface-card);
+    box-shadow: var(--shadow-card);
   }
   .processOrderContent .leCartItem::before {
     content: "";
@@ -195,9 +197,9 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background-color: #00ADEF;
+    background-color: var(--accent-500);
   }
-  .processOrderContent .leCartItem:hover { border-color: #2C7AAB; }
+  .processOrderContent .leCartItem:hover { border-color: var(--surface-brand-raised); }
   .processOrderContent .leCartItemHead {
     display: flex;
     flex-wrap: wrap;
@@ -218,7 +220,9 @@
   }
   .processOrderContent p.leCartItemTitle {
     margin: 0;
-    color: #FFFFFF;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-weight: 700 !important;
     font-size: 17px;
     font-weight: 500;
     line-height: 22px;
@@ -234,10 +238,10 @@
     display: inline-block;
     margin: 0 5px 0 0;
     padding: 3px 9px;
-    border: 1px solid #22699C;
+    border: 1px solid var(--border-hairline);
     border-radius: 11px;
-    background-color: #0C4970;
-    color: #C7E9FE;
+    background-color: var(--surface-sunken);
+    color: var(--surface-brand);
     font-size: 12px;
     line-height: 15px;
   }
@@ -245,8 +249,8 @@
     flex: 1 0 100%;
     margin: 2px 0 0;
     padding-top: 10px;
-    border-top: 1px solid #0C4970;
-    color: #FECF6B;
+    border-top: 1px solid var(--border-hairline);
+    color: var(--accent-700);
     font-size: 13px;
     line-height: 18px;
   }
@@ -258,9 +262,10 @@
   }
   .processOrderContent p.leCartItemPrice {
     margin: 0;
-    color: #FC7D2B;
+    color: var(--surface-brand);
+    font-family: var(--font-display);
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 22px;
     white-space: nowrap;
   }
@@ -281,7 +286,7 @@
     border-radius: 4px !important;
     background: transparent !important;
     box-shadow: none !important;
-    color: #A4D3F1 !important;
+    color: var(--ink-subtle) !important;
     font-size: 18px !important;
     font-weight: 400 !important;
     line-height: 24px !important;
@@ -289,8 +294,8 @@
     cursor: pointer;
   }
   .processOrderContent button.leCartItemRemove:hover {
-    background-color: rgba(255,255,255,0.14) !important;
-    color: #FFFFFF !important;
+    background-color: var(--surface-sunken) !important;
+    color: var(--ink) !important;
   }
   /* The chevron is drawn on the pseudo-element, leaving the span's own
      transform free for the toggle script's 180deg flip. */
@@ -308,13 +313,13 @@
     left: 7px;
     width: 7px;
     height: 7px;
-    border-right: 2px solid #00ADEF;
-    border-bottom: 2px solid #00ADEF;
+    border-right: 2px solid var(--surface-brand-raised);
+    border-bottom: 2px solid var(--surface-brand-raised);
     transform: rotate(45deg);
   }
   .processOrderContent .cart-accordion-content {
     padding: 0 16px 14px 18px;
-    border-top: 1px solid #0C4970;
+    border-top: 1px solid var(--border-hairline);
   }
   @media (max-width: 480px) {
     .processOrderContent .leCartItemLogo { width: 36px; }
@@ -326,14 +331,14 @@
   .processOrderContent .leCartPricingHeld {
     margin: 16px 0 4px;
     padding: 14px 16px;
-    border: 1px solid #7A6430;
-    border-radius: 8px;
-    background-color: rgba(254, 207, 107, 0.08);
+    border: 1px solid var(--gold-400);
+    border-radius: var(--radius-md);
+    background-color: var(--gold-100);
     text-align: left;
   }
   .processOrderContent p.leCartPricingHeldTitle {
     margin: 0 0 6px;
-    color: #FECF6B;
+    color: var(--accent-700);
     font-size: 16px;
     font-weight: 500;
   }
@@ -346,7 +351,7 @@
   /* A cart line: label, its numbers as small boxes, then the controls — one
      compact row, the same tiles the picker collapses a line to on a phone. */
   .leCartLine {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid var(--border-hairline);
   }
   .leCartLineSummary {
     display: flex;
@@ -369,19 +374,19 @@
     min-width: 26px;
     height: 26px;
     padding: 0 4px;
-    border: 1px solid #CECECE;
+    border: 1px solid var(--border-hairline);
     border-radius: 4px;
     background-color: #FFFFFF;
-    color: #2B2B2B;
-    font-family: 'Heebo', sans-serif;
+    color: var(--ink);
+    font-family: var(--font-body);
     font-size: 13px;
     font-weight: 500;
     line-height: 1;
     cursor: default;
   }
   .leCartNum.leCartNumBonus {
-    background-color: #FECF6B;
-    border-color: #E4B34B;
+    background-color: var(--bonus-300);
+    border-color: var(--gold-400);
   }
   .processOrderContent .leCartLineSummary .cart-line-action-wrap {
     margin-top: 0;

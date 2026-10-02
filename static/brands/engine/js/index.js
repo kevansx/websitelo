@@ -1346,11 +1346,11 @@ function showSignInPassword() {
 	var y = document.getElementById("signInPasswordImage");
 	if (x.type === "password") {
 		x.type = "text";
-		y.src = "https://lottoexpress.com/resources/images/eye___u26.svg";
+		y.src = "/resources/images/eye___u26.svg";
 		y.setAttribute("class", "showPassword");
 	} else {
 		x.type = "password";
-		y.src = "https://lottoexpress.com/resources/images/eye_u25.svg";
+		y.src = "/resources/images/eye_u25.svg";
 		y.setAttribute("class", "hidePassword");
 	}
 }
@@ -1432,11 +1432,11 @@ function showRegistationPassword() {
 	var y = document.getElementById("registerPasswordImage");
 	if (x.type === "password") {
 		x.type = "text";
-		y.src = "https://lottoexpress.com/resources/images/eye___u26.svg";
+		y.src = "/resources/images/eye___u26.svg";
 		y.setAttribute("class", "showPassword");
 	} else {
 		x.type = "password";
-		y.src = "https://lottoexpress.com/resources/images/eye_u25.svg";
+		y.src = "/resources/images/eye_u25.svg";
 		y.setAttribute("class", "hidePassword");
 	}
 }
@@ -1608,11 +1608,11 @@ function showSetPassword() {
 	var y = document.getElementById("setPasswordImage");
 	if (x.type === "password") {
 		x.type = "text";
-		y.src = "https://lottoexpress.com/resources/images/eye___u26.svg";
+		y.src = "/resources/images/eye___u26.svg";
 		y.setAttribute("class", "showPassword");
 	} else {
 		x.type = "password";
-		y.src = "https://lottoexpress.com/resources/images/eye_u25.svg";
+		y.src = "/resources/images/eye_u25.svg";
 		y.setAttribute("class", "hidePassword");
 	}
 }
@@ -1665,11 +1665,11 @@ function showNewPassword() {
 	var y = document.getElementById("newPasswordImage");
 	if (x.type === "password") {
 		x.type = "text";
-		y.src = "https://lottoexpress.com/resources/images/eye___u26.svg";
+		y.src = "/resources/images/eye___u26.svg";
 		y.setAttribute("class", "showPassword");
 	} else {
 		x.type = "password";
-		y.src = "https://lottoexpress.com/resources/images/eye_u25.svg";
+		y.src = "/resources/images/eye_u25.svg";
 		y.setAttribute("class", "hidePassword");
 	}
 }

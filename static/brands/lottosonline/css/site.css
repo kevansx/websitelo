@@ -25,7 +25,7 @@ body.lo { margin: 0; background: var(--surface-page); font-family: var(--font-bo
 .lo-header__pill:hover { background: var(--cta-700); }
 .lo-header__balance { display: grid; color: var(--ink-on-brand); text-decoration: none; text-align: right; }
 .lo-header__balance-label { font: 500 11px/14px var(--font-body); color: var(--ink-on-brand-muted); }
-.lo-header__balance-amount { font: 700 15px/18px var(--font-body); font-variant-numeric: tabular-nums; }
+.lo-header__balance-amount { font: 700 15px/18px var(--font-body); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .lo-header__cart { position: relative; color: var(--ink-on-brand); display: inline-flex; padding: 6px; }
 .lo-header__badge { position: absolute; top: -2px; right: -4px; min-width: 18px; height: 18px; border-radius: 9px; padding: 0 5px;
   background: var(--gold-400); color: var(--surface-brand-deep); font: 800 11px/18px var(--font-display); text-align: center; }

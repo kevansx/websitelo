@@ -153,7 +153,6 @@
           <input type="hidden" name="browserTimezone" id="browserTimezone">
           <input type="hidden" name="browserLanguage" id="browserLanguage">
           <input type="submit" value="Pay {{ currency_symbol }} {{ '%.2f'|format((amount_cents or 0) / 100) }}" id="addFundsSubmit">
-          <p>lottoexpress.com will show on your statement</p>
         </form>
 
         {% if hosted_available %}

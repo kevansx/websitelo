@@ -1,0 +1,216 @@
+/* LottosOnline light design for the engine's money pages: cart, checkout, wallet top-ups, account, orders,
+   offer pages. Colour and surface only: no markup, element IDs or layout the payment scripts rely on are
+   touched. The engine's stylesheets were drawn for white text on a dark page; this layer turns the dark
+   panels into white cards and the white or pale text into ink. Header and footer are not affected
+   (every rule is scoped below the page container or to engine components). */
+
+/* ---------- page and panels ---------- */
+body.lo-engine { background: var(--surface-page); color: var(--ink); }
+body.lo-engine .container { background-color: transparent; }
+body.lo-engine .lePages {
+  background-color: var(--surface-card); color: var(--ink);
+  border: 1px solid var(--border-hairline); border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+}
+body.lo-engine .pageHeading { color: var(--ink); }
+body.lo-engine .accountPage { background-color: transparent; color: var(--ink); }
+body.lo-engine #main { background-color: transparent; }
+
+/* running text the engine set in white or pale lilac for the dark page */
+body.lo-engine .container header, body.lo-engine .container p, body.lo-engine .container li,
+body.lo-engine form p, body.lo-engine p.formLabels, body.lo-engine .formPopup p,
+body.lo-engine .formPopupCheckbox, body.lo-engine .addressCheckbox,
+body.lo-engine .orderProcessedContent p span, body.lo-engine .singleOrderDetails form p,
+body.lo-engine .accountTransactionSummary, body.lo-engine .container .contactUs form label { color: var(--ink); }
+body.lo-engine .formHelperText, body.lo-engine .paymentTopUpText { color: var(--ink-muted); }
+body.lo-engine .warningText, body.lo-engine .drawDateChange,
+body.lo-engine .lotteryNotAvailableInCountry p { color: var(--accent-700); }
+body.lo-engine a.tertiaryLink, body.lo-engine .tertiaryLink, body.lo-engine .accountSubmitCancel { color: var(--surface-brand-raised) !important; }
+body.lo-engine .primaryLink:hover { color: var(--accent-700); }
+
+/* ---------- form controls ---------- */
+body.lo-engine input[type=text], body.lo-engine input[type=email], body.lo-engine input[type=password],
+body.lo-engine input[type=tel], body.lo-engine input[type=number], body.lo-engine textarea, body.lo-engine select,
+body.lo-engine .custom-select__trigger, body.lo-engine .accountDateRange, body.lo-engine .addFundsForms input.expiryCombo,
+body.lo-engine #accountWithdrawal .custom-select-withdraw__trigger, body.lo-engine #acctPaymentMethod .accountPaymentMethodList {
+  background-color: var(--surface-card) !important; color: var(--ink) !important;
+  border: 1px solid var(--border-control) !important; box-shadow: none;
+}
+body.lo-engine input:focus, body.lo-engine select:focus, body.lo-engine textarea:focus {
+  outline: 2px solid var(--focus-ring); outline-offset: 1px;
+}
+body.lo-engine input::placeholder, body.lo-engine textarea::placeholder { color: var(--ink-subtle); opacity: 1; }
+body.lo-engine .custom-select__trigger .glyphicon, body.lo-engine #accountWithdrawal .custom-select-withdraw__trigger .glyphicon { color: var(--ink-muted); }
+body.lo-engine .registerInput.inputReadOnly, body.lo-engine input.disabledState, body.lo-engine select.disabledState {
+  background-color: var(--surface-sunken) !important; color: var(--ink-muted) !important;
+}
+body.lo-engine #registerContent form .iti__selected-flag { background-color: var(--surface-sunken); }
+body.lo-engine .redesignCheckmark, body.lo-engine .redesignRadio,
+body.lo-engine .checkboxRadioContainer:hover input ~ .redesignCheckmark, body.lo-engine .checkboxRadioContainer:hover input ~ .redesignRadio {
+  background-color: var(--surface-card); border: 1px solid var(--border-control) !important;
+}
+body.lo-engine .checkboxRadioContainer input:checked ~ .redesignCheckmark, body.lo-engine .checkboxRadioContainer input:checked ~ .redesignRadio {
+  background-color: var(--surface-brand-raised); border-color: var(--surface-brand-raised) !important;
+}
+
+/* primary actions (Confirm Order, Continue to Payment, Save, Pay): LottosOnline green, not the engine's orange */
+body.lo-engine input[type=submit], body.lo-engine button[type=submit], body.lo-engine button.accountSubmitButtons,
+body.lo-engine button.accountSearchButtons, body.lo-engine #placeBetButton, body.lo-engine #placePromoButton,
+body.lo-engine .linkAsButton, body.lo-engine .primaryFormButton {
+  background-color: var(--cta-600); background-image: none; border-radius: var(--radius-md);
+  font-family: var(--font-display); font-weight: 700; text-shadow: none; box-shadow: none;
+}
+body.lo-engine input[type=submit]:hover, body.lo-engine button[type=submit]:hover, body.lo-engine button.accountSubmitButtons:hover,
+body.lo-engine button.accountSearchButtons:hover, body.lo-engine #placeBetButton:hover, body.lo-engine #placePromoButton:hover,
+body.lo-engine .linkAsButton:hover, body.lo-engine .primaryFormButton:hover,
+body.lo-engine input[type=submit]:focus, body.lo-engine button[type=submit]:focus, body.lo-engine .linkAsButton:focus,
+body.lo-engine .primaryFormButton:active, body.lo-engine .linkAsButton:active {
+  background-color: var(--cta-700); color: #fff !important; text-shadow: none;
+}
+
+/* secondary buttons (top-up amounts, "Cancel", "Back"): outlined on white, filled when chosen */
+body.lo-engine .secondaryFormButton, body.lo-engine .container li.secondaryFormButton {
+  background-color: var(--surface-card) !important; background-image: none !important;
+  color: var(--surface-brand) !important; border: 2px solid var(--surface-brand-raised) !important;
+  box-shadow: none !important; text-shadow: none !important;
+}
+body.lo-engine .secondaryFormButton:hover { background-color: var(--surface-sunken) !important; }
+body.lo-engine .secondaryFormButton:active, body.lo-engine .addFundsForms .fundsTopUpAmounts .topUpAmountActive,
+body.lo-engine .container li.secondaryFormButton.topUpAmountActive {
+  background-color: var(--surface-brand) !important; color: #fff !important; border-color: var(--surface-brand) !important;
+}
+body.lo-engine .addFundsForms .fundsTopUpAmounts .topUpAmountActive * { color: #fff !important; }
+/* the top-up amounts are one joined segmented control */
+body.lo-engine .addFundsForms .fundsTopUpAmounts li.secondaryFormButton {
+  border: 1px solid var(--border-control) !important; border-left-width: 0 !important; font-family: var(--font-display);
+}
+body.lo-engine .addFundsForms .fundsTopUpAmounts li.secondaryFormButton:first-child { border-left-width: 1px !important; }
+body.lo-engine .addFundsForms .fundsTopUpAmounts li .addFundsCurrency { color: var(--ink-subtle); }
+
+/* LottosOnline cards placed inside engine pages keep their own on-brand colours */
+body.lo-engine .lo-appcard .lo-appcard__title { color: #fff; }
+body.lo-engine .lo-appcard .lo-appcard__body { color: var(--ink-on-brand-muted); }
+body.lo-engine .lo-appcard .lo-appcard__body a { color: var(--gold-400); }
+body.lo-engine .addFundsForms .formHeader .topUpTotal { color: var(--ink); }
+body.lo-engine .addFundsForms .paymentTopUpMethods .additionalPaymentOptions:active li { color: var(--ink); }
+
+/* ---------- account ---------- */
+body.lo-engine #accountTabs ul {
+  background-color: var(--surface-card); border-bottom: 1px solid var(--border-hairline);
+  box-shadow: var(--shadow-card); max-width: 100%;
+}
+body.lo-engine #accountTabs li { color: var(--ink-muted); border-bottom: 4px solid transparent; }
+body.lo-engine #accountTabs li:hover { background-color: var(--surface-sunken); color: var(--ink); border-bottom-color: var(--border-hairline); }
+body.lo-engine #accountTabs li.accountTabActive, body.lo-engine .accountPage #accountTabs li.accountTabActive:hover {
+  color: var(--surface-brand); border-bottom: 4px solid var(--accent-500);
+}
+body.lo-engine #accountTabs li:active { background-color: var(--surface-sunken); color: var(--ink); border-bottom-color: var(--surface-brand); }
+body.lo-engine .accountStatusText { color: var(--ink-muted) !important; }
+body.lo-engine .accountStatusText .acctStatusText, body.lo-engine .accountWalletText { color: var(--ink) !important; }
+
+/* accordions (Profile, Communication Preferences, wallet sections): white cards */
+body.lo-engine .container .accordion header {
+  background-color: var(--surface-card); color: var(--ink);
+  border: 1px solid var(--border-hairline); border-radius: var(--radius-md); box-shadow: var(--shadow-card);
+}
+body.lo-engine .container .accordion header:hover { background-color: var(--surface-sunken); }
+body.lo-engine .container .accordion header.active {
+  background-color: var(--surface-card); color: var(--surface-brand);
+  border-bottom-left-radius: 0; border-bottom-right-radius: 0; box-shadow: inset 4px 0 0 var(--accent-500);
+}
+body.lo-engine .container .accordion header.active + div {
+  background-color: var(--surface-card); color: var(--ink);
+  border: 1px solid var(--border-hairline); border-top: 0;
+  border-bottom-left-radius: var(--radius-md); border-bottom-right-radius: var(--radius-md);
+}
+body.lo-engine .container .accordion header .glyphicon, body.lo-engine .container .accordion header img { filter: none; }
+body.lo-engine .account-accordion .acctAccordionHeaders { color: var(--surface-brand); }
+
+/* history tables */
+body.lo-engine #accountTransactionHistory .transactionHistoryTableHeaderCell,
+body.lo-engine #accountBetHistory .betHistoryTableHeaderCell, body.lo-engine #accountBetHistory .betHistoryTableTotals .betHistoryTableHeaderCell,
+body.lo-engine #accountSubscriptionHistory .subscriptionHistoryTableHeaderCell,
+body.lo-engine #accountOrderHistory .orderHistoryTableHeaderCell, body.lo-engine #accountLegacyOrders .orderHistoryTableHeaderCell {
+  color: var(--ink-muted);
+}
+body.lo-engine #accountTransactionHistory .transactionHistoryTableBodyCell, body.lo-engine #accountBetHistory .betHistoryTableBodyCell,
+body.lo-engine #accountSubscriptionHistory .subscriptionHistoryTableBodyCell, body.lo-engine #accountOrderHistory .orderHistoryTableBodyCell,
+body.lo-engine #accountLegacyOrders .orderHistoryTableBodyCell, body.lo-engine #accountLegacyOrders .legacyOrdersNote { color: var(--ink); }
+body.lo-engine #accountTransactionHistory .transactionHistoryTableBody.active, body.lo-engine #accountTransactionHistory .transactionHistoryTableBody.active + .transactionHistoryTableTwo,
+body.lo-engine #accountBetHistory .betHistoryTableBody.active, body.lo-engine #accountBetHistory .betHistoryTableBody.active + .betHistoryTableTwo,
+body.lo-engine #accountSubscriptionHistory .subscriptionHistoryTableBody.active, body.lo-engine #accountSubscriptionHistory .subscriptionHistoryTableBody.active + .subscriptionHistoryTableTwo,
+body.lo-engine #accountOrderHistory .orderHistoryTableBody.active, body.lo-engine #accountOrderHistory .orderHistoryTableBody.active + .orderHistoryTableTwo,
+body.lo-engine #accountOrderHistory .orderHistoryTableTwo .orderHistoryTableBody.active, body.lo-engine #accountOrderHistory .orderHistoryTableTwo .orderHistoryTableBody.active + .orderHistoryTableThree {
+  background-color: var(--surface-sunken); color: var(--ink);
+}
+body.lo-engine .accountPage .accountTablesOrangeText { color: var(--accent-700); }
+body.lo-engine .accountPage .accountTablesYellowText { color: var(--placeholder-700); }
+body.lo-engine .accountTransactionSummary ul li.acctTransSummaryActive { background-color: var(--surface-brand); color: #fff; }
+
+/* order detail */
+body.lo-engine .singleOrderDetailColumn .lotteryCounter p.lotteryCount, body.lo-engine .syndicateBoxes .lotteryCounter p.lotteryCount {
+  background-color: var(--surface-sunken); color: var(--ink);
+}
+body.lo-engine .singleOrderDetailColumn #lottoDrawDays label { color: var(--ink); }
+body.lo-engine .singleOrderDetailColumn #lottoDrawDays label .drawDateCountdownCopy { color: var(--accent-700); }
+body.lo-engine .singleOrderDetails .orderSubscription .slider { background-color: var(--border-control); }
+body.lo-engine .singleOrderDetails .orderSubscription .slider:before { background-color: #fff; }
+
+/* ---------- pop-ups and notices ---------- */
+body.lo-engine .alertWindow, body.lo-engine .infoWindow, body.lo-engine .formPopup {
+  background-color: var(--surface-card); color: var(--ink);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-modal); overflow: hidden;
+}
+body.lo-engine .infoWindow .infoWindowBody p, body.lo-engine .alertWindow .infoWindowBody p,
+body.lo-engine .formPopup .formPopupContent .formPopupText { color: var(--ink); }
+body.lo-engine .infoWindow .infoWindowBody .infoWindowTitleYellow, body.lo-engine .alertWindow .infoWindowBody .infoWindowTitleYellow { color: var(--accent-700); }
+body.lo-engine .formPopup .formPopupHeader, body.lo-engine .syndicateLinesPopup .infoWindowHeader { color: #fff; }
+body.lo-engine .formPopup .formPopupHeader p { color: #fff; }
+
+/* cookie notice: a slim LottosOnline strip instead of the old yellow bar */
+body.lo-engine #cookie-prompt { background-color: var(--surface-tag); }
+body.lo-engine #cookie-prompt #cookieContent p { color: #fff; font-size: 13px; }
+body.lo-engine #cookie-prompt #cookieContent a { color: var(--gold-400); }
+body.lo-engine #cookie-prompt #cookieContent .closeCookieBanner { background: var(--cta-600); border: 0; color: #fff; border-radius: var(--radius-sm); }
+
+/* cart upsells and funding */
+body.lo-engine .leUpsellBox { background-color: var(--surface-sunken); border-radius: var(--radius-lg); }
+body.lo-engine .leUpsellCard { background-color: var(--surface-card); color: var(--ink); border: 1px solid var(--border-hairline); border-radius: var(--radius-md); }
+body.lo-engine .leUpsellTitle { color: var(--ink); }
+body.lo-engine .leUpsellHint, body.lo-engine .leUpsellDescription { color: var(--ink-muted); }
+body.lo-engine .leCartFunding { background-color: var(--surface-sunken); color: var(--ink); }
+body.lo-engine .leCartWinsChoice { background-color: var(--gold-100); color: var(--ink); }
+
+/* bank-transfer / payment-link instructions */
+body.lo-engine #paymentLinkInstructions .leTransferLabel { color: var(--ink-muted); }
+body.lo-engine #paymentLinkInstructions .leTransferValue { color: var(--ink); }
+body.lo-engine #paymentLinkInstructions p.leTransferPaidTitle { color: var(--success-700); }
+body.lo-engine #paymentLinkInstructions p.leTransferFailedTitle { color: var(--error-600); }
+body.lo-engine #paymentLinkInstructions .leTransferAmountRow { background-color: var(--gold-100); }
+
+/* ---------- offer pages (/offer/...) ---------- */
+body.lo-engine .lotteryOfferPages .leOfferNotice, body.lo-engine .lotteryOfferPages .leOfferAssurances li,
+body.lo-engine .lotteryOfferPages .leOfferAbout, body.lo-engine .lotteryOfferPages .leOfferTicket,
+body.lo-engine .lotteryOfferPages .leOfferSyndicate, body.lo-engine .lotteryOfferPages .leOfferSummary {
+  background-color: var(--surface-card); color: var(--ink);
+  border: 1px solid var(--border-hairline); border-radius: var(--radius-md); box-shadow: var(--shadow-card);
+}
+body.lo-engine .lotteryOfferPages .leOfferTitle, body.lo-engine .lotteryOfferPages .leOfferTicketCount,
+body.lo-engine .lotteryOfferPages .leOfferAboutSummary:hover .leOfferAboutTitle, body.lo-engine .lotteryOfferPages .leOfferSyndicateWheel,
+body.lo-engine .lotteryOfferPages .leOfferSyndicateFacts strong, body.lo-engine .lotteryOfferPages .leOfferBlurb,
+body.lo-engine .lotteryOfferPages .leOfferAboutBody p { color: var(--ink); }
+body.lo-engine .lotteryOfferPages .textLight, body.lo-engine .lotteryOfferPages .leOfferPriceLabel,
+body.lo-engine .lotteryOfferPages .leOfferAssurances p, body.lo-engine .lotteryOfferPages .leOfferAboutHint,
+body.lo-engine .lotteryOfferPages .leOfferTicketBoard, body.lo-engine .lotteryOfferPages #main #tickets_section .lines p,
+body.lo-engine .lotteryOfferPages .leOfferSyndicateFacts span, body.lo-engine .lotteryOfferPages .leOfferSyndicateNote,
+body.lo-engine .lotteryOfferPages .leOfferSummaryLabel { color: var(--ink-muted); }
+body.lo-engine .lotteryOfferPages .leOfferTicketSchedule, body.lo-engine .lotteryOfferPages .leOfferSyndicateSchedule,
+body.lo-engine .lotteryOfferPages #leOfferStatus { color: var(--accent-700); }
+body.lo-engine .lotteryOfferPages #main #tickets_section .leOfferTicketState { background-color: var(--surface-sunken); color: var(--ink-muted); }
+
+/* ---------- phones ---------- */
+@media (max-width: 767px) {
+  body.lo-engine .lePages { border-radius: 0; border-left: 0; border-right: 0; box-shadow: none; }
+  /* the page gutter the engine left to its dark background */
+  body.lo-engine .processOrderForm .processOrderContent, body.lo-engine .orderProcessedContent { padding-left: 16px; padding-right: 16px; box-sizing: border-box; }
+  body.lo-engine #cookie-prompt #cookieContent p { font-size: 12px; line-height: 17px; padding: 8px 12px; }
+}
