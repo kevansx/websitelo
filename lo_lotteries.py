@@ -36,12 +36,14 @@ LOTTERIES: tuple[Lottery, ...] = (
     Lottery("mega-millions", "Mega Millions", "megamillions", "usmeg"),
     Lottery("superlotto-plus", "SuperLotto Plus", "superlotto-plus-ca-us", "uscal"),
     Lottery("lotto-america", "Lotto America", "lotto-america", "uslot"),
-    Lottery("millionaire4life", "Millionaire for Life", "millionaire-for-life-us", "uslif", confirm=True),
-    Lottery("euromillions", "EuroMillions", "euromillions", "eueur"),
+    Lottery("millionaire4life", "Millionaire for Life", "millionaire-for-life", "uslif"),
+    # EuroMillions is the Austrian game (CRM reply, 2 Oct 2026): EUR jackpot and prizes, no prize tax. "euromillions"
+    # is the UK game (GBP) and "euromillions-es" withholds 20% on prizes over EUR 40,000.
+    Lottery("euromillions", "EuroMillions", "euromillions-at", "eueur"),
     Lottery("eurojackpot", "EuroJackpot", "eurojackpot", "eujac"),
     Lottery("superenalotto", "SuperEnaLotto", "superenalotto", "itsup"),
     Lottery("el-gordo", "Spanish El Gordo", "el-gordo-primitiva", "eselg"),
-    Lottery("la-primitiva", "Spanish La Primitiva", "la-primitiva-es", "eslap", confirm=True),
+    Lottery("la-primitiva", "Spanish La Primitiva", "la-primitiva", "eslap"),
     Lottery("bonoloto", "BonoLoto", "bonoloto", "esbon"),
     Lottery("german-lotto", "German Lotto", "lotto-6aus49", "delot"),
     Lottery("fr-lotto", "French Lotto", "lotto-fr", "frlot"),
@@ -140,15 +142,15 @@ BASE_JACKPOTS: dict[str, float] = {
     "lotto-america": 2_000_000,
     "lotto-ie": 2_000_000,
     "lotto-fr": 2_000_000,
-    "euromillions": 17_000_000,
-    "la-primitiva-es": 2_000_000,
+    "euromillions-at": 17_000_000,
+    "la-primitiva": 2_000_000,
 }
 
 
 # LottosOnline sells in EUR (the old site's EuroMillions code is "eueur"). The CRM's "euromillions" jackpot feed is
 # the UK one, in GBP; the jackpot shown for it comes from a continental (EUR) feed instead. Draw times are unchanged.
-EUR_JACKPOT_FEEDS = {
-    "euromillions": ("euromillions-es", "euromillions-at", "euromillions-be", "euromillions-fr", "euromillions-ie"),
+EUR_JACKPOT_FEEDS: dict[str, tuple[str, ...]] = {
+    # none since EuroMillions moved to the Austrian (EUR) game; kept for any future non-EUR feed
 }
 
 

@@ -19,17 +19,19 @@ def test_engine_scripts_load_nothing_from_lottoexpress_com():
     assert hits == []
 
 
-def test_euromillions_jackpot_is_shown_in_euros(client, monkeypatch):
+def test_euromillions_is_the_austrian_game_in_euros(client, monkeypatch):
+    # CRM reply, 2 Oct 2026: EuroMillions is euromillions-at (EUR jackpot and prizes). The UK "euromillions" feed
+    # (GBP) must never be what the page shows.
+    import lo_lotteries
+    assert lo_lotteries.by_slug("euromillions").game_code == "euromillions-at"
     app = client.application
-    # The CRM's "euromillions" feed is the UK one (GBP); LottosOnline sells and shows EuroMillions in EUR.
     rows = [
-        {"game_code": "euromillions", "currency": "GBP", "jackpot": {"amount": 24_000_000, "currency": "GBP"},
-         "next_draw_utc": "2099-01-01T20:00:00Z"},
-        {"game_code": "euromillions-es", "currency": "EUR", "jackpot": {"amount": 28_000_000, "currency": "EUR"}},
+        {"game_code": "euromillions", "currency": "GBP", "jackpot": {"amount": 24_000_000, "currency": "GBP"}},
+        {"game_code": "euromillions-at", "currency": "EUR", "jackpot": {"amount": 28_000_000, "currency": "EUR"},
+         "next_draw_utc": "2099-01-01T17:30:00Z"},
     ]
     eng = dict(app.config["LO_ENGINE"])
     eng["jackpots_live_or_cache"] = lambda **k: (rows, None)
     monkeypatch.setitem(app.config, "LO_ENGINE", eng)
-    jp = app.jinja_env.globals["lo_jackpot"]("euromillions")
+    jp = app.jinja_env.globals["lo_jackpot"]("euromillions-at")
     assert jp["currency"] == "EUR" and jp["display"].startswith("€28")
-    assert jp["cutoff_iso"].startswith("2099-01-01")    # draw time still from the game's own feed

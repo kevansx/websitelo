@@ -27,6 +27,7 @@ import hashlib
 from flask import Response, abort, g, redirect, render_template, request, send_from_directory, session, url_for
 
 import lo_lotteries
+import lo_store
 from lo_lotteries import LOTTERIES
 
 CONTENT = Path(__file__).resolve().parent / "content"
@@ -157,6 +158,9 @@ def register(app) -> None:
         "zendesk_key": _tag("LO_ZENDESK_KEY", "c313db13-7d37-4ec8-9a85-06f112b0507d"),
     }
 
+    # Groups the CRM lists but the customer does not pick (German Lotto's Superzahl is drawn: CRM reply).
+    DRAWN_NOT_PICKED = {"lotto-6aus49": ("super",)}
+
     BONUS_NAMES = {"powerball": "Powerball", "megaball": "Mega Ball", "mega": "Mega number", "star": "Star Ball",
                    "stars": "Lucky Stars", "euro": "Euro numbers", "key": "Key number", "super": "Superzahl",
                    "chance": "Chance number", "thunderball": "Thunderball", "millionaire": "Millionaire Ball",
@@ -164,15 +168,15 @@ def register(app) -> None:
 
     def lo_rules(game) -> str:
         """'Pick 5 numbers (1-69) + 1 Powerball (1-26)', from the product's line schema (LottoGo shows this)."""
-        products = (game or {}).get("products") or []
-        schema = (products[0] or {}).get("line_schema") if products else None
-        if not isinstance(schema, dict) or not schema:
-            return ""
+        # The base (single-draw) product's format, in whatever shape the CRM sends it (lo_store).
+        base = lo_store.split_products((game or {}).get("products") or [])["base"]
+        groups = lo_store.schema_groups((base or {}).get("line_schema"))
         parts = []
-        for key, spec in schema.items():
-            if not isinstance(spec, dict):
+        for g in groups:
+            key = str(g.get("name"))
+            if key in DRAWN_NOT_PICKED.get((game or {}).get("game_code"), ()):
                 continue
-            n, lo, hi = spec.get("count"), spec.get("min"), spec.get("max")
+            n, lo, hi = g.get("count"), g.get("min"), g.get("max")
             label = "numbers" if key == "main" else BONUS_NAMES.get(key, key.replace("_", " ").title())
             parts.append(f"{'Pick ' if key == 'main' else ''}{n} {label} ({lo}-{hi})")
         return " + ".join(parts)
@@ -183,7 +187,9 @@ def register(app) -> None:
         """Valid Product markup for a play page. Replaces the old site's block, which was not valid JSON
         (it contained comments) and claimed a 5-star aggregate rating from one review."""
         price = None
-        for p in (game or {}).get("products") or []:
+        # The base product's price only: a multi-draw tier would advertise the discounted per-draw price.
+        _base = lo_store.split_products((game or {}).get("products") or [])["base"]
+        for p in [_base] if _base else []:
             pbc = p.get("prices_by_currency") or {}
             eur = pbc.get("EUR") if isinstance(pbc, dict) else None
             cents = (eur or {}).get("amount_cents") if isinstance(eur, dict) else None

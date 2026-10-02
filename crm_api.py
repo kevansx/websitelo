@@ -427,6 +427,30 @@ class CRMClient:
             payload["use_wins"] = True
         return self._request("POST", "/api/v1/checkout/submit", token=token, json=payload)
 
+    # --- Syndicate subscriptions (CRM reply, 2 Oct 2026; same API Live Lottos uses) ---
+    # Join: checkout(token, {"saved_card_id", "items": [{"kind": "syndicate", "ticket_mode": "subscription",
+    # "product_code", "shares"}]}). Billed at subscription_standard_price_cents per share, weekly.
+    def subscriptions(self, token: str) -> Any:
+        return self._request("GET", "/api/v1/subscriptions", token=token, service_key=True)
+
+    def subscription_pause(self, token: str, subscription_id: int | str, weeks: int | None = None) -> Any:
+        """Pause for 1-12 weeks (the CRM's default is 4). Only an active membership can pause."""
+        body = {"weeks": int(weeks)} if weeks else {}
+        return self._request("POST", f"/api/v1/subscriptions/{subscription_id}/pause", token=token, service_key=True, json=body)
+
+    def subscription_resume(self, token: str, subscription_id: int | str) -> Any:
+        return self._request("POST", f"/api/v1/subscriptions/{subscription_id}/resume", token=token, service_key=True, json={})
+
+    def subscription_cancel(self, token: str, subscription_id: int | str, payload: dict[str, Any] | None = None) -> Any:
+        return self._request("POST", f"/api/v1/subscriptions/{subscription_id}/cancel", token=token, service_key=True,
+                             json=payload or {})
+
+    def subscriptions_due(self, *, next_charge_after: str | None = None, next_charge_before: str | None = None) -> Any:
+        """Service key, no customer token: the brand's memberships whose next charge falls in the window (each with
+        email, next_amount_cents, last_charge_at/status). Drives the renewal reminder and receipt emails."""
+        params = {k: v for k, v in {"next_charge_after": next_charge_after, "next_charge_before": next_charge_before}.items() if v}
+        return self._request("GET", "/api/v1/subscriptions", service_key=True, params=params)
+
     # --- Results sync ---
     def draw_results(
         self,

@@ -77,7 +77,7 @@ def test_service_worker_shows_and_opens_notifications(anon_client, stub_crm):
 
 
 # ------------------------------------------------------------------ alerts
-def _played(cid, game="euromillions"):
+def _played(cid, game="euromillions-at"):
     lo_packs.on_order_placed(customer_id=cid, order_id=f"o-{game}", items=[{"game_code": game}])
 
 
@@ -86,21 +86,21 @@ def jp(amount, draw="2026-10-03", currency="EUR"):
 
 
 def test_played_lotteries_are_followed_at_twice_the_base():
-    _played(7, "euromillions")
+    _played(7, "euromillions-at")
     alerts = lo_alerts.customer_alerts(7)
-    assert [(a["game_code"], a["threshold"]) for a in alerts] == [("euromillions", 34_000_000)]
+    assert [(a["game_code"], a["threshold"]) for a in alerts] == [("euromillions-at", 34_000_000)]
 
 
 def test_remove_change_and_add():
-    _played(7, "euromillions")
-    lo_alerts.unfollow(7, "euromillions")
+    _played(7, "euromillions-at")
+    lo_alerts.unfollow(7, "euromillions-at")
     assert lo_alerts.customer_alerts(7) == []
     lo_alerts.follow(7, "powerball", 150_000_000)
     assert [(a["game_code"], a["threshold"], a["custom"]) for a in lo_alerts.customer_alerts(7)] == [("powerball", 150_000_000, True)]
 
 
 def test_watcher_fires_once_per_lottery_per_draw():
-    _played(7, "euromillions")
+    _played(7, "euromillions-at")
     sent = []
     send = lambda ids, payload: (sent.append((ids, payload)), {"sent": 1})[1]
     fmt = lambda a, c: f"€{a / 1e6:g} Million"
@@ -116,12 +116,12 @@ def test_watcher_fires_once_per_lottery_per_draw():
 
 def test_alerts_page_and_form(client, stub_crm):
     cid = _cid(client)
-    _played(cid, "euromillions")
+    _played(cid, "euromillions-at")
     html = client.get("/account/alerts").get_data(as_text=True)
     assert "EuroMillions" in html and 'value="34"' in html
     token = _csrf(client)
-    client.post("/account/alerts", data={"csrf_token": token, "game_code": "euromillions", "threshold_millions": "50", "action": "save"})
+    client.post("/account/alerts", data={"csrf_token": token, "game_code": "euromillions-at", "threshold_millions": "50", "action": "save"})
     assert lo_alerts.customer_alerts(cid)[0]["threshold"] == 50_000_000
-    client.post("/account/alerts", data={"csrf_token": token, "game_code": "euromillions", "action": "remove"})
+    client.post("/account/alerts", data={"csrf_token": token, "game_code": "euromillions-at", "action": "remove"})
     assert lo_alerts.customer_alerts(cid) == []
-    assert client.post("/account/alerts", data={"csrf_token": "x", "game_code": "euromillions"}).status_code == 400
+    assert client.post("/account/alerts", data={"csrf_token": "x", "game_code": "euromillions-at"}).status_code == 400

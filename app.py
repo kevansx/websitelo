@@ -52,6 +52,7 @@ from werkzeug.routing import RequestRedirect
 import blog_content
 import retired_content
 import lo_lotteries
+import lo_store
 import seo
 from brand_config import BrandConfig, load_brand_config
 from crm_api import CRMClient, CRMError, load_crm_config_from_env
@@ -1914,6 +1915,22 @@ def create_app() -> Flask:
             return None
         return None
 
+    def _guard_product(product_code: str) -> dict[str, Any] | None:
+        """The catalogue entry the cart guard judges: the cached games, else the store's product list (a cold
+        cache must not turn into "any code goes"; the guard fails closed when neither knows the code)."""
+        found = _catalog_product(product_code)
+        if found:
+            return found
+        code = str(product_code or "").strip().upper()
+        try:
+            data = get_crm().store_products()
+            for p in (data.get("products") if isinstance(data, dict) else None) or []:
+                if isinstance(p, dict) and str(p.get("code") or p.get("product_code") or "").strip().upper() == code:
+                    return p
+        except Exception:
+            return None
+        return None
+
     def _catalog_game(game_code: str) -> dict[str, Any] | None:
         """The cached game for a code, or None when the store doesn't sell it."""
         code = str(game_code or "").strip().lower()
@@ -3766,6 +3783,27 @@ def create_app() -> Flask:
         return render_template("lo/lottery_tickets.html", rows=app.config["LO_HOME_ROWS"](),
                                page=app.config["LO_LEGACY_PAGES"].get("/lottery-tickets"))
 
+    def _play_durations(kinds: dict) -> list[dict[str, Any]]:
+        """The duration picker (brief 2, part 4): the base single draw, then each multi-draw tier with its own
+        locked price. Totals are built from these prices, never from a percentage."""
+        base = kinds["base"]
+        base_cents = lo_store.price_cents(base) or 0
+        out = [{"code": lo_store.product_code(base), "ticket_mode": "standard", "draw_weeks": None,
+                "draws": 1, "weeks": None, "cents": base_cents, "saving_pct": 0, "label": "1 draw"}]
+        for t in kinds["tiers"]:
+            span, cents = lo_store.tier_span(t), lo_store.price_cents(t)
+            if cents is None or not span:
+                continue
+            pct = round((1 - cents / base_cents) * 100) if base_cents else 0
+            if span.get("draws"):
+                label = f"{span['draws']} draws"
+            else:
+                label = f"{span['weeks']} week" + ("s" if span["weeks"] != 1 else "")
+            out.append({"code": lo_store.product_code(t), "ticket_mode": "multi_draw",
+                        "draw_weeks": lo_store.tier_draw_weeks(t), "draws": span.get("draws"),
+                        "weeks": span.get("weeks"), "cents": cents, "saving_pct": pct, "label": label})
+        return out
+
     def _play_unavailable(game_code: str):
         # 503 + Retry-After: search engines retry later and keep the page's
         # ranking; a 500 reads as a broken page.
@@ -3794,9 +3832,10 @@ def create_app() -> Flask:
         if not isinstance(game, dict):
             game = None
 
-        # Normalize products: some CRM variants return products under different keys.
-        products = []
-        if isinstance(game, dict):
+        # Normalize products: some CRM variants return products under different keys
+        # (the store API: single_products / single_product / syndicate_products).
+        products = lo_store.game_products(game) if isinstance(game, dict) else []
+        if isinstance(game, dict) and not products:
             for k in ("products", "default_products", "skus"):
                 v = game.get(k)
                 if isinstance(v, list) and v:
@@ -3846,8 +3885,18 @@ def create_app() -> Flask:
         if not products:
             return _play_unavailable(game_code)
 
+        # Build brief 2, part 1: a lottery now has a base single-draw product, multi-draw tier products and
+        # possibly a weekly subscription. The page sells the base as a ticket and the tiers only through the
+        # duration picker; everything that reads game.products (picker, rules line, Product structured data)
+        # sees the base alone. Tiers priced below the base must never be offered as a one-draw ticket.
+        kinds = lo_store.split_products(products)
+        if kinds["base"] is None:
+            return _play_unavailable(game_code)
+        products = [kinds["base"]]
+        play_durations = _play_durations(kinds)
         if isinstance(game, dict):
             game["products"] = products
+            game["lo_subscription"] = kinds["subscription"]
             # Normalize display name for legacy parity.
             if str(game_code).strip().lower() == "megamillions":
                 game["game_name"] = "Mega Millions"
@@ -3863,6 +3912,7 @@ def create_app() -> Flask:
             "australianpowerball": "ausPowerballLottoPage",
             "superenalotto": "superEnalottoLottoPage",
             "euromillions": "euromillionsLottoPage",
+            "euromillions-at": "euromillionsLottoPage",
             "eurojackpot": "eurojackpotLottoPage",
             "sat-lotto-au": "ozLottoPage",
             "oz-lotto-au": "ozLottoPage",
@@ -4002,6 +4052,8 @@ def create_app() -> Flask:
             banner_title=banner_title,
             legacy_page_id=legacy_page_id,
             picker_products=picker_products,
+            play_durations=play_durations,
+            play_min_lines=lo_store.min_lines(kinds["base"]),
             picker_display_currency=play_display_currency,
             picker_display_currency_symbol=_currency_symbol(play_display_currency) or play_display_currency,
             line_edit_ctx=line_edit_ctx,
@@ -4067,6 +4119,17 @@ def create_app() -> Flask:
             flash(line_error, "warning")
             return redirect(_resolve_edit_order_url(edit_order_url))
 
+        # Build brief 2, 1.3: a hand-built POST can carry any product code. A multi-draw tier only with
+        # ticket_mode multi_draw and its locked draw_weeks; a base product only as a standard ticket; never a
+        # subscription. The CRM would accept a tier as a one-draw ticket at the discounted price.
+        ticket_mode = (request.form.get("ticket_mode") or "standard").strip().lower()
+        draw_weeks = (request.form.get("draw_weeks") or "").strip() or None
+        guard_error = lo_store.cart_item_error(_guard_product(product_code), ticket_mode, draw_weeks)
+        if guard_error:
+            app.logger.warning("cart guard refused %s (mode=%s, draw_weeks=%s)", product_code, ticket_mode, draw_weeks)
+            flash(guard_error, "warning")
+            return redirect(_resolve_edit_order_url(edit_order_url))
+
         try:
             options = json.loads(options_json) if options_json else {}
             if not isinstance(options, dict):
@@ -4104,16 +4167,18 @@ def create_app() -> Flask:
             flash("Line updated.", "success")
             return redirect(url_for("cart", open_item_idx=edit_item_idx))
 
-        cart.append(
-            {
-                "kind": "single",
-                "product_code": product_code,
-                "lines": lines,
-                "options": options,
-                "game_code": game_code or None,
-                "game_name": game_name or None,
-            }
-        )
+        new_item = {
+            "kind": "single",
+            "product_code": product_code,
+            "lines": lines,
+            "options": options,
+            "game_code": game_code or None,
+            "game_name": game_name or None,
+            "ticket_mode": ticket_mode,
+        }
+        if ticket_mode == "multi_draw":
+            new_item["draw_weeks"] = int(draw_weeks)
+        cart.append(new_item)
         session["cart_items"] = cart
         session["cart_edit_order_url"] = _resolve_edit_order_url(edit_order_url)
         if game_code:
@@ -4560,6 +4625,7 @@ def create_app() -> Flask:
                 "superenalotto": 622614630,
                 "oz-lotto-au": 45724512,
                 "euromillions": 139838160,
+                "euromillions-at": 139838160,
                 "eurojackpot": 139838160,
                 "powerball": 292201338,
                 "megamillions": 302575350,
@@ -6039,6 +6105,17 @@ def create_app() -> Flask:
         if not items:
             flash("Your cart is empty.", "warning")
             return redirect(url_for("cart"))
+        # Build brief 2, 1.3, at checkout too: every lottery ticket in the cart, however it got there
+        # (play page, upsell, reuse-last-purchase), is a base product as a standard ticket or a tier with its lock.
+        for _it in items:
+            if not isinstance(_it, dict) or _it.get("kind", "single") != "single":
+                continue
+            _err = lo_store.cart_item_error(_guard_product(_it.get("product_code")), _it.get("ticket_mode"), _it.get("draw_weeks"))
+            if _err:
+                app.logger.warning("checkout guard refused %s (mode=%s, draw_weeks=%s)",
+                                   _it.get("product_code"), _it.get("ticket_mode"), _it.get("draw_weeks"))
+                flash(f"{_it.get('game_name') or 'A ticket'} in your cart is not available as it is. Please remove it and add it again.", "warning")
+                return redirect(url_for("cart"))
 
         # Winnings are only ever spent because the customer pressed the button
         # that says so. It is read from this request and never remembered: an

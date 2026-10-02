@@ -53,7 +53,7 @@
     // Note: CRM provides cutoff timestamps in UTC; weekday labels should match the lottery's local timezone.
     if (g === "megamillions") return "America/New_York";
     if (g === "powerball") return "America/New_York";
-    if (g === "euromillions") return "Europe/Paris";
+    if (g === "euromillions" || g === "euromillions-at") return "Europe/Vienna"; // Austrian game: 18:30 Vienna cut-off
     if (g === "lotto-fr") return "Europe/Paris";
     if (g === "eurojackpot") return "Europe/Berlin";
     if (g === "australianpowerball") return "Australia/Sydney";
@@ -65,8 +65,8 @@
     if (g === "powerball-au" || g === "weekday-windfall-au") return "Australia/Sydney";
     if (g === "superlotto-plus-ca-us") return "America/Los_Angeles";
     if (g === "lotto-america") return "America/Chicago";
-    if (g === "millionaire-for-life-us") return "America/New_York";
-    if (g === "el-gordo-primitiva" || g === "la-primitiva-es" || g === "bonoloto") return "Europe/Madrid";
+    if (g === "millionaire-for-life") return "America/New_York"; // daily, cut-off 10:15 PM ET
+    if (g === "el-gordo-primitiva" || g === "la-primitiva" || g === "bonoloto") return "Europe/Madrid";
     if (g === "thunderball" || g === "lotto-uk") return "Europe/London";
     return "UTC";
   }
@@ -182,7 +182,7 @@
     // JS Date.getUTCDay(): 0=Sun ... 6=Sat
     if (g === "megamillions") return [2, 5]; // Tue, Fri
     if (g === "powerball") return [1, 3, 6]; // Mon, Wed, Sat
-    if (g === "euromillions") return [2, 5]; // Tue, Fri
+    if (g === "euromillions" || g === "euromillions-at") return [2, 5]; // Tue, Fri
     if (g === "lotto-fr") return [1, 3, 6]; // Mon, Wed, Sat
     if (g === "eurojackpot") return [2, 5]; // Tue, Fri (commonly)
     if (g === "australianpowerball") return [4]; // Thu
@@ -196,11 +196,11 @@
     if (g === "superlotto-plus-ca-us") return [3, 6]; // Wed, Sat
     if (g === "lotto-america") return [1, 3, 6]; // Mon, Wed, Sat
     if (g === "el-gordo-primitiva") return [0]; // Sun
-    if (g === "la-primitiva-es") return [1, 4, 6]; // Mon, Thu, Sat
+    if (g === "la-primitiva") return [1, 4, 6]; // Mon, Thu, Sat
     if (g === "bonoloto") return [1, 2, 3, 4, 5, 6]; // Mon to Sat
     if (g === "thunderball") return [2, 3, 5, 6]; // Tue, Wed, Fri, Sat
     if (g === "weekday-windfall-au") return [1, 3, 5]; // Mon, Wed, Fri
-    // millionaire-for-life-us: schedule to confirm with the CRM team; falls back to the next draw.
+    if (g === "millionaire-for-life") return [0, 1, 2, 3, 4, 5, 6]; // every day (CRM reply, 2 Oct 2026)
     return []; // unknown
   }
 

@@ -8,8 +8,7 @@ granting twice.
     first_play  first paid order
     return      second paid order within 14 days of the first
     explorer    first order in a lottery new to this customer (not on the first order: that is first_play)
-    long_play   first order of 4 or more draws
-    raffle      first raffle entry
+    long_play   first purchase of any multi-draw tier product
     regular     5th order, then every 3rd after it
   `welcome` (home screen added) is not wired: the home-screen offer has approved terms of its own (one free
   Australia Saturday Lotto line), which a random pack would change.
@@ -36,7 +35,9 @@ from typing import Any
 
 import lo_store
 
-PACK_TYPES = ("welcome", "first_play", "return", "explorer", "long_play", "raffle", "regular")
+# Five live types (brief 2, part 8). welcome stays the home-screen ticket under its own terms; raffle is gone:
+# the CRM cannot grant a raffle and Spanish Raffles is not being created.
+PACK_TYPES = ("first_play", "return", "explorer", "long_play", "regular")
 PREMIUM_TYPES = {"regular"}              # loyalty gets the gold pack; the gift inside is drawn the same way
 SEALED_DAYS = 14
 RETURN_WINDOW = timedelta(days=14)
@@ -187,36 +188,26 @@ def history_from_crm(crm: Any, token: str, *, exclude_order_id: Any = None) -> d
 
 
 # ------------------------------------------------------------------ triggers
-def _item_draws(it: dict) -> int:
-    """Draws one cart item covers: the cart keeps a run as draw_weeks x draw_weekdays (the engine's schedule)."""
-    try:
-        weeks = int(it.get("draw_weeks") or 0)
-    except (TypeError, ValueError):
-        weeks = 0
-    days = it.get("draw_weekdays")
-    per_week = len(days) if isinstance(days, (list, tuple)) and days else 1
-    if weeks > 0:
-        return weeks * per_week
-    try:
-        return max(1, int(it.get("draws") or 1))
-    except (TypeError, ValueError):
-        return 1
+def _is_multi_draw(it: dict) -> bool:
+    """A multi-draw purchase: a tier product (brief 2, 7.3). Since October 2026 each duration is its own product,
+    so this no longer counts draws or weekdays."""
+    if str(it.get("ticket_mode") or "").lower() == "multi_draw":
+        return True
+    import lo_store
+    return lo_store._code_kind(str(it.get("product_code") or "")) == "tier"
 
 
 def _order_facts(items: list[dict]) -> dict:
-    games, draws, raffle = set(), 1, False
+    games, multi_game = set(), None
     for it in items or []:
         if not isinstance(it, dict):
             continue
         gc = str(it.get("game_code") or "").lower()
         if gc:
             games.add(gc)
-        draws_for_item = _item_draws(it)
-        n = draws_for_item
-        draws = max(draws, n)
-        if "raffle" in gc or str(it.get("kind") or "").lower() == "raffle":
-            raffle = True
-    return {"games": games, "draws": draws, "raffle": raffle}
+        if multi_game is None and _is_multi_draw(it):
+            multi_game = gc or "?"
+    return {"games": games, "multi_draw": multi_game is not None, "multi_game": multi_game}
 
 
 def triggers_for(before: dict, facts: dict, now: datetime) -> list[str]:
@@ -231,10 +222,8 @@ def triggers_for(before: dict, facts: dict, now: datetime) -> list[str]:
             out.append("return")
     if n_before >= 1 and facts["games"] - set(before["games"]):
         out.append("explorer")
-    if facts["draws"] >= 4 and not before["played_long"]:
+    if facts["multi_draw"] and not before["played_long"]:
         out.append("long_play")
-    if facts["raffle"] and not before["played_raffle"]:
-        out.append("raffle")
     if n_after == 5 or (n_after > 5 and (n_after - 5) % 3 == 0):
         out.append("regular")
     return out
@@ -262,8 +251,8 @@ def on_order_placed(*, customer_id: int, order_id: Any, items: list[dict], seed=
         after["games"] = dict(before["games"])
         for g in facts["games"]:
             after["games"][g] = after["games"].get(g, 0) + 1
-        after["played_raffle"] = bool(before["played_raffle"] or facts["raffle"])
-        after["played_long"] = bool(before["played_long"] or facts["draws"] >= 4)
+        after["played_raffle"] = False          # raffle packs were dropped (the CRM cannot grant a raffle)
+        after["played_long"] = bool(before["played_long"] or facts["multi_draw"])
         after["seen_orders"] = set(before["seen_orders"]) | {str(order_id)}
         _save_activity(c, customer_id, after)
         earned = []
@@ -272,8 +261,8 @@ def on_order_placed(*, customer_id: int, order_id: Any, items: list[dict], seed=
                     "tier": "premium" if k in PREMIUM_TYPES else "standard", "state": "sealed",
                     "earned_at": _iso(now), "expires_at": _iso(now + timedelta(days=SEALED_DAYS)),
                     "order_id": str(order_id),
-                    # long_play's gift is extra lines on the lottery played for 4+ draws
-                    "gift_json": json.dumps({"_hint_game": sorted(facts["games"])[0]}) if (k == "long_play" and facts["games"]) else None}
+                    # long_play's gift is two extra lines on the lottery bought as multi-draw
+                    "gift_json": json.dumps({"_hint_game": facts["multi_game"]}) if (k == "long_play" and facts["multi_game"] not in (None, "?")) else None}
             pack["idempotency_key"] = f"pack-{pack['pack_id']}"
             c.execute("""INSERT INTO packs (pack_id, customer_id, type, tier, state, earned_at, expires_at,
                          gift_json, idempotency_key, order_id) VALUES (?,?,?,?,?,?,?,?,?,?)""",

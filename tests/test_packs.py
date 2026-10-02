@@ -47,8 +47,8 @@ def blank(**kw):
     return a
 
 
-def facts(games=("euromillions",), draws=1, raffle=False):
-    return {"games": set(games), "draws": draws, "raffle": raffle}
+def facts(games=("euromillions",), multi_game=None):
+    return {"games": set(games), "multi_draw": multi_game is not None, "multi_game": multi_game}
 
 
 NOW = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
@@ -73,23 +73,30 @@ def test_explorer_is_a_new_lottery_after_the_first_order():
     assert lo_packs.triggers_for(before, facts(("euromillions",)), NOW) == []
 
 
-def test_long_play_once_raffle_once():
+def test_long_play_is_the_first_multi_draw_tier_purchase():
     before = blank(orders_count=2, first_order_at="2026-01-01T00:00:00Z", games={"euromillions": 2})
-    assert lo_packs.triggers_for(before, facts(draws=4), NOW) == ["long_play"]
-    assert lo_packs.triggers_for(dict(before, played_long=True), facts(draws=8), NOW) == []
-    assert "raffle" in lo_packs.triggers_for(before, facts(("raffle-es",), raffle=True), NOW)
+    assert lo_packs.triggers_for(before, facts(multi_game="euromillions"), NOW) == ["long_play"]
+    assert lo_packs.triggers_for(dict(before, played_long=True), facts(multi_game="euromillions"), NOW) == []
+
+
+def test_a_two_week_mega_millions_tier_counts_without_weekdays():
+    # brief 2, 7.3: a tier order sends draw_weeks and maybe no weekdays; it must still be Long Play
+    f = lo_packs._order_facts([{"game_code": "megamillions", "product_code": "LO-USMEG-4", "ticket_mode": "multi_draw",
+                                "draw_weeks": 2}])
+    assert f == {"games": {"megamillions"}, "multi_draw": True, "multi_game": "megamillions"}
+    assert lo_packs._order_facts([{"game_code": "megamillions", "product_code": "LO-USMEG"}])["multi_draw"] is False
+
+
+def test_no_raffle_or_welcome_packs():
+    assert lo_packs.PACK_TYPES == ("first_play", "return", "explorer", "long_play", "regular")
+    before = blank(orders_count=2, first_order_at="2026-01-01T00:00:00Z", games={"euromillions": 2})
+    assert lo_packs.triggers_for(before, lo_packs._order_facts([{"game_code": "raffle-es", "kind": "raffle"}]), NOW) == ["explorer"]
 
 
 @pytest.mark.parametrize("nth,earns", [(4, False), (5, True), (6, False), (7, False), (8, True), (11, True), (12, False)])
 def test_regular_on_the_5th_then_every_3rd(nth, earns):
     before = blank(orders_count=nth - 1, first_order_at="2026-01-01T00:00:00Z", games={"euromillions": 9})
     assert ("regular" in lo_packs.triggers_for(before, facts(), NOW)) is earns
-
-
-def test_item_draws_from_weeks_and_draw_days():
-    assert lo_packs._item_draws({"draw_weeks": 2, "draw_weekdays": ["tue", "fri"]}) == 4
-    assert lo_packs._item_draws({"draw_weeks": 8}) == 8
-    assert lo_packs._item_draws({}) == 1
 
 
 def test_same_order_twice_earns_nothing_the_second_time():
@@ -135,6 +142,16 @@ def test_all_four_played_falls_back_to_two_lines_on_the_favourite():
     played = {"weekday-windfall-au": 1, "sat-lotto-au": 2, "bonoloto": 1, "powerball-au": 1, "euromillions": 9}
     g = lo_packs.choose_gift({"type": "regular", "gift_json": None}, played, GAMES)
     assert g == {**g, "shape": "B", "game_code": "euromillions", "lines": 2}
+
+
+def test_shape_b_grants_on_the_base_product_never_a_tier_or_subscription():
+    games = [{"game_code": "powerball", "game_name": "Powerball", "single_products": [
+        {"code": "LO-USPOW-5W", "available_ticket_modes": ["standard", "multi_draw"], "line_schema": []},
+        {"code": "LO-USPOW-W", "product_type": "syndicate", "available_ticket_modes": ["subscription"]},
+        {"code": "LO-USPOW", "available_ticket_modes": ["standard"], "website_default": True,
+         "line_schema": [{"name": "main", "count": 5, "min": 1, "max": 69}]}]}]
+    g = lo_packs.choose_gift({"type": "long_play", "gift_json": json.dumps({"_hint_game": "powerball"})}, {}, games)
+    assert g["product_code"] == "LO-USPOW" and g["lines"] == 2
 
 
 def test_long_play_gift_is_two_lines_on_that_lottery():
