@@ -248,3 +248,13 @@ select.lo-input { appearance: auto; }
 /* page not found */
 .lo-notfound__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
 @media (max-width: 479px) { .lo-notfound__actions .lo-btn { flex: 1 1 100%; } }
+
+/* account menu (person icon, logged in) */
+.lo-acctmenu { position: relative; }
+.lo-acctmenu > summary { list-style: none; cursor: pointer; }
+.lo-acctmenu > summary::-webkit-details-marker { display: none; }
+.lo-acctmenu__list { position: absolute; right: 0; top: calc(100% + 8px); z-index: 50; min-width: 200px; display: grid;
+  padding: var(--space-2) 0; background: var(--surface-card); border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-modal); }
+.lo-site-header .lo-acctmenu__list a { padding: 10px var(--space-4); color: var(--ink); font: 600 15px/20px var(--font-display); }
+.lo-site-header .lo-acctmenu__list a:hover, .lo-site-header .lo-acctmenu__list a:focus-visible { background: var(--surface-sunken); color: var(--surface-brand); }

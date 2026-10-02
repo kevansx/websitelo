@@ -40,9 +40,20 @@
         {% if not support_read_only %}
           <a class="lo-header__pill lo-hide-mobile" href="{{ url_for('wallet_add_funds') }}">Deposit</a>
         {% endif %}
-        <a class="lo-iconbtn" href="{{ url_for('account') }}" aria-label="My account">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
-        </a>
+        {# account menu: the only way to the account's extra pages on desktop, where there is no drawer #}
+        <details class="lo-acctmenu" data-acctmenu>
+          <summary class="lo-iconbtn" aria-label="My account menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          </summary>
+          <nav class="lo-acctmenu__list" aria-label="My account">
+            <a href="{{ url_for('account') }}">My account</a>
+            <a href="{{ url_for('account') }}#orders">My tickets</a>
+            <a href="{{ url_for('account_packs') }}">My gift packs</a>
+            <a href="{{ url_for('account_alerts') }}">Jackpot alerts</a>
+            {% if not support_read_only %}<a href="{{ url_for('wallet_add_funds') }}">Deposit</a>{% endif %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+          </nav>
+        </details>
       {% else %}
         <a class="lo-header__login" href="/login">Login</a>
         <a class="lo-header__pill" href="/create-account" aria-label="Open Account"><span class="lo-pill-long">Open Account</span><span class="lo-pill-short" aria-hidden="true">Join</span></a>
