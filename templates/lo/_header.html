@@ -50,6 +50,7 @@
     </div>
   </div>
   <nav class="lo-drawer" id="lo-drawer" aria-label="Menu" data-drawer hidden>
+    {% if lo_homescreen.offer and not lo_homescreen.claimed %}<a href="#" class="lo-drawer__app" data-lo-install data-hide-in-app>Free ticket: add us to your home screen</a>{% endif %}
     {% for href, label in _nav %}<a href="{{ href }}">{{ label }}</a>{% endfor %}
     {% if customer %}
       <a href="{{ url_for('account') }}">My account</a>

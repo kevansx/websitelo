@@ -169,6 +169,8 @@ def install() -> None:
             code = params.get("game_code")
             rows = [d for d in draws if not code or d.get("game_code") == code]
             return {"draws": rows, "draw_results": rows, "next_cursor": None, "has_more": False}
+        if path.startswith("/api/v1/marketing/incentives/grant-free-ticket"):
+            return {"success": True, "promo_order_id": 990001}
         if path.rstrip("/") == "/api/v1/store/games":
             return {"games": games}
         if path.startswith("/api/v1/store/games/"):

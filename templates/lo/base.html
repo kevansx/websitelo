@@ -22,6 +22,7 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='brands/lottosonline/img/favicon-196.png') }}" sizes="196x196">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='brands/lottosonline/img/apple-touch-icon.png') }}">
+  {% include "lo/_install_head.html" %}
   <link rel="preload" href="{{ url_for('static', filename='brands/lottosonline/fonts/Montserrat-var-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ url_for('static', filename='brands/lottosonline/fonts/OpenSans-var-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ lo_asset('css/fonts.css') }}">
@@ -45,7 +46,9 @@
   {% block content %}{% endblock %}
 </main>
 {% include "lo/_footer.html" %}
+{% include "lo/_install.html" %}
 <script src="{{ lo_asset('js/site.js') }}" defer></script>
+<script src="{{ lo_asset('js/install.js') }}" defer></script>
 {% if not no_analytics %}<script defer src="/resources/js/track.js"></script>{% endif %}
 {% block extra_scripts %}{% endblock %}
 {{ tags.body_close_tags() }}

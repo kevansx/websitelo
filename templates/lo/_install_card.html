@@ -1,0 +1,17 @@
+{# Account / order-confirmation card for the home-screen offer. Hidden inside the installed app (it is already on
+   the home screen); says "collected" once the ticket has been granted. Pass card_title / card_body to vary it. #}
+{% if lo_homescreen.offer %}
+<div class="lo-appcard{% if lo_homescreen.claimed %} lo-appcard--done{% endif %}" data-hide-in-app>
+  <img src="{{ url_for('static', filename='brands/lottosonline/img/app-icon-192.png') }}" alt="" width="52" height="52">
+  <div class="lo-appcard__text">
+    {% if lo_homescreen.claimed %}
+      <p class="lo-appcard__title">Free Saturday Lotto ticket collected</p>
+      <p class="lo-appcard__body">Thanks for adding LottosOnline to your home screen. Your free ticket is in your account.</p>
+    {% else %}
+      <p class="lo-appcard__title">{{ card_title or "Free ticket: add LottosOnline to your home screen" }}</p>
+      <p class="lo-appcard__body">{{ card_body or "Open LottosOnline from the new icon and we'll add a free line in the next Australia Saturday Lotto draw." }} <a href="/home-screen-offer" style="color:inherit">Terms</a></p>
+    {% endif %}
+  </div>
+  <button type="button" class="lo-btn lo-btn--sm" data-lo-install>Add to home screen</button>
+</div>
+{% endif %}

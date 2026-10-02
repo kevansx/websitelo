@@ -1,0 +1,48 @@
+/* Add to home screen sheet (templates/lo/_install.html) + account/order card (templates/lo/_install_card.html). */
+.lo-install { position: fixed; inset: 0; z-index: 90; display: flex; align-items: flex-end; justify-content: center; }
+.lo-install[hidden] { display: none; }
+.lo-install__scrim { position: absolute; inset: 0; background: rgba(29,19,36,.55); animation: lo-fade .2s ease-out; }
+.lo-install__sheet { position: relative; width: 100%; max-width: 440px; max-height: 92vh; overflow-y: auto; background: var(--surface-card); color: var(--ink);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0; padding: var(--space-5) var(--space-5) calc(var(--space-5) + env(safe-area-inset-bottom));
+  box-shadow: var(--shadow-modal); animation: lo-sheet-up .28s cubic-bezier(.2,.8,.2,1); font-family: var(--font-body); text-align: left; }
+@media (min-width: 768px) { .lo-install { align-items: center; } .lo-install__sheet { border-radius: var(--radius-xl); } }
+.lo-install__x { position: absolute; top: 10px; right: 12px; border: 0; background: none; font-size: 26px; line-height: 1; color: var(--ink-muted); cursor: pointer; }
+.lo-install__head { display: flex; gap: var(--space-3); align-items: center; margin-bottom: var(--space-4); padding-right: var(--space-6); }
+.lo-install__head img { width: 64px; height: 64px; border-radius: 16px; box-shadow: var(--shadow-card); flex: none; }
+.lo-install__title { margin: 0; font: 800 18px/23px var(--font-display); color: var(--ink); }
+.lo-install__sub { margin: 4px 0 0; font-size: 14px; color: var(--ink-muted); }
+.lo-install__offer { position: relative; background: linear-gradient(135deg, #f6f0fa, #fff6dc); border: 1px solid var(--gold-400); border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-4) var(--space-4); margin: var(--space-2) 0 var(--space-4); font-size: 14px; line-height: 20px; }
+.lo-install__offer p { margin: 0; }
+.lo-install__badge { position: absolute; top: -10px; left: var(--space-4); background: var(--gold-400); color: var(--surface-brand-deep);
+  font: 800 11px/1 var(--font-display); letter-spacing: .05em; text-transform: uppercase; padding: 5px 9px; border-radius: var(--radius-pill); }
+.lo-install__terms { margin-top: var(--space-2) !important; font-size: 12px; color: var(--ink-muted); }
+.lo-install__terms a { color: inherit; }
+.lo-install__steps { list-style: none; margin: 0 0 var(--space-4); padding: 0; display: grid; gap: var(--space-3); font-size: 15px; line-height: 21px; }
+.lo-install__steps li { display: flex; gap: var(--space-3); align-items: center; }
+.lo-install__ic { flex: none; display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: var(--surface-sunken);
+  color: #0a84ff; font-weight: 800; }
+.lo-install__ic img { border-radius: 5px; }
+.lo-install__where { color: var(--ink-muted); }
+.lo-install__later { display: block; margin: var(--space-3) auto 0; border: 0; background: none; color: var(--ink-muted); font: 600 14px/20px var(--font-body); cursor: pointer; text-decoration: underline; }
+html.lo-install-open { overflow: hidden; }
+@keyframes lo-sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes lo-fade { from { opacity: 0; } to { opacity: 1; } }
+.lo-toast { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 95; max-width: calc(100% - 32px); width: max-content;
+  background: #1d1324; color: #fff; padding: 12px 18px; border-radius: var(--radius-pill); box-shadow: var(--shadow-modal); font: 600 14px/20px var(--font-body); text-align: center; }
+.lo-toast[hidden] { display: none; }
+html.lo-standalone [data-hide-in-app] { display: none !important; }
+.lo-drawer .lo-drawer__app { color: var(--gold-400); }
+
+/* account / order-confirmation card */
+.lo-appcard { display: flex; gap: var(--space-4); align-items: center; background: linear-gradient(135deg, var(--surface-brand), var(--surface-brand-deep));
+  color: #fff; border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; box-shadow: var(--shadow-card); text-align: left; }
+.lo-appcard img { width: 52px; height: 52px; border-radius: 13px; flex: none; }
+.lo-appcard__text { flex: 1; min-width: 0; }
+.lo-appcard__title { margin: 0; font: 800 16px/21px var(--font-display); color: #fff; }
+.lo-appcard__body { margin: 2px 0 0; font-size: 13px; line-height: 18px; color: var(--ink-on-brand-muted); }
+.lo-appcard .lo-btn { flex: none; background: var(--gold-400); color: var(--surface-brand-deep); }
+.lo-appcard .lo-btn:hover { background: #ffd24d; }
+.lo-appcard--done .lo-btn { display: none; }
+@media (max-width: 520px) { .lo-appcard { flex-wrap: wrap; } .lo-appcard .lo-btn { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .lo-install__sheet, .lo-install__scrim { animation: none; } }

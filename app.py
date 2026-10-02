@@ -11678,9 +11678,12 @@ def create_app() -> Flask:
         "layout_model": layout_model,
         "store_games_cached": store_games_cached,
         "jackpots_live_or_cache": _get_jackpots_live_or_cache,
+        "get_crm": get_crm,
     }
     import lo_routes
     lo_routes.register(app)
+    import lo_homescreen
+    lo_homescreen.register(app)
 
     return app
 

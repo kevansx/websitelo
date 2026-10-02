@@ -19,6 +19,7 @@
     <section class="accordion accountPage">
       {# Show Account tab content by default so the page isn't blank if JS/CDN fails. #}
       <div class="accountTab" id="myDetailsSection" style="display:block;">
+        {% include "lo/_install_card.html" %}
         {% if features and features.email_verification_banner and show_email_verify_banner %}
           <div class="accountLimitDescription" style="margin-bottom:20px; padding:15px; background-color:#013658; border-radius:5px; border:1px solid #0C4970;">
             <p style="margin-bottom:12px; color:#C7E9FE;">Please verify your email address. Verification helps us secure your account and contact you about orders and winnings.</p>
@@ -107,6 +108,7 @@
       </div>
 
       <div class="accountTab" id="lotteryWalletSection" style="display:none;">
+        {% with card_title="Your wallet, one tap away", card_body="Add LottosOnline to your home screen and we'll give you a free line in the next Australia Saturday Lotto draw." %}{% include "lo/_install_card.html" %}{% endwith %}
         <div id="accountWalletCopy">
           <p class="accountWalletText" id="accountWalletBalanceCopy">
             Wallet Balance:
@@ -213,6 +215,7 @@
       </div>
 
       <div class="accountTab" id="lotteryOrderSection" style="display:none;">
+        {% with card_title="Check your tickets in one tap", card_body="Add LottosOnline to your home screen to see your tickets and results instantly, and get a free Australia Saturday Lotto line." %}{% include "lo/_install_card.html" %}{% endwith %}
         <div class="account-accordion">
           {# Open on arrival. Orders placed on this website are what somebody
              clicking Orders came to see; the imported AS400 history below is

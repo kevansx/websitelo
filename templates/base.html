@@ -28,6 +28,8 @@
   {# Legacy site used /Favicon.ico; keep our config-driven favicon too. #}
   <link rel="icon" href="/favicon.ico" sizes="any">
   <meta name="theme-color" content="#582178">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='brands/lottosonline/img/apple-touch-icon.png') }}">
+  {% include "lo/_install_head.html" %}
 
   {% import "lo/_tracking.html" as tags with context %}{{ tags.head_tags() }}
 
@@ -159,6 +161,7 @@
 
   {# LottosOnline footer (templates/lo/_footer.html): legal line is Marvicap Limited. #}
   {% include "lo/_footer.html" %}
+  {% include "lo/_install.html" %}
 
   <script>
 // Global countdown ticker (Winnow-style).
@@ -447,6 +450,7 @@
   </script>
 
   <script src="{{ lo_asset('js/site.js') }}" defer></script>
+  <script src="{{ lo_asset('js/install.js') }}" defer></script>
   {% block extra_scripts %}{% endblock %}
   {{ tags.body_close_tags() }}
 </body>

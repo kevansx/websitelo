@@ -1,0 +1,64 @@
+{# "Add to home screen" sheet + the free Saturday Lotto ticket offer. Shared by both layouts. Behaviour in
+   static/brands/lottosonline/js/install.js: opens by itself shortly after the page loads (not on cart / checkout
+   / wallet / sign-up / login pages, not once installed, not again for 7 days after "Not now"); any element with
+   data-lo-install opens it on demand. Android/Chrome gets a one-tap install button; iPhone gets the two Safari
+   steps (Apple allows no install button). #}
+{% set offer = lo_homescreen.offer %}
+{% if not request.path.startswith(("/cart", "/checkout", "/wallet")) %}
+<div class="lo-install" id="loInstall" role="dialog" aria-modal="true" aria-labelledby="loInstallTitle" hidden data-offer="{{ '1' if offer else '0' }}"
+     data-claimed="{{ '1' if lo_homescreen.claimed else '0' }}" data-logged-in="{{ '1' if customer else '0' }}">
+  <div class="lo-install__scrim" data-lo-install-close></div>
+  <div class="lo-install__sheet">
+    <button type="button" class="lo-install__x" data-lo-install-close aria-label="Close">&times;</button>
+    <div class="lo-install__head">
+      <img src="{{ url_for('static', filename='brands/lottosonline/img/app-icon-192.png') }}" alt="" width="64" height="64">
+      <div>
+        <p class="lo-install__title" id="loInstallTitle">Add LottosOnline to your home screen</p>
+        <p class="lo-install__sub">Jackpots, results and your tickets, one tap away.</p>
+      </div>
+    </div>
+
+    {% if offer and not lo_homescreen.claimed %}
+    <div class="lo-install__offer">
+      <span class="lo-install__badge">Free ticket</span>
+      <p><strong>Get a free Australia Saturday Lotto ticket.</strong> Add us to your home screen, open LottosOnline from the new icon while you're logged in, and we'll add a free line in the next Saturday Lotto draw to your account.</p>
+      <p class="lo-install__terms">One per customer. <a href="/home-screen-offer">Offer terms</a>.</p>
+    </div>
+    {% endif %}
+
+    {# Android / Chrome / Edge: the browser's own install prompt #}
+    <div class="lo-install__mode" data-mode="prompt" hidden>
+      <button type="button" class="lo-btn lo-btn--block lo-btn--lg" data-lo-install-go>Add to home screen</button>
+    </div>
+
+    {# iPhone / iPad (Safari, and Chrome on iOS 16.4+) #}
+    <div class="lo-install__mode" data-mode="ios" hidden>
+      <ol class="lo-install__steps">
+        <li><span class="lo-install__ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span><span class="lo-install__txt">Tap the <strong>Share</strong> button <span class="lo-install__where" data-ios-where>at the bottom of the screen</span>.</span></li>
+        <li><span class="lo-install__ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span><span class="lo-install__txt">Scroll down and choose <strong>Add to Home Screen</strong>.</span></li>
+        <li><span class="lo-install__ic"><img src="{{ url_for('static', filename='brands/lottosonline/img/app-icon-192.png') }}" alt="" width="20" height="20"></span><span class="lo-install__txt">Open <strong>LottosOnline</strong> from your home screen{% if offer and not lo_homescreen.claimed %} to collect your free ticket{% endif %}.</span></li>
+      </ol>
+      <button type="button" class="lo-btn lo-btn--block" data-lo-install-close>Got it</button>
+    </div>
+
+    {# other Android browsers (Samsung Internet, Firefox): menu route #}
+    <div class="lo-install__mode" data-mode="menu" hidden>
+      <ol class="lo-install__steps">
+        <li><span class="lo-install__ic">&#8942;</span><span class="lo-install__txt">Open your browser's <strong>menu</strong>.</span></li>
+        <li><span class="lo-install__ic">+</span><span class="lo-install__txt">Choose <strong>Add to Home screen</strong> or <strong>Install</strong>.</span></li>
+        <li><span class="lo-install__ic"><img src="{{ url_for('static', filename='brands/lottosonline/img/app-icon-192.png') }}" alt="" width="20" height="20"></span><span class="lo-install__txt">Open <strong>LottosOnline</strong> from your home screen.</span></li>
+      </ol>
+      <button type="button" class="lo-btn lo-btn--block" data-lo-install-close>Got it</button>
+    </div>
+
+    {# opened from the home-screen icon but logged out #}
+    <div class="lo-install__mode" data-mode="login" hidden>
+      <p class="lo-install__sub" style="margin:0 0 var(--space-3)">You're using the LottosOnline app. Log in to collect your free Saturday Lotto ticket.</p>
+      <a class="lo-btn lo-btn--block lo-btn--lg" href="/login?next=/%3Fsource%3Dhomescreen">Log in</a>
+    </div>
+
+    <button type="button" class="lo-install__later" data-lo-install-later>Not now</button>
+  </div>
+</div>
+{% endif %}
+<div class="lo-toast" id="loInstallToast" role="status" hidden></div>

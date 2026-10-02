@@ -2,6 +2,7 @@
 {% block content %}
 <div class="noSelect container lePages">
   <h1 class="pageHeading">Order detail</h1>
+  {% with card_title="Never miss a result", card_body="Add LottosOnline to your home screen to check your draws in one tap, and we'll add a free Australia Saturday Lotto line to your account." %}{% include "lo/_install_card.html" %}{% endwith %}
   {% if order %}
     {% set order_id = order.id or order.get('id') %}
     {% set status = order.status or order.get('status') or '—' %}
