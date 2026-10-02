@@ -57,20 +57,24 @@
 .lo-card__body { padding: var(--space-4); }
 
 /* ================= 1. how many lines ================= */
-.lo-qp { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
-.lo-qp__chips { display: grid; grid-template-columns: repeat(3, minmax(64px, 1fr)); gap: var(--space-2); flex: 1 1 100%; }
-@media (min-width: 640px) { .lo-qp__chips { grid-template-columns: repeat(6, 60px); flex: 0 0 auto; } }
-.lo-chip { display: grid; place-items: center; gap: 0; height: 52px; border-radius: var(--radius-pill); border: 2px solid var(--surface-brand);
-  background: var(--surface-card); color: var(--surface-brand); font: 800 18px/1 var(--font-display); cursor: pointer;
+/* Same layout at every width: chips spread evenly, an "or" divider, then the own-numbers button full width. */
+.lo-qp { display: grid; gap: var(--space-3); }
+.lo-qp__chips { display: grid; grid-template-columns: repeat(3, minmax(64px, 1fr)); gap: var(--space-2); }
+@media (min-width: 640px) { .lo-qp__chips { display: flex; justify-content: space-between; } }
+/* number and "lines" stacked as one block, centred in the chip */
+.lo-chip { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: 56px; padding: 0;
+  border-radius: var(--radius-pill); border: 2px solid var(--surface-brand);
+  background: var(--surface-card); color: var(--surface-brand); font: 800 18px/18px var(--font-display); cursor: pointer;
   transition: background .15s ease, color .15s ease, transform .1s ease; }
-.lo-chip small { font: 600 10px/1 var(--font-body); color: var(--ink-muted); }
+@media (min-width: 640px) { .lo-chip { width: 56px; border-radius: 50%; } }
+.lo-chip small { display: block; font: 600 10px/10px var(--font-body); color: var(--ink-muted); }
 .lo-chip:hover { background: #f6f0fa; }
 .lo-chip:active { transform: scale(.96); }
 .lo-chip[aria-pressed="true"] { background: var(--surface-brand); color: #fff; }
 .lo-chip[aria-pressed="true"] small { color: var(--ink-on-brand-muted); }
-.lo-qp__or { margin: 0 auto; font: 700 13px/1 var(--font-display); color: var(--ink-muted); text-transform: uppercase; }
-.lo-qp__own { flex: 1 1 100%; }
-@media (min-width: 640px) { .lo-qp__or { margin: 0; } .lo-qp__own { flex: 1 1 auto; } }
+.lo-qp__or { display: flex; align-items: center; gap: var(--space-3); font: 700 12px/1 var(--font-display); color: var(--ink-muted); text-transform: uppercase; }
+.lo-qp__or::before, .lo-qp__or::after { content: ""; flex: 1; height: 1px; background: var(--border-hairline); }
+.lo-qp__own { width: 100%; }
 
 /* ================= 2. lines ================= */
 #linesContainer { display: grid; gap: 6px; }
