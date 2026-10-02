@@ -488,8 +488,25 @@ def register(app) -> None:
         body = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(rows) + "\n</urlset>\n"
         return Response(body, mimetype="application/xml")
 
+    def _hidden_from_search() -> bool:
+        # Test copies (www1., staging. ...) must never be indexed beside www. Keyed to other *lottosonline.com*
+        # hosts on purpose: a rule of "anything but www" would de-index the real site the day the edge forwards
+        # an origin hostname. WEBSITE_NOINDEX=1 forces it on any server.
+        if _os.environ.get("WEBSITE_NOINDEX", "").strip() == "1":
+            return True
+        host = (request.host or "").split(":")[0].lower()
+        return host.endswith(".lottosonline.com") and host != "www.lottosonline.com"
+
+    @app.after_request
+    def _lo_noindex_test_copies(resp):
+        if _hidden_from_search():
+            resp.headers["X-Robots-Tag"] = "noindex, nofollow"
+        return resp
+
     @app.get("/robots.txt")
     def robots_txt():
+        if _hidden_from_search():
+            return Response("User-agent: *\nDisallow: /\n", mimetype="text/plain")
         # Same private areas the old robots.txt fenced off, plus the engine's transactional paths.
         lines = [
             "User-agent: *",

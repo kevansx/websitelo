@@ -77,5 +77,6 @@ See `env.example`. The ones that matter at launch:
 | `WEBSITE_SECRET_KEY` | A new long random value for this site only |
 | `WEBSITE_ENV=production` | Turns on the tracking tags (GTM, Mixpanel, Facebook, Zendesk); they stay off everywhere else |
 | `CRM_CACHE_DB_PATH` | `/opt/lottosonline-website/data/crm_cache.sqlite` |
+| `WEBSITE_NOINDEX=1` | Hides the site from search engines. Not needed on `www1.` / `staging.` and other lottosonline.com test hosts: they are hidden automatically. Never set it on www |
 | `LO_HOMESCREEN_OFFER` | `0` switches the home-screen free-ticket offer off |
 | `LO_HOMESCREEN_PRODUCT_CODE` | The CRM product for the free Australia Saturday Lotto line (auto-detected if blank) |

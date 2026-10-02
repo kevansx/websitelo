@@ -1,0 +1,19 @@
+{# A play page whose lottery the CRM could not supply (CRM unreachable or erroring). Served as 503 with
+   Retry-After, so search engines treat it as temporary and keep the page's ranking. #}
+{% extends "lo/base.html" %}
+{% block content %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Play {{ lottery.name if lottery else "this lottery" }} Online</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap">
+    <article class="lo-panel lo-prose">
+      <p><strong>Ticket sales for {{ lottery.name if lottery else "this lottery" }} are temporarily unavailable.</strong>
+        Please try again in a few minutes.</p>
+      <p>In the meantime you can check the latest results or choose another lottery.</p>
+    </article>
+    <div class="lo-notfound__actions">
+      {% if results_href %}<a class="lo-btn" href="{{ results_href }}">{{ lottery.name }} results</a>{% endif %}
+      <a class="lo-btn lo-btn--secondary" href="/lottery-tickets">All lotteries</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

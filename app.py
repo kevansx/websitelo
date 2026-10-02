@@ -3766,6 +3766,14 @@ def create_app() -> Flask:
         return render_template("lo/lottery_tickets.html", rows=app.config["LO_HOME_ROWS"](),
                                page=app.config["LO_LEGACY_PAGES"].get("/lottery-tickets"))
 
+    def _play_unavailable(game_code: str):
+        # 503 + Retry-After: search engines retry later and keep the page's
+        # ranking; a 500 reads as a broken page.
+        lot = lo_lotteries.by_game_code(game_code)
+        html_out = render_template("lo/play_unavailable.html", lottery=lot,
+                                   results_href=lo_lotteries.results_path(lot) if lot and lot.results else None)
+        return html_out, 503, {"Retry-After": "300", "Cache-Control": "no-store"}
+
     @app.get("/lottery-tickets/<lo_play:game_code>")
     def play(game_code: str):
         # Legacy-like "edit your order" fallback target.
@@ -3778,7 +3786,11 @@ def create_app() -> Flask:
             # crawler to come back and keep the URL indexed.
             if (getattr(e, "status_code", None) or 0) == 404:
                 abort(404)
-            raise
+            return _play_unavailable(game_code)
+        except Exception:
+            # CRM unreachable (connection refused, timeout): a temporary outage,
+            # shown as such rather than as an error page.
+            return _play_unavailable(game_code)
         game = resp.get("game") if isinstance(resp, dict) else None
         if not isinstance(game, dict):
             game = None
