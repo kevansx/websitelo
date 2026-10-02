@@ -290,7 +290,7 @@ def test_the_collapsed_cart_card_names_the_game_and_its_price(anon_client, promo
     body = anon_client.get("/cart").get_data(as_text=True)
 
     assert "leCartItemLogo" in body
-    assert "s-lotto-logo-usa-powerball.png" in body
+    assert "lottery-assets/logo_large_round_uspow.png" in body
     assert "GBP 22.50" in body
     assert "6 draws" in body
 

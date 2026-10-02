@@ -19,7 +19,7 @@ def _line_template(body: str) -> str:
 
 
 def test_a_line_carries_edit_done_and_close_controls(client, stub_crm):
-    resp = client.get("/play/powerball")
+    resp = client.get("/lottery-tickets/us-powerball")
     assert resp.status_code == 200
     tpl = _line_template(resp.get_data(as_text=True))
 
@@ -28,11 +28,11 @@ def test_a_line_carries_edit_done_and_close_controls(client, stub_crm):
     assert 'data-action="close-editor"' in tpl
     # mobile.css styles the close control and Done by these hooks.
     assert 'id="closeTicketWindow"' in tpl
-    assert 'class="done primaryFormButton"' in tpl
+    assert 'class="done"' in tpl
 
 
 def test_the_page_has_the_backdrop_the_open_line_sits_on(client, stub_crm):
-    resp = client.get("/play/powerball")
+    resp = client.get("/lottery-tickets/us-powerball")
     assert 'id="mobileTicketWindow"' in resp.get_data(as_text=True)
 
 
@@ -52,7 +52,7 @@ def test_the_picker_opens_and_closes_the_full_screen_editor(client):
 
 def test_the_play_page_loads_the_shared_engine_first(client, stub_crm):
     """play_picker.js reads window.LELineCore at load, so order matters."""
-    body = client.get("/play/powerball").get_data(as_text=True)
+    body = client.get("/lottery-tickets/us-powerball").get_data(as_text=True)
     assert body.index("line_editor_core.js") < body.index("play_picker.js")
 
 

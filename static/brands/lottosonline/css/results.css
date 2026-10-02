@@ -1,0 +1,62 @@
+/* LottosOnline results pages. Styles the markup results_page.js generates (header/div accordion, resultsBall,
+   resultsBreakdown rows, the checker's .lines / ticketNumber grid and numbersFound list). */
+.lo-resultsgrid { display: grid; gap: var(--space-5); align-items: start; }
+@media (min-width: 1000px) { .lo-resultsgrid { grid-template-columns: minmax(0, 1fr) 340px; } .lo-checker { position: sticky; top: var(--space-4); } }
+.lo-results { padding: var(--space-4); }
+@media (min-width: 900px) { .lo-results { padding: var(--space-6); } }
+.lo-results__bar { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: end; justify-content: space-between; margin-bottom: var(--space-4); }
+.lo-results__bar .lo-input { min-width: 180px; }
+.lo-results__title { font: 700 18px/24px var(--font-display); margin: 0; }
+
+.lotteryResultsColumns { display: grid; grid-template-columns: 1fr auto; gap: 6px var(--space-3); align-items: center; }
+.lotteryResultsColumns .lotteryResultsDate { font: 700 14px/20px var(--font-display); }
+.lotteryResultsColumns .lotteryResultsNumbers { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px; }
+.lotteryResultsColumns .lotteryResultsTotalPrizes { font-size: 12px; color: var(--ink-muted); text-align: right; grid-row: 1; grid-column: 2; }
+.lo-results__cols { display: none; }
+@media (min-width: 700px) {
+  .lotteryResultsColumns { grid-template-columns: 170px minmax(0, 1fr) 150px; }
+  .lotteryResultsColumns .lotteryResultsNumbers { grid-column: 2; grid-row: 1; }
+  .lotteryResultsColumns .lotteryResultsTotalPrizes { grid-column: 3; }
+  .lo-results__cols { display: grid; font: 700 11px/16px var(--font-display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted);
+    padding: 0 var(--space-4) var(--space-2) var(--space-4); }
+  .lo-results__cols .lotteryResultsDate { font: inherit; }
+  .lo-results__cols .lotteryResultsNumbers { grid-column: 2; }
+  .lo-results__cols .lotteryResultsTotalPrizes { font: inherit; color: inherit; }
+}
+
+.resultsBall { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; font: 700 13px/1 var(--font-body);
+  font-variant-numeric: tabular-nums; background: var(--surface-brand); color: #fff; }
+.resultsBall.resultBonusNumber { background: var(--gold-400); color: var(--surface-brand-deep); }
+
+#leResultsDraws > header { position: relative; display: block; padding: var(--space-3) 40px var(--space-3) var(--space-4); border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md); background: var(--surface-card); cursor: pointer; margin-top: var(--space-2); }
+#leResultsDraws > header:hover { border-color: var(--surface-brand-raised); }
+#leResultsDraws > header.active { border-bottom-left-radius: 0; border-bottom-right-radius: 0; background: #f6f0fa; }
+#leResultsDraws > header .glyphicon { position: absolute; right: 14px; top: 50%; width: 10px; height: 10px; margin-top: -7px;
+  border-right: 2px solid var(--ink-muted); border-bottom: 2px solid var(--ink-muted); transform: rotate(45deg); transition: transform .15s ease; }
+#leResultsDraws > header .glyphicon.open { transform: rotate(-135deg); margin-top: -2px; }
+#leResultsDraws > header + div { display: none; } /* collapsed until its header is tapped (the script sets inline display) */
+#leResultsDraws > div { width: 100%; border: 1px solid var(--border-hairline); border-top: 0; border-radius: 0 0 var(--radius-md) var(--radius-md); padding: var(--space-3);
+  overflow-x: auto; background: var(--surface-card); }
+.resultsBreakdown { min-width: 520px; font-size: 13px; }
+.resultsBreakdown .row { display: grid; grid-template-columns: 2fr 1fr 1fr 1.3fr 1.3fr; gap: var(--space-2); padding: 6px 0; border-bottom: 1px solid var(--border-hairline); margin: 0; }
+.resultsBreakdown .resultsBreakdownHeaders { font-weight: 700; color: var(--ink-muted); }
+.resultsBreakdown .resultsBreakdownTotals { border-bottom: 0; color: var(--ink); }
+.processOrderCopy { color: var(--ink-muted); padding: var(--space-3) 0; }
+
+/* checker */
+.lo-checker { padding: var(--space-5); }
+#leResultsPickerHost .lines { margin-bottom: var(--space-3); }
+#leResultsPickerHost p { font: 700 13px/18px var(--font-display); margin: var(--space-3) 0 var(--space-2); }
+#leResultsPickerHost ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 4px; }
+#leResultsPickerHost .lines { opacity: 1; }
+#leResultsPickerHost li { display: grid; color: var(--ink); place-items: center; aspect-ratio: 1; border-radius: 50%; background: var(--surface-sunken); cursor: pointer;
+  font: 600 12px/1 var(--font-body); user-select: none; }
+#leResultsPickerHost li.selectedNumber { background: var(--surface-brand); color: #fff; }
+#leResultsPickerHost li.bonusTicketNumber.selectedNumber { background: var(--gold-400); color: var(--surface-brand-deep); }
+.lo-checker__actions { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-2); }
+.lo-checker .disabledState { opacity: var(--opacity-disabled); pointer-events: none; }
+.numbersFound { list-style: none; padding: var(--space-3) 0; margin: 0; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; border-top: 1px solid var(--border-hairline); }
+.numberFoundDate { font-weight: 700; width: 100%; }
+.numberFoundTier { width: 100%; padding: 4px 0 0; font-weight: 600; color: var(--success-700); }
+#leResultsPickerHost li:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }

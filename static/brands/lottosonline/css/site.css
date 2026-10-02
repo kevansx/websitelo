@@ -14,7 +14,8 @@ body.lo { margin: 0; background: var(--surface-page); font-family: var(--font-bo
 /* ---- header: phone default, desktop from 1000px ---- */
 .lo-site-header { position: relative; z-index: 20; }
 .lo-site-header .lo-header { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--surface-brand); }
-.lo-header__brand { display: inline-flex; flex: 0 1 auto; min-width: 0; }
+.lo-header__brand { display: inline-flex; flex: none; }
+.lo-site-header .lo-header__logo { max-width: none; }
 .lo-site-header .lo-header__logo { height: 28px; width: auto; display: block; }
 .lo-site-header .lo-header__nav { display: none; }
 .lo-header__account { display: flex; align-items: center; gap: var(--space-3); margin-left: auto; }
@@ -35,8 +36,9 @@ body.lo { margin: 0; background: var(--surface-page); font-family: var(--font-bo
   font: 600 15px/22px var(--font-display); }
 .lo-hide-mobile { display: none !important; }
 @media (max-width: 380px) { .lo-site-header .lo-header__logo { height: 22px; } .lo-header__pill { padding: 0 var(--space-3); } }
+@media (min-width: 1000px) { .lo-site-header .lo-header__logo { height: 35px; } }
 @media (min-width: 640px) { .lo-hide-mobile { display: grid !important; } .lo-header__pill.lo-hide-mobile { display: inline-flex !important; } }
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
   .lo-site-header .lo-header { padding: var(--space-3) var(--space-6); gap: var(--space-5); }
   .lo-site-header .lo-header__logo { height: 35px; }
   .lo-only-mobile { display: none !important; }

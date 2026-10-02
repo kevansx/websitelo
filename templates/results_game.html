@@ -1,133 +1,117 @@
-{% extends "base.html" %}
+{# Results page: /winning-lottery-numbers/<slug> (and /uk/winning-lottery-numbers/<slug>). Title, H1 and the copy
+   under the results are the live page's, word for word. The month picker, accordion and "Did you win?" checker
+   are the engine's results_page.js: ids kept (leResultsDraws, selectedResultsDate, leResultsPickerHost,
+   leResultsCheckBtn, leResultsClearBtn, leResultsCheckStatus, resultsCheckNumberFound, leResultsMatches),
+   markup restyled by brands/lottosonline/css/results.css. Results are rendered on the server too, so search
+   engines and visitors without JavaScript see the numbers. #}
+{% extends "lo/base.html" %}
+{% set lot = lo_lottery(game.game_code) %}
+{% set page = lo_page(request.path) %}
+{% set jp = lo_jackpot(game.game_code) %}
+{% set display_name = lot.name if lot else game.game_name %}
+{% set breadcrumbs = [("Home", "/"), ("Results & Winnings", "/winning-lottery-numbers"), ((page.h1 if page else None) or (display_name ~ " Results"), request.path)] %}
+{% block extra_head %}<link rel="stylesheet" href="{{ lo_asset('css/results.css') }}">{% endblock %}
 {% block content %}
-<div class="noSelect container lotteryResultsPages">
-  <div class="lotteryPageContent">
-    <div class="lotteryBanners" id="lotteryBanner">
-      <div id="bannerContent">
-        <div class="lotteryBannerBall">
-          {% if game.logo_url %}
-            <img src="{{ game.logo_url }}" width="175" height="112" alt="Play {{ game.game_name }} online" />
-          {% endif %}
-        </div>
-        <div class="bannerHeader">
-          <p>Next {{ game.game_name }}</p>
-          <p id="bannerJackpotAmount">{{ game.jackpot_display or 'Pending' }}</p>
-        </div>
-        <div class="bannerTimeToDraw">
-          <p>Draw Cutoff Timer</p>
-          <div id="drawCounterReact" data-drawdate="{{ game.cutoff_at_utc or '' }}" data-drawdateshort="0"></div>
-        </div>
-        <div class="bannerEighteenPlus">
-          <p>18+</p>
-        </div>
-      </div>
-    </div>
-
-    <ul id="lotteryTabs">
-      <li id="singleTab" class="lottoTab lottoTabActive">Results</li>
-    </ul>
-
-    <div class="lotteryResults">
-      <div class="col-xs-12 col-sm-8 leftSection">
-        <h1 class="pageHeading">{{ game.game_name }} Online Results</h1>
-        <form id="lotteryResultsDateForm">
-          <p class="formLabels">Select Month</p>
-          <select id="selectedResultsDate">
-            {% for m in (months or []) %}
-              <option value="{{ m }}" {% if selected_month == m %}selected{% endif %}>{{ m }}</option>
-            {% endfor %}
-          </select>
-        </form>
-        <p class="sub-heading">Results</p>
-        <div class="lotteryResultsColumns" id="lotteryResultsColumnTitles">
-          <span class="lotteryResultsDate">Draw Date</span>
-          <span class="lotteryResultsTotalPrizes">Total Prizes</span>
-          <span class="lotteryResultsNumbers">Numbers</span>
-        </div>
-        <div class="accordion">
-          <div id="leResultsDraws" class="accordionLotteryResults">
-          {% for d in draws %}
-            <header>
-              <span class="glyphicon glyphicon-triangle-bottom"></span>
-              <div class="lotteryResultsColumns">
-                <span class="lotteryResultsDate">{{ d.draw_date_label }}</span>
-                <span class="lotteryResultsTotalPrizes">{{ d.currency }} {{ "{:,.2f}".format(d.total_prize_payout or 0.0) }}</span>
-                <span class="lotteryResultsNumbers">
-                  {% if d.is_pending %}Pending{% else %}
-                    {% for n in (d.main_numbers or []) %}<span class="resultsBall resultNumber">{{ "%02d"|format(n|int) }}</span>{% endfor %}
-                    {% for n in (d.bonus_numbers or []) %}<span class="resultsBall resultBonusNumber">{{ "%02d"|format(n|int) }}</span>{% endfor %}
-                  {% endif %}
-                </span>
-              </div>
-            </header>
-            <div>
-                <div class="resultsBreakdown">
-                  <div class="row resultsBreakdownHeaders">
-                    <div class="lrg-col resultsBreakdownHeader">Prize Structure</div>
-                    <div class="mid-col resultsBreakdownHeader">Prize Tier</div>
-                    <div class="mid-col resultsBreakdownHeader resultsBreakdownWinners">Winners</div>
-                    <div class="mid-col resultsBreakdownHeader">Prize Value</div>
-                    <div class="mid-col resultsBreakdownHeader">Prize Payout</div>
-                  </div>
-                  {% for t in (d.prize_tiers or []) %}
-                    <div class="row">
-                      <div class="lrg-col resultsBreakdownDetails">{{ t.label }}</div>
-                      <div class="mid-col resultsBreakdownDetails">{{ t.tier_code }}</div>
-                      <div class="mid-col resultsBreakdownDetails resultsBreakdownWinners">{{ "{:,}".format(t.winners_count or 0) }}</div>
-                      <div class="mid-col resultsBreakdownDetails">{{ t.currency }} {{ "{:,.2f}".format(t.prize_amount or 0.0) }}</div>
-                      <div class="mid-col resultsBreakdownDetails">{{ t.currency }} {{ "{:,.2f}".format(t.payout_amount or 0.0) }}</div>
-                    </div>
-                  {% endfor %}
-                  <div class="row resultsBreakdownTotals resultsBreakdownHeaders">
-                    <div class="lrg-col resultsBreakdownHeader"><div>Total</div></div>
-                    <div class="mid-col resultsBreakdownHeader"><div></div></div>
-                    <div class="mid-col resultsBreakdownHeader"><div>{{ "{:,}".format(d.total_winners_count or 0) }}</div></div>
-                    <div class="mid-col resultsBreakdownHeader"><div></div></div>
-                    <div class="mid-col resultsBreakdownHeader"><div>{{ d.currency }} {{ "{:,.2f}".format(d.total_prize_payout or 0.0) }}</div></div>
-                  </div>
-                </div>
-            </div>
-          {% else %}
-            <p class="processOrderCopy" style="padding:10px 0;">No draw results returned.</p>
-          {% endfor %}
+<section class="lo-pagehead">
+  <div class="lo-wrap">
+    <nav class="lo-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/winning-lottery-numbers">Results &amp; Winnings</a> / <span>{{ display_name }}</span></nav>
+    <div class="lo-pagehead__row">
+      {% if lot %}<span class="lo-pagehead__ball"><img src="{{ lo_ball(lot) }}" alt="{{ display_name }}" width="88" height="88"></span>{% endif %}
+      <div class="lo-playhead">
+        <h1>{{ (page.h1 if page else None) or (display_name ~ " Results & Winning Numbers") }}</h1>
+        {% if lot and lot.sells %}
+          <div class="lo-playhead__facts">
+            <span>Next jackpot</span>
+            <span class="lo-playhead__jackpot" id="bannerJackpotAmount">{{ (jp.display if jp and jp.display) or game.jackpot_display or "Results Pending" }}</span>
           </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-4 rightSection">
-        <div id="resultsCheckNumberSection">
-          <p class="sub-heading" style="padding-top:20px; text-align:center;">Did you Win?</p>
-          <p style="text-align:center;">Enter your numbers you want to check for the displayed lottery and period.</p>
-          <div id="tickets_section">
-            <div id="leResultsPickerHost" style="width:100%;"></div>
-          </div>
-          <p id="leResultsCheckStatus"></p>
-          <p id="leResultsClearBtn" class="secondaryFormButton disabledState">Clear</p>
-          <p id="leResultsCheckBtn" class="primaryFormButton disabledState">Check Numbers</p>
-          <div id="resultsCheckNumberFound" style="display:none;">
-            <div id="leResultsMatches"></div>
-          </div>
-        </div>
-        <div id="checkNumbersWindowShow" class="secondaryFormButton">
-          <svg xmlns="https://www.w3.org/2000/svg" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-          </svg>
-        </div>
-        <div id="resultsCheckNumbersMobile" class="secondaryFormButton">
-          <div id="checkNumbersWindowContent">
-            <img src="/resources/images/Close_Icon.svg" width="14" height="14" />
-            <p class="sub-heading">Did You Win?</p>
-            <p>Enter the numbers you want to check for the displayed <span class="textBold">lottery</span> and <span class="textBold">period</span> <u>here</u>.</p>
-          </div>
-        </div>
+          <p class="lo-playhead__cutoff">
+            {% if jp and jp.closed %}Results Pending{% elif jp and jp.cutoff_iso %}Sales close in <span class="lo-countdown lo-countdown--onbrand" data-until="{{ jp.cutoff_iso }}">&nbsp;</span>{% endif %}
+            <a class="lo-btn lo-btn--sm" style="margin-left:var(--space-3)" href="/lottery-tickets/{{ lot.slug }}">Play {{ display_name }}</a>
+          </p>
+        {% endif %}
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<section class="lo-section lo-section--tight">
+  <div class="lo-wrap lo-resultsgrid">
+    <div class="lo-panel lo-results">
+      <div class="lo-results__bar">
+        <h2 class="lo-results__title">{{ display_name }} winning numbers</h2>
+        <form id="lotteryResultsDateForm" class="lo-field" onsubmit="return false">
+          <label class="lo-field__label" for="selectedResultsDate">Month</label>
+          <select class="lo-input" id="selectedResultsDate">
+            {% for m in (months or []) %}<option value="{{ m }}"{% if selected_month == m %} selected{% endif %}>{{ m }}</option>{% endfor %}
+          </select>
+        </form>
+      </div>
+      <div class="lotteryResultsColumns lo-results__cols" aria-hidden="true">
+        <span class="lotteryResultsDate">Draw date</span>
+        <span class="lotteryResultsNumbers">Winning numbers</span>
+        <span class="lotteryResultsTotalPrizes">Total prizes</span>
+      </div>
+      <div class="accordion">
+        <div id="leResultsDraws" class="accordionLotteryResults">
+        {% for d in draws %}
+          <header>
+            <div class="lotteryResultsColumns">
+              <span class="lotteryResultsDate">{{ d.draw_date_label }}</span>
+              <span class="lotteryResultsTotalPrizes">{{ d.currency }} {{ "{:,.2f}".format(d.total_prize_payout or 0.0) }}</span>
+              <span class="lotteryResultsNumbers">{% if d.is_pending %}Pending{% else %}{% for n in (d.main_numbers or []) %}<span class="resultsBall resultNumber">{{ "%02d"|format(n|int) }}</span>{% endfor %}{% for n in (d.bonus_numbers or []) %}<span class="resultsBall resultBonusNumber">{{ "%02d"|format(n|int) }}</span>{% endfor %}{% endif %}</span>
+            </div>
+            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+          </header>
+          <div style="display:none">
+            <div class="resultsBreakdown">
+              <div class="row resultsBreakdownHeaders">
+                <div class="lrg-col resultsBreakdownHeader">Prize Structure</div>
+                <div class="mid-col resultsBreakdownHeader">Prize Tier</div>
+                <div class="mid-col resultsBreakdownHeader resultsBreakdownWinners">Winners</div>
+                <div class="mid-col resultsBreakdownHeader">Prize Value</div>
+                <div class="mid-col resultsBreakdownHeader">Prize Payout</div>
+              </div>
+              {% for t in (d.prize_tiers or []) %}
+              <div class="row">
+                <div class="lrg-col resultsBreakdownDetails">{{ t.label }}</div>
+                <div class="mid-col resultsBreakdownDetails">{{ t.tier_code }}</div>
+                <div class="mid-col resultsBreakdownDetails resultsBreakdownWinners">{{ "{:,}".format(t.winners_count or 0) }}</div>
+                <div class="mid-col resultsBreakdownDetails">{{ t.currency }} {{ "{:,.2f}".format(t.prize_amount or 0.0) }}</div>
+                <div class="mid-col resultsBreakdownDetails">{{ t.currency }} {{ "{:,.2f}".format(t.payout_amount or 0.0) }}</div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <p class="processOrderCopy">No draw results for this month yet.</p>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <aside class="lo-panel lo-checker" id="resultsCheckNumberSection">
+      <h2 class="lo-results__title">Did you win?</h2>
+      <p class="lo-muted" style="margin:0 0 var(--space-3)">Pick the numbers on your ticket and we'll check them against every {{ display_name }} draw in the month shown.</p>
+      <div id="tickets_section"><div id="leResultsPickerHost"></div></div>
+      <p id="leResultsCheckStatus" class="lo-muted" role="status"></p>
+      <div class="lo-checker__actions">
+        <button type="button" id="leResultsClearBtn" class="lo-btn lo-btn--quiet disabledState">Clear</button>
+        <button type="button" id="leResultsCheckBtn" class="lo-btn disabledState">Check Numbers</button>
+      </div>
+      <div id="resultsCheckNumberFound" style="display:none"><div id="leResultsMatches"></div></div>
+    </aside>
+  </div>
+</section>
+
+{% if page and page['copy'] %}
+<section class="lo-section" style="padding-top:0">
+  <div class="lo-wrap"><article class="lo-panel lo-prose">{% for block in page['copy'] %}{{ block.html|safe }}{% endfor %}</article></div>
+</section>
+{% endif %}
+
 <script id="leResultsGameCode" type="application/json">{{ game.game_code|tojson }}</script>
 <script id="leResultsInitialDraws" type="application/json">{{ draws|tojson }}</script>
 <script id="leResultsCheckerRules" type="application/json">{{ checker_rules|tojson }}</script>
 <script>window.__wlUseFlaskResultsPage = true;</script>
-<script defer src="/resources/js/results_page.js?v={{ build_id }}"></script>
 {% endblock %}
-
+{% block extra_scripts %}<script defer src="{{ lo_engine_asset('js/results_page.js') }}"></script>{% endblock %}

@@ -128,6 +128,20 @@
     return out;
   }
 
+  // Readable names for bonus-ball groups, as each lottery calls them.
+  var BONUS_NAMES = {
+    powerball: "Powerball", megaball: "Mega Ball", mega: "Mega number", star: "Star Ball",
+    stars: "Lucky Stars", euro: "Euro numbers", key: "Key number", "super": "Superzahl",
+    chance: "Chance number", thunderball: "Thunderball", millionaire: "Millionaire Ball",
+    bonus: "Bonus number", supplementary: "Supplementary"
+  };
+  function groupLabel(g) {
+    var n = parseInt(g.count, 10) || 0;
+    if (g.name === "main") return "Choose " + n + " number" + (n === 1 ? "" : "s");
+    var name = BONUS_NAMES[g.name] || (String(g.name).charAt(0).toUpperCase() + String(g.name).slice(1));
+    return "Choose " + n + " " + name;
+  }
+
   function renderGroupsInto(lineEl, groups, lineState) {
     var holder = lineEl.querySelector(".leGroups");
     if (!holder) return;
@@ -135,7 +149,7 @@
 
     groups.forEach(function (g) {
       var p = document.createElement("p");
-      p.textContent = "Select " + g.count + " " + (g.name === "main" ? "Numbers" : (g.name + " Number"));
+      p.textContent = groupLabel(g);
       holder.appendChild(p);
 
       var ul = document.createElement("ul");

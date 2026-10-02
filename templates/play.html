@@ -1,216 +1,166 @@
-{% extends "base.html" %}
+{# Play page: /lottery-tickets/<slug> (and /uk/lottery-tickets/<slug>). H1, title and the long copy are the
+   live page's, word for word. The number picker is the engine's (static/brands/engine/js/play_picker.js +
+   line_editor_core.js): every element id and class those scripts look up is kept below, restyled by
+   brands/lottosonline/css/picker.css. Form posts to cart_add exactly as before. #}
+{% extends "lo/base.html" %}
+{% set lot = lo_lottery(game.game_code) if game else None %}
+{% set page = lo_page(request.path) %}
+{% set jp = lo_jackpot(game.game_code) if game else None %}
+{% set breadcrumbs = [("Home", "/"), ("Play Lottos", "/lottery-tickets"), ((page.h1 if page else None) or ("Play " ~ (lot.name if lot else "")), request.path)] %}
+{% block extra_head %}<link rel="stylesheet" href="{{ lo_asset('css/picker.css') }}">{% endblock %}
+{% block jsonld %}{% if game and lot %}<script type="application/ld+json">{{ lo_product_jsonld(lot, game, jp)|safe }}</script>{% endif %}{% endblock %}
 {% block content %}
 <div class="noSelect" id="mobileTicketWindow" style="display:none"></div>
-<div class="noSelect container lotteryPages" id="{{ legacy_page_id or (game.game_code if game else 'lotteryPage') }}">
-  <div class="lotteryPageContent">
-    {% if not game %}
-      <div class="lePages">
-        <h1 class="pageHeading">Play</h1>
-        <p>Game not found.</p>
+{% if not game %}
+  <section class="lo-section"><div class="lo-wrap"><div class="lo-panel"><h1>Play</h1><p>This lottery is not available right now.</p></div></div></section>
+{% else %}
+<section class="lo-pagehead lo-pagehead--play">
+  <div class="lo-wrap">
+    <nav class="lo-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/lottery-tickets">Play Lottos</a> / <span>{{ lot.name if lot else game.game_name }}</span></nav>
+    <div class="lo-pagehead__row">
+      {% if lot %}<span class="lo-pagehead__ball"><img src="{{ lo_ball(lot) }}" alt="{{ lot.name }}" width="88" height="88"></span>{% endif %}
+      <div class="lo-playhead">
+        <h1>{{ (page.h1 if page else None) or ("Play " ~ (lot.name if lot else game.game_name) ~ " Online") }}</h1>
+        <div class="lo-playhead__facts">
+          <span class="lo-playhead__jackpot" id="bannerJackpotAmount">{{ (jp.display if jp and jp.display) or jackpot_display or "Results Pending" }}</span>
+          {% if jp and jp.rise_pct %}<span class="lo-game__rise">🔥 {{ jp.rise_pct }}% above base</span>{% endif %}
+        </div>
+        <p class="lo-playhead__cutoff">Sales close in
+          <span id="drawCounterReact">{% if remaining_seconds is not none %}<span class="wl-countdown" data-remaining="{{ remaining_seconds }}">&nbsp;</span>{% elif jp and jp.cutoff_iso %}<span class="lo-countdown lo-countdown--onbrand" data-until="{{ jp.cutoff_iso }}">&nbsp;</span>{% else %}<span>soon</span>{% endif %}</span>
+        </p>
       </div>
-    {% else %}
-      <div class="lotteryBanners" id="lotteryBanner">
-        <div id="bannerContent">
-          <div class="lotteryBannerBall">
-            {% if hero_logo_url %}
-              <img src="{{ hero_logo_url }}" width="175" height="112" alt="Play {{ game.game_name or game.game_code }} online" />
-            {% else %}
-              <img src="/resources/images/LELogo.png" width="175" height="112" alt="" />
-            {% endif %}
-          </div>
-          <div class="bannerHeader">
-            <p>{{ banner_title or ("Next " ~ (game.game_name or game.game_code)) }}</p>
-            <p id="bannerJackpotAmount">{{ jackpot_display or "—" }}</p>
-          </div>
-          <div class="bannerTimeToDraw">
-            <p>Draw Cutoff Timer</p>
-            <div id="drawCounterReact">
-              {% if remaining_seconds is not none %}
-                <span class="wl-countdown" data-remaining="{{ remaining_seconds }}">—</span>
-              {% else %}
-                <span>—</span>
-              {% endif %}
-            </div>
-          </div>
-          <div class="bannerEighteenPlus"><p>18+</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="lo-section lo-section--tight">
+  <div class="lo-wrap lo-playgrid">
+    <div class="lo-panel lo-picker" id="{{ legacy_page_id or game.game_code }}">
+      <div class="lo-picker__head">
+        <ol class="lo-steps">
+          <li>Choose your numbers or Quick Pick</li>
+          <li>Choose how many weeks and draw days</li>
+          <li>Buy your tickets</li>
+        </ol>
+        <div class="lo-picker__tools" id="quickpickClearAll">
+          <button type="button" class="lo-btn lo-btn--quiet lo-btn--sm" id="quickPickAll">Quick Pick All</button>
+          <button type="button" class="lo-btn lo-btn--quiet lo-btn--sm" id="clearAll">Clear All</button>
         </div>
       </div>
 
-      <ul id="lotteryTabs">
-        <li id="singleLottoTab" class="lottoTab lottoTabActive">Single Play</li>
-        <a href="{{ url_for('results_game', game_code=game.game_code) }}"><li class="lottoTab">Results</li></a>
-      </ul>
-
-      <div id="lotterySection">
-        <div id="main">
-          <div class="col-xs-12 col-sm-12 col-lg-12 tickets_section_top">
-            <div id="lotteryHeaders">
-              <h1 class="pageHeading">Play {{ game.game_name or game.game_code }} Online</h1>
-            </div>
-            <div class="howToPlay col-xs-12 col-sm-12 col-lg-12 no-padding">
-              <div class="howToPlaySectionTitle"><p>How to Play</p></div>
-              <div class="howToPlaySection"><p class="howToPlayNumber">1</p><p class="howToPlayDirections">Choose your numbers or select quickpick</p></div>
-              <div class="howToPlaySection"><p class="howToPlayNumber">2</p><p class="howToPlayDirections">Choose duration and draw days</p></div>
-              <div class="howToPlaySection"><p class="howToPlayNumber">3</p><p class="howToPlayDirections">Buy tickets</p></div>
-            </div>
-            <div class="ticketSectionFeatures">
-              <div id="quickpickClearAll">
-                <p class="secondaryFormButton" id="clearAll">Clear All</p>
-                <p class="secondaryFormButton" id="quickPickAll">Quick Pick All</p>
+      {% if game.products and game.products|length > 0 %}
+        <div id="tickets_section">
+          <div id="linesContainer"></div>
+          <a id="addLine" href="#" onclick="return false;" class="lo-addline">
+            <div class="addLines">
+              <div id="upperTicketSection"></div>
+              <div id="addLineContent">
+                <span id="addLineImage" aria-hidden="true">+</span>
+                <span id="addLineText">Add Line</span>
+                <span id="addQuickPickText">Add Quick Pick</span>
               </div>
-              <p class="lottoSecondaryHeader">Quickpick, Edit or Delete lines</p>
             </div>
+          </a>
+        </div>
+      {% else %}
+        <p>No tickets are on sale for this draw right now.</p>
+      {% endif %}
+    </div>
+
+    {% if game.products and game.products|length > 0 %}
+    <aside class="lo-panel lo-ordercard">
+      <form id="singlePlayBetForm" method="post" action="{{ url_for('cart_add') }}">
+        <input type="hidden" name="lines_json" id="leLinesJson" value="[]">
+        <input type="hidden" name="options_json" id="leOptionsJson" value="{}">
+        <input type="hidden" name="edit_order_url" value="{{ request.path }}">
+        <input type="hidden" name="game_code" value="{{ game.game_code }}">
+        <input type="hidden" name="game_name" value="{{ lot.name if lot else (game.game_name or game.game_code) }}">
+        <input type="hidden" name="line_edit_item_idx" value="{{ line_edit_ctx.item_idx if line_edit_ctx else '' }}">
+        <input type="hidden" name="line_edit_line_idx" value="{{ line_edit_ctx.line_idx if line_edit_ctx else '' }}">
+
+        <h2 class="lo-ordercard__title">Your {{ lot.name if lot else game.game_name }} order</h2>
+
+        <div id="lottoDrawDays" class="lo-ordercard__block">
+          <p class="lo-ordercard__label">Duration</p>
+          <div class="lo-stepper" id="leWeeksCounter">
+            <button type="button" class="lo-stepper__btn lotteryCountMinus" id="leWeeksMinus" aria-label="Fewer weeks">&minus;</button>
+            <span class="lo-stepper__value"><input id="weekCount" type="number" value="1" readonly aria-label="Number of weeks"> <span id="subscriptionWeekCopy">Week</span></span>
+            <button type="button" class="lo-stepper__btn lotteryCountPlus" id="leWeeksPlus" aria-label="More weeks">+</button>
           </div>
-
-          {% if game.products and game.products|length > 0 %}
-            <div id="tickets_section">
-              <div id="linesContainer"></div>
-
-              <a id="addLine" href="#" onclick="return false;">
-                <div class="addLines">
-                  <div id="upperTicketSection"></div>
-                  <div id="addLineContent">
-                    <p id="addLineImage">+</p>
-                    <p id="addLineText">Add Line</p>
-                    <p id="addQuickPickText">Add Quick Pick</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 singleOrderDetails">
-              <form id="singlePlayBetForm" method="post" action="{{ url_for('cart_add') }}">
-                <div class="col-xs-12 col-sm-5 col-md-5 singleOrderDetailColumn">
-                  <input type="hidden" name="lines_json" id="leLinesJson" value="[]" />
-                  <input type="hidden" name="options_json" id="leOptionsJson" value="{}" />
-                  <input type="hidden" name="edit_order_url" value="{{ request.path }}" />
-                  <input type="hidden" name="game_code" value="{{ game.game_code }}" />
-                  <input type="hidden" name="game_name" value="{{ game.game_name or game.game_code }}" />
-                  <input type="hidden" name="line_edit_item_idx" value="{{ line_edit_ctx.item_idx if line_edit_ctx else '' }}" />
-                  <input type="hidden" name="line_edit_line_idx" value="{{ line_edit_ctx.line_idx if line_edit_ctx else '' }}" />
-
-                  <div id="lottoDrawDays">
-                    <p class="lottoDrawDaysTitle">Select your Draw Days</p>
-                    <p class="orderDetails" id="billingPeriodOrDuration">Duration</p>
-                    <div class="lotteryCounter" id="leWeeksCounter">
-                      <div class="row lotteryCounterUnits">
-                        <div class="col-xs-2 col-sm-2 col-lg-2">
-                          <p class="lotteryCountMinus secondaryFormButton" id="leWeeksMinus">-</p>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-lg-8">
-                          <p class="lotteryCount">
-                            <span id="singlePlayWeekCount">
-                              <input id="weekCount" type="number" value="1" readonly />
-                            </span>
-                            <br />
-                            <span id="subscriptionWeekCopy">Week</span>
-                          </p>
-                        </div>
-                        <div class="col-xs-2 col-sm-2 col-lg-2">
-                          <p class="lotteryCountPlus secondaryFormButton" id="leWeeksPlus">+</p>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="lottoDrawDays" id="leDrawDays">
-                      {# Populated by /resources/js/play_picker.js #}
-                    </p>
-                  </div>
-
-                  {% if game.products and game.products|length == 1 %}
-                    {% set p0 = game.products[0] %}
-                    <input type="hidden" id="leProductCode" name="product_code" value="{{ (line_edit_ctx.product_code if line_edit_ctx and line_edit_ctx.product_code else (p0.code or p0.product_code)) }}" />
-                  {% else %}
-                    <p class="formLabels">Select product</p>
-                    <select id="leProductCode" name="product_code" style="width:100%; max-width:420px;">
-                      {% for p in game.products %}
-                        {% set p_code = (p.code or p.product_code) %}
-                        <option value="{{ p_code }}" {% if line_edit_ctx and line_edit_ctx.product_code and line_edit_ctx.product_code == p_code %}selected{% endif %}>{{ p.name or p.code or p.product_code }}</option>
-                      {% endfor %}
-                    </select>
-                  {% endif %}
-
-                  <div id="leAddons" style="margin-top:14px;"></div>
-                </div>
-
-                <div class="col-xs-12 col-sm-5 col-md-5 singleOrderDetailColumn">
-                  <div class="orderDetailsBreakdown">
-                    <p class="orderDetails">{{ game.game_name or game.game_code }}</p>
-                    <p>
-                      <span id="linesDrawsCount">0 Lines x 1 Draw</span>
-                      <span class="orderAmounts">
-                        <span id="leCurrencySymbol">{{ picker_display_currency_symbol or '€' }}</span><span class="linesDrawsAmount" id="leLinesDrawsAmount">0.00</span>
-                      </span>
-                    </p>
-                  </div>
-                  <hr>
-                  <p class="orderDetails">
-                    Total:
-                    <span id="lotteryTotalAmount" class="orderAmounts">
-                      <span id="leCurrencySymbolTotal">{{ picker_display_currency_symbol or '€' }}</span><span class="linesDrawsAmount" id="leTotalAmount">0.00</span>
-                    </span>
-                  </p>
-                  <button type="submit" id="placeBetButton">Play Now</button>
-                </div>
-              </form>
-            </div>
-
-            <template id="leLineTemplate">
-              <div class="leLineWrapper" data-line-index="__IDX__">
-                <div class="lines">
-                  <div id="upperTicketSection">
-                    <div id="choosenNumber"></div>
-                    <div id="mobileUpperTicketSection">
-                      <a id="closeTicketWindow" href="#" data-action="close-editor" aria-label="Close number selection"><img src="/resources/images/Close_Icon.svg" width="22" height="22" alt="" /></a>
-                      <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
-                      <button class="clearButton secondaryFormButton" type="button" data-action="clear">Clear</button>
-                      <button class="done primaryFormButton" type="button" data-action="done">Done</button>
-                      <button class="trashButton" type="button" data-action="trash"><img src="/resources/images/IconTrash_PA.SVG" width="14" height="16"></button>
-                      <img class="editTicket" src="/resources/images/edit.png" width="20" height="20" data-action="edit" role="button" tabindex="0" aria-label="Edit numbers" />
-                    </div>
-                    <div id="webUpperTicketSection">
-                      <img class="ticketCompleteImage" src="/resources/images/Check.svg" style="display:none" width="25" height="23" />
-                      <img class="ticketIncompleteImage" src="/resources/images/Error.svg" width="23" height="27" />
-                      <button class="trashButton secondaryFormButton" type="button" data-action="trash"><img src="/resources/images/IconTrash_PA.SVG" width="12" height="14"></button>
-                      <button class="clearButton secondaryFormButton" type="button" data-action="clear">Clear</button>
-                      <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
-                    </div>
-                  </div>
-                  <div id="lowerTicketSection">
-                    <div class="leGroups"></div>
-                  </div>
-                </div>
-              </div>
-            </template>
-
-            <script id="lePickerProducts" type="application/json">{{ picker_products|tojson }}</script>
-            <script id="leJackpot" type="application/json">{{ jackpot_payload|tojson }}</script>
-            <script id="leCartLineEdit" type="application/json">{{ line_edit_ctx|tojson if line_edit_ctx else '{}' }}</script>
-            <div id="leDefaultCurrency" data-currency="{{ picker_display_currency or '' }}" aria-hidden="true" style="display:none"></div>
-          {% else %}
-            <p>No products returned for this game.</p>
-          {% endif %}
+          <p class="lo-ordercard__label" style="margin-top:var(--space-4)">Select your draw days</p>
+          <div class="lottoDrawDays" id="leDrawDays"></div>
         </div>
 
-        {# Game-specific informational content (details/accordion) goes inside the lottery section. #}
-        {% if content_details_template %}
-          {% include content_details_template ignore missing %}
+        {% if game.products|length == 1 %}
+          {% set p0 = game.products[0] %}
+          <input type="hidden" id="leProductCode" name="product_code" value="{{ (line_edit_ctx.product_code if line_edit_ctx and line_edit_ctx.product_code else (p0.code or p0.product_code)) }}">
+        {% else %}
+          <div class="lo-field" style="margin-top:var(--space-4)">
+            <label class="lo-field__label" for="leProductCode">Ticket type</label>
+            <select class="lo-input" id="leProductCode" name="product_code">
+              {% for p in game.products %}{% set p_code = (p.code or p.product_code) %}
+                <option value="{{ p_code }}"{% if line_edit_ctx and line_edit_ctx.product_code == p_code %} selected{% endif %}>{{ p.name or p_code }}</option>
+              {% endfor %}
+            </select>
+          </div>
         {% endif %}
+        <div id="leAddons"></div>
+
+        <div class="lo-summary">
+          <div class="lo-summary__row"><span id="linesDrawsCount">0 Lines x 1 Draw</span>
+            <span><span id="leCurrencySymbol">{{ picker_display_currency_symbol or '€' }}</span><span class="linesDrawsAmount" id="leLinesDrawsAmount">0.00</span></span></div>
+          <div class="lo-summary__row lo-summary__row--total"><span>Total</span>
+            <span id="lotteryTotalAmount"><span id="leCurrencySymbolTotal">{{ picker_display_currency_symbol or '€' }}</span><span class="linesDrawsAmount" id="leTotalAmount">0.00</span></span></div>
+        </div>
+        <button type="submit" class="lo-btn lo-btn--block lo-btn--lg" id="placeBetButton">Play Now</button>
+        <p class="lo-ordercard__note">Official tickets, bought for you. A scan of every ticket appears in your account.</p>
+        {% if lot %}<p class="lo-ordercard__links"><a class="lo-link" href="/winning-lottery-numbers/{{ lot.slug }}">{{ lot.name }} results</a> · <a class="lo-link" href="/lotteries/{{ lot.slug }}">How {{ lot.name }} works</a></p>{% endif %}
+      </form>
+    </aside>
+
+    <template id="leLineTemplate">
+      <div class="leLineWrapper" data-line-index="__IDX__">
+        <div class="lines">
+          <div id="upperTicketSection">
+            <div id="choosenNumber"></div>
+            <div id="mobileUpperTicketSection">
+              <a id="closeTicketWindow" href="#" data-action="close-editor" aria-label="Close number selection">&times;</a>
+              <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
+              <button class="clearButton" type="button" data-action="clear">Clear</button>
+              <button class="done" type="button" data-action="done">Done</button>
+              <button class="trashButton" type="button" data-action="trash" aria-label="Delete line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+              <span class="editTicket" data-action="edit" role="button" tabindex="0" aria-label="Edit numbers">Edit</span>
+            </div>
+            <div id="webUpperTicketSection">
+              <span class="ticketCompleteImage" style="display:none" aria-label="Line complete">&#10003;</span>
+              <span class="ticketIncompleteImage" aria-label="Line incomplete">!</span>
+              <button class="trashButton" type="button" data-action="trash" aria-label="Delete line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+              <button class="clearButton" type="button" data-action="clear">Clear</button>
+              <button class="quickPickButton" type="button" data-action="quickpick">Quick Pick</button>
+            </div>
+          </div>
+          <div id="lowerTicketSection"><div class="leGroups"></div></div>
+        </div>
       </div>
+    </template>
+
+    <script id="lePickerProducts" type="application/json">{{ picker_products|tojson }}</script>
+    <script id="leJackpot" type="application/json">{{ jackpot_payload|tojson }}</script>
+    <script id="leCartLineEdit" type="application/json">{{ line_edit_ctx|tojson if line_edit_ctx else '{}' }}</script>
+    <div id="leDefaultCurrency" data-currency="{{ picker_display_currency or '' }}" aria-hidden="true" hidden></div>
     {% endif %}
   </div>
-</div>
+</section>
 
-{# Long-form "Know more..." copy renders OUTSIDE the .lotteryPages container in the legacy PHP site. #}
-{% if content_copy_template %}
-  <div style="clear:both;"></div>
-  {% include content_copy_template ignore missing %}
+{% if page and page['copy'] %}
+<section class="lo-section" style="padding-top:0">
+  <div class="lo-wrap"><article class="lo-panel lo-prose">{% for block in page['copy'] %}{{ block.html|safe }}{% endfor %}</article></div>
+</section>
+{% endif %}
 {% endif %}
 {% endblock %}
 
 {% block extra_scripts %}
-{# Cache-buster tied to the build so shipped fixes take effect without a manual
-   version bump (a stale ?v= silently served the old picker). #}
-<script defer src="/resources/js/line_editor_core.js?v={{ build_id }}"></script>
-<script defer src="/resources/js/play_picker.js?v={{ build_id }}"></script>
+<script defer src="{{ lo_engine_asset('js/line_editor_core.js') }}"></script>
+<script defer src="{{ lo_engine_asset('js/play_picker.js') }}"></script>
 {% endblock %}
-

@@ -40,7 +40,7 @@ select:-webkit-autofill {
     -webkit-animation-fill-mode: both;
 }
 /*-------------- START: GENERAL PAGE STYLES --------------*/
-body,html {  margin:0; padding:0; font-family:"Heebo",arial,sans-serif; color:#FFFFFF; background-image: linear-gradient(to right, #014c76,#1c73a8,#1c73a8,#1c73a8,#1c73a8,#1c73a8,#014c76); }
+body,html {  margin:0; padding:0; font-family:"Open Sans",system-ui,sans-serif; color:#FFFFFF; background-image: linear-gradient(to right, #014c76,#1c73a8,#1c73a8,#1c73a8,#1c73a8,#1c73a8,#014c76); }
 .LEBGColor { position:fixed; top:0; left:0; background:url(../images/LE-BG.jpg); background-position:top center; background-repeat:no-repeat; height:100%; width:100%; z-index:0; }
 .LEBGColor:after {
     content: "";
@@ -51,78 +51,78 @@ body,html {  margin:0; padding:0; font-family:"Heebo",arial,sans-serif; color:#F
     width: 100%;
     max-width: 1183px;
     height: 100%;
-    background-color: #013658;
+    background-color: #3e1456;
 }
 .LEPromoBGColor { position:fixed; top:0; left:0; background:url(../images/LE-Promo-BG.jpg); background-position:top center; background-repeat:no-repeat; height:100%; width:100%; z-index:0; }
-.pageHeading { color:#00ADEF!important; font-size:25px!important; font-weight:400!important; margin:0 0 21px 0; line-height:37px; }
-.sub-heading { color:#00ADEF!important; font-weight:400!important; font-size:19px!important; }
-.container header, .container p, .container li, .lotteryPageCopyContent p { color:#C7E9FE; font-size:15px; font-weight:300; }
+.pageHeading { color:#6a2a90!important; font-size:25px!important; font-weight:400!important; margin:0 0 21px 0; line-height:37px; }
+.sub-heading { color:#6a2a90!important; font-weight:400!important; font-size:19px!important; }
+.container header, .container p, .container li, .lotteryPageCopyContent p { color:#f1ecf5; font-size:15px; font-weight:300; }
 .loader { text-align:center; position:fixed; right: 0; left: 0; bottom: 0; top: 0; margin: auto; width: 200px; height: 100px; z-index:5; }
-.loader span { display: inline-block; vertical-align: middle; width: 10px; height: 10px; margin: 50px auto; background:#fecf6b; border-radius: 50px; -webkit-animation: loader 0.9s infinite alternate; -moz-animation: loader 0.9s infinite alternate; }
+.loader span { display: inline-block; vertical-align: middle; width: 10px; height: 10px; margin: 50px auto; background:#fdbc00; border-radius: 50px; -webkit-animation: loader 0.9s infinite alternate; -moz-animation: loader 0.9s infinite alternate; }
 .loader span:nth-of-type(2) { -webkit-animation-delay: 0.3s; -moz-animation-delay: 0.3s; }
 .loader span:nth-of-type(3) { -webkit-animation-delay: 0.6s; -moz-animation-delay: 0.6s; }
-hr { border-top:1px solid #2C7AAB; }
-.container { position:relative; width:1183px; background-color:#013658; }
+hr { border-top:1px solid #6a2a90; }
+.container { position:relative; width:1183px; background-color:#3e1456; }
 .container .lotteryPageContent { width:1140px; margin:0 auto;}
-.lePages { background-color:#0C4970; padding:36px 60px 50px 60px; width:1140px; margin:0 auto 34px auto; }
+.lePages { background-color:#582178; padding:36px 60px 50px 60px; width:1140px; margin:0 auto 34px auto; }
 #overlay { position:fixed; width:100%; height:100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index:4; }
 .textBold { font-weight:500!important; }
 .textExtraBold { font-weight:600!important; }
 .textRegular { font-weight:400!important; }
 .textOpacity { opacity:0.3; }
 .no-padding{ padding:0; }
-.primaryLink { text-decoration:underline; color:#FF7E19!important; cursor:pointer; }
+.primaryLink { text-decoration:underline; color:#d67900!important; cursor:pointer; }
 .primaryLink:hover { color:#FFBB87!important; }
-.primaryLink:active, .primaryLink:focus { color:#549CC9!important; }
-.secondaryLink { text-decoration:underline; color:#012B45; cursor:pointer; }
+.primaryLink:active, .primaryLink:focus { color:#8e5bb0!important; }
+.secondaryLink { text-decoration:underline; color:#3e1456; cursor:pointer; }
 .secondaryLink:hover { color:#337ab7; }
 .secondaryLink:active { color:#ff5722; }
 .tertiaryLink { color:#FFFFFF; text-decoration:underline; cursor:pointer; }
-.tertiaryLink:hover { color:#00ADEF; }
-.tertiaryLink:active { color:#549CC9; }
+.tertiaryLink:hover { color:#6a2a90; }
+.tertiaryLink:active { color:#8e5bb0; }
 .redText { color:#FF5454!important; font-weight:400!important; }
-.warningText { color:#FECF6B!important; letter-spacing:1px; }
+.warningText { color:#fdbc00!important; letter-spacing:1px; }
 .yellowBackground { background-color:yellow; }
 .linkAsButton { width:136px!important; text-shadow:1px 1px #4A960C; text-align:center; display:block; }
 .linkAsButton.centerLinkCopy { padding-top:11px; }
-.successCopy { color:#03C262!important; font-weight:500; text-align:center; }
-.infoButton { display:inline-block; vertical-align:top; width:17px; height:17px; border-radius:45px; color:#FFFFFF; font-size:12px; text-align:center; font-weight:500; margin-left:12px; cursor:pointer; background-color:#00ADEF; line-height:19px; }
-.primaryText { color:#FF7E19; font-weight:500; }
+.successCopy { color:#0b7a08!important; font-weight:500; text-align:center; }
+.infoButton { display:inline-block; vertical-align:top; width:17px; height:17px; border-radius:45px; color:#FFFFFF; font-size:12px; text-align:center; font-weight:500; margin-left:12px; cursor:pointer; background-color:#6a2a90; line-height:19px; }
+.primaryText { color:#d67900; font-weight:500; }
 .alignCenter { text-align:center!important; }
 .footnote { font-style:italic; margin-top:10px; }
 .transparent { color:transparent!important; }
 .slashThrough { position:absolute; content:""; width:100%; top:8px; border-top:3px solid #ff0000a6; -webkit-transform:rotate(30deg); -moz-transform:rotate(30deg); -ms-transform:rotate(30deg); -o-transform: rotate(30deg); transform:rotate(30deg); }
 /* NAVIGATION */
 .navbar-default { background-color:transparent; height:87px; border-top:none; border-left:none; border-right:none; border-bottom:none; margin:0; border-radius:0; }
-.navbar-default .container-fluid {  position:relative; width:1183px; height:87px; padding: 0; background-color: #013658; }
+.navbar-default .container-fluid {  position:relative; width:1183px; height:87px; padding: 0; background-color: #3e1456; }
 .navbar-default .container-fluid .headerLogo { position:absolute; margin:auto; top:7px; bottom:0; }
 .navbar-default .container-fluid .navbar-header-mobile { display:none; }
 .navbar-default .container-fluid #navbar { position:absolute; bottom:0; margin-left:260px;}
-.navbar-default .container-fluid #navbar li  { border-bottom:4px solid #013658; }
+.navbar-default .container-fluid #navbar li  { border-bottom:4px solid #3e1456; }
 .navbar-default .container-fluid #navbar li a { font-size:15px; color:#FFFFFF; padding:7px 14px 3px 14px; }
 .navbar-default .container-fluid #navbar li.active-nav { border-bottom:4px solid #FFFFFF; }
-.navbar-default .container-fluid #navbar li:hover  { background:#C7E9FE; border-bottom:4px solid #C7E9FE; color:#002339; }
-.navbar-default .container-fluid #navbar li:hover a { color:#002339; }
+.navbar-default .container-fluid #navbar li:hover  { background:#f1ecf5; border-bottom:4px solid #f1ecf5; color:#2a0d3b; }
+.navbar-default .container-fluid #navbar li:hover a { color:#2a0d3b; }
 .navbar-default .container-fluid #navbar li.active-nav:hover { border-bottom:4px solid #FFFFFF; }
 .navbar-default .container-fluid #navbar li:active { background:#001726; border-bottom:4px solid #001726; }
 .navbar-default .container-fluid #navbar li:active a { color:#FFFFFF; }
 .navbar-default .container-fluid #navbar li.active-nav:active { border-bottom:4px solid #FFFFFF; }
-.navbar-default .container-fluid #navbar li:hover .dropdown-menu { display:block; left:0; background-color:#C7E9FE; width:620px; border:none; border-radius:0 0 10px 10px; box-shadow:0px 14px 13px #012B457A; padding:25px 0 25px 0; border-top:4px solid transparent; }
-.navbar-default .container-fluid #navbar li .dropdown-menu li { width:300px; height:85px; float:left; border-right:1px solid #549CC9; border-bottom:none; }
+.navbar-default .container-fluid #navbar li:hover .dropdown-menu { display:block; left:0; background-color:#f1ecf5; width:620px; border:none; border-radius:0 0 10px 10px; box-shadow:0px 14px 13px #012B457A; padding:25px 0 25px 0; border-top:4px solid transparent; }
+.navbar-default .container-fluid #navbar li .dropdown-menu li { width:300px; height:85px; float:left; border-right:1px solid #8e5bb0; border-bottom:none; }
 .navbar-default .container-fluid #navbar li .dropdown-menu li:nth-child(even) { border:none; }
-.navbar-default .container-fluid #navbar li .dropdown-menu a { padding:21px 0; color:#2C7AAB; }
-.navbar-default .container-fluid #navbar li .dropdown-menu a span { color:#002339; font-weight:400; }
+.navbar-default .container-fluid #navbar li .dropdown-menu a { padding:21px 0; color:#6a2a90; }
+.navbar-default .container-fluid #navbar li .dropdown-menu a span { color:#2a0d3b; font-weight:400; }
 .navbar-default .container-fluid #navbar li .dropdown-menu a img { float:left; width:69px; }
 .navbar-default .container-fluid #navbar li.singleLotteryNav .dropdown-menu a img { margin:0 5px 10px 10px; }
 .singleLotteryNav .prizePool { font-size:10px; font-weight:400; line-height:8px; margin:2px 0; }
 .navbar-default .container-fluid #navbar li.promotionsNav .dropdown-menu a img { margin:10px 5px 10px 10px; }
 .navbar-default .container-fluid #navbar li.lotteryResultsNav .dropdown-menu a img { margin:7px 5px 7px 10px; }
-.navbar-default .container-fluid #navbar li.dropdown:hover { border-bottom:4px solid #C7E9FE; }
+.navbar-default .container-fluid #navbar li.dropdown:hover { border-bottom:4px solid #f1ecf5; }
 .navbar-default .container-fluid #navbar li.dropdown.active-nav { border-bottom:4px solid #FFFFFF; }
 .navbar-default .container-fluid #navbar li .dropdown-menu li a:hover { background:#FFFFFF; }
-.navbar-default .container-fluid #navbar li .dropdown-menu li a:active { background:#2C7AAB; color:#C7E9FE; }
-.navbar-default .container-fluid #navbar li .dropdown-menu li a:active span { color:#002339; }
-.navbar-default .container-fluid #navbar li:hover a.topLotteriesNav { background-color:#C7E9FE; color:#002339; }
+.navbar-default .container-fluid #navbar li .dropdown-menu li a:active { background:#6a2a90; color:#f1ecf5; }
+.navbar-default .container-fluid #navbar li .dropdown-menu li a:active span { color:#2a0d3b; }
+.navbar-default .container-fluid #navbar li:hover a.topLotteriesNav { background-color:#f1ecf5; color:#2a0d3b; }
 .navbar-default .container-fluid #navbar li a.topLotteriesNav:active { background-color:#001726!important; color:#FFFFFF; }
 .navbar-default .container-fluid #navbarAccountInfo { position:absolute; top:0; right:22px; padding:0; }
 .navbar-default .container-fluid #navbarAccountInfo li.nav_right_space { font-size:14px!important; height:38px; cursor:pointer; background-color:#00578C; }
@@ -131,7 +131,7 @@ hr { border-top:1px solid #2C7AAB; }
 .navbar-default .container-fluid #navbarAccountInfo li.addFundsLink { width:131px; font-weight:500; border-radius:0 0 0 10px; }
 .navbar-default .container-fluid #navbarAccountInfo li.addFundsLink img { filter:brightness(0) invert(1); }
 .navbar-default .container-fluid #navbarAccountInfo li.addFundsLink a { color:#FFFFFF; margin-top:-1px; }
-.navbar-default .container-fluid #navbarAccountInfo li.addFundsLink:hover a { color:#165D8A; }
+.navbar-default .container-fluid #navbarAccountInfo li.addFundsLink:hover a { color:#582178; }
 .navbar-default .container-fluid #navbarAccountInfo li.addFundsLink:hover img { opacity:0.5; filter:none; }
 .navbar-default .container-fluid #navbarAccountInfo li.addFundsLink:active img { opacity:1; filter:brightness(0) invert(1); }
 .navbar-default .container-fluid #navbarAccountInfo li.addFundsLink:active a { color:inherit; }
@@ -146,15 +146,15 @@ hr { border-top:1px solid #2C7AAB; }
 .navbar-default .container-fluid #navbarAccountInfo li.balanceLink:has(+ li.cartLink) { border-radius:0; }
 .navbar-default .container-fluid #navbarAccountInfo li.balanceLink a { color:#FFFFFFA8; padding:9px 0px 9px 0px; }
 .navbar-default .container-fluid #navbarAccountInfo li.balanceLink img { filter:brightness(0) invert(1); }
-.navbar-default .container-fluid #navbarAccountInfo li.balanceLink:hover { background-color:#C7E9FE; }
-.navbar-default .container-fluid #navbarAccountInfo li.balanceLink:hover a { color:#002339; }
+.navbar-default .container-fluid #navbarAccountInfo li.balanceLink:hover { background-color:#f1ecf5; }
+.navbar-default .container-fluid #navbarAccountInfo li.balanceLink:hover a { color:#2a0d3b; }
 .navbar-default .container-fluid #navbarAccountInfo li.balanceLink:hover img { filter:none; opacity:0.5; }
-.navbar-default .container-fluid #navbarAccountInfo li.balanceLink a:focus { background-color:#2C7AAB; }
+.navbar-default .container-fluid #navbarAccountInfo li.balanceLink a:focus { background-color:#6a2a90; }
 .navbar-default .container-fluid #navbarAccountInfo li.cartLink { width:auto; min-width:100px; font-weight:500; border-radius:0 0 10px 0; white-space: nowrap; display:flex; align-items:center; }
 .navbar-default .container-fluid #navbarAccountInfo li.cartLink a { color:#FFFFFF; padding:9px 12px 9px 12px; margin-top:0; display:flex; align-items:center; justify-content:center; }
 .navbar-default .container-fluid #navbarAccountInfo li.cartLink img { filter:brightness(0) invert(1); margin:-3px 12px 0 0; }
-.navbar-default .container-fluid #navbarAccountInfo li.cartLink:hover { background-color:#C7E9FE!important; }
-.navbar-default .container-fluid #navbarAccountInfo li.cartLink:hover a { color:#165D8A!important; }
+.navbar-default .container-fluid #navbarAccountInfo li.cartLink:hover { background-color:#f1ecf5!important; }
+.navbar-default .container-fluid #navbarAccountInfo li.cartLink:hover a { color:#582178!important; }
 .navbar-default .container-fluid #navbarAccountInfo li.cartLink:hover img { opacity:0.5; filter:none; }
 .navbar-default .container-fluid #navbarAccountInfo li.cartLink:active img { opacity:1; filter:brightness(0) invert(1); }
 .navbar-default .container-fluid #navbarAccountInfo li.cartLink:active a { color:inherit; }
@@ -164,14 +164,14 @@ hr { border-top:1px solid #2C7AAB; }
 .navbar-default .container-fluid #navbarAccountInfo li.acctLogin .navCustomerName { padding-right:35px; }
 .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a { color:#FFFFFFA8; display:inline-block; }
 /*.navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.signInFormLink { padding:9px 8px 9px 10px; text-decoration:none; cursor:pointer; }
-.navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.signInFormLink:hover, .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.registrationFormLink:hover { color:#00ADEF; }
-.navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.signInFormLink:active, .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.registrationFormLink:active { color:#549CC9; }
+.navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.signInFormLink:hover, .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.registrationFormLink:hover { color:#6a2a90; }
+.navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.signInFormLink:active, .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.registrationFormLink:active { color:#8e5bb0; }
 .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.registrationFormLink { padding:9px 10px 9px 8px; text-decoration:none; cursor:pointer; }
 .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.blockSignIn { padding:9px 8px 9px 10px; cursor:pointer; }
 .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span.blockRegister { padding:9px 10px 9px 8px; cursor:pointer; }*/
 .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a { padding:9px 8px 9px 10px; text-decoration:none; cursor:pointer; }
-.navbar-default .container-fluid #navbarAccountInfo li.acctLogin a:hover, .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span:hover { color:#00ADEF; }
-.navbar-default .container-fluid #navbarAccountInfo li.acctLogin a:active, .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span:active { color:#549CC9; }
+.navbar-default .container-fluid #navbarAccountInfo li.acctLogin a:hover, .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span:hover { color:#6a2a90; }
+.navbar-default .container-fluid #navbarAccountInfo li.acctLogin a:active, .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a span:active { color:#8e5bb0; }
 .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a { padding:9px 10px 9px 8px; text-decoration:none; cursor:pointer; }
 .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a.blockSignIn { padding:9px 8px 9px 10px; cursor:pointer; }
 .navbar-default .container-fluid #navbarAccountInfo li.acctLogin a.blockRegister { padding:9px 10px 9px 8px; cursor:pointer; }
@@ -183,68 +183,68 @@ hr { border-top:1px solid #2C7AAB; }
 .navbar-default .container-fluid #navbarAccountInfo li.loginOptions img { margin:-3px 0px 0 12px; filter:brightness(100); }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .glyphicon { top:15px; font-size:8px; right:18px; position:absolute; color:#FFFFFF; }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .accountDropdown { display:none; }
-.navbar-default .container-fluid #navbarAccountInfo li.nav_right_space:hover .accountDropdown { display:block; background-color:#C7E9FE; position:absolute; top:0; z-index:1; border-radius:0 0 10px 10px; box-shadow:0px 0px 3px #0000004A; padding-bottom:7px; }
+.navbar-default .container-fluid #navbarAccountInfo li.nav_right_space:hover .accountDropdown { display:block; background-color:#f1ecf5; position:absolute; top:0; z-index:1; border-radius:0 0 10px 10px; box-shadow:0px 0px 3px #0000004A; padding-bottom:7px; }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails:hover { box-shadow:none; }
-.navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails:hover a { color:#002339; }
+.navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails:hover a { color:#2a0d3b; }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails:hover a img { opacity:0.5; }
-.navbar-default .container-fluid #navbarAccountInfo li.nav_right_space:hover .glyphicon { color:#002339; }
+.navbar-default .container-fluid #navbarAccountInfo li.nav_right_space:hover .glyphicon { color:#2a0d3b; }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .accountDropdown a { display:block; text-align:left; padding:9px 35px 0 18px; white-space:nowrap }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .accountDropdown hr { margin:7px 10px 5px 10px; opacity:0.5; }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .accountDropdown a.custInfoMenuItem { padding:8px 0 8px 18px; margin:0; text-align:left; cursor:pointer; }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .accountDropdown a.custInfoMenuItem:hover { background-color:#FFFFFF; }
-.navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .accountDropdown a.custInfoMenuItem:active { background-color:#2C7AAB; }
+.navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .accountDropdown a.custInfoMenuItem:active { background-color:#6a2a90; }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .accountDropdown a.custInfoMenuItem object { margin:-3px 12px 0 0; vertical-align: middle; }
 .navbar-default .container-fluid #navbarAccountInfo li.loggedInDetails .accountDropdown a.custInfoMenuItem .svgSymbol { width:16px; height:16px; background-size:cover; display:inline-block;  }
 .navbar-default .container-fluid #navbarAccountInfo .nav_times { font-size:12px; color:#FFFFFFBF; margin:4px 15px 0 0; text-align:right; }
 .navbar-default .container-fluid #navbarAccountInfo .timeOnSiteCounter { display:block!important; }
 .navbar-default .container-fluid #navbarBottomInfo { position:absolute; right:22px; bottom:0; padding:0; }
-.navbar-default .container-fluid #navbarBottomInfo li a { padding:2px 0 0 0; cursor:pointer; background-color:#00ADEF; width:22px; height:22px; border-radius:11px; text-align:center; margin:0 7.5px 7.5px 0; }
+.navbar-default .container-fluid #navbarBottomInfo li a { padding:2px 0 0 0; cursor:pointer; background-color:#6a2a90; width:22px; height:22px; border-radius:11px; text-align:center; margin:0 7.5px 7.5px 0; }
 .navbar-default .container-fluid #navbarBottomInfo li:last-child a { margin-right:0; }
 .navbar-default .container-fluid #navbarBottomInfo li a img { filter:brightness(100); }
-.navbar-default .container-fluid #navbarBottomInfo li a:hover { background-color:#C7E9FE; }
+.navbar-default .container-fluid #navbarBottomInfo li a:hover { background-color:#f1ecf5; }
 .navbar-default .container-fluid #navbarBottomInfo li a:hover img { filter:none; }
-.navbar-default .container-fluid #navbarBottomInfo li a:active { background-color:#165D8A; }
+.navbar-default .container-fluid #navbarBottomInfo li a:active { background-color:#582178; }
 .navbar-default .container-fluid #navbarBottomInfo li a:active img { filter:brightness(100); }
 .navbar-default .mobile-nav { display:none; }
-.navbar-default .container-fluid .lotteryResultsName { display:block; color:#2C7AAB!important; font-weight:500!important; }
+.navbar-default .container-fluid .lotteryResultsName { display:block; color:#6a2a90!important; font-weight:500!important; }
 .navbar-default .container-fluid .lotteryResultsDate { display:block; font-size:11px; }
 .navbar-default .container-fluid .resultsBall, .navbar-default .container-fluid .pendingResults { font-size:11px; }
-.navbar-default .container-fluid .resultBonusNumber { color:#00ADEF!important; }
+.navbar-default .container-fluid .resultBonusNumber { color:#6a2a90!important; }
 .navbar-default .container-fluid .primaryLink { text-align:center; display:inline-block; width:100%; padding:16px 0 0 0!important; }
 
 /*--------- START: STYLE FOR ALL FORMS -----------*/
 form { width:100%; position:relative; }
-form p { font-size:13px; color:#C7E9FE; line-height:17px; font-weight:400; margin:2px 0 0px 7px; }
+form p { font-size:13px; color:#f1ecf5; line-height:17px; font-weight:400; margin:2px 0 0px 7px; }
 p.formLabels	{ font-size:15px; font-weight:500; margin:11px 0 3px 7px; color:#FFFFFF; }
 input::-ms-reveal, input::-ms-clear { display:none; } /* hide edge password eye */
 input.disabledState { pointer-events:none; border-color:rgb(44,122,171,0.25)!important; background:rgb(0,35,57,0.25)!important; }
 .primaryFormButton.disabledState, .secondaryFormButton.disabledState, #placeBetButton.disabledState { opacity:0.3; background-color:#848484!important; text-shadow:none; box-shadow:none; cursor:unset; pointer-events:none; }
 select.disabledState { pointer-events:none; border-color:rgb(84,156,201,0.2)!important; background:rgb(84,156,201,0.2)!important; }
 input[type=text], input[type=email], input[type=password], input[type=tel] { 
-	width:275px; height:40px; background-color:#002339; color:#C7E9FE; font-size:14px; text-indent:20px; border:1px solid #2C7AAB; padding:0; font-weight:300; }
+	width:275px; height:40px; background-color:#2a0d3b; color:#f1ecf5; font-size:14px; text-indent:20px; border:1px solid #6a2a90; padding:0; font-weight:300; }
 input[type=text]:hover, input[type=email]:hover, input[type=password]:hover, input[type=tel]:hover, select:hover, textarea:hover { 
-	outline:none; border-color:#C7E9FE;  }
+	outline:none; border-color:#f1ecf5;  }
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, input[type=tel]:focus, textarea:focus { 
-	outline:none; border-color:#FF7E19; }
+	outline:none; border-color:#d67900; }
 input::placeholder { color:#c7e9fe80; }
-select { width:275px; height:40px; border:1px solid #549CC9; background-color:#549CC9; color:#FFFFFF; font-size:15px; text-align:left; text-align-last:left; text-indent:3px; }
-select:hover { border:1px solid #C7E9FE; }
-select:focus { background-color:#C7E9FE; border:1px solid #C7E9FE; color:#002339; outline:none; }
-select option { background-color:#C7E9FE; }
-select option:checked, select option:hover { color:#00ADEF }
-textarea { background-color:#002339; border:1px solid #2C7AAB; }
-textarea::placeholder { color:#C7E9FE; }
+select { width:275px; height:40px; border:1px solid #8e5bb0; background-color:#8e5bb0; color:#FFFFFF; font-size:15px; text-align:left; text-align-last:left; text-indent:3px; }
+select:hover { border:1px solid #f1ecf5; }
+select:focus { background-color:#f1ecf5; border:1px solid #f1ecf5; color:#2a0d3b; outline:none; }
+select option { background-color:#f1ecf5; }
+select option:checked, select option:hover { color:#6a2a90 }
+textarea { background-color:#2a0d3b; border:1px solid #6a2a90; }
+textarea::placeholder { color:#f1ecf5; }
 input[type=submit],button[type=submit], button.accountSubmitButtons, button.accountSearchButtons, button.quickPickButton, button.formPopupHeaderClose, button#resetSession, #placeBetButton, #placePromoButton, .linkAsButton, .primaryFormButton  { 
-	width:100%!important; height:46px!important; background-color:#FF7E19; border:none; border-radius:7px; color:#FFFFFF!important; font-size:19px; font-weight:400; text-shadow:1px 1px 2px #873B00; box-shadow:0 1px 2px #00000069; cursor:pointer; text-indent:unset!important; margin-top:20px; outline:none; text-decoration:none; }
+	width:100%!important; height:46px!important; background-color:#d67900; border:none; border-radius:7px; color:#FFFFFF!important; font-size:19px; font-weight:400; text-shadow:1px 1px 2px #873B00; box-shadow:0 1px 2px #00000069; cursor:pointer; text-indent:unset!important; margin-top:20px; outline:none; text-decoration:none; }
 input[type=submit]:hover,button[type=submit]:hover, button.accountSubmitButtons:hover, button.accountSearchButtons:hover, button.quickPickButton:hover, button.formPopupHeaderClose:hover, #main #tickets_section .addLines #addLineImage:hover, button#resetSession:hover, #placeBetButton:hover, #placePromoButton:hover, .linkAsButton:hover, .primaryFormButton:hover { 
 	background-color:#FFD0AB; color:#BA5200!important; text-shadow:1px 1px 0px #FFFFFF; text-decoration:none; }
 input[type=submit]:focus,button[type=submit]:focus, button.accountSubmitButtons:focus, button.accountSearchButtons:focus, button.quickPickButton:focus, button.formPopupHeaderClose:focus, #main #tickets_section .addLines #addLineImage:active, button#resetSession:active, #placeBetButton:active, #placePromoButton:active, .linkAsButton:active, .linkAsButton:focus, .primaryFormButton:active { 
 	background-color:#BA5200; color:#FFFFFF!important; box-shadow: none; text-shadow:1px 1px 2px #873B00; outline:none; text-decoration:none; }
 button#placeBetButton { height: 67px!important; }
 button.printScreenButton { width:160px!important; margin:-5px 0 11px 0; outline:none; }
-.secondaryFormButton  { font-size:16px!important; font-weight:400!important; color:#FFFFFF!important; text-align:center; width:275px; border:none!important; border-radius:5px; background-color:#00ADEF!important; padding:11px 0; margin:0; cursor:pointer; line-height:normal; box-shadow:none!important; text-decoration:none!important; text-shadow:none!important; }
-.secondaryFormButton:hover, input[type=submit].secondaryFormButton:hover { background-color:#C7E9FE!important; color:#165D8A!important; }
-.secondaryFormButton:active { background-color:#165D8A!important; color:#FFFFFF!important; }
+.secondaryFormButton  { font-size:16px!important; font-weight:400!important; color:#FFFFFF!important; text-align:center; width:275px; border:none!important; border-radius:5px; background-color:#6a2a90!important; padding:11px 0; margin:0; cursor:pointer; line-height:normal; box-shadow:none!important; text-decoration:none!important; text-shadow:none!important; }
+.secondaryFormButton:hover, input[type=submit].secondaryFormButton:hover { background-color:#f1ecf5!important; color:#582178!important; }
+.secondaryFormButton:active { background-color:#582178!important; color:#FFFFFF!important; }
 .genericButton { display:block; }
 .redButton, button.accountSubmitButtons.redButton { background-color:#FF5454!important; }
 .redButton:hover, button.accountSubmitButtons.redButton:hover { background-color:#FFC2C2!important; color:#BF2929!important; }
@@ -264,97 +264,97 @@ button.printScreenButton { width:160px!important; margin:-5px 0 11px 0; outline:
 }
 .disabledCheckboxRadioContainer { cursor:not-allowed; }
 .disabledCheckboxRadioContainer .redesignCheckmark { opacity:0.1; }
-.redesignCheckmark { position:absolute; top:2px; left:0; height:17px; width:17px; background-color:#C7E9FE; border:1px solid #C7E9FE; }
+.redesignCheckmark { position:absolute; top:2px; left:0; height:17px; width:17px; background-color:#f1ecf5; border:1px solid #f1ecf5; }
 .redesignCheckmark:hover { border:1px solid #FFFFFF!important; }
-.checkboxRadioContainer:hover input ~ .redesignCheckmark, .checkboxRadioContainer:hover input ~ .redesignRadio { background-color:#C7E9FE; border:1px solid #FFFFFF; }
-.checkboxRadioContainer input:checked ~ .redesignCheckmark, .checkboxRadioContainer input:checked ~ .redesignRadio { background-color:#00ADEF; border:1px solid #00ADEF; border-radius:2px; }
+.checkboxRadioContainer:hover input ~ .redesignCheckmark, .checkboxRadioContainer:hover input ~ .redesignRadio { background-color:#f1ecf5; border:1px solid #FFFFFF; }
+.checkboxRadioContainer input:checked ~ .redesignCheckmark, .checkboxRadioContainer input:checked ~ .redesignRadio { background-color:#6a2a90; border:1px solid #6a2a90; border-radius:2px; }
 .redesignCheckmark:after, .redesignRadio:after { content: ""; position: absolute; display:none; }
 .checkboxRadioContainer input:checked ~ .redesignCheckmark:after, .checkboxRadioContainer input:checked ~ .redesignRadio:after { display:block; }
 .checkboxRadioContainer .redesignCheckmark:after { left:5px; top:1px; width:6px; height:10px; border:solid white; border-width:0 3px 3px 0; -webkit-transform:rotate(45deg); -ms-transform:rotate(45deg); transform:rotate(45deg); }
-.redesignRadio { position:absolute; top:0; left:0; height:16px; width:16px; background:#C7E9FE; border:2px solid #C7E9FE; border-radius:50%!important; }
+.redesignRadio { position:absolute; top:0; left:0; height:16px; width:16px; background:#f1ecf5; border:2px solid #f1ecf5; border-radius:50%!important; }
 .redesignRadio:hover { border:1px solid #FFFFFF!important; }
 .checkboxRadioContainer .redesignRadio:after { top:4px; left:4px; width:6px; height:6px; border-radius:50%; background:white; }
 .inputRequiredStar { color:#FF5454; margin-left:4px; }
-.accountDateRange { background-color:#549cc9!important; color:#FFFFFF!important; cursor:pointer;  float:left; width:200px!important; margin-right:20px; font-size:13px!important; border-radius:0!important; text-indent:10px!important; background:url(../images/IconDateRange.svg) right 5px center no-repeat; }
+.accountDateRange { background-color:#8e5bb0!important; color:#FFFFFF!important; cursor:pointer;  float:left; width:200px!important; margin-right:20px; font-size:13px!important; border-radius:0!important; text-indent:10px!important; background:url(../images/IconDateRange.svg) right 5px center no-repeat; }
 .acctDateRangeDiv { width:200px; }
-.daterangepicker { background:#c7e9fe; color:#002339; border:none; }
+.daterangepicker { background:#f1ecf5; color:#2a0d3b; border:none; }
 .daterangepicker { z-index: 10005 !important; }
-.daterangepicker .ranges ul { background:#C7E9FE; }
+.daterangepicker .ranges ul { background:#f1ecf5; }
 .daterangepicker .ranges li:hover { background-color:#FFFFFF; }
-.daterangepicker .ranges li.active { background-color:#2C7AAB; color:#002339; }
-.daterangepicker .ranges li:active { background-color:#2C7AAB; }
-.daterangepicker td.off, .daterangepicker td.off.end-date, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date { background:transparent; color:#002339; }
-.daterangepicker td.in-range { background-color:#2C7AAB; color:#FFFFFF; }
-.daterangepicker td.active, .daterangepicker td.active:hover { background-color:#0C4970; }
-.daterangepicker td.active:active { background-color:#2C7AAB; }
-.daterangepicker td.available:hover, .daterangepicker th.available:hover { background-color:#00ADEF; color:#FFFFFF; }
-.daterangepicker td.active.available:hover, .daterangepicker th.active.available:hover { background-color:#2C7AAB; }
-.daterangepicker td.available:active, .daterangepicker th.available:active { background-color:#2C7AAB; }
+.daterangepicker .ranges li.active { background-color:#6a2a90; color:#2a0d3b; }
+.daterangepicker .ranges li:active { background-color:#6a2a90; }
+.daterangepicker td.off, .daterangepicker td.off.end-date, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date { background:transparent; color:#2a0d3b; }
+.daterangepicker td.in-range { background-color:#6a2a90; color:#FFFFFF; }
+.daterangepicker td.active, .daterangepicker td.active:hover { background-color:#582178; }
+.daterangepicker td.active:active { background-color:#6a2a90; }
+.daterangepicker td.available:hover, .daterangepicker th.available:hover { background-color:#6a2a90; color:#FFFFFF; }
+.daterangepicker td.active.available:hover, .daterangepicker th.active.available:hover { background-color:#6a2a90; }
+.daterangepicker td.available:active, .daterangepicker th.available:active { background-color:#6a2a90; }
 .daterangepicker .drp-buttons .btn { margin:2px 0 0 8px; width:55px; }
-.daterangepicker .btn-primary { background-color:#ff7e19; border:none!important; box-shadow:0 1px 2px #00000069; outline:none; border-radius:5px; }
+.daterangepicker .btn-primary { background-color:#d67900; border:none!important; box-shadow:0 1px 2px #00000069; outline:none; border-radius:5px; }
 .daterangepicker .btn-primary:hover { background-color:#FFD0AB; color:#BA5200; }
 .daterangepicker .btn-primary:active { background-color:#BA5200; color:#FFFFFF; outline:none; }
-.daterangepicker .btn-default { background-color:#00ADEF; border:1px solid #00ADEF; color:#FFFFFF; border-radius:5px; cursor:pointer; outline:none; }
-.daterangepicker .btn-default:hover { background:#C7E9FE; border:1px solid #165D8A; color:#165D8A; }
-.daterangepicker .btn-default:active { background:#165D8A; border:1px solid #165D8A; color:#FFFFFF; outline:none; }
+.daterangepicker .btn-default { background-color:#6a2a90; border:1px solid #6a2a90; color:#FFFFFF; border-radius:5px; cursor:pointer; outline:none; }
+.daterangepicker .btn-default:hover { background:#f1ecf5; border:1px solid #582178; color:#582178; }
+.daterangepicker .btn-default:active { background:#582178; border:1px solid #582178; color:#FFFFFF; outline:none; }
 .daterangepicker .btn.disabled, .btn[disabled], fieldset[disabled] .btn { opacity:0.3; cursor:default; pointer-events:none; }
-.daterangepicker.show-ranges.ltr .drp-calendar.left, .daterangepicker .drp-calendar.right, .daterangepicker.show-calendar .drp-buttons { background:#C7E9FE; border-top:1px solid #A4D3F1; }
-.daterangepicker.show-ranges.ltr .drp-calendar.left { border-left:1px solid #A4D3F1; }
-.daterangepicker .drp-calendar.left .calendar-table { background:#A4D3F1; border:none; }
-.daterangepicker .drp-calendar.right .calendar-table { background:#A4D3F1; border:none; }
+.daterangepicker.show-ranges.ltr .drp-calendar.left, .daterangepicker .drp-calendar.right, .daterangepicker.show-calendar .drp-buttons { background:#f1ecf5; border-top:1px solid #e2d3ee; }
+.daterangepicker.show-ranges.ltr .drp-calendar.left { border-left:1px solid #e2d3ee; }
+.daterangepicker .drp-calendar.left .calendar-table { background:#e2d3ee; border:none; }
+.daterangepicker .drp-calendar.right .calendar-table { background:#e2d3ee; border:none; }
 .daterangepicker .drp-selected { font-size:13px; }
 .custom-select-wrapper { position: relative;  user-select:none;  width: 100%; cursor:pointer;}
 .custom-select { position:relative; display:flex; flex-direction:column; border-radius:5px; }
 .custom-select.open { border:none; box-shadow:3px 5px 33px #00000070; }
-.custom-select__trigger { position:relative; display:flex; align-items:center; justify-content:space-between; padding:0 22px; height:61px; background-color:#549CC9; z-index:2; border:none; }
+.custom-select__trigger { position:relative; display:flex; align-items:center; justify-content:space-between; padding:0 22px; height:61px; background-color:#8e5bb0; z-index:2; border:none; }
 .custom-options .custom-option span { position:absolute; top:50%; -ms-transform: translateY(-50%); transform: translateY(-50%); margin: 0; width: 100%; }
 .custom-select__trigger img, .custom-option img { padding-right:15px; }
-.custom-select__trigger .glyphicon { transition:.5s ease-in-out; color:#C7E9FE; }
+.custom-select__trigger .glyphicon { transition:.5s ease-in-out; color:#f1ecf5; }
 .custom-select__trigger .custom-option { padding:0; }
-.custom-select.open .custom-select__trigger { background-color:#C7E9FE; border-bottom:1px solid #2C7AAB; color:#002339; }
-.custom-select.open .custom-select__trigger .glyphicon { transform:rotate(-180deg); color:#002339; }
+.custom-select.open .custom-select__trigger { background-color:#f1ecf5; border-bottom:1px solid #6a2a90; color:#2a0d3b; }
+.custom-select.open .custom-select__trigger .glyphicon { transform:rotate(-180deg); color:#2a0d3b; }
 .custom-options {  position: absolute; display: block; top: 100%; left: 0; right: 0;  opacity: 0; visibility: hidden; z-index:1; }
-.custom-select.open .custom-options { opacity:1; visibility:visible; background-color:#C7E9FE; color:#002339; box-shadow:1px 1px 8px #00000070; margin-top:-3px; padding-top:3px; }
+.custom-select.open .custom-options { opacity:1; visibility:visible; background-color:#f1ecf5; color:#2a0d3b; box-shadow:1px 1px 8px #00000070; margin-top:-3px; padding-top:3px; }
 .custom-option { position:relative; height:64px; display:block;  padding:11px 0 0 23px; margin-bottom:5px; cursor:pointer; }
 .custom-options .custom-option:hover { background-color:#FFFFFF; }
-.custom-options .custom-option:active { background-color:#2C7AAB; }
+.custom-options .custom-option:active { background-color:#6a2a90; }
 .custom-select-wrapper .useReplacePaymentMethod { padding-top:23px; }
-.custom-select__trigger b, .custom-option b { display:inline-block; width:25px; height:25px; background-color:#FFFFFF; opacity:1; border:1px solid #FFFFFF; border-radius:45px; text-align:center; color:#013658; font-weight:400; font-size:20px; margin-right:10px; vertical-align:middle; line-height:24px; }
-.custom-select__trigger .custom-option:hover b { background-color:#FFFFFF; color:#013658; }
-.custom-option:hover b { background-color:#165D8A; color:#FFFFFF; }
-.custom-option:active b { background-color:#FFFFFF; color:#013658; }
+.custom-select__trigger b, .custom-option b { display:inline-block; width:25px; height:25px; background-color:#FFFFFF; opacity:1; border:1px solid #FFFFFF; border-radius:45px; text-align:center; color:#3e1456; font-weight:400; font-size:20px; margin-right:10px; vertical-align:middle; line-height:24px; }
+.custom-select__trigger .custom-option:hover b { background-color:#FFFFFF; color:#3e1456; }
+.custom-option:hover b { background-color:#582178; color:#FFFFFF; }
+.custom-option:active b { background-color:#FFFFFF; color:#3e1456; }
 .custom-select-wrapper .cardExpired { color:#DE5353; font-size:16px; font-weight:400; padding-left:25px;}
 
 /* GENERAL POPUP STYLING */
-.alertWindow { width:344px; position:fixed; top:auto; bottom:auto; left:0; right:0; margin:auto; background-color:#013658; border:1px solid #0C4970; box-shadow:3px 5px 33px #00000070; z-index:4; padding-bottom: 34px; }
-.alertWindow.yellowAlertWindow { background-color:#FECF6B; }
-.infoWindow { width:344px; position:absolute; background-color:#013658; box-shadow:3px 5px 33px #00000070; border:1px solid #0C4970; z-index:4; padding-bottom: 34px; }
+.alertWindow { width:344px; position:fixed; top:auto; bottom:auto; left:0; right:0; margin:auto; background-color:#3e1456; border:1px solid #582178; box-shadow:3px 5px 33px #00000070; z-index:4; padding-bottom: 34px; }
+.alertWindow.yellowAlertWindow { background-color:#fdbc00; }
+.infoWindow { width:344px; position:absolute; background-color:#3e1456; box-shadow:3px 5px 33px #00000070; border:1px solid #582178; z-index:4; padding-bottom: 34px; }
 .infoWindow .infoWindowHeader { display:none; }
 .formPopupHeaderClose { float:right; /*padding:17px 16px 0px 16px;*/ cursor:pointer; margin:17px 16px 0 0; }
 .infoWindowHeaderClose { font-size:20px; color:#535353; float:right; /*padding:17px 16px 0px 16px;*/ margin: 15px 16px 0 0; font-weight:500; cursor:pointer; }
 .infoWindow .infoWindowBody, .alertWindow  .infoWindowBody { margin:43px 37px 0 37px; }
 .infoWindowBody { text-align:center; }
-.infoWindow .infoWindowBody p, .alertWindow .infoWindowBody p  { color:#C7E9FE; font-size:15px; font-weight:300; line-height:22px; }
-.infoWindow .infoWindowBody .infoWindowTitle, .alertWindow .infoWindowBody .infoWindowTitle { font-size:19px!important; font-weight:500; color:#00ADEF; line-height:28px; margin-bottom:15px; }
-.infoWindow .infoWindowBody .infoWindowTitleYellow, .alertWindow .infoWindowBody .infoWindowTitleYellow { color:#FECF6B; font-size:19px!important; }
+.infoWindow .infoWindowBody p, .alertWindow .infoWindowBody p  { color:#f1ecf5; font-size:15px; font-weight:300; line-height:22px; }
+.infoWindow .infoWindowBody .infoWindowTitle, .alertWindow .infoWindowBody .infoWindowTitle { font-size:19px!important; font-weight:500; color:#6a2a90; line-height:28px; margin-bottom:15px; }
+.infoWindow .infoWindowBody .infoWindowTitleYellow, .alertWindow .infoWindowBody .infoWindowTitleYellow { color:#fdbc00; font-size:19px!important; }
 .infoWindow .infoWindowBody .infoWindowTitleRed, .alertWindow .infoWindowBody .infoWindowTitleRed { color:#FF5454; font-size:19px!important; }
 .infoWindowBody .infoWindowBodyImage { margin-bottom:18px; }
-.formPopup { position:absolute; top:50px; left:0; right:0; margin:auto; background-color:#013658; border:1px solid #0C4970; box-shadow:3px 5px 33px #00000070; z-index:4; padding-bottom:50px; }
-.formPopup p { color:#C7E9FE; }
-.formPopup .formPopupHeader { width:100%; height:48px; background-color:#0C4970; text-align:center; }
+.formPopup { position:absolute; top:50px; left:0; right:0; margin:auto; background-color:#3e1456; border:1px solid #582178; box-shadow:3px 5px 33px #00000070; z-index:4; padding-bottom:50px; }
+.formPopup p { color:#f1ecf5; }
+.formPopup .formPopupHeader { width:100%; height:48px; background-color:#582178; text-align:center; }
 .formPopup .formPopupHeader .formPopupHeaderLogo { margin:3px 0 0 12px }
 /*.formPopup .formPopupHeader .formPopupHeaderClose { float:right; padding:17px 16px 17px 16px; cursor:pointer; }*/
-.formPopup .formPopupContent .formPopupContentTitle { color:#00ADEF; font-size:25px; text-align:center; line-height:28px; margin:6px 0 15px 0; }
+.formPopup .formPopupContent .formPopupContentTitle { color:#6a2a90; font-size:25px; text-align:center; line-height:28px; margin:6px 0 15px 0; }
 .formPopup .formPopupContent .formPopupContentLink { font-size:14px; text-align:left; line-height:21px; margin:0; cursor:pointer; height:21px; }
-/*.formPopup .formPopupContent form .formPopupCheckbox { margin:20px 0 8px 0; float:left; width:277px; font-size:13px; font-weight:300; color:#C7E9FE; clear:both; }*/
-.formPopupCheckbox, .addressCheckbox { margin:20px 0 8px 0; float:left; width:277px; font-size:13px; font-weight:300; color:#C7E9FE; clear:both; }
+/*.formPopup .formPopupContent form .formPopupCheckbox { margin:20px 0 8px 0; float:left; width:277px; font-size:13px; font-weight:300; color:#f1ecf5; clear:both; }*/
+.formPopupCheckbox, .addressCheckbox { margin:20px 0 8px 0; float:left; width:277px; font-size:13px; font-weight:300; color:#f1ecf5; clear:both; }
 form .error { border:1px solid #FF5454!important; }
 form .recaptchaError { border:2px solid #FF5454!important; }
 form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:400; font-style:normal; font-size:11px; color:#FF5454; border:none !important; } 
 .formPopup .formPopupContent form label span { font-size:13px; font-weight:400; }
 /*.formPopup .formPopupContent form .showPassword img { position:relative; float:right; margin:-28px 16px 0 0; cursor:pointer; }*/
 .showPassword img { position:relative; float:right; margin:-28px 16px 0 0; cursor:pointer; }
-.formPopup .formPopupContent .formPopupText { text-align:center; color:#C7E9FE; font-weight:300px; }
+.formPopup .formPopupContent .formPopupText { text-align:center; color:#f1ecf5; font-weight:300px; }
 .regSigninError { margin:0; color:#FF5454!important; font-weight:500!important; text-align: center; text-decoration: underline; }
 #disabledAccount .linkAsButton { padding-top:10px; } 
 
@@ -385,7 +385,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 #addFunds.addFundsForms #addFundsAmounts { position:relative; z-index:5; }
 #addFunds.addFundsForms .topUpAmount { z-index:1; }
 .addFundsForms ul { list-style-type:none; padding:0; }
-.addFundsForms .fundsTopUpAmounts li { width:52px; height:61px; border-right:1px solid #013658!important; border-top:1px solid #013658!important; border-bottom:1px solid #013658!important; float:left; font-size:22px!important; font-weight:600!important; padding-top:16px; position:relative; border-radius:0; }
+.addFundsForms .fundsTopUpAmounts li { width:52px; height:61px; border-right:1px solid #3e1456!important; border-top:1px solid #3e1456!important; border-bottom:1px solid #3e1456!important; float:left; font-size:22px!important; font-weight:600!important; padding-top:16px; position:relative; border-radius:0; }
 .addFundsForms .fundsTopUpAmounts li:first-child { border-radius:5px 0 0 5px; }
 .addFundsForms .fundsTopUpAmounts li:last-child { border-radius:0 5px 5px 0; }
 .addFundsForms .fundsTopUpAmounts li .addFundsCurrency { font-size:10px; font-weight:500; position:absolute; top:3px; left:5px; }
@@ -396,7 +396,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 .addFundsForms .inputCurrencyAmount > i { position:absolute; display:block; transform:translate(0, -50%); top:50%; pointer-events:none; width:50px; text-align:center; font-style:normal; }
 .addFundsForms .inputCurrencyAmount .inputTopUpAmount, .addFundsForms .inputCurrencyAmount .inputTopUpBetAmount { text-align:right; padding-right:15px; width:312px; }
 .addFundsForms #topUpAmount { display:block; width:312px; height:40px; margin:0 auto; text-align:right; padding-right:26px; }
-.addFundsForms .fundsTopUpAmounts .topUpAmountActive { background-color:#165D8A!important; color:#FFFFFF!important; }
+.addFundsForms .fundsTopUpAmounts .topUpAmountActive { background-color:#582178!important; color:#FFFFFF!important; }
 .addFundsForms .ccTopUpMethod { position:relative; z-index:4; background-image:linear-gradient(#FFFFFF, #DCDCDC); width:312px; height:61px; border:1px solid #979797; border-radius:5px; cursor:pointer; margin:0; }
 .addFundsForms .ccTopUpMethod:hover { border:1px solid #FF8800; }
 .addFundsForms .savedCustomerCard { text-align:left; padding-left:15px; color:#4E4E4E; }
@@ -422,7 +422,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 .addFundsForms .paymentTopUpMethods .additionalPaymentOptions:active span { background-color:#FFFFFF; color:#5DC0C0; }
 .addFundsForms .paymentTopUpMethods .useReplacePaymentMethod { height:51px; padding-top:10px; cursor:pointer; padding-right:25px; height:59px; padding-top:15px; cursor:pointer; padding-right:25px; position:absolute; left:0; top:60px; z-index:1; background-color:#fafafa; box-shadow:3px 5px 33px #00000070; border-bottom-left-radius:5px; border-bottom-right-radius:5px; }
 .addFundsForms .paymentTopUpMethods .useOnFilePaymentMethod { height:59px; padding-top:11px; cursor:pointer; padding-right:25px; position:absolute; left:0; top:60px; z-index:1; background-color:#fafafa; box-shadow:3px 5px 33px #00000070; border-bottom-left-radius:5px; border-bottom-right-radius:5px; }
-.addFundsForms .paymentTopUpMethods .useReplacePaymentMethod span { display:inline-block; width:25px; height:25px; background-color:#03C262; opacity:1; border-radius:45px; text-align:center; color:#fff; font-weight:400; font-size: 18px; margin: 0 10px 0 19px;}
+.addFundsForms .paymentTopUpMethods .useReplacePaymentMethod span { display:inline-block; width:25px; height:25px; background-color:#0b7a08; opacity:1; border-radius:45px; text-align:center; color:#fff; font-weight:400; font-size: 18px; margin: 0 10px 0 19px;}
 .addFundsForms .paymentTopUpMethods .topUpMethodActive { display:inline-block!important; }
 .addFundsForms .creditCardName { display:block; width:312px; height:40px; margin:0 auto; }
 .addFundsForms #leftTopUpColumn { float:left; }
@@ -453,18 +453,18 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 .addFundsForms input.expiryCombo{
   width:152px;
   height:40px;
-  border:1px solid #549CC9;
-  background-color:#549CC9;
+  border:1px solid #8e5bb0;
+  background-color:#8e5bb0;
   color:#FFFFFF;
   font-size:15px;
   text-indent:3px;
   padding:0;
 }
-.addFundsForms input.expiryCombo:hover{ border:1px solid #C7E9FE; }
+.addFundsForms input.expiryCombo:hover{ border:1px solid #f1ecf5; }
 .addFundsForms input.expiryCombo:focus{
-  background-color:#C7E9FE;
-  border:1px solid #C7E9FE;
-  color:#002339;
+  background-color:#f1ecf5;
+  border:1px solid #f1ecf5;
+  color:#2a0d3b;
   outline:none;
 }
 /*
@@ -542,7 +542,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 .orderProcessedContent p { text-align:center; font-weight:400; line-height:22px; margin:0; }
 .orderProcessedContent p span { color:#FFFFFF; }
 
-.freePlay { color:#03C262!important; font-weight:500!important; padding:5px 0; }
+.freePlay { color:#0b7a08!important; font-weight:500!important; padding:5px 0; }
 /*
 .confirmOrderPopup .infoWindowBody #depositConfirmation hr { margin:26px 0 24px 0; }
 .confirmOrderPopup .infoWindowBody .confirmOrder hr { margin:5px 0; }
@@ -560,7 +560,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 #betPlacedPopUp .infoWindowBody { margin:40px 30px 0 30px; }
 #betPlacedPopUp .pageHeading { margin-bottom:24px; }
 #betPlacedPopUp .pageHeading img { padding-right:8px; }
-#betPlacedPopUp .betPlacedSubTitle { color:#00ADEF; font-size:19px; margin:0; }
+#betPlacedPopUp .betPlacedSubTitle { color:#6a2a90; font-size:19px; margin:0; }
 #betPlacedPopUp .betPlacedText { line-height:22px; font-size:14px; margin:0; font-weight:400; }
 #betPlacedPopUp span { color:#FFFFFF; }
 #betPlacedPopUp .secondaryFormButton { margin:28px auto 15px auto; padding:16px 0; }
@@ -588,13 +588,13 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 #registerContent form select.day { width:86px; margin-right:7px; }
 #registerContent form select.month { width:89px; margin-right:7px; }
 #registerContent form select.year { width:88px; }
-#registerContent form .iti__selected-flag { border-right:1px solid #549CC9; background-color:#549CC9; width:56px; padding:0 0px 0 12px; }
-#registerContent form .iti__selected-flag:hover { outline:none; border:1px solid #C7E9FE; }
-#registerContent form .iti__selected-flag:focus { background-color:#C7E9FE; outline:none; border-color:#C7E9FE; color:#002339; }
-#registerContent form .iti__country-list li { color:#002339; background-color:#C7E9FE; }
+#registerContent form .iti__selected-flag { border-right:1px solid #8e5bb0; background-color:#8e5bb0; width:56px; padding:0 0px 0 12px; }
+#registerContent form .iti__selected-flag:hover { outline:none; border:1px solid #f1ecf5; }
+#registerContent form .iti__selected-flag:focus { background-color:#f1ecf5; outline:none; border-color:#f1ecf5; color:#2a0d3b; }
+#registerContent form .iti__country-list li { color:#2a0d3b; background-color:#f1ecf5; }
 #registerContent form .iti__country-list li:hover { background-color:#FFFFFF; }
-#registerContent form .iti__country-list li:active { background-color:#2C7AAB; }
-#registerContent form .iti__divider { margin:0; padding:0; border-color:#002339; }
+#registerContent form .iti__country-list li:active { background-color:#6a2a90; }
+#registerContent form .iti__divider { margin:0; padding:0; border-color:#2a0d3b; }
 #registerContent form .iti__flag { border:1px solid #FFFFFF; }
 #registerContent form .iti__arrow { border-top:4px solid #FFFFFF; }
 #registerContent form .specialOffersContainerMobile { display:none; }
@@ -605,7 +605,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 #registerContent #registerFooter {  /*position:absolute; bottom:5px; right:0; left:0; margin:0 auto;*/ margin:0px auto 15px auto; display:block; padding-top:15px; }
 #registerContent #registerFooterMobile { display:none; }
 #registerContent form #registerPhoneError { float:right; color:#FF5454; font-size:14px; font-weight:400; }
-#registerContent form #registerPhoneValid { float:right; color:#03C262; font-size:14px; font-weight:400; }
+#registerContent form #registerPhoneValid { float:right; color:#0b7a08; font-size:14px; font-weight:400; }
 #registerContent form .registerPhoneMsgHide { display:none; }
 #registerContent .g-recaptcha { transform:scale(0.906); transform-origin:0 0; padding-top:20px; clear:both; }
 .registerAddressManual { padding:15px 0 5px 0px; display:block; }
@@ -618,7 +618,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 #forgotPasswordFormPopUp { width:344px; }
 #forgotPasswordFormPopUp #forgotPasswordFormContent { width:277px; margin:45px auto 0 auto; }
 #forgotPasswordFormPopUp #forgotPasswordFormContent #forgotPasswordFooter { position:absolute; bottom:0; padding-bottom:20px; }
-#forgotPasswordFormPopUp #forgotPasswordFormContent #forgotPasswordSuccess { color:#03C262; font-weight:500; text-align:center; }
+#forgotPasswordFormPopUp #forgotPasswordFormContent #forgotPasswordSuccess { color:#0b7a08; font-weight:500; text-align:center; }
 #forgotPasswordFormPopUp #forgotPasswordFormContent .formPopupText { margin-top:8px; }
 #forgotPasswordFormPopUp #forgotPasswordFormContent .g-recaptcha { transform:scale(0.906); transform-origin:0 0; padding-top:20px; clear:both; }
 
@@ -681,7 +681,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 #setPasswordExpiredPopUp #setPasswordExpiredContent .linkAsButton { padding-top:10px; }
 
 /* START: UPLOAD ID SUCCESS OR FAIL */
-#documentsUploadSuccess .accountUpdateSuccess { color:#03C262; }
+#documentsUploadSuccess .accountUpdateSuccess { color:#0b7a08; }
 #documentsUploadSuccess .accountUpdateSuccess img { margin-right:10px; }
 #documentsUploadSuccess .accountUpdateFail { color:#FF5454; }
 #documentsUploadSuccess .accountUpdateFail img { margin:-2px 10px 0 0; }
@@ -696,7 +696,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 /* START: VERIFY EMAIL POPUP */
 .verifyEmailPopUp .infoWindowBody .linkAsButton { margin-top:30px; }
 .verifyEmailPopUp .infoWindowBody .secondaryFormButton { display:block; width:100%; margin-top:20px; }
-.verifyEmailPopUp .infoWindowBody .secondaryFormButton:hover { color:#165D8A!important; }
+.verifyEmailPopUp .infoWindowBody .secondaryFormButton:hover { color:#582178!important; }
 .verifyEmailPopUp .infoWindowBody .secondaryFormButton:active { color:#FFFFFF!important; }
 
 /* START: Unsaved Content Popup POPUP */
@@ -707,9 +707,9 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 #warningUnsavedContentPopup .secondaryFormButton { float:right; }
 
 /* START: ALL BANNER STYLES */
-.yellowBanner { background-color:#FECF6B; }
-.yellowBanner p { color:#012B45; }
-.banner { position:relative; width:100%; display:flex; margin:0px auto; border-top:1px solid #012b45; border-bottom:1px solid #012b45; }
+.yellowBanner { background-color:#fdbc00; }
+.yellowBanner p { color:#3e1456; }
+.banner { position:relative; width:100%; display:flex; margin:0px auto; border-top:1px solid #3e1456; border-bottom:1px solid #3e1456; }
 .banner ~ .banner { border-top:none; }
 .banner .bannerSection { max-width:1150px; margin-right:auto; margin-left:auto; padding-top:20px; }
 .banner .bannerSection .bannerImage{ float:left; margin-right:22px; }
@@ -790,7 +790,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 #itemInShoppingCartPopUp .infoWindowBody a { display:block; margin-top:6px; }
 #itemInShoppingCartPopUp .infoWindowBody a:first-of-type { margin-top:12px; }
 
-#cookie-prompt { background-color:#fecf6b; z-index:2; position:relative; }
+#cookie-prompt { background-color:#fdbc00; z-index:2; position:relative; }
 #cookie-prompt #cookieContent { text-align:center;}
 #cookie-prompt #cookieContent p { display:inline-block; color:#4E4E4E; padding:12px 0; margin:0; }
 #cookie-prompt #cookieContent .closeCookieBanner { width:44px!important; height:30px!important; padding:2px 0!important; margin:0 0 0 12px; }
@@ -814,7 +814,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 .lotteryBanners .bannerPromoInfo .bannerPromoDealImgMobile { display:none; }
 .lotteryBanners .bannerPromoInfo .gradient_for_banner_mobile { display:none; }
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft { width:415px; position:relative; float:left; height:336px; }
-.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoBannerCopy p { font-family:'impact',sans-serif; color:#FFFFFF; text-shadow:0px 3px 6px #00000029; }
+.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .promoBannerCopy p { font-family:Montserrat,sans-serif;font-weight:800; color:#FFFFFF; text-shadow:0px 3px 6px #00000029; }
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoDealImg { position:absolute; top:3px; z-index:1; }
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .blue-white-red-stars-banner-left { position:absolute; top:79px; left:173px; }
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .blue-white-red-stars-banner-right { position:absolute; top:79px; left:321px; }
@@ -830,8 +830,8 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount { width:415px; height:80px; position:absolute; bottom:16px; padding-left:75px; border-radius:5px; background-color:#02222EAB; }
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount p { color:#FFFFFF; font-size:18px; font-weight:500; margin:17px 0 0 0; line-height:24px; }
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount p + p { font-size:13px; margin:0; }
-.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount .bannerPromoPriceInfo { color:#FC7D2B; position:relative; font-size:20px; font-weight:600; }
-.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount .bannerPromoSlashThrough { color:#FC7D2B; }
+.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount .bannerPromoPriceInfo { color:#d67900; position:relative; font-size:20px; font-weight:600; }
+.lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount .bannerPromoSlashThrough { color:#d67900; }
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoLeft .bannerPromoAmount .bannerPromoSlashThrough:before { position:absolute; content:""; width:60%; left:0; right:0; top:43%; margin:0 auto; border-top:3px solid #FFFFFF; -webkit-transform:rotate(30deg); -moz-transform:rotate(30deg); -ms-transform:rotate(30deg); -o-transform:rotate(30deg); transform:rotate(30deg); }
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle { width:230px; position:relative; float:left; height:336px; margin:0 12px; }
 .lotteryBanners .bannerPromoInfo .bannerPromoInfoMiddle .linkAsButton { position:absolute; bottom:16px; height:55px!important; font-size:29px!important; font-weight:500; padding-top:8px; }
@@ -843,7 +843,7 @@ form label.error { position:absolute; right:0px; margin-top:-16px; font-weight:4
 #lotterySection { margin:0 auto; position:relative; }
 #frenchLottoPromoPage #main { min-height:1275px; }
 #superEnalottoLottoPage #main { min-height:1250px; }
-#main { position:relative; height:100%; min-height:900px; margin:0px auto 53px auto; padding:23px 0 50px 0px; background-color:#0C4970;  }
+#main { position:relative; height:100%; min-height:900px; margin:0px auto 53px auto; padding:23px 0 50px 0px; background-color:#582178;  }
 p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; height:46px; }
 #main #tickets_section { position:relative; width:100%; height:100%; min-height:425px; margin-right:auto; margin-left:auto; margin-top:23px; overflow:auto; padding:21px 0 31px 7px; }
 #main #tickets_section p#single_play_header { line-height:37px; padding:0; margin:0; font-size:25px; color:#0889D7; }
@@ -888,13 +888,13 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 #main #tickets_section .lines #choosenBonus {opacity:0.3; }
 #main #tickets_section .lines p { font-size:13px; opacity:0.7; color:#000000; font-weight:550; margin:0 0 0px 10px; clear:both; padding-top:10px;}
 #main #tickets_section .lines ul { text-align: center; list-style:none;  padding:0; font-size:0; margin:0 6px; }
-#main #tickets_section .lines ul li { outline-style:none;display:inline-block; width:25px; height:25px; font-size:13px; font-weight:500; color:#2B2B2B; font-family:'Heebo', sans-serif; text-align:center; border:1px solid #CECECE; border-radius:4px; cursor:pointer; /*opacity:0.3;*/ margin:2px; padding:0; line-height:22px; float: left;}
+#main #tickets_section .lines ul li { outline-style:none;display:inline-block; width:25px; height:25px; font-size:13px; font-weight:500; color:#2B2B2B; font-family:"Open Sans",system-ui,sans-serif; text-align:center; border:1px solid #CECECE; border-radius:4px; cursor:pointer; /*opacity:0.3;*/ margin:2px; padding:0; line-height:22px; float: left;}
 #main #tickets_section .lines ul li.ticketNumber { background-color:#FFFFFF; border:1px solid #CECECE; }
-#main #tickets_section .lines .bonusTicketNumber { background-color:#FECF6B; border:1px solid #E4B34B; }
-#main #tickets_section .lines ul li.selectedNumber { color:#FFFFFF; background-color:#0C4970!important; border-color:#0C4970; opacity:1; }
+#main #tickets_section .lines .bonusTicketNumber { background-color:#fdbc00; border:1px solid #E4B34B; }
+#main #tickets_section .lines ul li.selectedNumber { color:#FFFFFF; background-color:#582178!important; border-color:#582178; opacity:1; }
 #main #tickets_section #lineButtons { position:absolute; bottom:0; right:21px; }
-#main #tickets_section #lineButtons button { width:132px; height:40px; border:1px solid #979797; border-radius:5px; background-image:linear-gradient(180deg, #FFFFFF, #DCDCDC); font-family:'Heebo', sans-serif; color:#d7d7d7; font-size:16px; font-weight:500; cursor:pointer; margin-bottom:133px; }
-#main #tickets_section .ticketComplete { border:2px solid #C1E0E0; background-color:#E1F8F9; }
+#main #tickets_section #lineButtons button { width:132px; height:40px; border:1px solid #979797; border-radius:5px; background-image:linear-gradient(180deg, #FFFFFF, #DCDCDC); font-family:"Open Sans",system-ui,sans-serif; color:#d7d7d7; font-size:16px; font-weight:500; cursor:pointer; margin-bottom:133px; }
+#main #tickets_section .ticketComplete { border:2px solid #C1E0E0; background-color:#f7f5fa; }
 #main #tickets_section .ticketComplete .ticketIncompleteImage { display:none!important; }
 #main #tickets_section .ticketComplete p { opacity:0.3; margin-top:5px !important;}
 #main #tickets_section .ticketComplete ul li { opacity:0.5; }
@@ -916,46 +916,46 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 #main #tickets_section .lines:hover ul.availableNumbersComplete li.ticketNumber:hover { color:#6D6D6D; background-color:#FAFFFA; border:1px solid #ACACAC; opacity:1; }
 #main #tickets_section .lines:hover ul.availableBonusNumbersComplete li.bonusTicketNumber:hover { color:#6D6D6D; background-color:#F9E6AF; border:1px solid #B5AC90; opacity:1; }
 #main #tickets_section .lines:hover ul.availableNumbersComplete li.selectedNumber { opacity:1 !important; }
-#main #tickets_section .lines:hover ul.availableNumbersComplete li.selectedNumber:hover { color:#FFFFFF; background-color:#E59409; border:1px solid #0C4970; }
-#main #tickets_section .lines:hover ul.availableBonusNumbersComplete li.selectedNumber:hover { color:#FFFFFF; background-color:#E59409; border:1px solid #0C4970; }
+#main #tickets_section .lines:hover ul.availableNumbersComplete li.selectedNumber:hover { color:#FFFFFF; background-color:#E59409; border:1px solid #582178; }
+#main #tickets_section .lines:hover ul.availableBonusNumbersComplete li.selectedNumber:hover { color:#FFFFFF; background-color:#E59409; border:1px solid #582178; }
 #main #tickets_section .lines:hover ul.availableBonusNumbersComplete li { opacity:0.5; }
 #main #tickets_section .lines:hover ul.availableBonusNumbersComplete li.selectedNumber { opacity:1 !important; }
-#main #tickets_section .ticketComplete:hover { width:233px; height:410px; border:2px solid #C1E0E0; border-radius:6px; background-color:#E1F8F9; box-shadow:0px 5px 18px #00000047; margin-top:-18px; padding-top:17px }
+#main #tickets_section .ticketComplete:hover { width:233px; height:410px; border:2px solid #C1E0E0; border-radius:6px; background-color:#f7f5fa; box-shadow:0px 5px 18px #00000047; margin-top:-18px; padding-top:17px }
 #main #tickets_section .ticketComplete:hover button.quickPickButton { display:none !important; }
 #main #tickets_section .ticketComplete:hover ul li { opacity:0.5; }
 #main #tickets_section .ticketComplete:hover ul li.selectedNumber { opacity:1; }
 #main #tickets_section .lines:hover ul { margin:0 15px 0 15px; }
-#main #tickets_section .lines ul li.ticketNumber:hover { background-color:#FF7E19; color:white; border:1px solid #FF7E19; opacity:1; }
-#main #tickets_section .lines ul li.bonusTicketNumber:hover { background-color:#FF7E19; color:white; border:1px solid #FF7E19; opacity:1; }
-#main #tickets_section .lines ul li.selectedNumber:hover { color:#FFFFFF; background-color:#FF7E19!important; border:1px solid #0C4970; opacity:1; }
+#main #tickets_section .lines ul li.ticketNumber:hover { background-color:#d67900; color:white; border:1px solid #d67900; opacity:1; }
+#main #tickets_section .lines ul li.bonusTicketNumber:hover { background-color:#d67900; color:white; border:1px solid #d67900; opacity:1; }
+#main #tickets_section .lines ul li.selectedNumber:hover { color:#FFFFFF; background-color:#d67900!important; border:1px solid #582178; opacity:1; }
 #main #tickets_section .lines ul li.ticketNumber:active { color:#2B2B2B; background-color:#FFFFFF; border:1px solid #CECECE; opacity:1; }
 #main #tickets_section #addLine { text-decoration:none; }
-#main #tickets_section .addLines { position:relative; float:left; width:217px; height:389px; border:2px solid #013658; border-radius:6px; background-color:#013658; margin:0 2px 15px 2px; cursor:pointer; }
+#main #tickets_section .addLines { position:relative; float:left; width:217px; height:389px; border:2px solid #3e1456; border-radius:6px; background-color:#3e1456; margin:0 2px 15px 2px; cursor:pointer; }
 #main #tickets_section .addLines #upperTicketSection { height:30px; margin:0 15px 5px 15px; }
 #main #tickets_section .addLines p { font-size:13px; color:#FFFFFF; opacity:0.1; margin:0 0 -2px 9px; }
 #main #tickets_section .addLines ul { text-align: center; list-style:none;  padding:0; font-size:0; }
-#main #tickets_section .addLines ul li { outline-style:none;display:inline-block; width:23px; height:23px; font-size:13px; color:#2B2B2B; font-family:'Heebo', sans-serif; text-align:center; border:1px solid #CECECE; border-radius:4px; opacity:0.1; margin:2px; padding:0; line-height:22px;}
+#main #tickets_section .addLines ul li { outline-style:none;display:inline-block; width:23px; height:23px; font-size:13px; color:#2B2B2B; font-family:"Open Sans",system-ui,sans-serif; text-align:center; border:1px solid #CECECE; border-radius:4px; opacity:0.1; margin:2px; padding:0; line-height:22px;}
 #main #tickets_section .addLines ul li.ticketNumber { background-color:#FFFFFF; border:1px solid #CECECE; }
-#main #tickets_section .addLines ul li.bonusTicketNumber { background-color:#FECF6B; border:1px solid #E4B34B; }
-#main #tickets_section .addLines #addLineImage { position:absolute; left:0; right:0; bottom:0; top:0; margin:auto; width:56px; height:56px; background-color:#FF7E19; opacity:1; border-radius:45px; text-align:center; color:#FFFFFF; text-shadow:1px 1px 2px #873B00; font-size:41px; font-weight:700; }
+#main #tickets_section .addLines ul li.bonusTicketNumber { background-color:#fdbc00; border:1px solid #E4B34B; }
+#main #tickets_section .addLines #addLineImage { position:absolute; left:0; right:0; bottom:0; top:0; margin:auto; width:56px; height:56px; background-color:#d67900; opacity:1; border-radius:45px; text-align:center; color:#FFFFFF; text-shadow:1px 1px 2px #873B00; font-size:41px; font-weight:700; }
 #main #tickets_section .addLines #addLineText { position:absolute; left:0; right:0; bottom:0; top:-90px; margin:auto; height:22px; opacity: 1; text-align: center; font-size: 16px; font-weight:500; }
 #main #tickets_section .addLines #addQuickPickText { display:none; }
-#main #tickets_section  span { margin-left: 22px; padding: 0; margin: 1px; font-size: 18px; border: 0.5px solid #b1b1b1; border-radius:4px; color:#2B2B2B; background: #fff; cursor: pointer; float: left; width: 20px; height: 20px; text-align: center; font-size:13px; font-family:'Heebo', sans-serif; } 
+#main #tickets_section  span { margin-left: 22px; padding: 0; margin: 1px; font-size: 18px; border: 0.5px solid #b1b1b1; border-radius:4px; color:#2B2B2B; background: #fff; cursor: pointer; float: left; width: 20px; height: 20px; text-align: center; font-size:13px; font-family:"Open Sans",system-ui,sans-serif; } 
 #webUpperTicketSection { clear:both; }
-#lotteryTabs { padding:0; margin:30px 0 0 0; border-bottom:4px solid #0C4970; }
-#lotteryTabs li { display:inline-block; cursor:pointer; background-color:#2C7AAB; border:1px solid #013658; }
+#lotteryTabs { padding:0; margin:30px 0 0 0; border-bottom:4px solid #582178; }
+#lotteryTabs li { display:inline-block; cursor:pointer; background-color:#6a2a90; border:1px solid #3e1456; }
 #lotteryTabs li.lottoTab { width:172px; height:45px; color:#FFFFFF; font-size:16px; text-align:center; font-weight:500; vertical-align:bottom; margin:4px -3px 0 0; padding-top:11px;}
-#lotteryTabs .lottoTabActive { height:49px!important; background-color:#165D8A; border-top:4px solid #00ADEF; border-right:none; border-left:none; padding-top:12px!important; cursor:default; }
+#lotteryTabs .lottoTabActive { height:49px!important; background-color:#582178; border-top:4px solid #6a2a90; border-right:none; border-left:none; padding-top:12px!important; cursor:default; }
 #lotterySection .orderDetails { font-size:16px; font-weight:500; display:inline; }
-#lotterySection  #promoDiscountAmount { color:#03C262; font-weight:400; clear:both; }
+#lotterySection  #promoDiscountAmount { color:#0b7a08; font-weight:400; clear:both; }
 
 #main .orderBillingPeriod span { width:171px; height:61px; background-image:linear-gradient(#FFFFFF, #DCDCDC); float:left; border-top:1px solid #979797;  border-bottom:1px solid #979797; text-align:center; cursor:pointer; margin-top:3px;}
 #main .orderBillingPeriod .orderBillingMonthly { border-right:1px solid #979797; border-left:1px solid #979797; border-top-left-radius:5px; border-bottom-left-radius:5px; padding-top:18px; }
 #main .orderBillingPeriod .orderBillingYearly { border-right:1px solid #979797; border-top-right-radius:5px; border-bottom-right-radius:5px; padding-top:9px; }
 #main .orderBillingPeriod .billingActive { background-color:#0699E1; background-image:none; border-color:#0579B2; color:#fff; }
 
-.howToPlay { width:100%; background-color:#165D8A; height:74px; margin:-14px 0 32px 0; }
-.howToPlay div { height:100%; padding:0; position:relative; border-right:1px solid #0C4970; float:left; display: flex; justify-content:center; align-items:center; }
+.howToPlay { width:100%; background-color:#582178; height:74px; margin:-14px 0 32px 0; }
+.howToPlay div { height:100%; padding:0; position:relative; border-right:1px solid #582178; float:left; display: flex; justify-content:center; align-items:center; }
 .howToPlay div:last-child { border:none; }
 .howToPlay p { margin:0; }
 .howToPlaySectionTitle { width:201px; }
@@ -978,13 +978,13 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .lotteryDetails #lotteryAccordionBanner p { color:#1B1464; font-size:22px; font-weight:600; text-align:center; padding-top:47px; } 
 .lotteryDetails #lotteryAccordionBanner p:last-child { color:#02222E; font-size:86px; padding-top:0; line-height:80px; }
 .lotteryDetails .accordion .row { margin:0; padding-left:7px; }
-#lotteryPageCopy { margin:0 auto; width:1183px; background-color:#013658; position:relative; }
+#lotteryPageCopy { margin:0 auto; width:1183px; background-color:#3e1456; position:relative; }
 .lotteryPageCopy { display:inline-block;}
 .lotteryPageCopy hr { margin-bottom:52px; }
 .lotteryPageCopyContent { padding:0 92px }
 .lotteryPageCopy .pageHeading { margin-bottom:0; }
 .lotteryPageCopy .sub-heading { margin-top:5px; }
-.lotteryPageCopy section { border-bottom:1px solid #165D8A; display:inline-block; padding:43px 0 22px 0; }
+.lotteryPageCopy section { border-bottom:1px solid #582178; display:inline-block; padding:43px 0 22px 0; }
 .lotteryPageCopy section:last-child  { border-bottom:none; padding-bottom:131px; }
 .lotteryPageCopy section div { float:left; }
 .lotteryPageCopyImg { width:167px; }
@@ -1003,11 +1003,11 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .singleOrderDetails #placeBetButton, .singleOrderDetails #placePromoButton { height:67px!important; margin-top:13px; }
 .singleOrderDetails .orderSubscription { position:relative; display:inline-block; width:59px; height:30px; float:right; }
 .singleOrderDetails .orderSubscription input { opacity:0; width:0; height:0; }
-.singleOrderDetails .orderSubscription .slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#002339; border: 1px solid #2C7AAB; }
-.singleOrderDetails .orderSubscription .slider:before { position:absolute; content:""; height:23px; width:23px; left:4px; bottom:3px; background-color:#00ADEF; -webkit-transition:.4s; transition:.4s; }
-.singleOrderDetails .orderSubscription input:checked + .slider { background-color:#03C262; border:1px solid #03C262; }
-.singleOrderDetails .orderSubscription .slider:hover { border:1px solid #C7E9FE!important; }
-.singleOrderDetails .orderSubscription input:focus + .slider { box-shadow:0 0 1px #03C262; }
+.singleOrderDetails .orderSubscription .slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#2a0d3b; border: 1px solid #6a2a90; }
+.singleOrderDetails .orderSubscription .slider:before { position:absolute; content:""; height:23px; width:23px; left:4px; bottom:3px; background-color:#6a2a90; -webkit-transition:.4s; transition:.4s; }
+.singleOrderDetails .orderSubscription input:checked + .slider { background-color:#0b7a08; border:1px solid #0b7a08; }
+.singleOrderDetails .orderSubscription .slider:hover { border:1px solid #f1ecf5!important; }
+.singleOrderDetails .orderSubscription input:focus + .slider { box-shadow:0 0 1px #0b7a08; }
 .singleOrderDetails .orderSubscription input:checked + .slider:before { background-color:#FFFFFF; -webkit-transform:translateX(26px); -ms-transform:translateX(26px); transform:translateX(26px); }
 .singleOrderDetails .orderSubscription .slider.round { border-radius:34px; }
 .singleOrderDetails .orderSubscription .slider.round:before { border-radius:50%; content:"-"; text-align:center; font-size:20px; line-height:22px; font-weight:500; }
@@ -1016,8 +1016,8 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .singleOrderDetails .orderAmounts { float:right; position:relative; }
 .singleOrderDetails hr { margin:10px 0; }
 .singleOrderDetails form p { color:#FFFFFF; line-height:22px; }
-.drawDateChange { margin:4px 0 8px 0; font-style:italic; color: #FECF6B!important; }
-.lotteryDetailOdds { padding:0; line-height:25px; font-size:15px; color:#C7E9FE; }
+.drawDateChange { margin:4px 0 8px 0; font-style:italic; color: #fdbc00!important; }
+.lotteryDetailOdds { padding:0; line-height:25px; font-size:15px; color:#f1ecf5; }
 .lotteryDetailOdds .row { margin:0; }
 .lotteryDetailOdds div { padding:0; }
 .lotteryDetailOdds .lotteryDetailOddsMobile { display:none; }
@@ -1033,17 +1033,17 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .singleOrderDetailColumn .lotteryCounter div { padding:0; }
 .singleOrderDetailColumn .lotteryCounter p { margin:0; font-size:29px!important; }
 .singleOrderDetailColumn .lotteryCounter p.lotteryCountPlus {  float:right; }
-.singleOrderDetailColumn .lotteryCounter p.lotteryCount { width:200px; margin:0 auto; padding-top:2px; line-height:15px; background-color:#002339; border:1px solid #2C7AAB; color:#C7E9FE; }
+.singleOrderDetailColumn .lotteryCounter p.lotteryCount { width:200px; margin:0 auto; padding-top:2px; line-height:15px; background-color:#2a0d3b; border:1px solid #6a2a90; color:#f1ecf5; }
 .singleOrderDetailColumn #lottoDrawDays p.lottoDrawDaysTitle { font-size:16px; font-weight:500; margin-bottom:4px; padding-top:20px; clear:both; }
 .superdrawPage .singleOrderDetailColumn #lottoDrawDays p.lottoDrawDaysTitle { padding-top:0; margin-top:0; }
 .singleOrderDetailColumn #lottoDrawDays p.lottoDrawDays { margin:4px 0 0 14px; }
 .superdrawPage .singleOrderDetailColumn #lottoDrawDays p.lottoDrawDays { margin-left:7px; }
 .superdrawPage .checkboxRadioContainer { padding-left:0; }
-.singleOrderDetailColumn #lottoDrawDays label { font-weight:400; font-size:15px; vertical-align:text-top; color:#C7E9FE; }
+.singleOrderDetailColumn #lottoDrawDays label { font-weight:400; font-size:15px; vertical-align:text-top; color:#f1ecf5; }
 .singleOrderDetailColumn #lottoDrawDays label .drawDayOfWeek { display:inline-block; width:90px; }
 /*.singleOrderDetailColumn #lottoDrawDays label .drawDateCountdown { display:none; }*/
 .singleOrderDetailColumn #lottoDrawDays label .drawDateCountdownClock { margin:-2px 6px 0 9px; }
-.singleOrderDetailColumn #lottoDrawDays label .drawDateCountdownCopy { color:#FECF6B; }
+.singleOrderDetailColumn #lottoDrawDays label .drawDateCountdownCopy { color:#fdbc00; }
 .singleOrderDetailColumn #promoImage { width:288px; height:192px; background-color:#F8EC30; border-radius:4px; text-align:center; }
 .singleOrderDetailColumn #promoImage img { display:inline-block; margin-top:18px; }
 .singleOrderDetailColumn.columnPromoImageDiscount { width:325px; }
@@ -1085,36 +1085,36 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 }
 .lotteryNotAvailableInCountry { position:absolute; width:100%; height:100%; background-color:#012b45e8; z-index:1; text-align:center; padding-top:96px; }
 .lotteryNotAvailableInCountry img { margin-bottom:18px; }
-.lotteryNotAvailableInCountry p { color:#FECF6B; font-size:30px; font-weight:500; }
+.lotteryNotAvailableInCountry p { color:#fdbc00; font-size:30px; font-weight:500; }
 
 /*-------------- START: SYNDICATE SELECTOR --------------------*/
-#syndicateSection { overflow:auto; padding:23px 0 50px 0px; background-color:#0C4970; margin-bottom:53px }
+#syndicateSection { overflow:auto; padding:23px 0 50px 0px; background-color:#582178; margin-bottom:53px }
 #syndicatePromoPage #syndicateSection { position:relative; display:block; margin:14px auto 53px auto; }
 #syndicatePromoBanner .bannerContent { position:absolute; right:0; left:0; top:0; bottom:0; width:570px; margin:0 auto; }
 #syndicatePromoBanner .bannerContentleft { position:absolute; left:0; }
 #syndicatePromoBanner .bannerContentleft img { margin-top:39.5px; } 
 #syndicatePromoBanner .bannerContentRight { position:absolute; right:0; top:82px; }
-#syndicatePromoBanner .bannerJackpotAmount { font-family:'impact',sans-serif; font-size:73px; color:#0C4970; line-height:50px; margin:0; }
+#syndicatePromoBanner .bannerJackpotAmount { font-family:Montserrat,sans-serif;font-weight:800; font-size:73px; color:#582178; line-height:50px; margin:0; }
 #syndicatePromoBanner .bannerJackpotAmount .bannerJackpotCurrency { font-size:46px; }
 #syndicatePromoBanner .bannerTimeToDraw { position:relative; top: 0; right: 0; text-align: left; }
-#syndicatePromoBanner .bannerTimeToDraw span { font-size:14px; color:#0C4970; font-weight:400; line-height:35px; }
+#syndicatePromoBanner .bannerTimeToDraw span { font-size:14px; color:#582178; font-weight:400; line-height:35px; }
 #syndicatePromoBanner  #drawCounterReact { background-color:transparent; width:auto; height:auto; padding:0; display:inline-block; }
-#syndicatePromoBanner  #drawCounterReact span { color:#0C4970; font-weight:400; font-size:14px; }
+#syndicatePromoBanner  #drawCounterReact span { color:#582178; font-weight:400; font-size:14px; }
 #syndicatePromoBanner .syndicateBannerLinesCopy { font-size:27px; font-weight:900; color:#FF5454; line-height:30px; text-transform:uppercase; width:240px; }
 #syndicatePromoBanner .syndicateBannerPriceCopy { font-size:19px; font-weight:500; color:#753400; }
 #syndicateSection .pageHeading { text-align:center; margin-bottom:15px; }
 #syndicateSection .ticketSectionFeatures .lottoSecondaryHeader { color:#FFFFFF; line-height:16px; padding:0; margin:0; font-size:16px; font-weight:500; position:absolute; bottom:0; }
 #syndicateSection #syndicateBoxes { margin:1px; text-align:left; display:inline-block; margin-top:11px; }
 #syndicateSection .syndicateBoxes { text-align:center; }
-#syndicateSection .syndicateBox { width:305px; /*height:420px; background-color:#165D8A; border:1px solid #2C7AAB; border-radius:5px; float:left; margin-right:15px;*/ }
+#syndicateSection .syndicateBox { width:305px; /*height:420px; background-color:#582178; border:1px solid #6a2a90; border-radius:5px; float:left; margin-right:15px;*/ }
 #syndicateSection .syndicateBox .syndicateBoxHeader { width:100%; height:80px; border-top-right-radius:5px; border-top-left-radius:5px; float:left; }
 #syndicateSection .syndicateBox .syndicateBoxHeader div { padding:0; }
 #syndicateSection .syndicateBox .syndicateBoxHeader img { margin:16px 15px 0 20px; }
 #syndicateSection .syndicateBox .syndicateBoxHeader .sydicateBoxTitle { font-weight:400; }
 #syndicateSection .syndicateBox .syndicateBoxHeader .sydicateBoxTitle span { font-weight:bold; font-size:20px; }
-#syndicateSection .syndicateBox .syndicateBoxHeader .syndicateBestValue { width:83px; height:28px; color:white; font-size:14px; background-color:#03C262; box-shadow:0 1px 3px #00000059; margin:-14px 0px 0 10px; text-align:center; padding-top:5px; }
+#syndicateSection .syndicateBox .syndicateBoxHeader .syndicateBestValue { width:83px; height:28px; color:white; font-size:14px; background-color:#0b7a08; box-shadow:0 1px 3px #00000059; margin:-14px 0px 0 10px; text-align:center; padding-top:5px; }
 #syndicateSection .syndicateBox .syndicateBoxHeader .syndicatePricePerLine { border-radius:45px; width:91px; height:91px; text-align:center; box-shadow:0 1px 3px #00000059; }
-#syndicateSection .syndicateBox .syndicateBoxBody { height:100%; display:flex; padding:12px 0; clear:both; background-color:#165D8A; border-right:1px solid #2C7AAB; border-left:1px solid #2C7AAB; border-bottom:1px solid #2C7AAB;border-bottom-right-radius:5px; border-bottom-left-radius:5px; }
+#syndicateSection .syndicateBox .syndicateBoxBody { height:100%; display:flex; padding:12px 0; clear:both; background-color:#582178; border-right:1px solid #6a2a90; border-left:1px solid #6a2a90; border-bottom:1px solid #6a2a90;border-bottom-right-radius:5px; border-bottom-left-radius:5px; }
 #syndicatePromoPage .syndicateBoxBody { padding-top:60px!important; }
 #syndicatePromoPage .buttonFixed { position:fixed; left:0; right:0; background-color:pink; width:100%; z-index:1; }
 #syndicatePromoPage ~ footer #footerContents { display:none; }
@@ -1132,14 +1132,14 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 #syndicateSection .syndicateButton span.syndicatePlaceBet { font-size:19px; font-weight:400; display:block; }
 #syndicateSection .syndicateButton span.syndicatePrice { font-size:13px; display:block; font-weight:300; }
 #syndicateSection .syndicateButton span.syndicatePrice span { font-weight:400; }
-#syndicateSection .stickeySyndicateButton { position:fixed; width:100%; height:93px; right:0; left:0; bottom:0; margin:0 auto; background-color:#013658; z-index:1; }
+#syndicateSection .stickeySyndicateButton { position:fixed; width:100%; height:93px; right:0; left:0; bottom:0; margin:0 auto; background-color:#3e1456; z-index:1; }
 #syndicateSection .stickeySyndicateButton .syndicateButton { width:250px!important; margin:13px auto 0 auto; }
-#syndicateSection .superSyndicate .syndicatePricePerLine  { color:#fff; background-color:#03C262; padding-top:7px; margin:13px 0px 0 6px; line-height:26px; }
+#syndicateSection .superSyndicate .syndicatePricePerLine  { color:#fff; background-color:#0b7a08; padding-top:7px; margin:13px 0px 0 6px; line-height:26px; }
 #syndicateSection .superSyndicate .syndicatePricePerLine  span { font-weight:bold; font-size:25px; display:block; margin-bottom:-30px; }
-#syndicateSection .superSyndicate .syndicateBoxHeader { background-color:#E1F8F9; border:1px solid #E1F8F9; }
-#syndicateSection .syndicateBox .sydicateBoxTitle { color:#012B45; font-size:18px; white-space:nowrap; margin-top:9px; }
+#syndicateSection .superSyndicate .syndicateBoxHeader { background-color:#f7f5fa; border:1px solid #f7f5fa; }
+#syndicateSection .syndicateBox .sydicateBoxTitle { color:#3e1456; font-size:18px; white-space:nowrap; margin-top:9px; }
 #syndicateSection .regularSyndicate .syndicateBoxHeader { background-color:#FFF0D5; border:1px solid #FFF0D5; }
-#syndicateSection .regularSyndicate .syndicatePricePerLine  { line-height:20px; font-size:25px; font-weight:bold; color:#012B45; background-color:#FECF6B; padding-top:28px; margin:27px 0px 0 6px; }
+#syndicateSection .regularSyndicate .syndicatePricePerLine  { line-height:20px; font-size:25px; font-weight:bold; color:#3e1456; background-color:#fdbc00; padding-top:28px; margin:27px 0px 0 6px; }
 #syndicateSection .regularSyndicate .syndicatePricePerLine span { font-size:14px; font-weight:500; }
 #syndicateSection .superSyndicate .syndicateBoxBody p span.syndicateMatchNum { color:#FFFFFF; font-size:19px; }
 #syndicateSection .regularSyndicate .syndicateBoxBody p span.syndicateMatchNum { color:#FFFFFF; font-size:19px; }
@@ -1150,15 +1150,15 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .syndicateTicketWindow .ticketWindowBody .ticketLines { width:100%; padding:15px 0 0 27px; }
 .syndicateTicketWindow .ticketWindowBody .lineCounter { font-size:17px; font-weight:500; margin-right:23px; }
 .syndicateTicketWindow .ticketWindowBody .ticketNumber { width:31px; height:31px; display:inline-block; background-color:#FFFFFF; border:1px solid #CECECE; border-radius:4px; margin-right:5px; font-size:17px; font-weight:500;    text-align:center; padding-top:3px; }
-.syndicateTicketWindow .ticketWindowBody .ticketBonusNumber { background-color:#FECF6B; border:1px solid #E4B34B; }
+.syndicateTicketWindow .ticketWindowBody .ticketBonusNumber { background-color:#fdbc00; border:1px solid #E4B34B; }
 .syndicateTicketWindow .ticketWindowFooter { height:81px; background-color:#FAFAFA; padding-top:22px; }
 .syndicateTicketWindow .ticketWindowFooter .closeTicketWindow { width:122px; height:38px; margin:0 auto; text-align:center; font-size:16px; font-weight:500; padding-top:8px; border:1px solid #979797; background-image:linear-gradient(#FFFFFF, #DCDCDC); border-radius:5px; cursor:pointer; float:none; }
 #superSyndicateInfoWindow { height:205px; margin-top:-51px; margin-left:-199px; }
 #regSyndicateInfoWindow { height:205px; margin-top:-51px; margin-left:164px; }
 .syndicateLinesPopup { height:527px; top:0; bottom:0; right:0; left:0; margin:0 auto; }
-.syndicateLinesPopup .infoWindowHeader { display:block; height:48px; background-color:#0C4970; }
+.syndicateLinesPopup .infoWindowHeader { display:block; height:48px; background-color:#582178; }
 .syndicateLinesPopup .infoWindowBody { overflow-y:scroll; height:398px; margin:0 0 0 27px; padding-top:22px; text-align:left; }
-.syndicateLinesPopup .infoWindowFooter { position:absolute; bottom:0; right:0; left:0; height:81px; background-color:#0C4970; text-align:center; }
+.syndicateLinesPopup .infoWindowFooter { position:absolute; bottom:0; right:0; left:0; height:81px; background-color:#582178; text-align:center; }
 .infoWindowFooter button { width:122px; height:38px; padding:0; margin-top:21.5px; }
 .syndicateLines .lineCount { color:#FFFFFF; font-size:17px; margin-right:15px; width:25px; display:inline-block; text-align:center; }
 .syndicateLinesPopup .infoWindowBody::-webkit-scrollbar { display:none; }
@@ -1168,36 +1168,36 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .syndicateBoxes .lotteryCounter p { margin:0; font-size:29px!important; line-height:22px; }
 .syndicateBoxes .lotteryCounter p.groupCountPlus { float:right; border-top-right-radius:5px; border-top-left-radius:0; border-bottom-right-radius:5px; border-bottom-left-radius:0; padding-top:20px; }
 .syndicateBoxes .lotteryCounter p.groupCountMinus { border-top-right-radius:0; border-top-left-radius:5px; border-bottom-right-radius:0; border-bottom-left-radius:5px; padding-top: 20px; }
-.syndicateBoxes .lotteryCounter p.lotteryCount { width:145px; margin:0 auto!important; padding-top:2px; line-height:15px; background-color:#002339; border:1px solid #2C7AAB; color:#C7E9FE; }
+.syndicateBoxes .lotteryCounter p.lotteryCount { width:145px; margin:0 auto!important; padding-top:2px; line-height:15px; background-color:#2a0d3b; border:1px solid #6a2a90; color:#f1ecf5; }
 .syndicateOptions { width:305px; margin-bottom:30px; }
 .syndicateOptions select{ width:100%; }
 .syndicate1 .syndicateBoxHeader { background-color:#FFF0D5; border:1px solid #FFF0D5; }
-.syndicate2 .syndicateBoxHeader { background-color:#E1F8F9; border:1px solid #E1F8F9; }
+.syndicate2 .syndicateBoxHeader { background-color:#f7f5fa; border:1px solid #f7f5fa; }
 .gordoCopy { color:#FFFFFF!important; font-size:16px!important; font-weight:400!important; display:inline-block; margin:-10px 0 15px 0; }
-.gordoSpecialCopy { color:#FF7E19!important; font-weight:400!important; }
+.gordoSpecialCopy { color:#d67900!important; font-weight:400!important; }
 .gordoResults { font-size:13px!important; }
-.gordoSpecialPrize { background-color:#013658; line-height:17px; padding:6px 0 6px 3px!important; }
+.gordoSpecialPrize { background-color:#3e1456; line-height:17px; padding:6px 0 6px 3px!important; }
 .gordoOverallRow { font-weight:600; }
 .lotteryDetails .accordion .gordoResults .row { padding-left:3px; }
 .gordoResults .oddsAmount { padding-right:10px; }
 .gordoResults .alignRight { text-align:right; padding-right:10px!important; }
-#regularSyndicateBoxSection .syndicateBoxHeader { background-color:#E1F8F9; border:1px solid #E1F8F9; }
-#regularSyndicateBoxSection .sydicateBoxTitle p { color:#012B45; font-size:18px; line-height:27px; margin:0; font-weight:400; }
+#regularSyndicateBoxSection .syndicateBoxHeader { background-color:#f7f5fa; border:1px solid #f7f5fa; }
+#regularSyndicateBoxSection .sydicateBoxTitle p { color:#3e1456; font-size:18px; line-height:27px; margin:0; font-weight:400; }
 #regularSyndicateBoxSection .sydicateBoxTitle p span { font-weight:600; }
 #regularSyndicateBoxSection .sydicateBoxTitle p.descr { font-weight:600; font-size:20px!important; line-height:21px; }
 #regularSyndicateBoxSection .sydicateBoxTitle p.descr-small { font-weight:600; font-size:15px!important; line-height:16px; }
-#regularSyndicateBoxSection .syndicatePricePerLine { background-color:#03C262; color:#FFFFFF; }
+#regularSyndicateBoxSection .syndicatePricePerLine { background-color:#0b7a08; color:#FFFFFF; }
 #regularSyndicateBoxSection .syndicateDescr { width:180px; margin:0 0 7px 0; display:flex; }
 #regularSyndicateBoxSection .syndicateDescr img { float:left; margin:-12px 12px 0 0; }
 #regularSyndicateBoxSection .syndicateDescr p { float:right; font-weight:400; line-height:16px; }
 #regularSyndicateBoxSection .regularSyndicate { margin:0 15px; }
 
-.syndicateBox .syndicatePricePerLine  { line-height:20px; font-size:25px; font-weight:bold; color:#012B45; background-color:#FECF6B; padding-top:28px; margin:35px 0px 0 6px; }
+.syndicateBox .syndicatePricePerLine  { line-height:20px; font-size:25px; font-weight:bold; color:#3e1456; background-color:#fdbc00; padding-top:28px; margin:35px 0px 0 6px; }
 .syndicateBox .syndicatePricePerLine span { font-size:14px; font-weight:500; }
 .syndicateBox .syndicateMatchNum { color:#FFFFFF; font-size:19px; }
 .syndicateLinesSection { margin:0 5px; padding:20px 5px; }
 .syndicateLinesSection .formLabels { margin:0 0 3px 10px!important; }
-.syndicateLinesSection .syndicateLines { background-color:#013658; padding:15px 0 5px 15px!important; }
+.syndicateLinesSection .syndicateLines { background-color:#3e1456; padding:15px 0 5px 15px!important; }
 .syndicateDetails { margin:20px 0 0 0; }
 
 /*-------------- START: SINGLE AND SYNDICATE SELECTOR --------------------*/
@@ -1229,7 +1229,7 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .lotteryBanners .bannerHeader p { color:#FF5454; font-size:24px; font-weight:500; line-height:35px; margin-top:10px; }
 #syndicateBanner .bannerHeader p  { margin-top:7px; }
 .lotteryBanners .bannerHeader p.prizePool { font-size:17px; line-height:15px; margin-top:-5px!important; }
-.lotteryBanners .bannerHeader #bannerJackpotAmount { font-size:73px; font-family:'impact',sans-serif; text-transform:uppercase; }
+.lotteryBanners .bannerHeader #bannerJackpotAmount { font-size:73px; font-family:Montserrat,sans-serif;font-weight:800; text-transform:uppercase; }
 .lotteryBanners .bannerHeader #bannerJackpotAmount .bannerJackpotCurrency { font-size:40px; }
 .lotteryBanners .bannerTimeToDraw { position:absolute; top:29px; right:40px; text-align:center; }
 .lotteryBanners .bannerTimeToDraw p { color:#0B4775; font-size:17px; line-height:25px; margin:0; }
@@ -1243,7 +1243,7 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 
 .availableLotteries { background-image: url(../images/TileStripeBG.png); position:relative; height:257px; overflow-x:hidden; overflow-y:hidden; text-align:center; margin-top:3px; }
 /*
-#availableLotteries .lotteriesArrow { width:37px; height:95px; background-color:#00ADEF; cursor:pointer; position:absolute; top:0; bottom:0; margin:auto; z-index:1; box-shadow:0px 0px 4px #00000080; }
+#availableLotteries .lotteriesArrow { width:37px; height:95px; background-color:#6a2a90; cursor:pointer; position:absolute; top:0; bottom:0; margin:auto; z-index:1; box-shadow:0px 0px 4px #00000080; }
 #availableLotteries .lotteriesArrow img { position:absolute; top:0; bottom:0; right:0; left:0; margin:auto; }
 #availableLotteries .lotteriesArrow:hover img { filter: invert(0.75) sepia(1) saturate(10) hue-rotate(168deg); }
 */
@@ -1273,8 +1273,8 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 #homepage .lotteryPageContent #homepageContentMain { margin-top:10px; }
 #homepage .lotteryPageContent #homepageContentMain h1 { margin:50px 0 0 0; }
 #homepage .lotteryPageContent #homepageContentMain h1, #homepage .lotteryPageContent #homepageContentMain h2 { text-align:center; text-transform:uppercase; }
-#homepage .homepageFeaturedPromos { background-color:#0C4970; position:relative; height:406px; overflow-x:hidden; overflow-y:hidden; text-align:center; margin-top:3px; }
-.lotteriesArrow { width:37px; height:95px; background-color:#00ADEF; cursor:pointer; position:absolute; top:0; bottom:0; margin:auto; z-index:1; box-shadow:0px 0px 4px #00000080; }
+#homepage .homepageFeaturedPromos { background-color:#582178; position:relative; height:406px; overflow-x:hidden; overflow-y:hidden; text-align:center; margin-top:3px; }
+.lotteriesArrow { width:37px; height:95px; background-color:#6a2a90; cursor:pointer; position:absolute; top:0; bottom:0; margin:auto; z-index:1; box-shadow:0px 0px 4px #00000080; }
 .lotteriesArrow img { position:absolute; top:0; bottom:0; right:0; left:0; margin:auto; }
 .lotteriesArrow:hover img { filter: invert(0.75) sepia(1) saturate(10) hue-rotate(168deg); }
 .lotteriesArrow:active img { filter:none; }
@@ -1296,14 +1296,14 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 #homepage .homepageFeaturedPromos .promoTicketContent .yellow-white-stars-banner-right { position:absolute; top:49px; right:43px; }
 #homepage .homepageFeaturedPromos .promoTicketContent .blue-white-red-stars-banner-left { position:absolute; top:49px; left:62px; }
 #homepage .homepageFeaturedPromos .promoTicketContent .blue-white-red-stars-banner-right { position:absolute; top:49px; right:62px; }
-#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketName { font-size:24px; font-family:'impact',sans-serif; margin:6px 0 0 0; text-shadow:0px 3px 6px #00000029; }
-#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketDescription { font-size:30px; font-family:'impact',sans-serif; padding:0 25px; line-height:35px; margin:0; text-shadow:0px 3px 6px #00000029; }
-#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketJackpot { font-size:43px; font-family:'impact',sans-serif; position:absolute; top:137px; right:0; left:0; text-shadow:0px 3px 6px #00000029; }
+#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketName { font-size:24px; font-family:Montserrat,sans-serif;font-weight:800; margin:6px 0 0 0; text-shadow:0px 3px 6px #00000029; }
+#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketDescription { font-size:30px; font-family:Montserrat,sans-serif;font-weight:800; padding:0 25px; line-height:35px; margin:0; text-shadow:0px 3px 6px #00000029; }
+#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketJackpot { font-size:43px; font-family:Montserrat,sans-serif;font-weight:800; position:absolute; top:137px; right:0; left:0; text-shadow:0px 3px 6px #00000029; }
 #homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing { width:205px; height:100px; position:absolute; bottom:0; left:0; background-color:#02222EAB; border-radius:2px; }
 #homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing img { margin-top:-12px; }
 #homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing p { font-size:13px; font-weight:500; margin-top:12px; line-height:9px; }
-#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing p span { color:#FC7D2B; font-weight:600; font-size:14px; letter-spacing:-0.8px; }
-#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing .bannerPromoSlashThrough { color:#FC7D2B; }
+#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing p span { color:#d67900; font-weight:600; font-size:14px; letter-spacing:-0.8px; }
+#homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing .bannerPromoSlashThrough { color:#d67900; }
 #homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPricing .bannerPromoSlashThrough:before { position:absolute; content:""; width:16%; left:0; right:0; top:47%; margin:0 auto; border-top:2px solid #FFFFFF; -webkit-transform:rotate(30deg); -moz-transform:rotate(30deg); -ms-transform:rotate(30deg); -o-transform:rotate(30deg); transform:rotate(30deg); }
 #homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPlay { width:112px; height:100px; position:absolute; bottom:0; right:0; }
 #homepage .homepageFeaturedPromos .promoTicketContent .promoTicketPlay a { position:absolute; bottom:0; border-radius:2px; padding-top:14px; height:52px!important; }
@@ -1311,7 +1311,7 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .homepageSection { margin-bottom:70px; }
 .homepageSection .registrationFormLink { cursor:pointer; }
 .homepageThreeColumns .homePageColumns { width:322px; margin:0 auto; }
-.homepageThreeColumns .homePageHeader { margin-bottom:0px; color:#00ADEF; text-align:center!important; padding:30px 0; clear:both; }
+.homepageThreeColumns .homePageHeader { margin-bottom:0px; color:#6a2a90; text-align:center!important; padding:30px 0; clear:both; }
 .homepageThreeColumns .sub-heading { text-align:center; padding:0; height:auto; }
 .homepageGetStarted { height:177px; margin-top:25px; }
 .homepageGetStarted .homePageColumns { width:259px; height:221px; }
@@ -1321,10 +1321,10 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .homepageGetStarted .homePageColumnContent img { position:relative; display:block; }
 .homepageGetStarted p { width:135px; margin:0 auto; padding-left:17px; }
 .homepagePurchaseInstructions img { display:block; margin:30px auto; }
-.homepagePurchaseInstructions .homePageHeader { color:#00ADEF; text-align:center!important; margin:0; padding:30px 0; clear:both; }
+.homepagePurchaseInstructions .homePageHeader { color:#6a2a90; text-align:center!important; margin:0; padding:30px 0; clear:both; }
 .homepagePurchaseInstructions .homePageSubHeader { color:#AAD0EC; font-weight:400; font-size:25px; text-transform:uppercase; text-align:center; padding-top:42px; clear:both; margin:0; }
 .homepagePurchaseInstructions p { height:108px; }
-.homepageInfoSection { height:347px; background-color:#0c4970; }
+.homepageInfoSection { height:347px; background-color:#582178; }
 .homepageInfoSection .pageHeading { padding-top:36px; margin-bottom:20px; }
 .homepageInfoSection .sub-heading { text-align:left; }
 .homepageInfoSection .homepageInfoList { color:#AAD0EC; font-size:15px; font-weight:400; }
@@ -1339,13 +1339,13 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 
 /*--------------- START: FAQ ------------------------*/
 .container .accordion header~div { display:none; }
-.container .accordion header.active + div { display:inline-block; width:100%; background-color:#0C4970; margin-top:-3px; padding:10px 20px 20px 20px; margin-bottom:3px; }
-.container .accordion header { position:relative; text-align:left; font-weight:500; font-size:16px; background-color:#2C7AAB; cursor:pointer; padding:23px 0 23px 18px; border:1px solid #2C7AAB; margin-bottom:4px; color:#C7E9FE; }
+.container .accordion header.active + div { display:inline-block; width:100%; background-color:#582178; margin-top:-3px; padding:10px 20px 20px 20px; margin-bottom:3px; }
+.container .accordion header { position:relative; text-align:left; font-weight:500; font-size:16px; background-color:#6a2a90; cursor:pointer; padding:23px 0 23px 18px; border:1px solid #6a2a90; margin-bottom:4px; color:#f1ecf5; }
 .container .accordion header span.glyphicon { position:relative; left:-30px; top:-1px; transform:none; font-style:normal; font-weight:bold; font-size:14px; line-height:2.4rem; -webkit-transition:.5s ease-in-out; -moz-transition:.5s ease-in-out; -o-transition:.5s ease-in-out; transition:.5s ease-in-out; float:right; }
 .container .accordion header span.glyphicon.open { transform:rotate(-180deg); }
-.container .accordion header:hover { border:1px solid #00ADEF; }
-.container .accordion header.active { background:#165d8a; border-left:4px solid #00ADEF; border-right:4px solid #00ADEF; border-top:1px solid #165d8a; border-bottom:1px solid #165d8a; }
-.container .accordion header.active:hover { border:1px solid #00ADEF; border-left:4px solid #00ADEF; border-right:4px solid #00ADEF;}
+.container .accordion header:hover { border:1px solid #6a2a90; }
+.container .accordion header.active { background:#582178; border-left:4px solid #6a2a90; border-right:4px solid #6a2a90; border-top:1px solid #582178; border-bottom:1px solid #582178; }
+.container .accordion header.active:hover { border:1px solid #6a2a90; border-left:4px solid #6a2a90; border-right:4px solid #6a2a90;}
 .container #lotteryFaqPage .accordion header.active + div p { padding: 20px 12px 20px 12px; font-size:16px; font-weight: 400; margin-left: 23px; }
 .container .accordion header.active + div li { margin-left: 12px; }
 
@@ -1364,7 +1364,7 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .container .contactUs form textarea { height:150px; }
 .container .contactUs form .hs-form-required { color:#FF5454; margin-left:4px; }
 .container .contactUs form label { display:block; font-weight:500; font-size:15px; margin:9px 0 1px 7px; color: #FFFFFF; }
-.container .contactUs .submitted-message p { color:#03C262; font-weight:500; }
+.container .contactUs .submitted-message p { color:#0b7a08; font-weight:500; }
 .container .contactUs input.error, .container .contactUs textarea.error { border:1px solid #FF5454!important; }
 .container .contactUs label.error { position:absolute; right:15px; margin-top:3px; font-weight:400; font-style:normal; font-size:14px; color:#FF5454; border:none !important; }
 .container .contactUs .g-recaptcha { transform:scale(0.906); transform-origin:0 0; padding-top:20px; clear:both; }
@@ -1373,8 +1373,8 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .promos { padding:0 0 71px 0; }
 .promosMainPage #promosMainPageHeader { padding:55px 82px 56px 75px; }
 .promosMainPage .promoLotteries .row { margin:0 15px; }
-.promosMainPage .promoLotteries .promoLotteriesHeaders { padding-bottom:10px; border-bottom:1px solid #2C7AAB; height:32px; }
-.promosMainPage .promoLotteries .promoLotteriesRows { border-bottom:1px solid #2C7AAB; height:60px; padding-top:6px; }
+.promosMainPage .promoLotteries .promoLotteriesHeaders { padding-bottom:10px; border-bottom:1px solid #6a2a90; height:32px; }
+.promosMainPage .promoLotteries .promoLotteriesRows { border-bottom:1px solid #6a2a90; height:60px; padding-top:6px; }
 .promosMainPage .promoLotteries .promoLotteriesDetails .promoLotteriesMobile { display:none; }
 .promosMainPage .promoLotteries .promoLotteriesDetails .promoLotteriesDetailsImg { width:69px; } 
 .promosMainPage .promoLotteries .promoLotteriesDetails .promoLotteriesDetailsImg img { width:100%; height:auto; } 
@@ -1383,9 +1383,9 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .promosMainPage .promoLotteries .promoLotteriesDetails .secondaryFormButton { width:100%; height:36px; padding-top:6px; margin:6px auto 0 auto; display:block; }
 
 .promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing { padding-top:10px; }
-.promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing .slashThrough_originalPrice { color:#FC7D2B; position:relative; font-size:20px; font-weight:600; }
+.promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing .slashThrough_originalPrice { color:#d67900; position:relative; font-size:20px; font-weight:600; }
 .promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing .slashThrough_originalPrice:before { position:absolute; content:""; left:19px; top:43%; right:9px; border-top:3px solid #FFFFFF; -webkit-transform:rotate(30deg); -moz-transform:rotate(30deg); -ms-transform:rotate(30deg); -o-transform:rotate(30deg); transform:rotate(30deg); }
-.promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing .promoDiscountAmount { color:#FC7D2B; position:relative; font-size:20px; font-weight:600; }
+.promosMainPage .promoLotteries .promoLotteriesDetails .promoPricing .promoDiscountAmount { color:#d67900; position:relative; font-size:20px; font-weight:600; }
 
 /*--------------- START: MAIN RESULTS PAGE ----------------------------*/
 .results { padding:0 0 71px 0; }
@@ -1396,8 +1396,8 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .resultsMainPage .resultLotteries .col-sm-3 { width:310px; }
 .resultsMainPage .resultLotteries .col-sm-4 { width:310px; }
 .resultsMainPage .resultLotteries .resultLotteriesHeader { padding-bottom:10px; height:32px; }
-.resultsMainPage .resultLotteries .resultLotteriesRows { border-top:1px solid #2C7AAB; height:60px; padding-top:6px; }
-.resultsMainPage .resultLotteries .resultLotteriesRows:last-child { border-bottom:1px solid #2C7AAB; }
+.resultsMainPage .resultLotteries .resultLotteriesRows { border-top:1px solid #6a2a90; height:60px; padding-top:6px; }
+.resultsMainPage .resultLotteries .resultLotteriesRows:last-child { border-bottom:1px solid #6a2a90; }
 .resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteriesMobile { display:none; }
 .resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteriesLogoImg { width:69px; }
 .resultsMainPage .resultLotteries .resultLotteriesDetails .resultLotteriesLogoImg img { width:100%; height:auto; } 
@@ -1407,8 +1407,8 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .resultsMainPage .resultLotteries .resultLotteriesDetails .secondaryFormButton { width:105px; height:33px; padding-top:5px; margin:8px auto 0 auto; display:block; }
 .resultsMainPage .resultLotteries .resultLotteriesDetails .resultsBall { width:27px; height:27px; border-radius:16px; text-align:center; display:inline-block; font-size:15px; font-weight:500; margin:8px 4px 0 0; padding-top:4px; }
 .resultsMainPage .resultLotteries .resultLotteriesDetails .resultsBall:last-child { margin-right:0; }
-.resultsMainPage .resultLotteries .resultLotteriesDetails .resultNumber { background-color:#C7E9FE; color:#013658; }
-.resultsMainPage .resultLotteries .resultLotteriesDetails .resultBonusNumber { background-color:#FFFFFF; color:#0C4970; }
+.resultsMainPage .resultLotteries .resultLotteriesDetails .resultNumber { background-color:#f1ecf5; color:#3e1456; }
+.resultsMainPage .resultLotteries .resultLotteriesDetails .resultBonusNumber { background-color:#FFFFFF; color:#582178; }
 
 /*--------------- START: RESULTS PAGES ----------------------------*/
 .lotteryResultsPages .lotteryResults { margin:23px 0 45px 0; display:inline-block; }
@@ -1419,9 +1419,9 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .lotteryResultsPages #lotteryResultsColumnTitles { padding-left:18px; }
 .lotteryResultsPages .lotteryResultsColumns .lotteryResultsDate { display:inline-block; width:120px; }
 .lotteryResultsPages .lotteryResultsColumns .lotteryResultsTotalPrizes { display:inline-block; width:190px; }
-.lotteryResultsPages .resultNumber, .syndicateLines .lottoBallNumber { background-color:#C7E9FE; color:#013658; }
-.lotteryResultsPages .resultBonusNumber, .syndicateLines .lottoBonusNumber { background-color:#FFFFFF; color:#0C4970; }
-.lotteryResultsPages .resultsBreakdown { padding:29px; color:#C7E9FE; font-size:13px; }
+.lotteryResultsPages .resultNumber, .syndicateLines .lottoBallNumber { background-color:#f1ecf5; color:#3e1456; }
+.lotteryResultsPages .resultBonusNumber, .syndicateLines .lottoBonusNumber { background-color:#FFFFFF; color:#582178; }
+.lotteryResultsPages .resultsBreakdown { padding:29px; color:#f1ecf5; font-size:13px; }
 .lotteryResultsPages .resultsBreakdown .resultsBreakdownHeader { font-weight:500; text-align:center; display:inline-block; }
 .lotteryResultsPages .resultsBreakdown .resultsBreakdownHeader:first-child { text-align:left; }
 .lotteryResultsPages .resultsBreakdown .resultsBreakdownHeader:last-child { text-align:right; }
@@ -1431,11 +1431,11 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .lotteryResultsPages .resultsBreakdown .resultsBreakdownMobile { display:none; }
 .lotteryResultsPages .resultsBreakdown .resultsBreakdownTotals.row { border:none; }
 .lotteryResultsPages .resultsBreakdown .resultsBreakdownTotalsMobile { display:none; }
-.resultsBreakdown .row { border-bottom:1px solid #549CC9;height:36px; padding-top:9px; }
+.resultsBreakdown .row { border-bottom:1px solid #8e5bb0;height:36px; padding-top:9px; }
 .resultsBreakdown .lrg-col { width:239px;}
 .resultsBreakdown .mid-col { width:110px; }
 .lotteryResultsPages #lotteryResultsGetConnected { background-image:url(../images/TileStripeBG.png); padding:15px; height:440px; position:relative; }
-.lotteryResultsPages #lotteryResultsGetConnected p { color:#0C4970; text-align:center; font-weight:500!important; }
+.lotteryResultsPages #lotteryResultsGetConnected p { color:#582178; text-align:center; font-weight:500!important; }
 .lotteryResultsPages #lotteryResultsGetConnected p.sub-heading { color:#009DD9!important; margin-top:5px; }
 .lotteryResultsPages #lotteryResultsGetConnected form { margin-top:17px; z-index:2; }
 .lotteryResultsPages #lotteryResultsGetConnected form p { text-align:left; }
@@ -1450,29 +1450,29 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 #lotteryResultsGetConnected .splitColumns { position:relative; }
 #lotteryResultsGetConnected form label.error { position:absolute; bottom:-9px; right:0px; font-weight:600; font-style:normal; font-size:11px; color:#FF5454; border:none !important; }
 .lotteryResultsPages #tickets_section .lines ul { text-align: center; list-style:none;  padding:0; font-size:0; margin:0 11px; }
-.lotteryResultsPages #tickets_section .lines ul li { outline-style:none;display:inline-block; width:25px; height:25px; font-size:13px; font-weight:500; color:#C7E9FE; text-align:center; border:1px solid #CECECE; border-radius:4px; cursor:pointer; margin:2px; padding:0; line-height:22px; float: left;}
-.lotteryResultsPages #tickets_section .lines ul li.ticketNumber { background-color:#549CC9; border:1px solid #549CC9; }
-.lotteryResultsPages #tickets_section .lines ul li.ticketNumber:hover { background-color:#C7E9FE; border:1px solid #C7E9FE; color:#0C4970; }
-.lotteryResultsPages #tickets_section .lines .bonusTicketNumber { background-color:#2C7AAB; border:1px solid #2C7AAB; }
-.lotteryResultsPages #tickets_section .lines .bonusTicketNumber:hover {background-color:#C7E9FE; border:1px solid #C7E9FE; color:#0C4970; }
-.lotteryResultsPages #tickets_section .lines ul li.selectedNumber { color:#FFFFFF; background-color:#013658; border-color:#013658; }
-.lotteryResultsPages #tickets_section .lines ul li.selectedNumber:hover { background-color:#013658; border:1px solid #C7E9FE; color:#FFFFFF; }
-.lotteryResultsPages #resultsCheckNumberSection { display:inline-block; background-color:#0C4970; margin-top:13px; padding-bottom:18px; }
+.lotteryResultsPages #tickets_section .lines ul li { outline-style:none;display:inline-block; width:25px; height:25px; font-size:13px; font-weight:500; color:#f1ecf5; text-align:center; border:1px solid #CECECE; border-radius:4px; cursor:pointer; margin:2px; padding:0; line-height:22px; float: left;}
+.lotteryResultsPages #tickets_section .lines ul li.ticketNumber { background-color:#8e5bb0; border:1px solid #8e5bb0; }
+.lotteryResultsPages #tickets_section .lines ul li.ticketNumber:hover { background-color:#f1ecf5; border:1px solid #f1ecf5; color:#582178; }
+.lotteryResultsPages #tickets_section .lines .bonusTicketNumber { background-color:#6a2a90; border:1px solid #6a2a90; }
+.lotteryResultsPages #tickets_section .lines .bonusTicketNumber:hover {background-color:#f1ecf5; border:1px solid #f1ecf5; color:#582178; }
+.lotteryResultsPages #tickets_section .lines ul li.selectedNumber { color:#FFFFFF; background-color:#3e1456; border-color:#3e1456; }
+.lotteryResultsPages #tickets_section .lines ul li.selectedNumber:hover { background-color:#3e1456; border:1px solid #f1ecf5; color:#FFFFFF; }
+.lotteryResultsPages #resultsCheckNumberSection { display:inline-block; background-color:#582178; margin-top:13px; padding-bottom:18px; }
 .lotteryResultsPages #resultsCheckNumberSection p { text-align:center; }
 .lotteryResultsPages #resultsCheckNumberSection p.sub-heading { padding-top:20px; }
-.lotteryResultsPages #resultsCheckNumberSection #tickets_section { display:flex; background-color:#165D8A; width:313px; margin:13px auto 0 auto; padding:17px 0 17px 0; border-radius:6px; }
-.lotteryResultsPages #resultsCheckNumberSection #tickets_section p { margin:0 0 0 16px; padding-top:9px; text-align:left; font-size:13px; color:#A4D3F1; clear:both; }
+.lotteryResultsPages #resultsCheckNumberSection #tickets_section { display:flex; background-color:#582178; width:313px; margin:13px auto 0 auto; padding:17px 0 17px 0; border-radius:6px; }
+.lotteryResultsPages #resultsCheckNumberSection #tickets_section p { margin:0 0 0 16px; padding-top:9px; text-align:left; font-size:13px; color:#e2d3ee; clear:both; }
 .lotteryResultsPages #resultsCheckNumberSection #selectedNumbers { display:none; }
 .lotteryResultsPages #resultsCheckNumberSection #mobileUpperTicketSection { display:none; }
-.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound .numbersFound { padding:0; border-top:1px solid #549CC9; }
+.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound .numbersFound { padding:0; border-top:1px solid #8e5bb0; }
 .lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound .numbersFound li { list-style-type:none; }
 .lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound .numbersFound li.numberFoundDate { margin:7px 0 6px 0; color:#FFFFFF; font-weight:500; }
 .lotteryResultsPages #resultsCheckNumberSection .primaryFormButton { width:175px!important; float:left; margin:7px 0 0 0; padding-top:10px; font-size:19px; font-weight:400; }
 .lotteryResultsPages #resultsCheckNumberSection .secondaryFormButton { width:126px; float:left; margin:7px 12px 0 19px; }
-.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound { border-bottom:1px solid #549CC9; width:313px; margin:0 auto; clear:both; padding-top:18px; }
+.lotteryResultsPages #resultsCheckNumberSection #resultsCheckNumberFound { border-bottom:1px solid #8e5bb0; width:313px; margin:0 auto; clear:both; padding-top:18px; }
 .lotteryResultsPages .lotteryResultsAd { background-image:url(../images/TileStripeBG.png); height:290px; padding:0 15px; text-align:center;  }
 .lotteryResultsPages .lotteryResultsAd .lotteryResultsAdPromoImg { display:block; margin:-5px auto 0 auto; }
-.lotteryResultsPages .lotteryResultsAd p { color:#0C4970; font-weight:500; margin:0; }
+.lotteryResultsPages .lotteryResultsAd p { color:#582178; font-weight:500; margin:0; }
 .lotteryResultsPages .lotteryResultsAd .lotteryResultsAdJackpot { font-size:23px; color:#009DD9; font-weight:600; }
 .lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo { display:inline-block; width:255px; margin:8px auto; }
 .lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo .lotteryResultsAdProductInfoImg { float:left; }
@@ -1480,7 +1480,7 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo p { float:left; }
 .lotteryResultsPages .lotteryResultsAd .lotteryResultsAdProductInfo p.lotteryResultsAdLottoName { margin-top:17px; }
 .lotteryResultsPages .lotteryResultsAd .lotteryResultsAdPromoList { display:inline-block; text-align:left; margin-top:20px; }
-.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdPromoList p { color:#0C4970; font-weight:500; font-size:15px; margin:0; }
+.lotteryResultsPages .lotteryResultsAd .lotteryResultsAdPromoList p { color:#582178; font-weight:500; font-size:15px; margin:0; }
 .lotteryResultsPages .lotteryResultsAd .lotteryResultsAdPromoList p img { display:inline-block; margin:0 13px 2px 0; padding:0;}
 .lotteryResultsPages .lotteryResultsAd .linkAsButton { width:200px!important; padding-top:10px; margin:29px auto 0 auto; }
 .lotteryResultsPages .lotteryResultsBannerAd { background-image:url(../images/TileStripeBG.png); height:77px; padding:0!important; pointer-events:none; }
@@ -1488,16 +1488,16 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerPromoImg { margin:-1px 12px 0 -6px; }
 .lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerPromoImg img { width:100%; height:auto; }
 .lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerInfo { margin-top:9px; }
-.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerInfo p { line-height:13px; font-weight:500; color:#0C4970; }
+.lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerInfo p { line-height:13px; font-weight:500; color:#582178; }
 .lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerInfo .lotteryResultsAdBannerAmount { font-size:23px; font-weight:600; }
 .lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton { margin-left:25px; }
 .lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .linkAsButton { width:200px!important; padding-top:10px; margin-top:16px; pointer-events:auto; }
 .lotteryResultsPages .lotteryResultsBannerAd .lotteryResultsAdBannerButton .lotteryResultsAdBannerButtonMobile { display:none; }
 .lotteryResultsPages #resultsCheckNumbersMobile, .lotteryResultsPages #resultsCheckMobileClose, .lotteryResultsPages #resultsCheckNumbersButtonMobile, .lotteryResultsPages #checkNumbersWindowShow { display:none; }
 .lotteryResultsPages .raffleNumberSection { padding:0 14px; }
-.lotteryResultsPages .raffleNumberSection p { font-weight:500; color:#C7E9FE; font-size:13px; margin:0 0 0 8px; }
+.lotteryResultsPages .raffleNumberSection p { font-weight:500; color:#f1ecf5; font-size:13px; margin:0 0 0 8px; }
 .lotteryResultsPages .raffleNumberSection hr { margin:7px 0; }
-.resultsContainerJPP { background-color:#0C4970; width:350px; padding:20px 0; float:left; margin:10px; }
+.resultsContainerJPP { background-color:#582178; width:350px; padding:20px 0; float:left; margin:10px; }
 .lotteryResults .leftSection { min-width:760px; }
 .lotteryResults .rightSection { min-width:380px; }
 .resultCounter { font-weight:600; margin-right:5px; }
@@ -1512,13 +1512,13 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .resultsBreakdown .gordoPrize p { padding-top:5px; }
 .gordoPrizeListS .gordoPrize { margin-top:21px; }
 .gordoPrizeListM .gordoPrize { margin-top:45px; }
-.gordoWinNumber { background-color:#C7E9FE; width:75px; height:31px; border-radius:16px; float:left; margin-right:15px; }
+.gordoWinNumber { background-color:#f1ecf5; width:75px; height:31px; border-radius:16px; float:left; margin-right:15px; }
 .gordoWinNumber.gordoWinNumberL { width:125px; }
 .gordoPrizeListM .gordoWinNumber { margin-bottom:18px; }
-.gordoWinNumber p, span.gordoWinNumber { text-align:center; color: #013658!important;padding-top: 6px!important;font-weight: 500; }
-.gordoBreakdown { background-color:#0C4970; color:#C7E9FE; font-size:13px; padding:28px 15px; }
+.gordoWinNumber p, span.gordoWinNumber { text-align:center; color: #3e1456!important;padding-top: 6px!important;font-weight: 500; }
+.gordoBreakdown { background-color:#582178; color:#f1ecf5; font-size:13px; padding:28px 15px; }
 .gordoBreakdownHeader { font-weight:500!important; margin-top:28px; }
-.gordoBreakdown .row { border-bottom:1px solid #549CC9; line-height:35px; margin:0; font-weight:300; }
+.gordoBreakdown .row { border-bottom:1px solid #8e5bb0; line-height:35px; margin:0; font-weight:300; }
 .gordoResultsPage .resultsLink { text-align:center; display:block; margin:10px 0; }
 .gordoResultsSpecial { padding-top:4px; }
 .gordoResultsSpecial p { font-weight:500; }
@@ -1530,7 +1530,7 @@ p#placeBetButton, p#placePromoButton { text-align:center; padding-top:21px; heig
 .accountPage .accountSearchItems:last-of-type { margin-right:0!important; }
 .accountPage .accountNoResults { text-align:center; font-weight:500; padding-top:20px; }
 .accountPage .accountTablesRedText { color:#DE5353; }
-.accountPage .accountTablesGreenText { color:#03C262; }
+.accountPage .accountTablesGreenText { color:#0b7a08; }
 .accountPage .accountTablesOrangeText { color:#000000; }
 .accountPage .accountTablesYellowText { color:#AB9400; }
 button.accountSubmitButtons { width:236px!important; float:right; margin-top:40px }
@@ -1539,13 +1539,13 @@ button.accountSubmitButtonInactive { background-color:#848484!important; backgro
 button.accountSubmitButtonInactive { opacity:0.3; }
 .accountSubmitCancel { color:#FFFFFF!important; font-size:16px!important; font-weight:500!important; text-decoration:underline; float:right; margin:53px 32px 0 0; cursor: pointer; }
 .accountSubmitReset { font-size:19px; font-weight: 500; text-decoration: underline; margin:25px 0 0 0; cursor: pointer; }
-.accountPage { margin:0 auto; background-color:#013658; }
+.accountPage { margin:0 auto; background-color:#3e1456; }
 .accountTab { width:100%; margin:10px auto 0 auto; padding:1px 0 30px 0; }
-#accountTabs ul { position:relative; background-color:#002339; border-radius: 0; border: none; height:60px; padding:22px 0 0 0; text-align:center; width:1183px; margin:0 auto -1px auto;}
+#accountTabs ul { position:relative; background-color:#2a0d3b; border-radius: 0; border: none; height:60px; padding:22px 0 0 0; text-align:center; width:1183px; margin:0 auto -1px auto;}
 #accountTabs li { font-size:15px; font-weight:500; list-style:none; padding:0 30px 0 30px; display:inline-block; height:100%; color:#FFFFFF; padding-top:8px; }
 #accountTabs li.accountTabActive, .accountPage #accountTabs li:hover { border-bottom:4px solid #FFFFFF; }
-#accountTabs li:hover { border-bottom:4px solid #C7E9FE; background-color:#C7E9FE; color:#002339; }
-#accountTabs li:active { border-bottom:4px solid #001726; background-color:#001726; color:#C7E9FE; }
+#accountTabs li:hover { border-bottom:4px solid #f1ecf5; background-color:#f1ecf5; color:#2a0d3b; }
+#accountTabs li:active { border-bottom:4px solid #001726; background-color:#001726; color:#f1ecf5; }
 #lotteryOrderSection { padding-top:44px; }
 .accountPage form label { display:block; font-weight:500; margin:0 0 3px 10px; }
 .accountPage header div { margin-left:10px; }
@@ -1558,25 +1558,25 @@ button.accountSubmitButtonInactive { opacity:0.3; }
 .accountPage .GamStopTimeOutImgWeb { display:block; margin:16px auto 0 auto; cursor:pointer; }
 .accountPage .GamStopTimeOutImgMobile { display:none; }
 .account-accordion { margin-top:20px; }
-.account-accordion .acctAccordionHeaders { font-size:19px; font-weight:400; color:#00ADEF; margin:0; } 
+.account-accordion .acctAccordionHeaders { font-size:19px; font-weight:400; color:#6a2a90; margin:0; } 
 .account-accordion .accountDetailsSection { display:inline-block; margin:31px 0 0px 0; }
 .account-accordion .accountPageContent { width:975px; margin:24px auto 0 auto; }
 .account-accordion .walletPageContent { width:1090px; margin:35px auto 0 auto; }
 .datepicker { width:170px; padding:7px 0 7px 8px; border-radius:3px; border:1px solid #979797; }
 .accountPage .updateSuccessFailAlert { position:absolute; top:15px; }
-.updateSuccessFailAlert .infoWindowBody .accountSuccessMessage { color:#03C262; font-weight:500; }
+.updateSuccessFailAlert .infoWindowBody .accountSuccessMessage { color:#0b7a08; font-weight:500; }
 .updateSuccessFailAlert .infoWindowBody .accountFailedMessage { color:#FF5454; font-weight:500; }
 .updateSuccessFailAlert .infoWindowBody img { padding-right:10px; vertical-align:text-top; }
 .accountPage .accountLoadMoreButton { font-size:14px; text-align:center; text-decoration:underline; cursor:pointer; display:block; margin-top:20.5px; }
 .accountPage a { text-decoration:underline; }
 .accountStatusText { color:#D4F4FF!important; margin:33px 0 -12px 30px; font-size:15px; }
 .accountStatusText .acctStatusText { font-weight:500; font-size:16px; color:#FFFFFF; }
-.accountStatusText span#statusActive { color:#03C262; font-size:16px; }
+.accountStatusText span#statusActive { color:#0b7a08; font-size:16px; }
 .accountStatusText span#statusDisabled { color:#DE5353; font-size:16px; }
 #accountWalletCopy { display:inline-block; width:100%; margin:33px 0 -28px 0; }
 .accountWalletText { color:#FFFFFF!important; font-size:16px!important; font-weight:500!important; margin-left:30px; }
 .accountWalletText span { font-weight:400; }
-.accountWalletText #accountWalletTextGreen { color:#03C262; }
+.accountWalletText #accountWalletTextGreen { color:#0b7a08; }
 /* Sign-up by invite: a mail-order customer whose details we already hold.
    The address is the identity the invite was issued against, so it is shown
    but not theirs to change here - locked visibly, with the reason beside it,
@@ -1603,7 +1603,7 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 .leCartFunding { margin:14px 0 18px 0; padding:12px 14px; background:rgba(0,0,0,0.18); border-radius:6px; }
 .leCartFundingRow { display:flex; justify-content:space-between; gap:18px; margin:0 0 6px 0; font-size:14px; line-height:20px; }
 .leCartFundingRow:last-child { margin-bottom:0; }
-.leCartWinsChoice { margin:12px 0 14px 0; padding:12px 14px; background:rgba(255,207,107,0.12); border-left:4px solid #fecf6b; border-radius:4px; }
+.leCartWinsChoice { margin:12px 0 14px 0; padding:12px 14px; background:rgba(255,207,107,0.12); border-left:4px solid #fdbc00; border-radius:4px; }
 .leCartWinsChoiceTitle { font-weight:600; margin:0 0 6px 0; }
 .leCartWinsChoice p { margin:0; font-size:14px; line-height:20px; }
 .leCartWinsAddFunds { margin-top:10px; }
@@ -1617,7 +1617,7 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountWalletSplit { clear:both; display:block; padding-top:10px; margin-bottom:38px; }
 #accountWalletSplit p { margin:0 0 6px 0; }
 #accountWalletWinsNote, #accountWalletOnHoldCopy { font-size:14px!important; font-weight:400!important; max-width:900px; line-height:20px; }
-#acctDetails #alert_missingFields { width:100%; height:100px; background-color:#fecf6b; display:inline-block; margin-top:5px; }
+#acctDetails #alert_missingFields { width:100%; height:100px; background-color:#fdbc00; display:inline-block; margin-top:5px; }
 #acctDetails #alert_missingFields #missingFieldsSection #missingFieldsImage{ float:left; width:65px; }
 #acctDetails #alert_missingFields #missingFieldsSection #missingFieldsImage img#iconAlert { margin:23px 0 0 12px; }
 #acctDetails #alert_missingFields #missingFieldsSection #missingFieldsContent { float:left; width:925px;  }
@@ -1726,8 +1726,8 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountWithdrawal #accountWithdrawTable { display:inline-block; width:100%; overflow-x:auto; }
 #accountWithdrawal .accountWithdrawTableHeader { display:table-header-group; }
 #accountWithdrawal .accountWithdrawTableHeaderCell { display:table-cell; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #CCCCCC; height:30px; }
-#accountWithdrawal .accountWithdrawTableHeaderCell:first-child { text-indent:15px; color:#00ADEF; }
-#accountWithdrawal .accountWithdrawTableHeaderCell:first-child .glyphicon { font-size:10px; color:#00ADEF; text-indent:10px; }
+#accountWithdrawal .accountWithdrawTableHeaderCell:first-child { text-indent:15px; color:#6a2a90; }
+#accountWithdrawal .accountWithdrawTableHeaderCell:first-child .glyphicon { font-size:10px; color:#6a2a90; text-indent:10px; }
 #accountWithdrawal .accountWithdrawTableBody { display:table-row-group; }
 #accountWithdrawal .accountWithdrawTableRow { display:table-row; }
 #accountWithdrawal .accountWithdrawTableBodyCell { display:table-cell; text-align:left; font-weight:400; font-size:13px; border-bottom:1px solid #CCCCCC; padding:10.5px 0; white-space:nowrap; }
@@ -1740,20 +1740,20 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountWithdrawal .custom-select-wrapper-withdraw { position: relative;  user-select:none;  width: 100%; cursor:pointer;}
 #accountWithdrawal .custom-select-withdraw { position:relative; display:flex; flex-direction:column; border-radius:5px; }
 #accountWithdrawal .custom-select-withdraw.open { border:none; box-shadow:3px 5px 33px #00000070; }
-#accountWithdrawal .custom-select-withdraw__trigger { position:relative; height:40px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; z-index:3; background:#549CC9; border:1px solid #549CC9; border-radius:5px; }
+#accountWithdrawal .custom-select-withdraw__trigger { position:relative; height:40px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; z-index:3; background:#8e5bb0; border:1px solid #8e5bb0; border-radius:5px; }
 #accountWithdrawal .custom-options-withdraw .custom-option-withdraw span { position:absolute; top:50%; -ms-transform: translateY(-50%); transform: translateY(-50%); margin: 0; width: 100%; }
 #accountWithdrawal .custom-select-withdraw__trigger img, .custom-option-withdraw img { padding-right:15px; width:53px; }
-#accountWithdrawal .custom-select-withdraw__trigger .glyphicon { transition:.5s ease-in-out; color:#C7E9FE; }
+#accountWithdrawal .custom-select-withdraw__trigger .glyphicon { transition:.5s ease-in-out; color:#f1ecf5; }
 #accountWithdrawal .custom-select-withdraw__trigger .custom-option-withdraw { padding:0; }
-#accountWithdrawal .custom-select-withdraw.open .custom-select-withdraw__trigger { background-color:#C7E9FE; border-color:#549CC9; color:#002339; }
-#accountWithdrawal .custom-select-withdraw.open .custom-select-withdraw__trigger .glyphicon { transform:rotate(-180deg); color:#013658; }
+#accountWithdrawal .custom-select-withdraw.open .custom-select-withdraw__trigger { background-color:#f1ecf5; border-color:#8e5bb0; color:#2a0d3b; }
+#accountWithdrawal .custom-select-withdraw.open .custom-select-withdraw__trigger .glyphicon { transform:rotate(-180deg); color:#3e1456; }
 #accountWithdrawal .custom-options-withdraw {  position: absolute; display: block; top: 100%; left: 0; right: 0;  opacity: 0; visibility: hidden; z-index: 2; }
-#accountWithdrawal .custom-select-withdraw.open .custom-options-withdraw { opacity:1; visibility:visible; background-color:#C7E9FE; color:#002339; box-shadow:1px 1px 8px #00000070; border-radius:0 0 5px 5px; margin-top:-3px; padding-top:3px; }
+#accountWithdrawal .custom-select-withdraw.open .custom-options-withdraw { opacity:1; visibility:visible; background-color:#f1ecf5; color:#2a0d3b; box-shadow:1px 1px 8px #00000070; border-radius:0 0 5px 5px; margin-top:-3px; padding-top:3px; }
 #accountWithdrawal .custom-option-withdraw { position:relative; height:64px; display:block;  padding:11px 0 0 23px; margin-bottom:5px; cursor:pointer; }
 #accountWithdrawal .custom-options-withdraw .custom-option-withdraw:hover { background-color:#FFFFFF; }
-#accountWithdrawal .custom-options-withdraw .custom-option-withdraw:active { background-color:#2C7AAB; }
+#accountWithdrawal .custom-options-withdraw .custom-option-withdraw:active { background-color:#6a2a90; }
 #accountWithdrawal .custom-select-wrapper-withdraw .useReplacePaymentMethod { padding-top:20px; }
-#accountWithdrawal .custom-select-withdraw__trigger b, .custom-option-withdraw b { display:inline-block; width:25px; height:25px; background-color:#03C262; opacity:1; border-radius:45px; text-align:center; color:#fff; font-weight:400; font-size:18px; margin-right:10px; }
+#accountWithdrawal .custom-select-withdraw__trigger b, .custom-option-withdraw b { display:inline-block; width:25px; height:25px; background-color:#0b7a08; opacity:1; border-radius:45px; text-align:center; color:#fff; font-weight:400; font-size:18px; margin-right:10px; }
 #accountWithdrawal .custom-select-wrapper-withdraw .cardExpired { color:#DE5353; font-size:16px; font-weight:400; padding-left:25px;}
 
 /* ACCOUNT WINNINGS */
@@ -1763,12 +1763,12 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountWinnings #searchWinningsReset { float:right; margin-top:11px; }
 #accountWinnings #accountWinningsTable { display:inline-block; width:100%; overflow-x:auto; }
 #accountWinnings .accountWinningsTableHeader { display:table-header-group; }
-#accountWinnings .accountWinningsTableHeaderCell { display:table-cell; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #549CC9; height:30px; }
-#accountWinnings .accountWinningsTableHeaderCell:first-child { text-indent:36px; color:#00ADEF; }
-#accountWinnings .accountWinningsTableHeaderCell:first-child .glyphicon { font-size:10px; color:#00ADEF; text-indent:10px; }
+#accountWinnings .accountWinningsTableHeaderCell { display:table-cell; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #8e5bb0; height:30px; }
+#accountWinnings .accountWinningsTableHeaderCell:first-child { text-indent:36px; color:#6a2a90; }
+#accountWinnings .accountWinningsTableHeaderCell:first-child .glyphicon { font-size:10px; color:#6a2a90; text-indent:10px; }
 #accountWinnings .accountWinningsTableBody { display:table-row-group; }
 #accountWinnings .accountWinningsTableRow { display:table-row; }
-#accountWinnings .accountWinningsTableBodyCell { display:table-cell; text-align:left; font-weight:400; font-size:13px; border-bottom:1px solid #549CC9; padding:10.5px 0; white-space:nowrap; }
+#accountWinnings .accountWinningsTableBodyCell { display:table-cell; text-align:left; font-weight:400; font-size:13px; border-bottom:1px solid #8e5bb0; padding:10.5px 0; white-space:nowrap; }
 #accountWinnings .accountWinningsTableBodyCell:first-child { text-indent:2px; }
 #accountWinnings .sml-td { min-width:90px; padding-right:5px; }
 #accountWinnings .mid-td { min-width:315px; padding-right:5px; }
@@ -1778,16 +1778,16 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #acctPaymentMethod form { margin-top:11px; }
 #acctPaymentMethod form label { margin:0; }
 #acctPaymentMethod .ukAvailablePayments { text-align:center; margin:15px 0 5px 0; }
-#acctPaymentMethod .accountPaymentMethodList:first-of-type { border:1px solid #549CC9; }
-#acctPaymentMethod .accountPaymentMethodList { width:300px; background-color:#549CC9; border-top:1px solid #013658; border-bottom:1px solid #549CC9; border-right:1px solid #549CC9; border-left:1px solid #549CC9; height:61px; position:relative; }
-#acctPaymentMethod .accountPaymentMethodList:hover { border:1px solid #C7E9FE; }
-#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive { border:1px solid #C7E9FE; background-color:#C7E9FE; color:#002339; }
-#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive:hover { border:1px solid #C7E9FE; }
-#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive .acctPaymentMethodListContent .newPayMethod span { background-color:#FFFFFF; color:#013658; font-weight:400; vertical-align:middle; }
+#acctPaymentMethod .accountPaymentMethodList:first-of-type { border:1px solid #8e5bb0; }
+#acctPaymentMethod .accountPaymentMethodList { width:300px; background-color:#8e5bb0; border-top:1px solid #3e1456; border-bottom:1px solid #8e5bb0; border-right:1px solid #8e5bb0; border-left:1px solid #8e5bb0; height:61px; position:relative; }
+#acctPaymentMethod .accountPaymentMethodList:hover { border:1px solid #f1ecf5; }
+#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive { border:1px solid #f1ecf5; background-color:#f1ecf5; color:#2a0d3b; }
+#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive:hover { border:1px solid #f1ecf5; }
+#acctPaymentMethod .accountPaymentMethodList.paymentMethodActive .acctPaymentMethodListContent .newPayMethod span { background-color:#FFFFFF; color:#3e1456; font-weight:400; vertical-align:middle; }
 #acctPaymentMethod .accountPaymentMethodList .checkboxRadioContainer { position:initial!important; padding:0!important;  }
 #acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent { font-weight:400; position:absolute; top:50%; -ms-transform:translateY(-50%); transform:translateY(-50%); margin:0; width:100%; padding-left:20px; }
 #acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .newPayMethod { display:block; width:250px; }
-#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .newPayMethod span { display:inline-block; width:25px; height:25px; background-color:#FFFFFF; color:#013658; font-weight:500; opacity:1; border-radius:45px; text-align:center; font-size:18px; margin-right:10px; }
+#acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .newPayMethod span { display:inline-block; width:25px; height:25px; background-color:#FFFFFF; color:#3e1456; font-weight:500; opacity:1; border-radius:45px; text-align:center; font-size:18px; margin-right:10px; }
 #acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent img { padding-right:18px; }
 #acctPaymentMethod .accountPaymentMethodList .acctPaymentMethodListContent .redesignRadio { right:16px; left:auto; top:0; bottom:0; margin:auto }
 #acctPaymentMethod .paymentMethodSupportedCards { position:relative; height:40px; text-align:right; padding:1px 0 0 0; margin:0; }
@@ -1817,15 +1817,15 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #acctPaymentMethod input.error, #acctPaymentMethod select.error { border:1px solid #FF5454!important; }
 #acctPaymentMethod label.error { display:none!important; }
 /* ACCOUNT TRANSACTION SUMMARY */
-.accountTransactionSummary ul { width:100%; text-align:center; border-bottom:1px solid #2C7AAB; margin-bottom:18.5px; }
+.accountTransactionSummary ul { width:100%; text-align:center; border-bottom:1px solid #6a2a90; margin-bottom:18.5px; }
 .accountTransactionSummary ul li { display:inline-block; margin:0 7px 10.5px 7px; font-size:13px; cursor:pointer; }
 .accountTransactionSummary ul li.acctTransSummaryActive { background-color:#0889D7; color:white; padding:5px 10px; border-radius:2px; }
-.accountTransactionSummary { font-size:13px; color:#C7E9FE; }
+.accountTransactionSummary { font-size:13px; color:#f1ecf5; }
 .accountTransactionSummary .walletPageContent { height:340px; }
 .accountTransactionSummary .acctTransRow { margin-bottom:14px; }
 .accountTransactionSummary .acctTransSection { float:left; }
-.accountTransactionSummary .acctTransBetSection { position:relative; width:425px; padding-right:47px; border-right:1px solid #2C7AAB; }
-.accountTransactionSummary .acctTransDepositSection { position:relative; width:330px; padding-right:15px; border-right:1px solid #2C7AAB; }
+.accountTransactionSummary .acctTransBetSection { position:relative; width:425px; padding-right:47px; border-right:1px solid #6a2a90; }
+.accountTransactionSummary .acctTransDepositSection { position:relative; width:330px; padding-right:15px; border-right:1px solid #6a2a90; }
 .accountTransactionSummary .acctTransWinSection { width:290px; }
 .accountTransactionSummary .acctTransLossSection { width:228px; }
 .accountTransactionSummary .acctTransEmptyRow { height:32px; }
@@ -1841,13 +1841,13 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountTransactionHistory #accountTransactionHistoryReset { float:right; margin-top:49px; }
 #accountTransactionHistory #transactionHistoryTable { display:inline-block; width:100%; overflow-x:auto; }
 #accountTransactionHistory .transactionHistoryTableHeader { display:table-header-group; }
-#accountTransactionHistory .transactionHistoryTableHeaderCell { display:table-cell; color:#C7E9FE; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #549CC9; height:30px; }
-#accountTransactionHistory .transactionHistoryTableHeaderCell:first-child { text-indent:36px; color:#00ADEF; }
-#accountTransactionHistory .transactionHistoryTableHeaderCell:first-child .glyphicon { font-size:10px; color:#00ADEF; text-indent:10px; }
+#accountTransactionHistory .transactionHistoryTableHeaderCell { display:table-cell; color:#f1ecf5; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #8e5bb0; height:30px; }
+#accountTransactionHistory .transactionHistoryTableHeaderCell:first-child { text-indent:36px; color:#6a2a90; }
+#accountTransactionHistory .transactionHistoryTableHeaderCell:first-child .glyphicon { font-size:10px; color:#6a2a90; text-indent:10px; }
 #accountTransactionHistory .transactionHistoryTableBody { display:table-row-group; }
-#accountTransactionHistory .transactionHistoryTableBody.active { background-color:#165D8A; }
+#accountTransactionHistory .transactionHistoryTableBody.active { background-color:#582178; }
 #accountTransactionHistory .transactionHistoryTableRow { display:table-row; }
-#accountTransactionHistory .transactionHistoryTableBodyCell { display:table-cell; text-align:left; font-weight:400; font-size:13px; color:#C7E9FE; border-bottom:1px solid #549CC9; padding:10.5px 0; white-space:nowrap; }
+#accountTransactionHistory .transactionHistoryTableBodyCell { display:table-cell; text-align:left; font-weight:400; font-size:13px; color:#f1ecf5; border-bottom:1px solid #8e5bb0; padding:10.5px 0; white-space:nowrap; }
 #accountTransactionHistory .transactionHistoryTableBodyCell:first-child { text-indent:2px; }
 #accountTransactionHistory .transactionHistoryTableBodyCell .glyphicon { margin-right:19px; }
 #accountTransactionHistory .transactionHistoryTableBodyCell .glyphicon.open { transform:rotate(-90deg); top:3px; left:3px; }
@@ -1855,7 +1855,7 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountTransactionHistory .mid-td { min-width:179px; padding-right:5px; }
 #accountTransactionHistory .lrg-td { min-width:270px; padding-right:5px; }
 #accountTransactionHistory .transactionHistoryTableTwo { display:none; /*overflow-x:auto;*/ }
-#accountTransactionHistory .transactionHistoryTableBody.active + .transactionHistoryTableTwo { /*display:block;*/ display:inline-table; width:100%; padding:12px 25px 30px 25px; background-color:#165D8A; border-bottom:1px solid #549CC9;  }
+#accountTransactionHistory .transactionHistoryTableBody.active + .transactionHistoryTableTwo { /*display:block;*/ display:inline-table; width:100%; padding:12px 25px 30px 25px; background-color:#582178; border-bottom:1px solid #8e5bb0;  }
 #accountTransactionHistory .transactionHistoryTableTwo .transactionHistoryTableHeaderCell:first-child { text-indent:12px; }
 #accountTransactionHistory .transactionHistoryTableTwo .transactionHistoryTableBodyCell:first-child { text-indent:12px; }
 #accountTransactionHistory .transactionHistoryTableTwo .sml-td { min-width:125px; padding-right:5px; }
@@ -1869,14 +1869,14 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountBetHistory #accountBetHistoryReset { float:right; margin-top:49px; }
 #accountBetHistory #betHistoryTable { display:inline-block; width:100%; overflow-x:auto; }
 #accountBetHistory .betHistoryTableHeader { display:table-header-group; }
-#accountBetHistory .betHistoryTableHeaderCell { display:table-cell; color:#C7E9FE; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #549CC9; height:30px; }
+#accountBetHistory .betHistoryTableHeaderCell { display:table-cell; color:#f1ecf5; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #8e5bb0; height:30px; }
 #accountBetHistory .betHistoryTableHeaderCell span { font-weight:400; font-size:11px; }
-#accountBetHistory .betHistoryTableHeaderCell:first-child { text-indent:25px; color:#00ADEF; }
-#accountBetHistory .betHistoryTableHeaderCell:first-child .glyphicon { font-size:10px; color:#00ADEF; text-indent:5px; }
+#accountBetHistory .betHistoryTableHeaderCell:first-child { text-indent:25px; color:#6a2a90; }
+#accountBetHistory .betHistoryTableHeaderCell:first-child .glyphicon { font-size:10px; color:#6a2a90; text-indent:5px; }
 #accountBetHistory .betHistoryTableBody { display:table-row-group; }
-#accountBetHistory .betHistoryTableBody.active { background-color:#165D8A; }
+#accountBetHistory .betHistoryTableBody.active { background-color:#582178; }
 #accountBetHistory .betHistoryTableRow { display:table-row; }
-#accountBetHistory .betHistoryTableBodyCell { display:table-cell; text-align:left; color:#C7E9FE; font-weight:400; font-size:13px; border-bottom:1px solid #549CC9; padding:10.5px 0; white-space:nowrap; }
+#accountBetHistory .betHistoryTableBodyCell { display:table-cell; text-align:left; color:#f1ecf5; font-weight:400; font-size:13px; border-bottom:1px solid #8e5bb0; padding:10.5px 0; white-space:nowrap; }
 #accountBetHistory .betHistoryTableBodyCell:first-child { text-indent:2px; }
 #accountBetHistory .betHistoryTableBodyCell .glyphicon { margin-right:19px; }
 #accountBetHistory .betHistoryTableBodyCell .glyphicon.open { transform:rotate(-90deg); top:3px; left:3px; }
@@ -1886,7 +1886,7 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountBetHistory .lrg-td { min-width:125px; padding-right:5px; }
 #accountBetHistory .xlrg-td { min-width:155px; padding-right:5px; }
 #accountBetHistory .betHistoryTableTwo { display:none; overflow-x:auto; }
-#accountBetHistory .betHistoryTableBody.active + .betHistoryTableTwo { /*display:block;*/ display:inline-table; width:100%; padding:12px 25px 30px 25px; background-color:#165D8A; border-bottom:1px solid #549CC9;  }
+#accountBetHistory .betHistoryTableBody.active + .betHistoryTableTwo { /*display:block;*/ display:inline-table; width:100%; padding:12px 25px 30px 25px; background-color:#582178; border-bottom:1px solid #8e5bb0;  }
 #accountBetHistory .betHistoryTableTwo .betHistoryTableHeaderCell:first-child { text-indent:35px; }
 #accountBetHistory .betHistoryTableTwo .betHistoryTableBodyCell:first-child { text-indent:35px; }
 #accountBetHistory .betHistoryTableTwo .sml-td { min-width:122px; padding-right:5px; }
@@ -1903,13 +1903,13 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountSubscriptionHistory #accountSubscriptionHistoryReset { float:right; margin-top:49px; }
 #accountSubscriptionHistory #subscriptionHistoryTable { display:inline-block; width:100%; margin-top:46px; overflow-x:auto; }
 #accountSubscriptionHistory .subscriptionHistoryTableHeader { display:table-header-group; }
-#accountSubscriptionHistory .subscriptionHistoryTableHeaderCell { position:relative; display:table-cell; color:#C7E9FE; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #549CC9; height:30px; }
-#accountSubscriptionHistory .subscriptionHistoryTableHeaderCell:first-child { text-indent:32px; color:#00ADEF; }
-#accountSubscriptionHistory .subscriptionHistoryTableHeaderCell:first-child .glyphicon { font-size:10px; color:#00ADEF; text-indent:10px; }
+#accountSubscriptionHistory .subscriptionHistoryTableHeaderCell { position:relative; display:table-cell; color:#f1ecf5; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #8e5bb0; height:30px; }
+#accountSubscriptionHistory .subscriptionHistoryTableHeaderCell:first-child { text-indent:32px; color:#6a2a90; }
+#accountSubscriptionHistory .subscriptionHistoryTableHeaderCell:first-child .glyphicon { font-size:10px; color:#6a2a90; text-indent:10px; }
 #accountSubscriptionHistory .subscriptionHistoryTableBody { display:table-row-group; }
-#accountSubscriptionHistory .subscriptionHistoryTableBody.active { background-color:#165D8A; }
+#accountSubscriptionHistory .subscriptionHistoryTableBody.active { background-color:#582178; }
 #accountSubscriptionHistory .subscriptionHistoryTableRow { display:table-row; }
-#accountSubscriptionHistory .subscriptionHistoryTableBodyCell { display:table-cell; text-align:left; color:#C7E9FE; font-weight:400; font-size:13px; border-bottom:1px solid #549CC9; padding:10.5px 0; white-space:nowrap; }
+#accountSubscriptionHistory .subscriptionHistoryTableBodyCell { display:table-cell; text-align:left; color:#f1ecf5; font-weight:400; font-size:13px; border-bottom:1px solid #8e5bb0; padding:10.5px 0; white-space:nowrap; }
 #accountSubscriptionHistory .subscriptionHistoryTableBodyCell:first-child { text-indent:2px; }
 #accountSubscriptionHistory .subscriptionHistoryTableBodyCell .glyphicon { margin-right:19px; }
 #accountSubscriptionHistory .subscriptionHistoryTableBodyCell .glyphicon.open { transform:rotate(-90deg); top:3px; left:3px; }
@@ -1919,7 +1919,7 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountSubscriptionHistory .lrg-td { min-width:111px; padding-right:5px; }
 #accountSubscriptionHistory .xlrg-td { min-width:157px; padding-right:5px; }
 #accountSubscriptionHistory .subscriptionHistoryTableTwo { display:none; overflow-x:auto; }
-#accountSubscriptionHistory .subscriptionHistoryTableBody.active + .subscriptionHistoryTableTwo { /*display:block;*/ display:inline-table; width:100%; padding:12px 25px 30px 25px; background-color:#165D8A; border-bottom:1px solid #549CC9;  }
+#accountSubscriptionHistory .subscriptionHistoryTableBody.active + .subscriptionHistoryTableTwo { /*display:block;*/ display:inline-table; width:100%; padding:12px 25px 30px 25px; background-color:#582178; border-bottom:1px solid #8e5bb0;  }
 #accountSubscriptionHistory .subscriptionHistoryTableTwo .subscriptionHistoryTableHeaderCell:first-child { text-indent:35px; }
 #accountSubscriptionHistory .subscriptionHistoryTableTwo .subscriptionHistoryTableBodyCell:first-child { text-indent:35px; }
 #accountSubscriptionHistory .subscriptionHistoryTableTwo .sml-td { min-width:100px; padding-right:5px; }
@@ -1937,14 +1937,14 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountOrderHistory #accountOrderHistoryForm { display:inline-block; margin-bottom:46px; }
 #accountOrderHistory #orderHistoryTable { display:inline-block; width:100%; overflow-x:auto; }
 #accountOrderHistory .orderHistoryTableHeader { display:table-header-group; }
-#accountOrderHistory .orderHistoryTableHeaderCell { position:relative; display:table-cell; color:#C7E9FE; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #549CC9; height:30px; }
-#accountOrderHistory .orderHistoryTableHeaderCell:first-child { text-indent:36px; color:#00ADEF; }
-#accountOrderHistory .orderHistoryTableHeaderCell:first-child .glyphicon { font-size:10px; color:#00ADEF; text-indent:10px; }
+#accountOrderHistory .orderHistoryTableHeaderCell { position:relative; display:table-cell; color:#f1ecf5; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #8e5bb0; height:30px; }
+#accountOrderHistory .orderHistoryTableHeaderCell:first-child { text-indent:36px; color:#6a2a90; }
+#accountOrderHistory .orderHistoryTableHeaderCell:first-child .glyphicon { font-size:10px; color:#6a2a90; text-indent:10px; }
 #accountOrderHistory .orderHistoryTableHeaderCell span { font-weight:400; font-size:11px; }
 #accountOrderHistory .orderHistoryTableBody { display:table-row-group; }
-#accountOrderHistory .orderHistoryTableBody.active { background-color:#165D8A; }
+#accountOrderHistory .orderHistoryTableBody.active { background-color:#582178; }
 #accountOrderHistory .orderHistoryTableRow { display:table-row; }
-#accountOrderHistory .orderHistoryTableBodyCell { display:table-cell; text-align:left; color:#C7E9FE; font-weight:400; font-size:13px; border-bottom:1px solid #549CC9; padding:10.5px 0; white-space:nowrap; }
+#accountOrderHistory .orderHistoryTableBodyCell { display:table-cell; text-align:left; color:#f1ecf5; font-weight:400; font-size:13px; border-bottom:1px solid #8e5bb0; padding:10.5px 0; white-space:nowrap; }
 #accountOrderHistory .orderHistoryTableBodyCell:first-child { text-indent:2px; }
 #accountOrderHistory .orderHistoryTableBodyCell .glyphicon { margin-right:19px; }
 #accountOrderHistory .orderHistoryTableBodyCell .glyphicon.open { transform:rotate(-90deg); top:3px; left:3px; }
@@ -1953,16 +1953,16 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountOrderHistory .mid-td { min-width:203px; padding-right:5px; }
 #accountOrderHistory .lrg-td { min-width:259px; padding-right:5px; }
 #accountOrderHistory .orderHistoryTableTwo { display:none; overflow-x:auto; }
-#accountOrderHistory .orderHistoryTableBody.active + .orderHistoryTableTwo { display:block; width:100%; padding:12px 22px 30px 22px; background-color:#165D8A; border-bottom:1px solid #549CC9; }
+#accountOrderHistory .orderHistoryTableBody.active + .orderHistoryTableTwo { display:block; width:100%; padding:12px 22px 30px 22px; background-color:#582178; border-bottom:1px solid #8e5bb0; }
 #accountOrderHistory .orderHistoryTableTwo .orderHistoryTableHeaderCell:first-child { text-indent:38px; }
 #accountOrderHistory .orderHistoryTableTwo .orderHistoryTableBodyCell:first-child { text-indent:3px; }
 #accountOrderHistory .orderHistoryTableTwo .sml-td { min-width:88px; padding-right:5px; }
 #accountOrderHistory .orderHistoryTableTwo .mid-td { min-width:113px; padding-right:5px; }
 #accountOrderHistory .orderHistoryTableTwo .lrg-td { min-width:119px; padding-right:5px; }
 #accountOrderHistory .orderHistoryTableTwo .xlrg-td { min-width:167px; padding-right:5px; }
-#accountOrderHistory .orderHistoryTableTwo .orderHistoryTableBody.active { background-color:#2C7AAB; }
+#accountOrderHistory .orderHistoryTableTwo .orderHistoryTableBody.active { background-color:#6a2a90; }
 #accountOrderHistory .orderHistoryTableThree { display:none; overflow-x:auto; }
-#accountOrderHistory .orderHistoryTableTwo .orderHistoryTableBody.active + .orderHistoryTableThree { display:block; width:100%; padding:12px 25px 30px 25px; background-color:#2C7AAB; border-bottom:1px solid #549CC9; }
+#accountOrderHistory .orderHistoryTableTwo .orderHistoryTableBody.active + .orderHistoryTableThree { display:block; width:100%; padding:12px 25px 30px 25px; background-color:#6a2a90; border-bottom:1px solid #8e5bb0; }
 #accountOrderHistory .orderHistoryTableThree .orderHistoryTableHeaderCell:first-child { text-indent:13px; }
 #accountOrderHistory .orderHistoryTableThree .orderHistoryTableBodyCell:first-child { text-indent:13px; }
 #accountOrderHistory .orderHistoryTableThree .sml-td { min-width:120px; padding-right:5px; }
@@ -1981,14 +1981,14 @@ body.supportReadOnly form[method="POST"] input[type="submit"] {
 #accountOrderHistory #orderSearchFailedPopup { top:40px; }
 
 /* Legacy Orders (account page) - mirrors the Order History table styling above */
-#accountLegacyOrders .legacyOrdersNote { color:#C7E9FE; font-size:13px; margin-bottom:20px; }
+#accountLegacyOrders .legacyOrdersNote { color:#f1ecf5; font-size:13px; margin-bottom:20px; }
 #accountLegacyOrders #legacyOrdersTable { display:inline-block; width:100%; overflow-x:auto; }
 #accountLegacyOrders .orderHistoryTableHeader { display:table-header-group; }
-#accountLegacyOrders .orderHistoryTableHeaderCell { position:relative; display:table-cell; color:#C7E9FE; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #549CC9; height:30px; }
-#accountLegacyOrders .orderHistoryTableHeaderCell:first-child { text-indent:36px; color:#00ADEF; }
+#accountLegacyOrders .orderHistoryTableHeaderCell { position:relative; display:table-cell; color:#f1ecf5; font-weight:500; line-height:14px; font-size:13px; text-align:left; border-bottom:1px solid #8e5bb0; height:30px; }
+#accountLegacyOrders .orderHistoryTableHeaderCell:first-child { text-indent:36px; color:#6a2a90; }
 #accountLegacyOrders .orderHistoryTableBody { display:table-row-group; }
 #accountLegacyOrders .orderHistoryTableRow { display:table-row; }
-#accountLegacyOrders .orderHistoryTableBodyCell { display:table-cell; text-align:left; color:#C7E9FE; font-weight:400; font-size:13px; border-bottom:1px solid #549CC9; padding:10.5px 0; white-space:nowrap; }
+#accountLegacyOrders .orderHistoryTableBodyCell { display:table-cell; text-align:left; color:#f1ecf5; font-weight:400; font-size:13px; border-bottom:1px solid #8e5bb0; padding:10.5px 0; white-space:nowrap; }
 #accountLegacyOrders .orderHistoryTableBodyCell:first-child { text-indent:36px; }
 #accountLegacyOrders .sml-td { min-width:123px; padding-right:5px; }
 #accountLegacyOrders .mid-td { min-width:203px; padding-right:5px; }
@@ -2013,7 +2013,7 @@ footer .helpIcon img { margin-bottom:8px; height:auto; }
 footer #footerSocialMediaLinks a { padding:0 27px 0 0;}
 footer #footerSocialMediaLinks a:focus img { filter: invert(90%) sepia(10%) saturate(2000%) hue-rotate(190deg) brightness(89%) contrast(95%); }
 footer .colNoMargin { margin: 0; padding: 0;}
-footer #footerSections  { width:1183px; margin:0 auto; background-color:#012B45; }
+footer #footerSections  { width:1183px; margin:0 auto; background-color:#3e1456; }
 footer #footerSections .container-fluid { padding-left:0; padding-right:0; }
 footer #footerSections a { color: #b8cce1; text-decoration: underline;}
 footer #footerSections a:hover { color:#FFFFFF; }
@@ -2028,7 +2028,7 @@ footer #footerSections #footerLegalImgs { text-align: center; float: none; margi
 footer #footerSections #footerLegalImgs .footerLegalImgs { margin: 10px 15px; float: none; display: inline-block;}
 footer #footerSections #footerLegalImgs .gamingLicence { background: url(../images/GC_BG.svg) center center no-repeat; }
 footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:middle; border:0; -ms-transform:scale(0.63); -moz-transform:scale(0.63); -o-transform:scale(0.63); -webkit-transform:scale(0.63); transform:scale(0.63);-ms-transform-origin:95px 28px; -moz-transform-origin:95px 28px; -o-transform-origin:95px 28px; -webkit-transform-origin:95px 28px; transform-origin:95px 28px; }
-.privacyPolicyBox { width:635px; background-color:#013658; padding:12px 10px 4px 10px; border:2px solid #6293b2; margin:10px 0; }
+.privacyPolicyBox { width:635px; background-color:#3e1456; padding:12px 10px 4px 10px; border:2px solid #6293b2; margin:10px 0; }
 
 /*---------------- 404 PAGE --------------------*/
 #content_404 { text-align:center; }
@@ -2049,9 +2049,9 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
 
 /*--------------- LIVE CHAT -------------------------- */
 #chatButton { position: fixed; bottom: 15px; right: 15px; width:78px; height:79px; background: url(../images/live-chat.png) no-repeat center center; background-size: cover; cursor: pointer; z-index: 9999; }
-#chatModal { display:none; position:fixed; bottom:100px; right:20px; width:300px; height:435px; background-color: #ffffff; border: 1px solid #0C4970; border-radius: 5px; z-index: 10000; overflow: hidden;box-shadow: 3px 5px 33px #00000070; }
+#chatModal { display:none; position:fixed; bottom:100px; right:20px; width:300px; height:435px; background-color: #ffffff; border: 1px solid #582178; border-radius: 5px; z-index: 10000; overflow: hidden;box-shadow: 3px 5px 33px #00000070; }
 #chatModal p { opacity:0.7; color:#000000; }
-#chatHeader { background-color:#013658; color:#C7E9FE; padding:10px; font-size: 17px; }
+#chatHeader { background-color:#3e1456; color:#f1ecf5; padding:10px; font-size: 17px; }
 #chatClose { margin: 3px 5px 0 0; }
 #chatMessages { height: 290px; padding: 10px; overflow-y: auto; border-bottom: 1px solid #ccc; display: none; opacity:0.7; color:#000000; }
 .message { margin-bottom: 10px; }
@@ -2063,16 +2063,16 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
 #chatEmailInput { width:100%; padding: 5px; margin-top: 5px; }
 
 /* --- Marketing Module checkout upsell cards (Lotto Express branding) --- */
-.leUpsellBox { background-color:#013658; border:1px solid #0C4970; border-radius:5px; padding:14px 16px; margin:12px 0 16px; }
-.leUpsellHint { color:#C7E9FE; margin-bottom:10px; }
-.leUpsellCard { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; border:1px solid #2C7AAB; border-radius:5px; background-color:#0C4970; padding:10px 12px; margin-bottom:8px; }
-.leUpsellCard.selected { border-color:#FC7D2B; box-shadow:0 0 0 1px #FC7D2B inset; }
+.leUpsellBox { background-color:#3e1456; border:1px solid #582178; border-radius:5px; padding:14px 16px; margin:12px 0 16px; }
+.leUpsellHint { color:#f1ecf5; margin-bottom:10px; }
+.leUpsellCard { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; border:1px solid #6a2a90; border-radius:5px; background-color:#582178; padding:10px 12px; margin-bottom:8px; }
+.leUpsellCard.selected { border-color:#d67900; box-shadow:0 0 0 1px #d67900 inset; }
 .leUpsellMain { flex:1; }
 .leUpsellLabel { display:flex; align-items:center; gap:8px; margin:0; cursor:pointer; }
 .leUpsellLabel input[type="checkbox"] { margin-top:0; }
 .leUpsellTitle { font-weight:500; color:#FFFFFF; }
-.leUpsellDescription { color:#C7E9FE; margin:6px 0 0 22px; }
-.leUpsellPrice { min-width:120px; text-align:right; color:#FC7D2B; font-weight:500; padding-top:2px; }
+.leUpsellDescription { color:#f1ecf5; margin:6px 0 0 22px; }
+.leUpsellPrice { min-width:120px; text-align:right; color:#d67900; font-weight:500; padding-top:2px; }
 
 /* Offer landing pages (Marketing Module bundles)
  *
@@ -2090,16 +2090,16 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
  * grow-on-hover column hides the controls until you hover — unworkable when
  * every ticket on the page has to be filled before the customer can continue.
  */
-.lotteryOfferPages .leOfferNotice { background-color:#013658; border:1px solid #0C4970; border-radius:5px; padding:16px 18px; margin-bottom:18px; }
-.lotteryOfferPages .textLight { color:#A4D3F1; font-size:13px; }
+.lotteryOfferPages .leOfferNotice { background-color:#3e1456; border:1px solid #582178; border-radius:5px; padding:16px 18px; margin-bottom:18px; }
+.lotteryOfferPages .textLight { color:#e2d3ee; font-size:13px; }
 
-.lotteryOfferPages .leOfferMasthead { background-image:linear-gradient(90deg, #165D8A, #013658); border:1px solid #2C7AAB; border-radius:8px; padding:22px 26px; margin-bottom:18px; }
-.lotteryOfferPages .leOfferEyebrow { color:#00ADEF; font-size:13px; font-weight:500; letter-spacing:1.4px; text-transform:uppercase; margin:0 0 6px 0; }
+.lotteryOfferPages .leOfferMasthead { background-image:linear-gradient(90deg, #582178, #3e1456); border:1px solid #6a2a90; border-radius:8px; padding:22px 26px; margin-bottom:18px; }
+.lotteryOfferPages .leOfferEyebrow { color:#6a2a90; font-size:13px; font-weight:500; letter-spacing:1.4px; text-transform:uppercase; margin:0 0 6px 0; }
 .lotteryOfferPages .leOfferTitle { color:#FFFFFF!important; font-weight:500!important; margin:0; line-height:34px; }
-.lotteryOfferPages .leOfferBlurb { color:#C7E9FE; font-size:17px; font-weight:400; margin:8px 0 0 0; }
+.lotteryOfferPages .leOfferBlurb { color:#f1ecf5; font-size:17px; font-weight:400; margin:8px 0 0 0; }
 .lotteryOfferPages .leOfferPrice { margin:16px 0 0 0; }
-.lotteryOfferPages .leOfferPriceLabel { color:#A4D3F1; font-size:14px; margin-right:10px; vertical-align:middle; }
-.lotteryOfferPages .leOfferPriceAmount { color:#FC7D2B; font-size:30px; font-weight:600; vertical-align:middle; }
+.lotteryOfferPages .leOfferPriceLabel { color:#e2d3ee; font-size:14px; margin-right:10px; vertical-align:middle; }
+.lotteryOfferPages .leOfferPriceAmount { color:#d67900; font-size:30px; font-weight:600; vertical-align:middle; }
 
 .lotteryOfferPages .leOfferHero { border-radius:8px; margin-bottom:18px; }
 
@@ -2125,33 +2125,33 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
 .lotteryOfferPages .leOfferGameText { flex:1 1 auto; min-width:0; }
 .lotteryOfferPages .leOfferGame p { margin:0; }
 .lotteryOfferPages .leOfferGameName { color:#0B4775; font-size:15px; font-weight:500; }
-.lotteryOfferPages .leOfferGameCount { color:#165D8A; font-size:13px; }
+.lotteryOfferPages .leOfferGameCount { color:#582178; font-size:13px; }
 .lotteryOfferPages .leOfferGameJackpot { color:#FF5454; font-size:20px; font-weight:600; flex:0 0 auto; }
 
 .lotteryOfferPages .leOfferAssurances { list-style:none; margin:0 0 26px 0; padding:0; display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; }
-.lotteryOfferPages .leOfferAssurances li { background-color:#013658; border:1px solid #165D8A; border-radius:8px; padding:14px 16px; }
+.lotteryOfferPages .leOfferAssurances li { background-color:#3e1456; border:1px solid #582178; border-radius:8px; padding:14px 16px; }
 .lotteryOfferPages .leOfferAssurances img { height:26px; width:auto; margin-bottom:9px; display:block; }
-.lotteryOfferPages .leOfferAssurances p { color:#A4D3F1; font-size:13px; margin:0; }
-.lotteryOfferPages .leOfferAssurances p.leOfferAssuranceTitle { color:#00ADEF; font-size:15px; font-weight:500; margin-bottom:3px; }
+.lotteryOfferPages .leOfferAssurances p { color:#e2d3ee; font-size:13px; margin:0; }
+.lotteryOfferPages .leOfferAssurances p.leOfferAssuranceTitle { color:#6a2a90; font-size:15px; font-weight:500; margin-bottom:3px; }
 
 /* Collapsed, this is one more tile in the assurance strip's language. The
    marker is drawn here because the browsers' own disclosure triangles differ
    from each other and none of them sits well against a card. */
-.lotteryOfferPages .leOfferAbout { background-color:#013658; border:1px solid #165D8A; border-radius:8px; margin:0 0 26px 0; }
+.lotteryOfferPages .leOfferAbout { background-color:#3e1456; border:1px solid #582178; border-radius:8px; margin:0 0 26px 0; }
 .lotteryOfferPages .leOfferAboutSummary { display:flex; align-items:baseline; flex-wrap:wrap; gap:2px 14px; list-style:none; padding:14px 18px; cursor:pointer; }
 .lotteryOfferPages .leOfferAboutSummary::-webkit-details-marker { display:none; }
-.lotteryOfferPages .leOfferAboutSummary::after { content:""; flex:0 0 auto; margin-left:auto; align-self:center; width:8px; height:8px; border-right:2px solid #00ADEF; border-bottom:2px solid #00ADEF; transform:rotate(45deg); transition:transform 0.2s; }
+.lotteryOfferPages .leOfferAboutSummary::after { content:""; flex:0 0 auto; margin-left:auto; align-self:center; width:8px; height:8px; border-right:2px solid #6a2a90; border-bottom:2px solid #6a2a90; transform:rotate(45deg); transition:transform 0.2s; }
 .lotteryOfferPages .leOfferAbout[open] .leOfferAboutSummary::after { transform:rotate(225deg); }
-.lotteryOfferPages .leOfferAboutTitle { color:#00ADEF; font-size:16px; font-weight:500; }
-.lotteryOfferPages .leOfferAboutHint { color:#A4D3F1; font-size:13px; }
+.lotteryOfferPages .leOfferAboutTitle { color:#6a2a90; font-size:16px; font-weight:500; }
+.lotteryOfferPages .leOfferAboutHint { color:#e2d3ee; font-size:13px; }
 .lotteryOfferPages .leOfferAboutSummary:hover .leOfferAboutTitle { color:#FFFFFF; }
-.lotteryOfferPages .leOfferAboutBody { border-top:1px solid #0C4970; padding:14px 18px 2px 18px; }
-.lotteryOfferPages .leOfferAboutBody p { color:#C7E9FE; font-size:14px; line-height:22px; }
+.lotteryOfferPages .leOfferAboutBody { border-top:1px solid #582178; padding:14px 18px 2px 18px; }
+.lotteryOfferPages .leOfferAboutBody p { color:#f1ecf5; font-size:14px; line-height:22px; }
 .lotteryOfferPages .leOfferAboutBody h3.sub-heading { font-size:16px; margin:2px 0 6px 0; }
 .lotteryOfferPages .leOfferAboutBody .row { margin-bottom:4px; }
 .lotteryOfferPages .leOfferAboutBody .about-us-side-image img { width:46px; height:auto; }
 
-.lotteryOfferPages .leOfferBuildHead { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; border-bottom:1px solid #165D8A; padding-bottom:14px; }
+.lotteryOfferPages .leOfferBuildHead { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; border-bottom:1px solid #582178; padding-bottom:14px; }
 .lotteryOfferPages .leOfferBuildHeadText p { margin:0; }
 .lotteryOfferPages #leOfferQuickPickAll { flex:0 0 auto; width:auto; min-width:180px; padding:11px 24px; }
 
@@ -2159,21 +2159,21 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
 .lotteryOfferPages #main #tickets_section { min-height:0; margin:18px 0 0 0; padding:0; overflow:visible; }
 .lotteryOfferPages #leOfferTickets { display:grid; grid-template-columns:repeat(auto-fill, minmax(238px, 1fr)); gap:16px; align-items:start; }
 
-.lotteryOfferPages .leOfferTicket { background-color:#013658; border:1px solid #165D8A; border-radius:8px; padding:12px 10px 14px 10px; }
-.lotteryOfferPages .leOfferTicket.isComplete { border-color:#03C262; }
-.lotteryOfferPages .leOfferTicketHead { display:flex; flex-wrap:wrap; align-items:flex-start; gap:0 9px; padding:0 4px 10px 4px; border-bottom:1px solid #0C4970; }
+.lotteryOfferPages .leOfferTicket { background-color:#3e1456; border:1px solid #582178; border-radius:8px; padding:12px 10px 14px 10px; }
+.lotteryOfferPages .leOfferTicket.isComplete { border-color:#0b7a08; }
+.lotteryOfferPages .leOfferTicketHead { display:flex; flex-wrap:wrap; align-items:flex-start; gap:0 9px; padding:0 4px 10px 4px; border-bottom:1px solid #582178; }
 .lotteryOfferPages .leOfferTicketLogo { width:44px; height:auto; flex:0 0 auto; }
 .lotteryOfferPages .leOfferTicketText { flex:1 1 auto; min-width:0; }
 .lotteryOfferPages .leOfferTicketText p { margin:0; }
 .lotteryOfferPages .leOfferTicketCount { color:#FFFFFF; font-size:14px; font-weight:500; }
-.lotteryOfferPages .leOfferTicketGame { color:#00ADEF; font-size:13px; }
-.lotteryOfferPages .leOfferTicketBoard { color:#A4D3F1; font-size:12px; }
+.lotteryOfferPages .leOfferTicketGame { color:#6a2a90; font-size:13px; }
+.lotteryOfferPages .leOfferTicketBoard { color:#e2d3ee; font-size:12px; }
 /* On its own row, and stated at this length, because the card is barely wider
    than the ball grid. `#main #tickets_section span` dresses every span in the
    section as a 20px white number tile, so this has to out-rank it. */
-.lotteryOfferPages #main #tickets_section .leOfferTicketState { flex:1 0 100%; order:2; width:auto; height:auto; float:none; text-align:right; margin:8px 0 0 0; padding:0; border:none; border-radius:0; background:none; color:#A4D3F1; font-family:inherit; font-size:11px; font-weight:500; letter-spacing:0.6px; text-transform:uppercase; cursor:default; }
-.lotteryOfferPages #main #tickets_section .leOfferTicket.isComplete .leOfferTicketState { color:#03C262; }
-.lotteryOfferPages .leOfferTicketSchedule { color:#FECF6B; font-size:12px; margin:9px 4px 0 4px; }
+.lotteryOfferPages #main #tickets_section .leOfferTicketState { flex:1 0 100%; order:2; width:auto; height:auto; float:none; text-align:right; margin:8px 0 0 0; padding:0; border:none; border-radius:0; background:none; color:#e2d3ee; font-family:inherit; font-size:11px; font-weight:500; letter-spacing:0.6px; text-transform:uppercase; cursor:default; }
+.lotteryOfferPages #main #tickets_section .leOfferTicket.isComplete .leOfferTicketState { color:#0b7a08; }
+.lotteryOfferPages .leOfferTicketSchedule { color:#fdbc00; font-size:12px; margin:9px 4px 0 4px; }
 
 /* The board keeps the engine's behaviour and loses the play page's own card:
    here the card is .leOfferTicket, and nothing grows on hover. */
@@ -2181,7 +2181,7 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
 .lotteryOfferPages #main #tickets_section .lines:hover,
 .lotteryOfferPages #main #tickets_section .ticketComplete,
 .lotteryOfferPages #main #tickets_section .ticketComplete:hover { position:static; float:none; width:auto; height:auto; min-width:0; margin:0; padding:0; border:none; background-color:transparent; box-shadow:none; z-index:auto; }
-.lotteryOfferPages #main #tickets_section .lines p { color:#A4D3F1; opacity:1; font-size:12px; font-weight:500; letter-spacing:0.6px; text-transform:uppercase; margin:12px 0 4px 4px; padding-top:0; }
+.lotteryOfferPages #main #tickets_section .lines p { color:#e2d3ee; opacity:1; font-size:12px; font-weight:500; letter-spacing:0.6px; text-transform:uppercase; margin:12px 0 4px 4px; padding-top:0; }
 
 /* The card header already says whether the ticket is done, so the board's own
    tick/cross icons would only repeat it, and both controls stay visible. */
@@ -2198,42 +2198,42 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
 .lotteryOfferPages #main #tickets_section .lines #webUpperTicketSection button.clearButton { order:2; }
 
 .lotteryOfferPages #main #tickets_section .lines ul { margin:0 2px; }
-.lotteryOfferPages #main #tickets_section .lines ul li { float:none; display:inline-block; width:26px; height:26px; line-height:24px; margin:2px; color:#C7E9FE; opacity:1; }
-.lotteryOfferPages #main #tickets_section .lines ul li.ticketNumber { background-color:#0C4970; border:1px solid #22699C; }
-.lotteryOfferPages #main #tickets_section .lines ul li.bonusTicketNumber { background-color:#0C4970; border:1px solid #7A6430; color:#FECF6B; }
+.lotteryOfferPages #main #tickets_section .lines ul li { float:none; display:inline-block; width:26px; height:26px; line-height:24px; margin:2px; color:#f1ecf5; opacity:1; }
+.lotteryOfferPages #main #tickets_section .lines ul li.ticketNumber { background-color:#582178; border:1px solid #22699C; }
+.lotteryOfferPages #main #tickets_section .lines ul li.bonusTicketNumber { background-color:#582178; border:1px solid #7A6430; color:#fdbc00; }
 .lotteryOfferPages #main #tickets_section .lines ul.availableNumbersComplete li,
 .lotteryOfferPages #main #tickets_section .lines ul.availableBonusNumbersComplete li { opacity:0.4; }
-.lotteryOfferPages #main #tickets_section .lines ul li.selectedNumber { background-color:#00ADEF!important; border-color:#00ADEF; color:#FFFFFF; opacity:1; }
-.lotteryOfferPages #main #tickets_section .lines ul li.bonusTicketNumber.selectedNumber { background-color:#FECF6B!important; border-color:#FECF6B; color:#013658; }
+.lotteryOfferPages #main #tickets_section .lines ul li.selectedNumber { background-color:#6a2a90!important; border-color:#6a2a90; color:#FFFFFF; opacity:1; }
+.lotteryOfferPages #main #tickets_section .lines ul li.bonusTicketNumber.selectedNumber { background-color:#fdbc00!important; border-color:#fdbc00; color:#3e1456; }
 .lotteryOfferPages #main #tickets_section .lines ul li.ticketNumber:hover,
 .lotteryOfferPages #main #tickets_section .lines ul li.bonusTicketNumber:hover,
-.lotteryOfferPages #main #tickets_section .lines ul li.selectedNumber:hover { background-color:#FF7E19!important; border-color:#FF7E19; color:#FFFFFF; opacity:1; }
+.lotteryOfferPages #main #tickets_section .lines ul li.selectedNumber:hover { background-color:#d67900!important; border-color:#d67900; color:#FFFFFF; opacity:1; }
 
 /* A syndicate share stands where a number board would, so it is built in the
    ticket card's language rather than a new one. Nothing here is interactive:
    the wheel is fixed before the offer goes out and the panel is a statement of
    what has already been bought, not a control. */
 .lotteryOfferPages .leOfferSyndicates { margin-top:18px; }
-.lotteryOfferPages .leOfferSyndicate { background-color:#013658; border:1px solid #165D8A; border-radius:8px; padding:14px 18px 16px 18px; margin-top:14px; }
-.lotteryOfferPages .leOfferSyndicateHead { display:flex; align-items:center; flex-wrap:wrap; gap:4px 14px; padding-bottom:12px; border-bottom:1px solid #0C4970; }
+.lotteryOfferPages .leOfferSyndicate { background-color:#3e1456; border:1px solid #582178; border-radius:8px; padding:14px 18px 16px 18px; margin-top:14px; }
+.lotteryOfferPages .leOfferSyndicateHead { display:flex; align-items:center; flex-wrap:wrap; gap:4px 14px; padding-bottom:12px; border-bottom:1px solid #582178; }
 .lotteryOfferPages .leOfferSyndicateLogo { width:64px; height:auto; flex:0 0 auto; }
 .lotteryOfferPages .leOfferSyndicateText { flex:1 1 auto; min-width:0; }
 .lotteryOfferPages .leOfferSyndicate p { margin:0; }
-.lotteryOfferPages .leOfferSyndicateGame { color:#00ADEF; font-size:15px; font-weight:500; }
+.lotteryOfferPages .leOfferSyndicateGame { color:#6a2a90; font-size:15px; font-weight:500; }
 .lotteryOfferPages .leOfferSyndicateWheel { color:#FFFFFF; font-size:19px; font-weight:600; }
-.lotteryOfferPages .leOfferSyndicateState { flex:0 0 auto; color:#03C262; font-size:11px; font-weight:500; letter-spacing:0.6px; text-transform:uppercase; }
+.lotteryOfferPages .leOfferSyndicateState { flex:0 0 auto; color:#0b7a08; font-size:11px; font-weight:500; letter-spacing:0.6px; text-transform:uppercase; }
 .lotteryOfferPages .leOfferSyndicateFacts { list-style:none; margin:14px 0 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px; }
 .lotteryOfferPages .leOfferSyndicateFacts li { display:flex; flex-direction:column; gap:3px; }
-.lotteryOfferPages .leOfferSyndicateFacts span { color:#A4D3F1; font-size:12px; letter-spacing:0.6px; text-transform:uppercase; }
+.lotteryOfferPages .leOfferSyndicateFacts span { color:#e2d3ee; font-size:12px; letter-spacing:0.6px; text-transform:uppercase; }
 .lotteryOfferPages .leOfferSyndicateFacts strong { color:#FFFFFF; font-size:20px; font-weight:600; }
-.lotteryOfferPages .leOfferSyndicateSchedule { color:#FECF6B; font-size:12px; margin-top:14px!important; }
-.lotteryOfferPages .leOfferSyndicateNote { color:#A4D3F1; font-size:13px; margin-top:12px!important; }
+.lotteryOfferPages .leOfferSyndicateSchedule { color:#fdbc00; font-size:12px; margin-top:14px!important; }
+.lotteryOfferPages .leOfferSyndicateNote { color:#e2d3ee; font-size:13px; margin-top:12px!important; }
 
-.lotteryOfferPages .leOfferSummary { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; background-color:#013658; border:1px solid #165D8A; border-radius:8px; padding:16px 20px; margin-top:22px; }
+.lotteryOfferPages .leOfferSummary { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; background-color:#3e1456; border:1px solid #582178; border-radius:8px; padding:16px 20px; margin-top:22px; }
 .lotteryOfferPages .leOfferSummaryText p { margin:0; }
-.lotteryOfferPages .leOfferSummaryLabel { color:#A4D3F1; font-size:13px; }
-.lotteryOfferPages .leOfferSummaryAmount { color:#FC7D2B; font-size:26px; font-weight:600; }
-.lotteryOfferPages #leOfferStatus { color:#FECF6B; margin-top:6px; }
+.lotteryOfferPages .leOfferSummaryLabel { color:#e2d3ee; font-size:13px; }
+.lotteryOfferPages .leOfferSummaryAmount { color:#d67900; font-size:26px; font-weight:600; }
+.lotteryOfferPages #leOfferStatus { color:#fdbc00; margin-top:6px; }
 .lotteryOfferPages #leOfferSubmit { flex:0 0 auto; width:240px!important; margin-top:0; }
 .lotteryOfferPages #leOfferSubmit:disabled { background-color:#848484; opacity:0.4; box-shadow:none; text-shadow:none; cursor:default; }
 .lotteryOfferPages #leOfferSubmit:disabled:hover { background-color:#848484; color:#FFFFFF!important; text-shadow:none; }
@@ -2314,9 +2314,9 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
 }
 #paymentLinkInstructions .leTransfer {
   margin: 18px 0 12px;
-  border: 1px solid #165D8A;
+  border: 1px solid #582178;
   border-radius: 8px;
-  background-image: linear-gradient(90deg, #0A456C, #013658);
+  background-image: linear-gradient(90deg, #0A456C, #3e1456);
   overflow: hidden;
 }
 #paymentLinkInstructions .leTransferRow {
@@ -2325,12 +2325,12 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
   flex-wrap: wrap;
   gap: 4px 12px;
   padding: 12px 16px;
-  border-top: 1px solid #0C4970;
+  border-top: 1px solid #582178;
 }
 #paymentLinkInstructions .leTransferRow:first-child { border-top: 0; }
 #paymentLinkInstructions .leTransferLabel {
   flex: 0 0 120px;
-  color: #A4D3F1;
+  color: #e2d3ee;
   font-size: 13px;
   letter-spacing: 0.6px;
   text-transform: uppercase;
@@ -2351,7 +2351,7 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
 #paymentLinkInstructions .leTransferAmountRow { background-color: rgba(252, 125, 43, 0.1); }
 #paymentLinkInstructions .leTransferAmount {
   flex: 1 1 auto;
-  color: #FC7D2B;
+  color: #d67900;
   font-size: 22px;
   font-weight: 600;
   line-height: 28px;
@@ -2359,14 +2359,14 @@ footer #footerSections #footerLegalImgs .gamingLicence iframe { vertical-align:m
 #paymentLinkInstructions button.leTransferCopy {
   flex: 0 0 auto;
   padding: 5px 13px;
-  border: 1px solid #00ADEF;
+  border: 1px solid #6a2a90;
   border-radius: 4px;
   background: transparent;
-  color: #00ADEF;
+  color: #6a2a90;
   font-size: 13px;
   cursor: pointer;
 }
-#paymentLinkInstructions button.leTransferCopy:hover { background-color: #00ADEF; color: #013658; }
+#paymentLinkInstructions button.leTransferCopy:hover { background-color: #6a2a90; color: #3e1456; }
 #paymentLinkInstructions .leTransferPaid {
   margin: 16px 0;
   padding: 14px 16px;

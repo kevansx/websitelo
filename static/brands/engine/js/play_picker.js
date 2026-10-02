@@ -1,4 +1,4 @@
-/* Lotto Express (Flask) number picker
+/* Number picker (engine shared with Lotto Express; LottosOnline draw days and time zones added)
  *
  * - Reads product `line_schema` from a JSON script tag rendered by Flask
  * - Renders legacy-compatible markup (tickets_section / lines / available numbers)
@@ -62,6 +62,12 @@
     if (g === "superenalotto") return "Europe/Rome";
     if (g === "lotto-6aus49") return "Europe/Berlin";
     if (g === "lotto-ie") return "Europe/Dublin";
+    if (g === "powerball-au" || g === "weekday-windfall-au") return "Australia/Sydney";
+    if (g === "superlotto-plus-ca-us") return "America/Los_Angeles";
+    if (g === "lotto-america") return "America/Chicago";
+    if (g === "millionaire-for-life-us") return "America/New_York";
+    if (g === "el-gordo-primitiva" || g === "la-primitiva-es" || g === "bonoloto") return "Europe/Madrid";
+    if (g === "thunderball" || g === "lotto-uk") return "Europe/London";
     return "UTC";
   }
 
@@ -182,9 +188,19 @@
     if (g === "australianpowerball") return [4]; // Thu
     if (g === "sat-lotto-au") return [6]; // Sat
     if (g === "oz-lotto-au") return [2]; // Tue (Oz Lotto AU)
-    if (g === "superenalotto") return [2, 4, 6]; // Tue, Thu, Sat
+    if (g === "superenalotto") return [2, 4, 5, 6]; // Tue, Thu, Fri, Sat (Friday draw since 2021)
     if (g === "lotto-6aus49") return [3, 6]; // Wed, Sat
     if (g === "lotto-ie") return [3, 6]; // Wed, Sat
+    // LottosOnline lotteries (official draw days, in the lottery's own time zone)
+    if (g === "powerball-au") return [4]; // Thu
+    if (g === "superlotto-plus-ca-us") return [3, 6]; // Wed, Sat
+    if (g === "lotto-america") return [1, 3, 6]; // Mon, Wed, Sat
+    if (g === "el-gordo-primitiva") return [0]; // Sun
+    if (g === "la-primitiva-es") return [1, 4, 6]; // Mon, Thu, Sat
+    if (g === "bonoloto") return [1, 2, 3, 4, 5, 6]; // Mon to Sat
+    if (g === "thunderball") return [2, 3, 5, 6]; // Tue, Wed, Fri, Sat
+    if (g === "weekday-windfall-au") return [1, 3, 5]; // Mon, Wed, Fri
+    // millionaire-for-life-us: schedule to confirm with the CRM team; falls back to the next draw.
     return []; // unknown
   }
 

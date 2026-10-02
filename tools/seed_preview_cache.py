@@ -26,3 +26,8 @@ cache = CRMCache(CacheConfig(db_path=os.environ["CRM_CACHE_DB_PATH"], brand=os.e
 cache.upsert_jackpots(out)
 cache.set_state("last_jackpots_fetch_at", now.isoformat())
 print("seeded", len(out), "jackpots")
+draws_src = src.parent / "crm_draw_results_sample.json"
+if draws_src.exists():
+    draws = json.loads(draws_src.read_text())
+    cache.upsert_draw_results_page(draws)
+    print("seeded", len(draws), "draw results")

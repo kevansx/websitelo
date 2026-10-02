@@ -26,17 +26,10 @@
   <base href="/" />
 
   {# Legacy site used /Favicon.ico; keep our config-driven favicon too. #}
-  <link rel="icon" href="/Favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta name="theme-color" content="#582178">
 
-  {% if gtm_id %}
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
-  <!-- End Google Tag Manager -->
-  {% endif %}
+  {% import "lo/_tracking.html" as tags with context %}{{ tags.head_tags() }}
 
   <link defer rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link defer rel="stylesheet" href="/resources/css/daterangepicker.min.css">
@@ -44,7 +37,12 @@
   {# Cache-bust CSS per server restart to avoid stale overlay behavior (Chrome can 304 old CSS). #}
   <link defer rel="stylesheet" href="/resources/css/style.css?v={{ build_id }}">
   <link defer rel="stylesheet" href="/resources/css/mobile.css?v={{ build_id }}">
-  <link defer rel="stylesheet" href="https://fonts.googleapis.com/css?family=Heebo:300,400,500,900&display=swap">
+  {# LottosOnline brand layer on top of the engine styles: fonts, tokens, components, layout, engine reskin. #}
+  <link rel="stylesheet" href="{{ lo_asset('css/fonts.css') }}">
+  <link rel="stylesheet" href="{{ lo_asset('css/tokens.css') }}">
+  <link rel="stylesheet" href="{{ lo_asset('css/components.css') }}">
+  <link rel="stylesheet" href="{{ lo_asset('css/site.css') }}">
+  <link rel="stylesheet" href="{{ lo_asset('css/engine-skin.css') }}">
   <style> @font-face { font-family:'impact'; src:url('/resources/css/impact.ttf') format('truetype'); font-display:swap; } </style>
   <style>
     /* When the date range picker is open, never allow the global overlay to block clicks. */
@@ -97,7 +95,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "{{ seo.site_name }}",
+    "name": "LottosOnline",
     "url": "{{ seo.canonical_root }}",
     "logo": "{{ seo.brand_logo }}"
   }
@@ -105,12 +103,8 @@
 
   {% block extra_head %}{% endblock %}
 </head>
-<body{% if support_read_only %} class="supportReadOnly"{% endif %}>
-  {% if gtm_id %}
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  {% endif %}
+<body class="lo lo-engine{% if support_read_only %} supportReadOnly{% endif %}">
+  {{ tags.body_open_tags() }}
 
   {# Legacy cookie banner is injected by /resources/js/index.js before this anchor. #}
   <div id="cookieWarning" style="display:none;"></div>
@@ -141,236 +135,10 @@
     </div>
   </div>
 
-  {# --- Legacy navbar (CRM-driven content comes from `layout` in the next todo) --- #}
-  <div class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/"><img class="headerLogo" src="/resources/images/LELogo.png" /></a>
-      </div>
-      <div class="mobile-nav">
-        <img id="mobileMenuButton" class="mobileMenuButton" src="/resources/images/Mobile_Menu.svg" alt="Open menu" />
-        <img id="mobileMenuButtonClose" class="mobileMenuButton" src="/resources/images/Mobile_Menu_Close.svg" alt="Close menu" style="display:none;" />
-        <a class="navbarHeaderLogo navbar-brand" href="/" style="display:none;">
-          <img class="headerLogo" src="/resources/images/LELogo.png" alt="Lotto Express" />
-        </a>
-        {% if customer %}
-          <a class="mobileTopRightLink" href="/account#details" aria-label="Account">
-            <img class="mobile-nav-buttons mobileAcctImg" src="/resources/images/Mobile_Menu_Account.svg" alt="Account" />
-          </a>
-        {% else %}
-          <a class="mobileTopRightLink" href="/login" aria-label="Login">
-            <img class="mobile-nav-buttons mobileSignInImg" src="/resources/images/Mobile_Menu_SignIn.svg" alt="Login" />
-          </a>
-        {% endif %}
-        <ul class="mobile-nav-dropdown">
-          {% if customer %}
-            <li>
-              <a href="/account#details">
-                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Account.svg" alt=""></span>
-                Account
-              </a>
-            </li>
-            <li>
-              <a href="{{ url_for('wallet_add_funds') }}">
-                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_AddFunds.svg" alt=""></span>
-                Add Funds
-              </a>
-            </li>
-            <li>
-              <a href="/account#wallet">
-                <span class="mobileMenuListImage"><img src="/resources/images/Icon_MenuDrop_Wallet.svg" alt=""></span>
-                Wallet
-              </a>
-            </li>
-            <li>
-              <a href="/account#orders">
-                <span class="mobileMenuListImage"><img src="/resources/images/Icon_MenuDrop_Orders.svg" alt=""></span>
-                Orders
-              </a>
-            </li>
-            <li>
-              <a href="{{ url_for('logout') }}">
-                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Logout.svg" alt=""></span>
-                Logout
-              </a>
-            </li>
-          {% else %}
-            <li>
-              <a href="/login">
-                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_SignInRegister.svg" alt=""></span>
-                Login
-              </a>
-            </li>
-            <li>
-              <a href="/register">
-                <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_SignInRegister.svg" alt=""></span>
-                Register
-              </a>
-            </li>
-          {% endif %}
-          <li class="mobile-nav-lotto-1">
-            <a href="/catalog">
-              <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Lotteries.svg" alt=""></span>
-              Lotteries
-            </a>
-          </li>
-          <li>
-            <a href="/lotteries/promotions">
-              <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Promotions.svg" alt=""></span>
-              Promotions
-            </a>
-          </li>
-          <li>
-            <a href="/lottery-results">
-              <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Results.svg" alt=""></span>
-              Lottery Results
-            </a>
-          </li>
-          <li>
-            <a href="/contact-us">
-              <span class="mobileMenuListImage"><img src="/resources/images/Mobile_Menu_List_Contact.svg" alt=""></span>
-              Contact Us
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse nav navbar-nav navbar-right">
-        <ul class="nav navbar-nav">
-          <li class="dropdown singleLotteryNav">
-            <a class="topLotteriesNav">Lotteries&nbsp;<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              {% for g in (layout.nav_lotteries if layout and layout.nav_lotteries else []) %}
-                <li>
-                  <a href="{{ g.href }}">
-                    {% if g.logo_url %}<img src="{{ g.logo_url }}">{% endif %}
-                    {{ g.name }}<br>
-                    {% if g.jackpot %}<span>{{ g.jackpot }}</span>{% endif %}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-          <li class="dropdown promotionsNav">
-            <a class="topLotteriesNav">Promotions&nbsp;<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              {% for b in (layout.nav_promos if layout and layout.nav_promos else []) %}
-                <li>
-                  <a href="{{ b.href }}">
-                    {% if b.logo_url %}<img src="{{ b.logo_url }}">{% endif %}
-                    {{ b.title }}<br>
-                    {% if b.subtitle %}{{ b.subtitle }}<br>{% endif %}
-                  </a>
-                </li>
-              {% endfor %}
-              <a href="/lotteries/promotions" class="primaryLink promosMainPageNav">View List</a>
-            </ul>
-          </li>
-          <li class="dropdown lotteryResultsNav">
-            <a class="topLotteriesNav">Lottery Results&nbsp;<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              {% for r in (layout.nav_results if layout and layout.nav_results else []) %}
-                <li>
-                  <a href="{{ r.href }}">
-                    {% if r.logo_url %}<img src="{{ r.logo_url }}">{% endif %}
-                    {{ r.name }}<br>
-                    {% if r.date %}<span class="lotteryResultsDate">{{ r.date }}</span>{% endif %}
-                    {% if r.board %}<span class="lotteryResultsBoard">{{ r.board | safe }}</span>{% endif %}
-                  </a>
-                </li>
-              {% endfor %}
-              <a href="/lottery-results" class="primaryLink">View List</a>
-            </ul>
-          </li>
-          <li class="contactUsNav"><a href="/contact-us">Contact Us</a></li>
-        </ul>
-      </div>
-      <div id="navbarAccountInfo" class="navbar-collapse collapse nav navbar-nav navbar-right">
-        <ul class="nav navbar-nav">
-          {% if customer %}
-            <li class="nav_times">
-              <span id="currentReactTime"></span><br>
-              <span id="displayTimeOnSite"></span>
-            </li>
-            {% if not support_read_only %}
-            <li class="nav_right_space addFundsLink secondaryFormButton">
-              <a href="{{ url_for('wallet_add_funds') }}">
-                <img class="mobile-nav-buttons" src="/resources/images/Icon_SecMen_AddFunds_Web.svg" alt="Add Funds">
-                Add Funds
-              </a>
-            </li>
-            {% endif %}
-            <li class="nav_right_space balanceLink">
-              {# The total, and beside it the split, because checkout spends
-                 added funds and leaves winnings alone unless the customer
-                 authorises them. A lone total here reads as money to spend
-                 and is how a customer came to be refused four times over a
-                 wallet holding nearly three times her cart. #}
-              <a href="/account#wallet">
-                <img class="mobile-nav-buttons" src="/resources/images/Icon_MenuDrop_Wallet.svg" alt="Wallet">
-                <span class="balanceText">
-                  <span class="balanceTotal">Balance {{ header_balance_currency }}{{ header_balance_amount }}</span>
-                  {% if header_balance_split %}
-                    <span class="balanceSplit">Funds {{ header_balance_added }} &middot; Wins {{ header_balance_wins }}</span>
-                  {% endif %}
-                </span>
-              </a>
-            </li>
-            {% if header_cart_count and header_cart_count > 0 %}
-            <li class="nav_right_space cartLink secondaryFormButton">
-              <a href="{{ url_for('cart') }}">
-                <img class="mobile-nav-buttons" src="/resources/images/Icon_MenuDrop_Wallet.svg" alt="Cart">
-                Cart {{ header_cart_count }}
-              </a>
-            </li>
-            {% endif %}
-            <li class="nav_right_space loggedInDetails acctLogin">
-              <button class="menuDropBtn" type="button">
-                <img class="mobile-nav-buttons" src="/resources/images/Icon_SecMenu_Account.svg" alt="Account">
-                <span class="navCustomerName">{{ customer_full_name }}</span>
-                <span class="glyphicon glyphicon-triangle-bottom glyph-accordion"></span>
-              </button>
-              <div class="accountDropdown">
-                <a>
-                  <img class="mobile-nav-buttons" src="/resources/images/Icon_MenuDropTop_Account.svg" alt="Account">
-                  {{ customer_full_name }}
-                  <span class="glyphicon glyphicon-triangle-bottom glyph-accordion"></span>
-                </a>
-                <hr>
-                <a class="custInfoMenuItem" href="/account#details">
-                  <img src="/resources/images/Icon_MenuDrop_Account.svg" class="mobile-nav-buttons svgSymbol" alt="Account">Account
-                </a>
-                <a class="custInfoMenuItem" href="/account#wallet">
-                  <img src="/resources/images/Icon_MenuDrop_Wallet.svg" class="mobile-nav-buttons svgSymbol" alt="Wallet">Wallet
-                </a>
-                <a class="custInfoMenuItem" href="/account#orders">
-                  <img src="/resources/images/Icon_MenuDrop_Orders.svg" class="mobile-nav-buttons svgSymbol" alt="Orders">Orders
-                </a>
-                <a class="custInfoMenuItem" href="{{ url_for('logout') }}">
-                  <img src="/resources/images/Icon_MenuDrop_Logout.svg" class="mobile-nav-buttons svgSymbol" alt="Logout">Logout
-                </a>
-              </div>
-            </li>
-          {% else %}
-            <li class="nav_right_space loginOptions acctLogin">
-              <img src="/resources/images/Icon_SecMen_LoginRegister.svg" alt="Login / Register Icon" />
-              <a href="/login" class="signInFormLink">Login</a> | <a href="/register" class="registrationFormLink"> Register</a>
-            </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </div>
+  {# LottosOnline header, shared with the public pages (templates/lo/_header.html). #}
+  {% include "lo/_header.html" %}
 
-  {% if support_read_only %}
-    {# Not a flash. A flash is read once and gone, and a support session lasts
-       an hour across every page, so this states the situation for as long as
-       it is the situation. Child templates cannot suppress it. #}
-    <div class="container">
-      <div class="supportReadOnlyBanner" id="supportReadOnlyBanner" role="status">
-        <p><strong>{{ support_banner_message }}</strong></p>
-      </div>
-    </div>
-  {% endif %}
+
 
   {# Global flash banner; child templates can override this block to suppress. #}
   {% block global_flash %}
@@ -389,103 +157,8 @@
 
   {% block content %}{% endblock %}
 
-  <footer class="footer">
-    <div id="footerSections">
-      <section class="row container-fluid footerSection">
-        <div id="footerContents">
-          <div class="col-lg-12 footerSections">
-            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4 firstFooterContent">
-              <p class="footerHeader">Learn About Lotto Express</p>
-              <p>
-                <a href="/about-us">About Lotto Express</a><br />
-                <a href="/blog/">Lotto Blog</a><br />
-              </p>
-            </section>
-            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <p class="footerHeader">Play Lotteries Online</p>
-              <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  {% for g in (layout.footer_lotteries if layout and layout.footer_lotteries else []) %}
-                    <a href="{{ g.href }}">{{ g.name }}</a><br>
-                  {% endfor %}
-                </div>
-              </div>
-            </section>
-            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <p class="footerHeader">Lottery Results & Winnings</p>
-              <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  {% for r in (layout.footer_results if layout and layout.footer_results else []) %}
-                    <a href="{{ r.href }}">{{ r.name }}</a><br>
-                  {% endfor %}
-                </div>
-              </div>
-            </section>
-          </div>
-          <div class="col-lg-12 footerSections">
-            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <p class="footerHeader">Useful Links</p>
-              <p>
-                <a href="/responsible-gaming">Responsible Gaming</a><br />
-                <a href="/contact-us">Contact Us</a><br />
-              </p>
-            </section>
-            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4 colNoMargin">
-              <p class="footerHeader">Need Help?</p>
-              <div class="col-xs-12 colNoMargin">
-                <div class="helpIcon"><a href="mailto:info@lottoexpress.com?subject=Website%20Enquiry%20for%20Lotto%20Express"><img src="/resources/images/footerEmail.png" width="40" height="40" /><br />Email</a></div>
-                <div class="helpIcon"><a href="/contact-us#call" ><img src="/resources/images/footerCall.png" width="40" height="40" /><br />Call</a></div>
-              </div>
-            </section>
-            <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="footerSocialMediaLinks">
-              <p class="footerHeader footerHeaderCenter">Find Us On!</p>
-              <a href="https://www.facebook.com/PlayLottoExpress" target="_blank"><img src="/resources/images/Footer_FB.svg" width="48" height="48"></a>
-              <a href="https://twitter.com/Lotto_Express" target="_blank"><img src="/resources/images/Footer_Twitter.svg" width="48" height="48"></a>
-            </section>
-          </div>
-        </div>
-      </section>
-      <section class="container-fluid">
-        <div class="">
-          <nav>
-            <ul>
-              <li><a href="/responsible-gaming">Responsible Gaming</a></li>
-              <li><a href="/terms-and-conditions">Terms and Conditions</a></li>
-              <li><a href="/privacy-policy">Privacy Policy</a></li>
-              <li><a href="/contact-us">Contact Us</a></li>
-            </ul>
-          </nav>
-          <div id="footCopyRightText" class="text-center">
-            <p>LottoExpress.com (Ralseft Limited) strictly prohibits access and services to those under the legal age of eighteen (18) years old.</p>
-            <p>Copyright © 2022, Ralseft Limited: LottoExpress. E.&O.E.</p>
-            {% if build_id %}
-              <div style="margin-top:10px; font-size:11px; opacity:.6;">
-                Dev build: {{ build_id }}
-              </div>
-            {% endif %}
-            <div class="col-sm-11 col-xs-12" id="footerLegalImgs">
-              <div class="footerLegalImgs">
-                <img src="/resources/images/ssl.png" width="136" height="39" />
-              </div>
-              <div class="footerLegalImgs">
-                <img src="/resources/images/18year.png" width="39" height="39" />
-              </div>
-              <div class="footerLegalImgs">
-                <a href="https://www.begambleaware.org/" target="_blank">
-                  <img src="/resources/images/gambleAware.svg" width="136" height="18" />
-                </a>
-              </div>
-              <div class="footerLegalImgs gamCare">
-                <a href="https://www.gamcare.org.uk/" target="_blank">
-                  <img src="/resources/images/logo-gamcare-white.svg" width="105" height="30" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </footer>
+  {# LottosOnline footer (templates/lo/_footer.html): legal line is Marvicap Limited. #}
+  {% include "lo/_footer.html" %}
 
   <script>
 // Global countdown ticker (Winnow-style).
@@ -773,7 +446,9 @@
 })();
   </script>
 
+  <script src="{{ lo_asset('js/site.js') }}" defer></script>
   {% block extra_scripts %}{% endblock %}
+  {{ tags.body_close_tags() }}
 </body>
 </html>
 

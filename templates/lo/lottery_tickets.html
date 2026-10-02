@@ -15,13 +15,13 @@
       <thead><tr><th scope="col">Lottery</th><th scope="col">Next jackpot</th><th scope="col">Time left to play</th><th scope="col"><span class="lo-sr">Play</span></th></tr></thead>
       <tbody>
       {% for r in rows %}
-        <tr>
+        <tr data-lottery="{{ r.lottery.slug }}">
           <td><a class="lo-lottable__name" href="/lottery-tickets/{{ r.lottery.slug }}"><img src="{{ lo_ball(r.lottery) }}" alt="" width="40" height="40" loading="lazy">{{ r.lottery.name }}</a></td>
           <td>
             {% if r.jp and r.jp.display %}<span class="lo-lottable__jackpot">{{ r.jp.display }}</span>{% else %}<span class="lo-muted">Results Pending</span>{% endif %}
             {% if r.jp and r.jp.rise_pct %}<span class="lo-lottable__rise">🔥 {{ r.jp.rise_pct }}% higher than base jackpot</span>{% endif %}
           </td>
-          <td>{% if r.jp and r.jp.cutoff_iso %}<span class="lo-countdown" data-until="{{ r.jp.cutoff_iso }}">&nbsp;</span>{% endif %}</td>
+          <td class="lo-lottable__count">{% if r.jp and r.jp.closed %}<span class="lo-muted">Results Pending</span>{% elif r.jp and r.jp.cutoff_iso %}<span class="lo-countdown" data-until="{{ r.jp.cutoff_iso }}">&nbsp;</span>{% endif %}</td>
           <td><a class="lo-btn lo-btn--sm" href="/lottery-tickets/{{ r.lottery.slug }}">Play Now</a></td>
         </tr>
       {% endfor %}

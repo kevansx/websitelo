@@ -160,26 +160,16 @@
 
     function renderGroup(rule, selected, key) {
       if (!rule || !pickerHost) return;
+      // Presentation lives in the stylesheet (LottosOnline: css/results.css); no inline colours here.
       var wrap = document.createElement("div");
       wrap.className = "lines";
-      wrap.style.width = "100%";
 
       var p = document.createElement("p");
-      p.style.margin = "0 0 0 16px";
-      p.style.paddingTop = "9px";
-      p.style.textAlign = "left";
-      p.style.fontSize = "13px";
-      p.style.color = "#A4D3F1";
-      var label = key === "main" ? "Numbers" : (rule.label || "Bonus");
-      p.textContent = "Select " + String(rule.count || 0) + " " + String(label);
+      var label = key === "main" ? "numbers" : (rule.label || "bonus number" + (toInt(rule.count, 0) === 1 ? "" : "s"));
+      p.textContent = "Choose " + String(rule.count || 0) + " " + String(label);
       wrap.appendChild(p);
 
       var ul = document.createElement("ul");
-      ul.style.textAlign = "center";
-      ul.style.listStyle = "none";
-      ul.style.padding = "0";
-      ul.style.fontSize = "0";
-      ul.style.margin = "0 11px";
       var min = toInt(rule.min, 1);
       var max = toInt(rule.max, min);
       var maxCount = toInt(rule.count, 0);
@@ -188,21 +178,8 @@
         li.textContent = String(n);
         li.className = key === "main" ? "ticketNumber" : "bonusTicketNumber";
         if (selected.indexOf(n) >= 0) li.classList.add("selectedNumber");
-        li.style.outlineStyle = "none";
-        li.style.display = "inline-block";
-        li.style.width = "25px";
-        li.style.height = "25px";
-        li.style.fontSize = "13px";
-        li.style.fontWeight = "500";
-        li.style.color = "#C7E9FE";
-        li.style.textAlign = "center";
-        li.style.border = "1px solid #CECECE";
-        li.style.borderRadius = "4px";
-        li.style.cursor = "pointer";
-        li.style.margin = "2px";
-        li.style.padding = "0";
-        li.style.lineHeight = "22px";
-        li.style.float = "left";
+        li.setAttribute("role", "button");
+        li.setAttribute("tabindex", "0");
         li.setAttribute("data-key", key);
         li.setAttribute("data-num", String(n));
         li.addEventListener("click", function () {
@@ -280,7 +257,7 @@
       matchesHost.innerHTML = "";
       var list = Array.isArray(matches) ? matches : [];
       if (!list.length) {
-        matchesHost.innerHTML = "<p class='processOrderCopy' style='text-align:center; padding-bottom:10px;'>No Matches</p>";
+        matchesHost.innerHTML = "<p class='processOrderCopy'>No matches in this month's draws.</p>";
         var found0 = byId("resultsCheckNumberFound");
         if (found0) found0.style.display = "block";
         return;
@@ -289,14 +266,8 @@
         var m = list[i] || {};
         var ul = document.createElement("ul");
         ul.className = "numbersFound";
-        ul.style.padding = "0";
-        ul.style.borderTop = "1px solid #549CC9";
         var liDate = document.createElement("li");
         liDate.className = "numberFoundDate";
-        liDate.style.listStyleType = "none";
-        liDate.style.margin = "7px 0 6px 0";
-        liDate.style.color = "#FFFFFF";
-        liDate.style.fontWeight = "500";
         liDate.textContent = String(m.draw_date_label || "");
         ul.appendChild(liDate);
 
@@ -304,7 +275,6 @@
         for (var j = 0; j < main.length; j++) {
           var liM = document.createElement("li");
           liM.className = "resultsBall resultNumber";
-          liM.style.listStyleType = "none";
           liM.textContent = fmt2(main[j]);
           ul.appendChild(liM);
         }
@@ -312,16 +282,13 @@
         for (var k = 0; k < bonus.length; k++) {
           var liB = document.createElement("li");
           liB.className = "resultsBall resultBonusNumber";
-          liB.style.listStyleType = "none";
           liB.textContent = fmt2(bonus[k]);
           ul.appendChild(liB);
         }
 
         if (m.tier && m.tier.label) {
           var liTier = document.createElement("li");
-          liTier.className = "processOrderCopy";
-          liTier.style.listStyleType = "none";
-          liTier.style.marginTop = "8px";
+          liTier.className = "processOrderCopy numberFoundTier";
           var t = m.tier;
           liTier.textContent = "Tier: " + String(t.label) + (t.prize_amount ? (" (" + fmtMoney(t.currency, t.prize_amount) + ")") : "");
           ul.appendChild(liTier);

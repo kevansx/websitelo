@@ -31,9 +31,11 @@
             <span class="lo-header__badge">{{ header_cart_count }}</span>
           </a>
         {% endif %}
+        {# The total, and under it the split: checkout spends added funds and leaves winnings alone unless the
+           customer authorises them, so a lone total reads as money to spend when it may not be. #}
         <a class="lo-header__balance lo-hide-mobile" href="{{ url_for('account') }}#wallet">
-          <span class="lo-header__balance-label">Balance</span>
-          <span class="lo-header__balance-amount">{{ header_balance_currency }}{{ header_balance_amount }}</span>
+          <span class="lo-header__balance-amount">Balance {{ header_balance_currency }}{{ header_balance_amount }}</span>
+          {% if header_balance_split %}<span class="lo-header__balance-label">Funds {{ header_balance_added }} &middot; Wins {{ header_balance_wins }}</span>{% endif %}
         </a>
         {% if not support_read_only %}
           <a class="lo-header__pill lo-hide-mobile" href="{{ url_for('wallet_add_funds') }}">Deposit</a>

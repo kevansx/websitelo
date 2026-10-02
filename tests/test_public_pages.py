@@ -31,17 +31,17 @@ def test_home_renders(anon_client, stub_crm):
     assert resp.status_code == 200
     html = resp.data.decode("utf-8")
     # Countdown infrastructure must be present.
-    assert "wl-countdown" in html
-    assert "__wlCountdownInit" in html
+    assert "lo-lottable" in html
+    assert "js/site.js" in html
 
 
 def test_catalog_renders(anon_client, stub_crm):
-    resp = anon_client.get("/catalog")
+    resp = anon_client.get("/lottery-tickets")
     assert resp.status_code == 200
 
 
 def test_play_page_renders_with_products(anon_client, stub_crm):
-    resp = anon_client.get("/play/powerball")
+    resp = anon_client.get("/lottery-tickets/us-powerball")
     assert resp.status_code == 200
     html = resp.data.decode("utf-8")
     assert "PB_SINGLE" in html or "PowerBall" in html
@@ -58,7 +58,7 @@ def test_play_page_exposes_prices_by_currency(anon_client, stub_crm):
     }
     stub_crm["store_game"] = {"game": {**stub_crm["store_game"]["game"], "products": [product]}}
 
-    resp = anon_client.get("/play/powerball")
+    resp = anon_client.get("/lottery-tickets/us-powerball")
     assert resp.status_code == 200
     html = resp.data.decode("utf-8")
     assert "prices_by_currency" in html
@@ -84,7 +84,7 @@ def test_play_page_backfills_prices_from_products_endpoint(anon_client, stub_crm
         ]
     }
 
-    resp = anon_client.get("/play/powerball")
+    resp = anon_client.get("/lottery-tickets/us-powerball")
     assert resp.status_code == 200
     html = resp.data.decode("utf-8")
     assert "prices_by_currency" in html
@@ -105,7 +105,7 @@ def test_play_page_countdown_regression(anon_client, stub_crm, monkeypatch):
             }
         ],
     )
-    resp = anon_client.get("/play/powerball")
+    resp = anon_client.get("/lottery-tickets/us-powerball")
     assert resp.status_code == 200
     html = resp.data.decode("utf-8")
     # Server-rendered ticking countdown span inside the banner.
@@ -119,9 +119,9 @@ def test_play_page_countdown_regression(anon_client, stub_crm, monkeypatch):
 
 def test_play_page_countdown_absent_gracefully(anon_client, stub_crm):
     # No cached jackpot -> banner shows a placeholder, not an error.
-    resp = anon_client.get("/play/powerball")
+    resp = anon_client.get("/lottery-tickets/us-powerball")
     assert resp.status_code == 200
-    assert "Draw Cutoff Timer" in resp.data.decode("utf-8")
+    assert "Sales close in" in resp.data.decode("utf-8")
 
 
 def _home_counter(anon_client, monkeypatch, jackpot):
@@ -145,12 +145,12 @@ def _home_counter(anon_client, monkeypatch, jackpot):
     # persist this one-game catalogue for every test that runs after it.
     monkeypatch.setattr(CRMCache, "set_state", lambda self, *a, **k: None)
     html = anon_client.get("/").get_data(as_text=True)
-    for ticket in html.split('class="lotteryItem')[1:]:
-        if "/play/powerball" not in ticket:
-            continue
-        found = re.search(r'<div class="lottoTicketCounter">(.*?)</div>', ticket, re.S)
-        return found.group(1) if found else None
-    return None
+    # LottosOnline home: one table row per lottery, the countdown in its own cell.
+    row = re.search(r'<tr data-lottery="us-powerball">(.*?)</tr>', html, re.S)
+    if not row:
+        return None
+    found = re.search(r'<td class="lo-lottable__count">(.*?)</td>', row.group(1), re.S)
+    return found.group(1) if found else None
 
 
 def test_home_says_results_pending_once_the_draw_cutoff_has_passed(anon_client, stub_crm, monkeypatch):
@@ -168,8 +168,8 @@ def test_home_says_results_pending_once_the_draw_cutoff_has_passed(anon_client, 
         },
     )
     assert counter is not None, "home page rendered no Powerball ticket"
-    assert "Results pending" in counter
-    assert "wl-countdown" not in counter
+    assert "Results Pending" in counter
+    assert "data-until" not in counter
 
 
 def test_home_says_results_pending_for_a_long_dead_draw(anon_client, stub_crm, monkeypatch):
@@ -186,7 +186,7 @@ def test_home_says_results_pending_for_a_long_dead_draw(anon_client, stub_crm, m
         },
     )
     assert counter is not None
-    assert "Results pending" in counter
+    assert "Results Pending" in counter
 
 
 def test_home_still_counts_down_when_the_cutoff_is_ahead(anon_client, stub_crm, monkeypatch):
@@ -202,9 +202,10 @@ def test_home_still_counts_down_when_the_cutoff_is_ahead(anon_client, stub_crm, 
         },
     )
     assert counter is not None
-    assert "Results pending" not in counter
-    remaining = int(re.search(r'data-remaining="(-?\d+)"', counter).group(1))
-    assert 3000 < remaining <= 7200
+    assert "Results Pending" not in counter
+    until = re.search(r'data-until="([^"]+)"', counter).group(1)
+    left = (datetime.fromisoformat(until.replace("Z", "+00:00")) - datetime.now(timezone.utc)).total_seconds()
+    assert 3000 < left <= 7200
 
 
 def test_countdown_ticker_leaves_a_finished_timer_alone(anon_client, stub_crm):
@@ -212,27 +213,31 @@ def test_countdown_ticker_leaves_a_finished_timer_alone(anon_client, stub_crm):
     # only rebuilds its element list every fifth tick, so the retired span is
     # still in hand on the next one; without this guard it was re-read as NaN
     # and the label was overwritten with a dash a second after appearing.
-    html = anon_client.get("/").get_data(as_text=True)
-    assert 'if (!el.hasAttribute("data-remaining")) return;' in html
+    # LottosOnline's ticker (static/brands/lottosonline/js/site.js) labels a finished countdown and stops.
+    js = open("static/brands/lottosonline/js/site.js", encoding="utf-8").read()
+    assert 'el.textContent = el.getAttribute("data-ended-label") || "Draw closed"' in js
 
 
 def test_results_index_renders(anon_client, stub_crm):
-    resp = anon_client.get("/results")
+    resp = anon_client.get("/winning-lottery-numbers")
     assert resp.status_code == 200
 
 
 @pytest.mark.parametrize(
     "path",
     [
-        "/about",
-        "/contact",
-        "/faq",
-        "/terms",
-        "/privacy",
-        "/privacy/au",
-        "/privacy/world",
-        "/responsible-gaming",
-        "/identity-verification-info",
+        "/about-us",
+        "/contact-us",
+        "/faqs",
+        "/terms-and-conditions",
+        "/privacy-policy",
+        "/AML-Policy.php",
+        "/payment-methods",
+        "/how-to-play-lottery-online",
+        "/VIP-rewards",
+        "/lotteries",
+        "/lotteries/euromillions",
+        "/uk/how-to-play/euromillions",
         "/login",
         "/forgot-password",
     ],
@@ -250,16 +255,24 @@ def test_register_page_renders(anon_client, stub_crm):
 @pytest.mark.parametrize(
     "legacy, expect_in_location",
     [
-        ("/index.php", "/"),
-        ("/about-us.php", "/about"),
-        ("/faq.php", "/faq"),
+        ("/faqs.php", "/faqs"),
         ("/login.php", "/login"),
-        ("/terms-and-conditions.php", "/terms"),
-        ("/account.php", "/account"),
+        ("/play/us-powerball", "/lottery-tickets/us-powerball"),
+        ("/lottery-tickets/us-megamillions", "/lottery-tickets/mega-millions"),
+        ("/lotteries/usa-powerball", "/lotteries/us-powerball"),
+        ("/lottery-tickets/uk-lotto", "/lottery-tickets"),
+        ("/lottery-tickets/mega-millions/", "/lottery-tickets/mega-millions"),
+        ("/winning-lottery-numbers/euromillions/2026-09-26", "/winning-lottery-numbers/euromillions"),
+        ("/lottery-info.php?lottery=eurojackpot", "/lotteries/eurojackpot"),
+        ("/rewards", "/VIP-rewards"),
     ],
 )
 def test_legacy_php_redirects(anon_client, stub_crm, legacy, expect_in_location):
+    """Old URLs redirect permanently to the page that replaced them (URL contract, 1 Oct 2026)."""
     resp = anon_client.get(legacy)
+    assert resp.status_code == 301, f"{legacy} returned {resp.status_code}"
+    assert resp.headers["Location"].endswith(expect_in_location)
+    return
     assert resp.status_code in (301, 302, 308), f"{legacy} returned {resp.status_code}"
     assert expect_in_location in resp.headers.get("Location", "")
 

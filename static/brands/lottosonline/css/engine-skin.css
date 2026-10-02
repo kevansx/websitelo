@@ -1,0 +1,24 @@
+/* LottosOnline skin for the engine pages (cart, checkout, wallet, account, orders, results detail).
+   The engine stylesheets were recoloured from Lotto Express blue to the LottosOnline palette in place;
+   this file sets the base type and the few things a colour swap cannot. */
+body.lo-engine { background: var(--surface-page); font-family: var(--font-body); color: var(--ink); }
+body.lo-engine .LEBGColor { display: none; }
+body.lo-engine h1, body.lo-engine h2, body.lo-engine h3, body.lo-engine .pageHeading { font-family: var(--font-display); color: var(--ink); }
+body.lo-engine .pageHeading { font-weight: 800; font-size: 28px; line-height: 34px; margin: var(--space-6) 0 var(--space-4); }
+body.lo-engine .container { max-width: 1160px; }
+/* Interim: the engine's money pages were designed on a dark background (white text). They sit on a deep
+   LottosOnline purple until each is rebuilt in the light design; the public, indexed pages are light. */
+body.lo-engine { background: linear-gradient(180deg, var(--surface-brand-deep) 0%, #2a0d3b 100%) fixed; }
+body.lo-engine .pageHeading { color: #fff; }
+body.lo-engine input[type="submit"], body.lo-engine .primaryFormButton, body.lo-engine button.primaryFormButton {
+  background: var(--cta-600); border-color: var(--cta-600); color: #fff; border-radius: var(--radius-md); font-family: var(--font-display); font-weight: 700; }
+body.lo-engine input[type="submit"]:hover, body.lo-engine .primaryFormButton:hover { background: var(--cta-700); }
+body.lo-engine .secondaryFormButton { border-radius: var(--radius-md); font-family: var(--font-display); font-weight: 700; }
+body.lo-engine a.tertiaryLink, body.lo-engine .lePages a:not(.primaryFormButton):not(.secondaryFormButton) { color: var(--surface-brand-raised); }
+body.lo-engine input[type="text"], body.lo-engine input[type="email"], body.lo-engine input[type="tel"], body.lo-engine input[type="password"],
+body.lo-engine input[type="number"], body.lo-engine select, body.lo-engine textarea { border-radius: var(--radius-md); font-family: var(--font-body); }
+/* the LottosOnline header/footer must not inherit Bootstrap 3's base styles */
+body.lo-engine .lo-site-header a, body.lo-engine .lo-site-footer a { text-decoration: none; }
+body.lo-engine .lo-site-footer h2 { margin: 0; font-size: 13px; color: var(--ink-on-brand); }
+body.lo-engine .lo-site-footer ul { margin-bottom: var(--space-4); }
+body.lo-engine .lo-site-header *, body.lo-engine .lo-site-footer * { box-sizing: border-box; }

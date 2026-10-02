@@ -483,8 +483,8 @@ def test_the_offer_page_carries_the_about_copy_without_leaving_the_page(anon_cli
 
     body = anon_client.get("/offer/PB_Welcome2").get_data(as_text=True)
 
-    assert "Ralseft Limited" in body
-    assert "Access to the World&#39;s Biggest Jackpots" in body
+    assert "About LottosOnline" in body
+    assert "we believe everyone should have a chance to win" in body
     # `details` collapses it without script, so it cannot be left stuck open
     # on a page whose primary job is the number boards.
     assert '<details class="leOfferAbout">' in body
@@ -497,10 +497,10 @@ def test_the_about_page_and_the_offer_page_tell_the_same_story(anon_client, stub
     """
     serve_bundle(_bundle("PB_Welcome2", [{"product_code": "PSX-W", "quantity": 1}]))
 
-    about = anon_client.get("/about").get_data(as_text=True)
+    about = anon_client.get("/about-us").get_data(as_text=True)
     offer = anon_client.get("/offer/PB_Welcome2").get_data(as_text=True)
 
-    claim = "Ralseft Limited was established in 2018"
+    claim = "That’s why we enable official lottery ticket purchases for people across the globe."
     assert claim in about
     assert claim in offer
 
@@ -1382,6 +1382,6 @@ def test_the_picker_cannot_switch_a_closed_offer_back_on():
     this it would re-open an ended offer the moment the numbers were chosen."""
     import pathlib
 
-    script = pathlib.Path("static/brands/lottoexpress/js/offer_picker.js").read_text(encoding="utf-8")
+    script = pathlib.Path("static/brands/engine/js/offer_picker.js").read_text(encoding="utf-8")
 
     assert 'submitBtn.disabled = closed || outstanding > 0' in script

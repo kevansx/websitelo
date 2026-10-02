@@ -233,7 +233,7 @@ def test_the_results_page_windows_its_live_fetch_by_draw_date(own_cache, anon_cl
 
     monkeypatch.setattr(CRMClient, "draw_results", fake_draw_results)
 
-    assert anon_client.get("/results/powerball").status_code == 200
+    assert anon_client.get("/winning-lottery-numbers/us-powerball").status_code == 200
 
     assert asked, "the results page never asked the CRM"
     assert asked[0]["draw_date_from"], "the live fetch is still unwindowed"
@@ -257,7 +257,7 @@ def test_the_results_page_answers_from_the_cache(own_cache, anon_client, full_ca
 
     monkeypatch.setattr(CRMClient, "draw_results", fake_draw_results)
 
-    body = anon_client.get("/results/powerball").get_data(as_text=True)
+    body = anon_client.get("/winning-lottery-numbers/us-powerball").get_data(as_text=True)
 
     assert "Sep 07" in body
     assert "Sep 2026" in body

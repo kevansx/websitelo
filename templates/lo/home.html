@@ -22,7 +22,7 @@
       <span class="lo-homehero__fname">{{ lead.lottery.name }}</span>
       <span class="lo-homehero__fjackpot">{{ lead.jp.display }}</span>
       {% if lead.jp.rise_pct %}<span class="lo-game__rise">🔥 {{ lead.jp.rise_pct }}% above base</span>{% endif %}
-      {% if lead.jp.cutoff_iso %}<span class="lo-countdown lo-countdown--lg lo-countdown--onbrand" data-until="{{ lead.jp.cutoff_iso }}">&nbsp;</span>{% endif %}
+      {% if lead.jp.closed %}<span class="lo-homehero__fname">Results Pending</span>{% elif lead.jp.cutoff_iso %}<span class="lo-countdown lo-countdown--lg lo-countdown--onbrand" data-until="{{ lead.jp.cutoff_iso }}">&nbsp;</span>{% endif %}
       <span class="lo-btn">Play Now</span>
     </a>
     {% endif %}
@@ -44,7 +44,7 @@
           {% if r.price %}<span class="lo-game__price">Each ticket costs: {{ r.price }}</span>{% endif %}
         </div>
         <div class="lo-game__foot">
-          {% if r.jp.cutoff_iso %}<span class="lo-game__count lo-countdown" data-until="{{ r.jp.cutoff_iso }}">&nbsp;</span>{% endif %}
+          {% if r.jp.closed %}<span class="lo-game__count">Results Pending</span>{% elif r.jp.cutoff_iso %}<span class="lo-game__count lo-countdown" data-until="{{ r.jp.cutoff_iso }}">&nbsp;</span>{% endif %}
           <a class="lo-btn lo-btn--block" href="/lottery-tickets/{{ r.lottery.slug }}">Play Now</a>
         </div>
       </div>
@@ -59,13 +59,13 @@
       <thead><tr><th scope="col">Lottery</th><th scope="col">Next jackpot</th><th scope="col">Time left to play</th><th scope="col"><span class="lo-sr">Play</span></th></tr></thead>
       <tbody>
       {% for r in rows %}
-        <tr>
+        <tr data-lottery="{{ r.lottery.slug }}">
           <td><a class="lo-lottable__name" href="/lottery-tickets/{{ r.lottery.slug }}"><img src="{{ lo_ball(r.lottery) }}" alt="" width="40" height="40" loading="lazy">{{ r.lottery.name }}</a></td>
           <td>
             {% if r.jp and r.jp.display %}<span class="lo-lottable__jackpot">{{ r.jp.display }}</span>{% else %}<span class="lo-muted">Results Pending</span>{% endif %}
             {% if r.jp and r.jp.rise_pct %}<span class="lo-lottable__rise">🔥 {{ r.jp.rise_pct }}% higher than base jackpot</span>{% endif %}
           </td>
-          <td>{% if r.jp and r.jp.cutoff_iso %}<span class="lo-countdown" data-until="{{ r.jp.cutoff_iso }}">&nbsp;</span>{% endif %}</td>
+          <td class="lo-lottable__count">{% if r.jp and r.jp.closed %}<span class="lo-muted">Results Pending</span>{% elif r.jp and r.jp.cutoff_iso %}<span class="lo-countdown" data-until="{{ r.jp.cutoff_iso }}">&nbsp;</span>{% endif %}</td>
           <td><a class="lo-btn lo-btn--sm" href="/lottery-tickets/{{ r.lottery.slug }}">Play Now</a></td>
         </tr>
       {% endfor %}

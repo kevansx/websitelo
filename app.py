@@ -1,5 +1,13 @@
 from __future__ import annotations
 
+
+def _debug_print(*args, **kwargs):
+    """The cart's diagnostic prints (inherited) flood the server log on every page view; off unless
+    DEBUG_PRINTS=1."""
+    import os as _os
+    if _os.environ.get("DEBUG_PRINTS") == "1":
+        print(*args, **kwargs)
+
 import json
 import html
 import ast
@@ -307,6 +315,8 @@ def create_app() -> Flask:
     load_dotenv()  # server supplies /opt/.../.env; local dev can use .env too
 
     app = Flask(__name__, static_folder="static", template_folder="templates")
+    import fake_crm
+    fake_crm.install()  # local preview only; refuses to run unless WEBSITE_ENV=local
     lo_lotteries.register_converters(app)
 
     # Azure Front Door (or nginx) terminates TLS and forwards requests to this
@@ -2904,6 +2914,11 @@ def create_app() -> Flask:
         Try to find a legacy logo file shipped in /resources/images.
         Prefers small logos (s-lotto-logo-*) then falls back to other sizes.
         """
+        # LottosOnline: its own lottery artwork, by CRM game code (the round logo the old site used).
+        _lot = lo_lotteries.by_game_code(code)
+        if _lot:
+            return f"/images/lottery-assets/logo_large_round_{_lot.legacy_code}.png"
+
         images_dir = os.path.join(app.config["LEGACY_RESOURCES_DIR"], "images")
         base_name = re.sub(r"\s*\([^)]*\)\s*", " ", name).strip()
 
@@ -3513,7 +3528,7 @@ def create_app() -> Flask:
                 games_ms = int((t_games - t0) * 1000)
                 jp_ms = int((t_jp - t_games) * 1000)
                 banners_ms = int((t_banners - t_jp) * 1000)
-                print(
+                _debug_print(
                     f"[perf] layout_model total={total_ms}ms store_games={games_ms}ms jackpots={jp_ms}ms banners={banners_ms}ms",
                     flush=True,
                 )
@@ -3912,18 +3927,10 @@ def create_app() -> Flask:
         except Exception:
             pass
 
-        # Content partials: allow per-game overrides, but always provide a safe fallback for new CRM games.
-        content_details_template = f"content/lottery_{game_code}_details.html"
-        content_copy_template = f"content/lottery_{game_code}_copy.html"
-        try:
-            base = os.path.join(app.template_folder, "content")
-            if not os.path.exists(os.path.join(base, f"lottery_{game_code}_details.html")):
-                content_details_template = "content/lottery_generic_details.html"
-            if not os.path.exists(os.path.join(base, f"lottery_{game_code}_copy.html")):
-                content_copy_template = "content/lottery_generic_copy.html"
-        except Exception:
-            content_details_template = "content/lottery_generic_details.html"
-            content_copy_template = "content/lottery_generic_copy.html"
+        # LottosOnline: the long copy under the picker is the live page's captured copy (lo_page in play.html),
+        # not the per-game content partials Lotto Express used.
+        content_details_template = None
+        content_copy_template = None
 
         hero_logo = _hero_logo_url(str(game_code), str(game.get("game_name") if isinstance(game, dict) else game_code))
 
@@ -4522,7 +4529,7 @@ def create_app() -> Flask:
                     cart_game_codes.add(str(product_code_to_game_code.get(pc) or "").strip().lower())
 
             candidate_codes = [c for c in games_by_code.keys() if c and c not in cart_game_codes]
-            print(f"DEBUG: cart_game_codes={cart_game_codes}, candidate_codes={candidate_codes[:5]}... (total: {len(candidate_codes)})", flush=True)
+            _debug_print(f"DEBUG: cart_game_codes={cart_game_codes}, candidate_codes={candidate_codes[:5]}... (total: {len(candidate_codes)})", flush=True)
 
             # Odds are static approximations (smaller = better odds).
             odds_rank: dict[str, int] = {
@@ -4597,11 +4604,11 @@ def create_app() -> Flask:
                     currency = jackpot_currency_by_code.get(c) or "EUR"
                     rate = exchange_rates_to_eur.get(currency, 1.0)
                     jackpot_eur_by_code[c] = amount * rate
-                    print(f"DEBUG: {c}: {amount:,.0f} {currency} = {jackpot_eur_by_code[c]:,.0f} EUR (rate: {rate})", flush=True)
+                    _debug_print(f"DEBUG: {c}: {amount:,.0f} {currency} = {jackpot_eur_by_code[c]:,.0f} EUR (rate: {rate})", flush=True)
                 
                 # Sort by EUR-equivalent value
                 highest_jackpot_code = sorted(with_jackpot, key=lambda c: jackpot_eur_by_code.get(c) or 0.0, reverse=True)[0]
-                print(f"DEBUG: Highest jackpot selected: {highest_jackpot_code} with {jackpot_eur_by_code.get(highest_jackpot_code, 0):,.0f} EUR equivalent", flush=True)
+                _debug_print(f"DEBUG: Highest jackpot selected: {highest_jackpot_code} with {jackpot_eur_by_code.get(highest_jackpot_code, 0):,.0f} EUR equivalent", flush=True)
 
             next_draw_code = None
             now_utc = datetime.now(timezone.utc)
@@ -4628,11 +4635,11 @@ def create_app() -> Flask:
                 reason: str
             ) -> dict[str, Any] | None:
                 if not game_code:
-                    print(f"DEBUG: _build_upsell_offer: no game_code for {title}", flush=True)
+                    _debug_print(f"DEBUG: _build_upsell_offer: no game_code for {title}", flush=True)
                     return None
                 g_ = games_by_code.get(game_code) or {}
                 if not g_:
-                    print(f"DEBUG: _build_upsell_offer: game {game_code} not found in games_by_code", flush=True)
+                    _debug_print(f"DEBUG: _build_upsell_offer: game {game_code} not found in games_by_code", flush=True)
                     return None
                 
                 name = str(g_.get("game_name") or game_code_to_game_name.get(game_code) or game_code).strip()
@@ -4652,17 +4659,17 @@ def create_app() -> Flask:
                     if isinstance(v, list) and v:
                         products = [p for p in v if isinstance(p, dict)]
                         if products:
-                            print(f"DEBUG: _build_upsell_offer: found {len(products)} products in '{k}' for {game_code}", flush=True)
+                            _debug_print(f"DEBUG: _build_upsell_offer: found {len(products)} products in '{k}' for {game_code}", flush=True)
                             break
                     elif isinstance(v, dict):
                         # Sometimes it's a single product dict, not a list
                         products = [v]
-                        print(f"DEBUG: _build_upsell_offer: found single product in '{k}' for {game_code}", flush=True)
+                        _debug_print(f"DEBUG: _build_upsell_offer: found single product in '{k}' for {game_code}", flush=True)
                         break
                 
                 # If still no products, try fetching from CRM directly
                 if not products:
-                    print(f"DEBUG: _build_upsell_offer: no products in game dict for {game_code}, trying CRM fetch...", flush=True)
+                    _debug_print(f"DEBUG: _build_upsell_offer: no products in game dict for {game_code}, trying CRM fetch...", flush=True)
                     try:
                         resp = get_crm().store_game(game_code)
                         game_direct = resp.get("game") if isinstance(resp, dict) else None
@@ -4672,17 +4679,17 @@ def create_app() -> Flask:
                                 if isinstance(v, list) and v:
                                     products = [p for p in v if isinstance(p, dict)]
                                     if products:
-                                        print(f"DEBUG: _build_upsell_offer: found {len(products)} products via CRM fetch in '{k}'", flush=True)
+                                        _debug_print(f"DEBUG: _build_upsell_offer: found {len(products)} products via CRM fetch in '{k}'", flush=True)
                                         break
                                 elif isinstance(v, dict):
                                     products = [v]
-                                    print(f"DEBUG: _build_upsell_offer: found single product via CRM in '{k}'", flush=True)
+                                    _debug_print(f"DEBUG: _build_upsell_offer: found single product via CRM in '{k}'", flush=True)
                                     break
                     except Exception as fetch_err:
-                        print(f"DEBUG: _build_upsell_offer: CRM fetch failed: {fetch_err}", flush=True)
+                        _debug_print(f"DEBUG: _build_upsell_offer: CRM fetch failed: {fetch_err}", flush=True)
                 
                 if not products:
-                    print(f"DEBUG: _build_upsell_offer: no products found for {game_code} after all attempts", flush=True)
+                    _debug_print(f"DEBUG: _build_upsell_offer: no products found for {game_code} after all attempts", flush=True)
                     return None
                 
                 for p in products:
@@ -4694,16 +4701,16 @@ def create_app() -> Flask:
                             break
                 
                 if not product_code:
-                    print(f"DEBUG: _build_upsell_offer: no single product_code found for {game_code}", flush=True)
+                    _debug_print(f"DEBUG: _build_upsell_offer: no single product_code found for {game_code}", flush=True)
                     return None
                 if not line_schema:
-                    print(f"DEBUG: _build_upsell_offer: no line_schema found for {game_code} product {product_code}", flush=True)
+                    _debug_print(f"DEBUG: _build_upsell_offer: no line_schema found for {game_code} product {product_code}", flush=True)
                     return None
                 
                 # Generate quickpick lines
                 quickpick_lines = _generate_quickpick_lines(line_schema, num_lines)
                 if not quickpick_lines:
-                    print(f"DEBUG: _build_upsell_offer: failed to generate quickpick lines for {game_code}", flush=True)
+                    _debug_print(f"DEBUG: _build_upsell_offer: failed to generate quickpick lines for {game_code}", flush=True)
                     return None
                 
                 # Format description as "X Quickpick lines in [game name]"
@@ -4725,7 +4732,7 @@ def create_app() -> Flask:
                     row["jackpot_total"] = jackpot_total_by_code[game_code]
                 if game_code in cutoff_dt_by_code:
                     row["next_draw_at"] = cutoff_dt_by_code[game_code].isoformat().replace("+00:00", "Z")
-                print(f"DEBUG: _build_upsell_offer: SUCCESS for {game_code} -> {title}", flush=True)
+                _debug_print(f"DEBUG: _build_upsell_offer: SUCCESS for {game_code} -> {title}", flush=True)
                 return row
 
             # Find worst odds in cart for comparison
@@ -4734,11 +4741,11 @@ def create_app() -> Flask:
                 cart_odds = [odds_rank.get(c) for c in cart_game_codes if c in odds_rank]
                 if cart_odds:
                     cart_worst_odds = max(cart_odds)  # Worst odds = highest number
-                    print(f"DEBUG: Cart worst odds: {cart_worst_odds}", flush=True)
+                    _debug_print(f"DEBUG: Cart worst odds: {cart_worst_odds}", flush=True)
             
             # 1. 3 lines quickpicked in the current highest jackpot
-            print(f"DEBUG: highest_jackpot_code={highest_jackpot_code}, best_odds_code={best_odds_code}, next_draw_code={next_draw_code}", flush=True)
-            print(f"DEBUG: jackpot_total_by_code has {len(jackpot_total_by_code)} games, cutoff_dt_by_code has {len(cutoff_dt_by_code)} games", flush=True)
+            _debug_print(f"DEBUG: highest_jackpot_code={highest_jackpot_code}, best_odds_code={best_odds_code}, next_draw_code={next_draw_code}", flush=True)
+            _debug_print(f"DEBUG: jackpot_total_by_code has {len(jackpot_total_by_code)} games, cutoff_dt_by_code has {len(cutoff_dt_by_code)} games", flush=True)
             if highest_jackpot_code:
                 offer = _build_upsell_offer(
                     highest_jackpot_code,
@@ -4776,7 +4783,7 @@ def create_app() -> Flask:
                             # Calculate improvement: (cart_odds - best_odds) / cart_odds * 100
                             improvement_pct = ((cart_worst_odds - best_odds_value) / cart_worst_odds) * 100
                             offer["odds_improvement_pct"] = int(improvement_pct)
-                            print(f"DEBUG: Best odds improvement: {improvement_pct:.1f}% better than cart", flush=True)
+                            _debug_print(f"DEBUG: Best odds improvement: {improvement_pct:.1f}% better than cart", flush=True)
                     lottery_upsells.append(offer)
             
             # 3. 3 lines in the current closest draw
@@ -4793,7 +4800,7 @@ def create_app() -> Flask:
                         offer["countdown_to"] = cutoff_dt_by_code[next_draw_code].isoformat().replace("+00:00", "Z")
                     lottery_upsells.append(offer)
             
-            print(f"DEBUG: Generated {len(lottery_upsells)} lottery upsells", flush=True)
+            _debug_print(f"DEBUG: Generated {len(lottery_upsells)} lottery upsells", flush=True)
         except Exception as e:
             # Log error for debugging (remove in production)
             import traceback
@@ -4802,19 +4809,14 @@ def create_app() -> Flask:
             lottery_upsells = []
         
         # ALWAYS try fallback if no upsells (even if main logic "succeeded" with 0 results)
-        import sys
-        sys.stdout.write(f"DEBUG: Before fallback check: lottery_upsells length = {len(lottery_upsells)}\n")
-        sys.stdout.flush()
+        _debug_print(f"DEBUG: Before fallback check: lottery_upsells length = {len(lottery_upsells)}")
         if len(lottery_upsells) == 0:
-            sys.stdout.write("=" * 80 + "\n")
-            sys.stdout.write("*** DEBUG: No upsells generated, trying simple fallback... ***\n")
-            sys.stdout.write("=" * 80 + "\n")
-            sys.stdout.flush()
+            _debug_print("*** DEBUG: No upsells generated, trying simple fallback... ***")
             try:
                 fallback_games = store_games_cached()
-                print(f"DEBUG: Fallback has {len(fallback_games)} games to try", flush=True)
+                _debug_print(f"DEBUG: Fallback has {len(fallback_games)} games to try", flush=True)
                 cart_games_set = {str(it.get("game_code") or "").strip().lower() for it in cart_view_items if isinstance(it, dict)}
-                print(f"DEBUG: Cart has games: {cart_games_set}", flush=True)
+                _debug_print(f"DEBUG: Cart has games: {cart_games_set}", flush=True)
                 for g in fallback_games[:10]:  # Try first 10 games
                     if not isinstance(g, dict):
                         continue
@@ -4822,9 +4824,9 @@ def create_app() -> Flask:
                     if not gc:
                         continue
                     if gc in cart_games_set:
-                        print(f"DEBUG: Skipping {gc} (already in cart)", flush=True)
+                        _debug_print(f"DEBUG: Skipping {gc} (already in cart)", flush=True)
                         continue
-                    print(f"DEBUG: Trying fallback for {gc}...", flush=True)
+                    _debug_print(f"DEBUG: Trying fallback for {gc}...", flush=True)
                     # Find product - try multiple keys and also fetch from CRM if needed
                     products = []
                     # Try all possible product keys
@@ -4833,15 +4835,15 @@ def create_app() -> Flask:
                         if isinstance(v, list) and v:
                             products = [p for p in v if isinstance(p, dict)]
                             if products:
-                                print(f"DEBUG: Found {len(products)} products in '{k}' for {gc}", flush=True)
+                                _debug_print(f"DEBUG: Found {len(products)} products in '{k}' for {gc}", flush=True)
                                 break
                         elif isinstance(v, dict):
                             products = [v]
-                            print(f"DEBUG: Found single product in '{k}' for {gc}", flush=True)
+                            _debug_print(f"DEBUG: Found single product in '{k}' for {gc}", flush=True)
                             break
                     # If still no products, try CRM fetch
                     if not products:
-                        print(f"DEBUG: No products in cache for {gc}, fetching from CRM...", flush=True)
+                        _debug_print(f"DEBUG: No products in cache for {gc}, fetching from CRM...", flush=True)
                         try:
                             resp = get_crm().store_game(gc)
                             game_direct = resp.get("game") if isinstance(resp, dict) else None
@@ -4851,11 +4853,11 @@ def create_app() -> Flask:
                                     if isinstance(v, list) and v:
                                         products = [p for p in v if isinstance(p, dict)]
                                         if products:
-                                            print(f"DEBUG: Found {len(products)} products via CRM for {gc}", flush=True)
+                                            _debug_print(f"DEBUG: Found {len(products)} products via CRM for {gc}", flush=True)
                                             break
                                     elif isinstance(v, dict):
                                         products = [v]
-                                        print(f"DEBUG: Found single product via CRM for {gc}", flush=True)
+                                        _debug_print(f"DEBUG: Found single product via CRM for {gc}", flush=True)
                                         break
                             # Also check if products are at top level of response
                             if not products and isinstance(resp, dict):
@@ -4863,9 +4865,9 @@ def create_app() -> Flask:
                                 if isinstance(top_products, list):
                                     products = [p for p in top_products if isinstance(p, dict)]
                                     if products:
-                                        print(f"DEBUG: Found {len(products)} products at response top level for {gc}", flush=True)
+                                        _debug_print(f"DEBUG: Found {len(products)} products at response top level for {gc}", flush=True)
                         except Exception as fetch_err:
-                            print(f"DEBUG: CRM fetch for {gc} failed: {fetch_err}", flush=True)
+                            _debug_print(f"DEBUG: CRM fetch for {gc} failed: {fetch_err}", flush=True)
                             import traceback
                             traceback.print_exc()
                     
@@ -4875,7 +4877,7 @@ def create_app() -> Flask:
                             pc = str(p.get("code") or p.get("product_code") or "").strip().upper()
                             ls = p.get("line_schema")
                             if pc and ls:
-                                print(f"DEBUG: Generating quickpick for {gc} product {pc}...", flush=True)
+                                _debug_print(f"DEBUG: Generating quickpick for {gc} product {pc}...", flush=True)
                                 qp_lines = _generate_quickpick_lines(ls, 3)
                                 if qp_lines:
                                     # Determine title based on which offer this is
@@ -4908,14 +4910,14 @@ def create_app() -> Flask:
                                         "num_lines": num_lines,
                                         "_line_schema": ls,
                                     })
-                                    print(f"DEBUG: SUCCESS! Added upsell for {gc} with title '{title}'", flush=True)
+                                    _debug_print(f"DEBUG: SUCCESS! Added upsell for {gc} with title '{title}'", flush=True)
                                     break
                     if len(lottery_upsells) >= 3:
-                        print(f"DEBUG: Got 3 upsells, stopping fallback", flush=True)
+                        _debug_print(f"DEBUG: Got 3 upsells, stopping fallback", flush=True)
                         break
-                print(f"*** DEBUG: Fallback generated {len(lottery_upsells)} offers ***", flush=True)
+                _debug_print(f"*** DEBUG: Fallback generated {len(lottery_upsells)} offers ***", flush=True)
             except Exception as fallback_err:
-                print(f"*** DEBUG: Fallback failed: {fallback_err} ***", flush=True)
+                _debug_print(f"*** DEBUG: Fallback failed: {fallback_err} ***", flush=True)
                 import traceback
                 traceback.print_exc()
         
@@ -4999,9 +5001,9 @@ def create_app() -> Flask:
         # ALWAYS clear eligible_offers if we have ANY lottery_upsells
         if lottery_upsells:
             eligible_offers = []
-            print(f"DEBUG: SUCCESS - Showing {len(lottery_upsells)} lottery upsells, cleared eligible_offers", flush=True)
+            _debug_print(f"DEBUG: SUCCESS - Showing {len(lottery_upsells)} lottery upsells, cleared eligible_offers", flush=True)
         else:
-            print(f"DEBUG: FAILED - lottery_upsells is STILL empty, showing {len(eligible_offers) if isinstance(eligible_offers, list) else 0} eligible_offers instead", flush=True)
+            _debug_print(f"DEBUG: FAILED - lottery_upsells is STILL empty, showing {len(eligible_offers) if isinstance(eligible_offers, list) else 0} eligible_offers instead", flush=True)
 
         # Precompute a cart total for discount tiers.
         # We derive this before discount logic so tiers reflect the current quote value.
@@ -5090,12 +5092,12 @@ def create_app() -> Flask:
                         if line_discount is not None:
                             try:
                                 quote_discount_percent = int(float(line_discount))
-                                print(f"DEBUG: Found discount_percent={quote_discount_percent}% from quote.lines", flush=True)
+                                _debug_print(f"DEBUG: Found discount_percent={quote_discount_percent}% from quote.lines", flush=True)
                                 break
                             except Exception:
                                 pass
 
-        print(
+        _debug_print(
             f"DEBUG: quote discount resolved amount_cents={discount_amount_cents}, percent={quote_discount_percent}",
             flush=True,
         )
@@ -5195,7 +5197,7 @@ def create_app() -> Flask:
         if promo_discount_percent is None and promo_discount_amount_cents > 0:
             promo_discount_percent = 10
 
-        print(
+        _debug_print(
             f"DEBUG: Final promo_discount_percent={promo_discount_percent}%, promo_discount_amount_cents={promo_discount_amount_cents}",
             flush=True,
         )
@@ -5207,7 +5209,7 @@ def create_app() -> Flask:
                 cart_currency = quote_currency
             wallet_currency = _normalized_currency_code(session_wallet.get("currency") if isinstance(session_wallet, dict) else "")
             if quote_currency and wallet_currency and quote_currency != wallet_currency:
-                print(
+                _debug_print(
                     f"DEBUG: Currency mismatch quote={quote_currency} wallet={wallet_currency}; using quote currency for cart display",
                     flush=True,
                 )
@@ -6868,8 +6870,9 @@ def create_app() -> Flask:
     @app.get("/winning-lottery-numbers/<lo_results:game_code>")
     def results_game(game_code: str):
         # The model happily invents a page for any string, which turned every
-        # typo and stale link into an indexable empty results page.
-        if not _catalog_game(game_code):
+        # typo and stale link into an indexable empty results page. The lo_results URL converter only
+        # admits LottosOnline's results lotteries (including results-only UK Lotto), so check that list.
+        if lo_lotteries.by_game_code(game_code) is None:
             abort(404)
         model = _results_page_model(game_code)
         return render_template(

@@ -107,7 +107,7 @@ def test_upsell_estimate_uses_display_currency_not_base(client, stub_crm, monkey
 
 def test_play_picker_prices_carry_the_display_currency_map(client, stub_crm, monkeypatch):
     _use_eur_customer(monkeypatch, stub_crm)
-    resp = client.get("/play/powerball")
+    resp = client.get("/lottery-tickets/us-powerball")
     assert resp.status_code == 200
     body = resp.get_data(as_text=True)
     assert '"prices_by_currency"' in body

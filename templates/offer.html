@@ -133,11 +133,12 @@
        repeated. #}
     <details class="leOfferAbout">
       <summary class="leOfferAboutSummary">
-        <span class="leOfferAboutTitle">About Lotto Express</span>
+        <span class="leOfferAboutTitle">About LottosOnline</span>
         <span class="leOfferAboutHint">Who we are, and how your entry is bought</span>
       </summary>
-      <div class="leOfferAboutBody">
-        {% include "_about_content.html" %}
+      <div class="leOfferAboutBody lo-prose">
+        {% set _about = lo_page("/about-us") %}
+        {% if _about %}{% for block in _about['copy'] %}{{ block.html|safe }}{% endfor %}{% endif %}
       </div>
     </details>
 

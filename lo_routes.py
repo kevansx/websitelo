@@ -93,6 +93,22 @@ def register(app) -> None:
             h = _hashes[key] = hashlib.sha1(f.read_bytes().replace(b"\r\n", b"\n")).hexdigest()[:10]
         return f"/assets/lo/{h}/{rel}"
 
+    ENGINE_STATIC = Path(__file__).resolve().parent / "static" / "brands" / "engine"
+
+    def lo_engine_asset(rel: str) -> str:
+        f = ENGINE_STATIC / rel
+        key = ("engine", rel, f.stat().st_mtime_ns)
+        h = _hashes.get(key)
+        if h is None:
+            h = _hashes[key] = hashlib.sha1(f.read_bytes().replace(b"\r\n", b"\n")).hexdigest()[:10]
+        return f"/assets/engine/{h}/{rel}"
+
+    @app.get("/assets/engine/<h>/<path:rel>")
+    def lo_versioned_engine_asset(h: str, rel: str):
+        resp = send_from_directory(ENGINE_STATIC, rel, max_age=31536000)
+        resp.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        return resp
+
     @app.get("/assets/lo/<h>/<path:rel>")
     def lo_versioned_asset(h: str, rel: str):
         resp = send_from_directory(BRAND_STATIC, rel, max_age=31536000)
@@ -139,6 +155,38 @@ def register(app) -> None:
         "zendesk_key": _tag("LO_ZENDESK_KEY", "c313db13-7d37-4ec8-9a85-06f112b0507d"),
     }
 
+    def product_jsonld(lot, game, jp) -> str:
+        """Valid Product markup for a play page. Replaces the old site's block, which was not valid JSON
+        (it contained comments) and claimed a 5-star aggregate rating from one review."""
+        price = None
+        for p in (game or {}).get("products") or []:
+            pbc = p.get("prices_by_currency") or {}
+            eur = pbc.get("EUR") if isinstance(pbc, dict) else None
+            cents = (eur or {}).get("amount_cents") if isinstance(eur, dict) else None
+            if cents is None and str(p.get("base_currency") or "").upper() == "EUR":
+                cents = p.get("price_in_base_cents")
+            if cents:
+                price = f"{int(cents) / 100:.2f}"
+                break
+        url = SITE_URL + lo_lotteries.play_path(lot)
+        data = {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": f"Play {lot.name} Online",
+            "image": f"{SITE_URL}/images/lottery-assets/logo_main_{lot.legacy_code}.png",
+            "description": f"Play {lot.name} online - buy official {lot.name} tickets and get a scanned copy of your ticket.",
+            "sku": lot.legacy_code.upper(),
+            "brand": {"@type": "Brand", "name": lot.name},
+        }
+        if price:
+            offer = {"@type": "Offer", "priceCurrency": "EUR", "price": price, "url": url,
+                     "availability": "https://schema.org/InStock",
+                     "seller": {"@type": "Organization", "name": "LottosOnline.com"}}
+            if jp and jp.get("cutoff_iso"):
+                offer["priceValidUntil"] = str(jp["cutoff_iso"])[:10]
+            data["offers"] = offer
+        return json.dumps(data, separators=(",", ":"), ensure_ascii=False)
+
     @app.context_processor
     def _lo_context():
         return {
@@ -149,6 +197,9 @@ def register(app) -> None:
             "lo_breadcrumb_jsonld": lo_breadcrumb_jsonld,
             "lo_lotteries": LOTTERIES,
             "lo_page": pages.get,
+            "lo_engine_asset": lo_engine_asset,
+            "lo_lottery": lo_lotteries.by_game_code,
+            "lo_product_jsonld": product_jsonld,
         }
 
     # ------------------------------------------------------------------ jackpots + artwork
@@ -174,7 +225,7 @@ def register(app) -> None:
 
     def jackpots_by_code() -> dict:
         import time as _t
-        if _t.time() - _jp_memo["at"] < 30 and _jp_memo["by_code"]:
+        if not app.testing and _t.time() - _jp_memo["at"] < 30 and _jp_memo["by_code"]:
             return _jp_memo["by_code"]
         eng = app.config.get("LO_ENGINE") or {}
         rows = []
@@ -204,6 +255,19 @@ def register(app) -> None:
         cutoff = j.get("cutoff_at_utc") or j.get("next_draw_utc")
         if cutoff and not str(cutoff).endswith("Z") and "+" not in str(cutoff):
             cutoff = str(cutoff) + "Z"
+        # Sales closed once the cut-off has passed (the CRM sends cut-offs without an offset: UTC). Until the
+        # feed rolls to the next draw the old site said "Results Pending"; a countdown stuck at zero says less.
+        closed = False
+        if cutoff:
+            try:
+                closed = datetime.fromisoformat(str(cutoff).replace("Z", "+00:00")) <= datetime.now(timezone.utc)
+            except ValueError:
+                closed = False
+        try:
+            if j.get("remaining_seconds") is not None and int(j.get("remaining_seconds")) <= 0:
+                closed = True
+        except (TypeError, ValueError):
+            pass
         return {
             "display": fmt_jackpot(amount, cur),
             "amount": amount,
@@ -211,6 +275,7 @@ def register(app) -> None:
             "cutoff_iso": cutoff,
             "draw_date": j.get("draw_date"),
             "rise_pct": lo_lotteries.rise_pct(game_code, amount),
+            "closed": closed,
             "raw": j,
         }
 
@@ -305,6 +370,15 @@ def register(app) -> None:
         if changed:
             session["mkt"] = mkt
 
+    @app.before_request
+    def _lo_clean_play_urls():
+        # The old site answered a play page carrying tracking parameters (?a=&c=, ?ref=) with a 301 to the clean
+        # URL, after recording them. Same here: the affiliate hook above has already captured them, and the
+        # cookie is set on this redirect by the after_request below. Keeps parameter copies out of the index.
+        if request.method == "GET" and request.query_string and request.endpoint in ("play", "uk_play"):
+            return redirect(request.path, code=301)
+        return None
+
     @app.after_request
     def _lo_affiliate_cookie(resp):
         val = getattr(g, "lo_set_aff_cookie", None)
@@ -328,6 +402,19 @@ def register(app) -> None:
             abort(404)
         return render_template("lo/lottery_info.html", page=page, lottery=lot)
 
+    # ------------------------------------------------------------------ /uk/ copies of play and results
+    # Live today with their own UK titles/H1s (captured); same picker and results as the main pages.
+    @app.get("/uk/lottery-tickets/<lo_play:game_code>")
+    def uk_play(game_code: str):
+        return app.view_functions["play"](game_code=game_code)
+
+    @app.get("/uk/winning-lottery-numbers/<lo_results:game_code>")
+    def uk_results(game_code: str):
+        if game_code == "lotto-uk":
+            # No UK copy of UK Lotto results existed; the restored main page is the one to index.
+            return redirect("/winning-lottery-numbers/uk-lotto", code=301)
+        return app.view_functions["results_game"](game_code=game_code)
+
     # ------------------------------------------------------------------ captured content pages
     def _legacy_page_view():
         page = pages.get(request.path)
@@ -336,7 +423,8 @@ def register(app) -> None:
         return render_template("lo/legacy_page.html", page=page)
 
     for path in pages.paths():
-        if path in ENGINE_PAGES or path.startswith(("/lottery-tickets/", "/winning-lottery-numbers/", "/lotteries")):
+        if path in ENGINE_PAGES or path.startswith(("/lottery-tickets/", "/winning-lottery-numbers/", "/lotteries",
+                                                    "/uk/lottery-tickets/", "/uk/winning-lottery-numbers/")):
             continue
         endpoint = "legacy_page_" + re.sub(r"[^a-z0-9]+", "_", path.lower()).strip("_")
         app.add_url_rule(path, endpoint=endpoint, view_func=_legacy_page_view, methods=["GET"])

@@ -11,7 +11,7 @@
       <span class="lo-pagehead__ball"><img src="{{ lo_ball(lottery) }}" alt="{{ lottery.name }}" width="88" height="88"></span>
       <div>
         <h1>{{ page.h1 or lottery.name }}</h1>
-        {% if jp and jp.display %}<p>Next jackpot <strong style="color:var(--gold-400)">{{ jp.display }}</strong>{% if jp.cutoff_iso %} · closes in <span class="lo-countdown lo-countdown--onbrand" data-until="{{ jp.cutoff_iso }}">&nbsp;</span>{% endif %}</p>{% endif %}
+        {% if jp and jp.display %}<p>Next jackpot <strong style="color:var(--gold-400)">{{ jp.display }}</strong>{% if jp.closed %} · Results Pending{% elif jp.cutoff_iso %} · closes in <span class="lo-countdown lo-countdown--onbrand" data-until="{{ jp.cutoff_iso }}">&nbsp;</span>{% endif %}</p>{% endif %}
       </div>
     </div>
   </div>
