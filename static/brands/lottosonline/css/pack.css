@@ -1,0 +1,91 @@
+/* Gift pack stage. Canvas 1200x1600; every layer is the full canvas box, so they register.
+   --tx: tear point as % of canvas width (21% = the notch apex at x 252, 80.83% = the right edge at x 970). */
+.lo-pack { --tx: 21%; --rot: 0deg; --interior: 0; position: relative; display: flex; flex-direction: column;
+  min-height: 640px; background: radial-gradient(120% 80% at 50% 35%, var(--surface-brand-raised), var(--surface-brand-deep));
+  color: var(--ink-on-brand); overflow: hidden; border-radius: var(--radius-lg); }
+.lo-pack--overlay { position: fixed; inset: 0; z-index: 1000; border-radius: 0; min-height: 0; }
+.lo-pack[hidden] { display: none; }
+.lo-pack__close { position: absolute; top: var(--space-3); right: var(--space-3); z-index: 5; width: 44px; height: 44px;
+  border: 0; border-radius: var(--radius-pill); background: rgba(255,255,255,.12); color: #fff; font-size: 26px; line-height: 44px; cursor: pointer; }
+.lo-pack__stage { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  touch-action: none; user-select: none; -webkit-user-select: none; padding: var(--space-6) 0 var(--space-2); }
+.lo-pack__hint { margin: 0; min-height: 22px; font: 600 15px/22px var(--font-display); color: var(--ink-on-brand-muted); transition: opacity .2s; }
+.lo-pack.is-gripped .lo-pack__hint, .lo-pack.is-opening .lo-pack__hint, .lo-pack.is-settled .lo-pack__hint { opacity: 0; }
+
+/* the box: pack silhouette 740 canvas px wide = 271 CSS px on a phone */
+.lo-pack__box { position: relative; width: min(117vw, 470px); aspect-ratio: 3 / 4; margin: -14% 0 -16%;
+  container-type: inline-size; perspective: 1100px; outline: none; cursor: grab; }
+.lo-pack__box:focus-visible .lo-pack__front-group { filter: drop-shadow(0 0 6px var(--gold-400)); }
+.lo-pack__tilt { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .25s ease-out; }
+.lo-pack__l { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.lo-pack__body { position: absolute; inset: 0; transition: transform .12s ease-out; }
+.lo-pack.is-gripped .lo-pack__body { transform: translateY(-1.2%) scale(1.02); }
+/* the peeled strip lifts with the pack and keeps its curl */
+.lo-pack.is-gripped .lo-pack__peel { transform: translateY(-1.2%) scale(1.02) rotate(var(--rot)); }
+.lo-pack__shadow { opacity: .9; transition: opacity .12s; }
+.lo-pack.is-gripped .lo-pack__shadow { opacity: .65; }
+
+/* torn reveal: only up to the tear point */
+.lo-pack__torn { clip-path: inset(0 calc(100% - var(--tx)) 0 0); }
+.lo-pack__interior { opacity: var(--interior); }
+.lo-pack__strip--attached { clip-path: inset(0 0 0 var(--tx)); }
+.lo-pack__peel { clip-path: inset(0 calc(100% - var(--tx)) 0 0); transform-origin: var(--tx) 24.8%; transform: rotate(var(--rot)); }
+.lo-pack.is-sealed-rest .lo-pack__peel { visibility: hidden; }
+
+/* holographic sheen, masked to the foil it sits on */
+.lo-pack__sheen { overflow: hidden; mix-blend-mode: soft-light; -webkit-mask: var(--mask) center / 100% 100% no-repeat; mask: var(--mask) center / 100% 100% no-repeat; }
+.lo-pack__sheen img { position: absolute; inset: 0; width: 100%; height: 100%; transform: translateX(var(--sheen, 0%)); transition: transform .25s ease-out; }
+.lo-pack__sheen--front { -webkit-mask: var(--mask) center / 100% 100% no-repeat; }
+
+/* the card: glow, face and live text move together */
+.lo-pack__card { position: absolute; inset: 0; transform-origin: 50% 52.75%; outline: none; }
+.lo-pack__glow { opacity: 0; transform: scale(.8); }
+.lo-pack__sparkle { opacity: 0; }
+.lo-pack__text { position: absolute; left: 29%; top: 49.8125%; width: 42%; height: 18.75%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; color: var(--ink); }
+.lo-pack__text p { margin: 0; max-width: 100%; }
+.lo-pack__title { font: 800 calc(49 * 100cqw / 1200) / calc(56 * 100cqw / 1200) var(--font-display); letter-spacing: -.01em;
+  text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.lo-pack__sub { margin-top: calc(10 / 0.45 * 100cqw / 1200) !important; font: 600 calc(38 * 100cqw / 1200) / calc(49 * 100cqw / 1200) var(--font-body);
+  color: var(--surface-brand); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lo-pack__expiry { margin-top: calc(14 / 0.45 * 100cqw / 1200) !important; font: 400 calc(27 * 100cqw / 1200) / calc(36 * 100cqw / 1200) var(--font-body);
+  color: var(--surface-brand-deep); white-space: nowrap; }
+
+/* settled (also the reduced-motion and no-JavaScript end state) */
+.lo-pack__added { margin: 0; min-height: 22px; font: 700 16px/22px var(--font-display); color: var(--gold-400); opacity: 0; transition: opacity .26s; }
+.lo-pack.is-settled .lo-pack__added { opacity: 1; }
+.lo-pack.is-settled .lo-pack__box { cursor: default; }
+.lo-pack.is-settled .lo-pack__body, .lo-pack.is-settled .lo-pack__peel, .lo-pack.is-settled .lo-pack__shadow,
+.lo-pack.is-settled .lo-pack__sparkle { visibility: hidden; }
+.lo-pack.is-settled .lo-pack__card { z-index: 3; transform: var(--settle, none); }
+.lo-pack.is-settled .lo-pack__glow { opacity: .45; transform: none; }
+
+.lo-pack__actions { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); margin-top: var(--space-3);
+  width: min(100% - 32px, 320px); }
+.lo-pack__actions form, .lo-pack__done { width: 100%; display: grid; gap: var(--space-2); }
+.lo-pack__done[hidden] { display: none; }
+.lo-pack__actions .lo-btn { width: 100%; justify-content: center; }
+.lo-pack__actions .lo-btn--secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,.6); }
+/* with JavaScript the pack itself is the control; the button stays for reduced motion */
+.lo-pack.js .lo-pack__openform { display: none; }
+.lo-pack.js.is-reduced .lo-pack__openform { display: grid; }
+.lo-pack__error { margin: var(--space-2) var(--space-4) 0; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm);
+  background: var(--error-100); color: var(--error-600); font: 600 14px/20px var(--font-body); text-align: center; }
+
+/* compliance bar: 56px, nothing animates into it */
+.lo-pack__compliance { flex: none; min-height: 56px; margin: 0; padding: var(--space-2) var(--space-4); display: flex; align-items: center;
+  justify-content: center; text-align: center; font: 400 12px/17px var(--font-body); color: var(--ink-on-brand-muted);
+  background: rgba(0,0,0,.18); }
+.lo-pack__compliance a { color: var(--gold-400); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lo-pack__tilt, .lo-pack__sheen img, .lo-pack__body, .lo-pack__added { transition: none; }
+}
+
+/* account: the packs list */
+.lo-packlist { display: grid; gap: var(--space-3); }
+.lo-packrow { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); }
+.lo-packrow__icon { width: 44px; height: 58px; flex: none; object-fit: cover; object-position: 50% 40%; }
+.lo-packrow__text { flex: 1; min-width: 0; }
+.lo-packrow__title { margin: 0; font: 700 16px/22px var(--font-display); color: var(--ink); }
+.lo-packrow__meta { margin: 2px 0 0; font: 400 14px/20px var(--font-body); color: var(--ink-muted); }

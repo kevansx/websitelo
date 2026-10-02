@@ -6368,6 +6368,10 @@ def create_app() -> Flask:
         session.pop("mkt_checkout_started_uuid", None)
         _pending_checkout_clear()
         order_id = resp.get("order_id")
+        # Gift packs earned by this order (lo_packs.py): opens on the order page that follows.
+        _after = app.config.get("LO_PACKS_AFTER_CHECKOUT")
+        if _after:
+            _after(token=token, order_id=order_id, items=items)
         if order_id is not None:
             emit_marketing_event(
                 "purchase_completed",
@@ -11696,6 +11700,8 @@ def create_app() -> Flask:
     lo_routes.register(app)
     import lo_homescreen
     lo_homescreen.register(app)
+    import lo_packs
+    lo_packs.register(app)
 
     return app
 

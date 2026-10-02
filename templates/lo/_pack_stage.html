@@ -1,0 +1,61 @@
+{# Gift pack stage (build brief 1, part 3). Layers, coordinates and timings: design/pack-handover/lottos-gift-pack/
+   card-pack.md and storyboard.md; behaviour in static/brands/lottosonline/js/pack.js.
+   `stage` = lo_pack_stage(pack). `overlay` = true on the order page (covers the screen, has a close button).
+   Without JavaScript the Open button is an ordinary form POST and the gift is still granted. #}
+{% set p = stage.pack %}{% set L = stage.layers %}{% set g = stage.geometry %}
+<div class="lo-pack{% if overlay %} lo-pack--overlay{% endif %}" id="loPack" data-pack-id="{{ p.pack_id }}" data-state="{{ p.state }}"
+     data-open-url="{{ url_for('pack_open', pack_id=p.pack_id) }}"{% if overlay %} role="dialog" aria-modal="true" aria-label="Your gift pack"{% endif %}>
+  <script type="application/json" class="lo-pack__geometry">{{ g|tojson }}</script>
+  {% if overlay %}<button type="button" class="lo-pack__close" data-pack-close aria-label="Close">&times;</button>{% endif %}
+  <div class="lo-pack__stage">
+    <p class="lo-pack__hint" aria-hidden="true">{% if p.state == 'sealed' %}Pull the strip to open your gift{% endif %}</p>
+    <div class="lo-pack__box" {% if p.state == 'sealed' %}tabindex="0" role="button" aria-label="Gift pack. Drag across the top, or press Enter, to open."{% endif %}>
+      <div class="lo-pack__tilt">
+        <img class="lo-pack__l lo-pack__shadow" src="{{ L.shadow }}" alt="" draggable="false">
+        <div class="lo-pack__body">
+          <img class="lo-pack__l lo-pack__torn lo-pack__back" src="{{ L.pack_back }}" alt="" draggable="false">
+          <img class="lo-pack__l lo-pack__torn lo-pack__interior" src="{{ L.pack_interior }}" alt="" draggable="false">
+          <img class="lo-pack__l lo-pack__torn lo-pack__cardback" src="{{ L.card_back }}" alt="" draggable="false">
+        </div>
+        <div class="lo-pack__card" tabindex="-1">
+          <img class="lo-pack__l lo-pack__glow" src="{{ L.glow }}" alt="" draggable="false">
+          <img class="lo-pack__l lo-pack__hero" src="{{ L.card_hero }}" alt="" draggable="false">
+          <div class="lo-pack__text">
+            <p class="lo-pack__title" data-card="title">{{ stage.card.title if stage.card }}</p>
+            <p class="lo-pack__sub" data-card="sub">{{ stage.card.sub if stage.card }}</p>
+            <p class="lo-pack__expiry" data-card="expiry">{{ stage.card.expiry if stage.card }}</p>
+          </div>
+        </div>
+        <div class="lo-pack__body lo-pack__front-group">
+          <img class="lo-pack__l lo-pack__front" src="{{ L.pack_front }}" alt="" draggable="false">
+          <img class="lo-pack__l lo-pack__torn lo-pack__tornedge" src="{{ L.pack_torn_edge }}" alt="" draggable="false">
+          <div class="lo-pack__l lo-pack__sheen lo-pack__sheen--front" style="--mask:url('{{ L.pack_front }}')"><img src="{{ L.foil_sheen }}" alt="" draggable="false"></div>
+          <img class="lo-pack__l lo-pack__strip lo-pack__strip--attached" src="{{ L.tear_strip }}" alt="" draggable="false">
+        </div>
+        <div class="lo-pack__l lo-pack__peel">
+          <img class="lo-pack__l lo-pack__strip" src="{{ L.tear_strip }}" alt="" draggable="false">
+          <img class="lo-pack__l" src="{{ L.strip_torn_edge }}" alt="" draggable="false">
+          <div class="lo-pack__l lo-pack__sheen" style="--mask:url('{{ L.tear_strip }}')"><img src="{{ L.foil_sheen }}" alt="" draggable="false"></div>
+        </div>
+        <img class="lo-pack__l lo-pack__sparkle" src="{{ L.sparkle }}" alt="" draggable="false">
+      </div>
+    </div>
+    <p class="lo-pack__added" aria-hidden="true">Added to your account</p>
+    <div class="lo-pack__actions">
+      {% if p.state == 'sealed' %}
+        <form method="post" action="{{ url_for('pack_open', pack_id=p.pack_id) }}" class="lo-pack__openform">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="lo-btn lo-btn--lg lo-pack__openbtn">Open your gift</button>
+        </form>
+      {% endif %}
+      <div class="lo-pack__done"{% if p.state == 'sealed' %} hidden{% endif %}>
+        <a class="lo-btn lo-btn--lg" href="{{ url_for('account') }}#orders">See my tickets</a>
+        {% if overlay %}<button type="button" class="lo-btn lo-btn--secondary" data-pack-close>Done</button>
+        {% else %}<a class="lo-btn lo-btn--secondary" href="{{ url_for('account_packs') }}">Done</a>{% endif %}
+      </div>
+    </div>
+    <p class="lo-pack__error" role="alert" hidden>We couldn’t open your gift just now. It is still here: please try again.</p>
+  </div>
+  <div class="lo-pack__live lo-sr" aria-live="polite"></div>
+  <p class="lo-pack__compliance">18+ only. A gift is a free entry for playing: no cash value. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
+</div>

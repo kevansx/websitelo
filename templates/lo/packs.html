@@ -1,0 +1,43 @@
+{# Account: gift packs. Sealed ones with the days left before they open themselves, then what was opened. #}
+{% extends "lo/base.html" %}
+{% block extra_head %}<link rel="stylesheet" href="{{ lo_asset('css/pack.css') }}">{% endblock %}
+{% block content %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Your gift packs</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap" style="max-width:720px">
+    {% set icon = lo_asset('img/packs/standard/03-pack-front.webp') %}
+    {% set icon_premium = lo_asset('img/packs/premium/03-pack-front.webp') %}
+    <h2 class="display-2">Ready to open</h2>
+    {% if packs.sealed %}
+      <div class="lo-packlist">
+        {% for p in packs.sealed %}
+          <a class="lo-panel lo-packrow" href="{{ url_for('pack_page', pack_id=p.pack_id) }}">
+            <img class="lo-packrow__icon" src="{{ icon_premium if p.tier == 'premium' else icon }}" alt="">
+            <span class="lo-packrow__text">
+              <span class="lo-packrow__title" style="display:block">A gift pack for you</span>
+              <span class="lo-packrow__meta" style="display:block">{% if p.days_left > 1 %}Opens by itself in {{ p.days_left }} days{% elif p.days_left == 1 %}Opens by itself tomorrow{% else %}Opens by itself today{% endif %}</span>
+            </span>
+            <span class="lo-btn lo-btn--sm">Open</span>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="lo-muted">No packs waiting. Packs arrive with some of your orders.</p>
+    {% endif %}
+    {% if packs.opened %}
+      <h2 class="display-2" style="margin-top:var(--space-8)">Opened</h2>
+      <div class="lo-packlist">
+        {% for p in packs.opened %}{% set c = (p.gift or {}).get('card') or {} %}
+          <div class="lo-panel lo-packrow">
+            <span class="lo-packrow__text">
+              <span class="lo-packrow__title" style="display:block">{{ c.title }} · {{ c.sub }}</span>
+              <span class="lo-packrow__meta" style="display:block">{{ c.expiry }} · opened {{ (p.opened_at or '')[:10] }}{% if p.state == 'auto_opened' %} automatically{% endif %}</span>
+            </span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <p class="legal" style="margin-top:var(--space-6)">18+ only. A gift is a free entry for playing: no cash value, not withdrawable. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
+  </div>
+</section>
+{% endblock %}

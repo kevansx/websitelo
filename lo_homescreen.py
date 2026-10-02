@@ -17,11 +17,11 @@ from __future__ import annotations
 
 import json
 import os
-import random
 import threading
 from datetime import datetime, timezone
 from pathlib import Path
 
+import lo_store
 from flask import Response, abort, jsonify, render_template, request, send_from_directory, session
 
 GAME_CODE = "sat-lotto-au"
@@ -59,15 +59,6 @@ def claim_record(customer_id: int | None) -> dict | None:
     if customer_id is None:
         return None
     return _load().get(str(customer_id))
-
-
-def _quick_pick(schema: dict) -> dict:
-    line = {}
-    for name, spec in schema.items():
-        lo, hi, n = int(spec.get("min", 1)), int(spec.get("max", 45)), int(spec.get("count", 6))
-        nums = sorted(random.sample(range(lo, hi + 1), n))
-        line[name] = ",".join(str(x) for x in nums) if name == "main" else (nums[0] if n == 1 else ",".join(map(str, nums)))
-    return line
 
 
 def register(app) -> None:
@@ -109,20 +100,17 @@ def register(app) -> None:
         return resp
 
     def _product_and_schema():
-        code = (os.environ.get("LO_HOMESCREEN_PRODUCT_CODE") or "").strip()
+        # Through lo_store: the real CRM lists products under single_products with a list-shaped line_schema.
+        code = (os.environ.get("LO_HOMESCREEN_PRODUCT_CODE") or "").strip() or None
         eng = app.config.get("LO_ENGINE") or {}
         try:
             games = eng["store_games_cached"]()
         except Exception:
             games = []
-        for g in games or []:
-            if str(g.get("game_code") or "").lower() != GAME_CODE:
-                continue
-            for p in g.get("products") or []:
-                pc = p.get("code") or p.get("product_code")
-                if (not code or pc == code) and isinstance(p.get("line_schema"), dict):
-                    return pc, p["line_schema"]
-        return (code or None), {"main": {"count": 6, "min": 1, "max": 45}}
+        p = lo_store.find_product(games, game_code=GAME_CODE, code=code)
+        if p and lo_store.schema_groups(p.get("line_schema")):
+            return lo_store.product_code(p), p["line_schema"]
+        return code, [{"name": "main", "count": 6, "min": 1, "max": 45}]
 
     @app.get("/homescreen/status")
     def homescreen_status():
@@ -157,7 +145,7 @@ def register(app) -> None:
                     eng = app.config["LO_ENGINE"]
                     crm = eng["get_crm"]()
                     res = crm._request("POST", "/api/v1/marketing/incentives/grant-free-ticket", service_key=True, json={
-                        "customer_id": cid, "product_code": product_code, "lines": [_quick_pick(schema)],
+                        "customer_id": cid, "product_code": product_code, "lines": [lo_store.quick_pick(schema)],
                         "incentive_id": "homescreen-install", "reason": "Added LottosOnline to the home screen",
                         "idempotency_key": f"homescreen-{cid}",
                     })

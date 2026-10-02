@@ -195,7 +195,8 @@ def install() -> None:
         out, total = [], 0
         for it in (payload or {}).get("items") or []:
             lines = max(len(it.get("lines") or []), 1)
-            run = int(((it.get("schedule") or {}).get("draws")) or 1)
+            days = it.get("draw_weekdays")
+            run = int(it.get("draw_weeks") or 1) * (len(days) if isinstance(days, list) and days else 1)
             cents = price_by_product.get(it.get("product_code"), 300) * lines * int(it.get("quantity") or 1) * run
             total += cents
             out.append({"product_code": it.get("product_code"), "quantity": it.get("quantity") or 1,

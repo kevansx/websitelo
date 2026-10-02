@@ -1,0 +1,13 @@
+{# One gift pack, by direct link (/packs/<id>): sealed, or its gift once opened. #}
+{% extends "lo/base.html" %}
+{% block extra_head %}<link rel="stylesheet" href="{{ lo_asset('css/pack.css') }}">{% endblock %}
+{% block content %}
+<section class="lo-section lo-section--tight">
+  <div class="lo-wrap" style="max-width:560px">
+    {% if request.args.get('error') %}<p class="lo-flash lo-flash--error">We couldn’t open your gift just now. It is still here: please try again in a moment.</p>{% endif %}
+    {% with stage=stage, overlay=false %}{% include "lo/_pack_stage.html" %}{% endwith %}
+    <p class="lo-center" style="margin-top:var(--space-4)"><a href="{{ url_for('account_packs') }}">All my gift packs</a></p>
+  </div>
+</section>
+{% endblock %}
+{% block extra_scripts %}<script defer src="{{ lo_asset('js/pack.js') }}"></script>{% endblock %}

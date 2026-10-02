@@ -53,7 +53,12 @@ The IT team owns Azure Front Door. The origin is this app behind gunicorn (and n
    ```
    Then `sudo systemctl daemon-reload && sudo systemctl enable --now lottosonline-website`.
 3. **Health check** for the Front Door origin probe: `GET /health` returns 200.
-4. **Update**: `cd /opt/lottosonline-website && git pull && .venv/bin/pip install -r requirements.txt && sudo systemctl restart lottosonline-website`
+4. **Nightly job (gift packs)**: a pack left sealed for 14 days opens itself and its gift is granted. Add to the
+   service user's crontab (03:15 every night):
+   ```
+   15 3 * * * cd /opt/lottosonline-website && set -a && . ./.env && set +a && .venv/bin/flask --app app packs-auto-open
+   ```
+5. **Update**: `cd /opt/lottosonline-website && git pull && .venv/bin/pip install -r requirements.txt && sudo systemctl restart lottosonline-website`
 
 #### What Front Door must do (for the IT team)
 

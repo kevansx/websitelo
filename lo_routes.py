@@ -93,6 +93,8 @@ def register(app) -> None:
             h = _hashes[key] = hashlib.sha1(f.read_bytes().replace(b"\r\n", b"\n")).hexdigest()[:10]
         return f"/assets/lo/{h}/{rel}"
 
+    app.config["LO_ASSET"] = lo_asset     # for Python code building asset URLs (lo_packs)
+
     ENGINE_STATIC = Path(__file__).resolve().parent / "static" / "brands" / "engine"
 
     def lo_engine_asset(rel: str) -> str:

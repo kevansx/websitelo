@@ -88,3 +88,19 @@ def test_the_offer_switch(client, stub_crm, grants, monkeypatch):
 
 def test_no_offer_sheet_on_money_pages(client, stub_crm):
     assert 'id="loInstall"' not in client.get("/cart").get_data(as_text=True)
+
+
+def test_the_ticket_finds_its_product_in_the_real_crm_format(client, stub_crm, grants, monkeypatch):
+    # The real /api/v1/store/games (as Lotto Express receives it): products under single_products and the
+    # number format as a list of groups. No product code configured: it must be found in the store.
+    monkeypatch.delenv("LO_HOMESCREEN_PRODUCT_CODE")
+    real_games = [{"game_code": "sat-lotto-au", "game_name": "Saturday Lotto (AU)", "single_products": [
+        {"code": "LO-AUTAT", "product_type": "single", "website_enabled": True,
+         "line_schema": [{"name": "main", "count": 6, "min": 1, "max": 45}]}]}]
+    eng = dict(client.application.config["LO_ENGINE"])
+    eng["store_games_cached"] = lambda: real_games
+    monkeypatch.setitem(client.application.config, "LO_ENGINE", eng)
+    assert _claim(client, _csrf(client)).get_json() == {"ok": True}
+    assert grants[0]["product_code"] == "LO-AUTAT"
+    nums = [int(x) for x in grants[0]["lines"][0]["main"].split(",")]
+    assert len(nums) == 6 and all(1 <= n <= 45 for n in nums)
