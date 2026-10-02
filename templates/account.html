@@ -20,7 +20,7 @@
       {# Show Account tab content by default so the page isn't blank if JS/CDN fails. #}
       <div class="accountTab" id="myDetailsSection" style="display:block;">
         {% include "lo/_install_card.html" %}
-        <p style="margin:var(--space-3) 0 0"><a class="tertiaryLink" href="{{ url_for('account_packs') }}">Your gift packs</a></p>
+        <p style="margin:var(--space-3) 0 0"><a class="tertiaryLink" href="{{ url_for('account_packs') }}">Your gift packs</a> &middot; <a class="tertiaryLink" href="{{ url_for('account_alerts') }}">Jackpot alerts</a></p>
         {% if features and features.email_verification_banner and show_email_verify_banner %}
           <div class="accountLimitDescription" style="margin-bottom:20px; padding:15px; background-color:#013658; border-radius:5px; border:1px solid #0C4970;">
             <p style="margin-bottom:12px; color:#C7E9FE;">Please verify your email address. Verification helps us secure your account and contact you about orders and winnings.</p>

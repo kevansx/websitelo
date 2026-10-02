@@ -11702,6 +11702,10 @@ def create_app() -> Flask:
     lo_homescreen.register(app)
     import lo_packs
     lo_packs.register(app)
+    import lo_push
+    lo_push.register(app)
+    import lo_alerts
+    lo_alerts.register(app)
 
     return app
 

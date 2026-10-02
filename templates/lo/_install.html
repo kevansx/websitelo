@@ -51,6 +51,12 @@
       <button type="button" class="lo-btn lo-btn--block" data-lo-install-close>Got it</button>
     </div>
 
+    {# running as the installed app, ticket collected: the one place we ask for notifications (lo_push.py) #}
+    <div class="lo-install__mode" data-mode="push" hidden>
+      <p class="lo-install__sub" style="margin:0 0 var(--space-3)">We'll tell you when a jackpot you follow gets big.</p>
+      <button type="button" class="lo-btn lo-btn--block lo-btn--lg" data-lo-push-yes>Turn on alerts</button>
+    </div>
+
     {# opened from the home-screen icon but logged out #}
     <div class="lo-install__mode" data-mode="login" hidden>
       <p class="lo-install__sub" style="margin:0 0 var(--space-3)">You're using the LottosOnline app. Log in to collect your free Saturday Lotto ticket.</p>

@@ -227,6 +227,12 @@
   }
   function fillCard(c) {
     if (!c) return;
+    var alert = root.querySelector("[data-pack-alert]");
+    if (alert && answer && answer.game_code) {
+      alert.setAttribute("data-game", answer.game_code);
+      root.querySelector("[data-pack-alert-row]").hidden = false;
+      var gn = root.querySelector('[data-card="game_name"]'); if (gn) gn.textContent = c.title || "";
+    }
     ["title", "sub", "expiry"].forEach(function (k) {
       var el = root.querySelector('[data-card="' + k + '"]');
       if (el) el.textContent = c[k] || "";
@@ -258,5 +264,13 @@
     var hint = root.querySelector(".lo-pack__hint"); if (hint) hint.textContent = "Your gift is ready";
     box.addEventListener("click", reducedOpen);
   }
+  // the gift's lottery is followed by default; unticking removes the alert, ticking again restores it
+  var alertBox = root.querySelector("[data-pack-alert]");
+  if (alertBox) alertBox.addEventListener("change", function () {
+    var body = "csrf_token=" + encodeURIComponent(csrf) + "&game_code=" + encodeURIComponent(alertBox.getAttribute("data-game")) +
+               "&action=" + (alertBox.checked ? "save" : "remove");
+    fetch(alertBox.getAttribute("data-url"), { method: "POST", credentials: "same-origin",
+      headers: { "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded" }, body: body });
+  });
   window.addEventListener("resize", function () { if (root.classList.contains("is-settled")) root.style.setProperty("--settle", settleTransform()); });
 })();

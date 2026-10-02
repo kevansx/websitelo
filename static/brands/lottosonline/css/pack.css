@@ -89,3 +89,6 @@
 .lo-packrow__text { flex: 1; min-width: 0; }
 .lo-packrow__title { margin: 0; font: 700 16px/22px var(--font-display); color: var(--ink); }
 .lo-packrow__meta { margin: 2px 0 0; font: 400 14px/20px var(--font-body); color: var(--ink-muted); }
+
+.lo-pack__alert { color: var(--ink-on-brand); font-size: 14px; justify-content: center; }
+.lo-pack__alert[hidden] { display: none; }

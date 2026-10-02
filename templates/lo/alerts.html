@@ -1,0 +1,87 @@
+{# Account: jackpot alerts (lo_alerts.py). Every lottery played or gifted is followed at a default threshold;
+   the customer changes, removes or adds them here. Notifications can be switched on from here too: the only
+   place besides the install screen where we offer it. #}
+{% extends "lo/base.html" %}
+{% block content %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Jackpot alerts</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap lo-stack" style="max-width:720px">
+    {% if request.args.get('saved') %}<p class="lo-flash lo-flash--success">Saved.</p>{% endif %}
+    {% if request.args.get('error') %}<p class="lo-flash lo-flash--error">That amount didn’t look right. Please try again.</p>{% endif %}
+
+    <div class="lo-panel">
+      {% if push_on %}
+        <p style="margin:0"><strong>Alerts are on</strong> for this device. We tell you once per draw when a jackpot you follow passes your amount.</p>
+      {% elif lo_push.enabled %}
+        <p style="margin:0 0 var(--space-3)">We'll tell you when a jackpot you follow gets big.</p>
+        <button type="button" class="lo-btn" data-lo-push-enable>Turn on alerts on this device</button>
+        <p class="lo-muted" data-lo-push-note hidden style="margin:var(--space-2) 0 0"></p>
+      {% else %}
+        <p style="margin:0" class="lo-muted">Alerts on your phone are coming soon. Your choices below are saved now.</p>
+      {% endif %}
+    </div>
+
+    <h2 class="display-2">Lotteries you follow</h2>
+    {% if alerts %}
+      {% for a in alerts %}
+        <form class="lo-panel lo-alertrow" method="post" action="{{ url_for('account_alerts_save') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="game_code" value="{{ a.game_code }}">
+          <div class="lo-alertrow__head">
+            <span class="lo-alertrow__name">{{ a.name }}</span>
+            {% if a.jackpot and a.jackpot.display %}<span class="lo-muted">Now {{ a.jackpot.display }}</span>{% endif %}
+          </div>
+          <label class="lo-field__label" for="t-{{ a.game_code }}">Tell me when the jackpot passes (millions{% if a.jackpot and a.jackpot.currency %}, {{ a.jackpot.currency }}{% endif %})</label>
+          <div class="lo-alertrow__controls">
+            <input class="lo-input" id="t-{{ a.game_code }}" name="threshold_millions" inputmode="decimal"
+                   value="{{ '%g'|format((a.threshold or 0) / 1000000) if a.threshold else '' }}">
+            <button class="lo-btn lo-btn--sm" name="action" value="save">Save</button>
+            <button class="lo-btn lo-btn--sm lo-btn--secondary" name="action" value="remove">Remove</button>
+          </div>
+        </form>
+      {% endfor %}
+    {% else %}
+      <p class="lo-muted">You don’t follow any lotteries yet. Add one below, or play one and it is added for you.</p>
+    {% endif %}
+
+    {% if others %}
+      <form class="lo-panel lo-alertrow" method="post" action="{{ url_for('account_alerts_save') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label class="lo-field__label" for="add-game">Follow another lottery</label>
+        <div class="lo-alertrow__controls">
+          <select class="lo-input" id="add-game" name="game_code">
+            {% for l in others %}<option value="{{ l.game_code }}">{{ l.name }}</option>{% endfor %}
+          </select>
+          <button class="lo-btn lo-btn--sm" name="action" value="save">Follow</button>
+        </div>
+      </form>
+    {% endif %}
+    <p class="legal">18+ only. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
+  </div>
+</section>
+<style>
+  .lo-alertrow { display: grid; gap: var(--space-2); }
+  .lo-alertrow__head { display: flex; justify-content: space-between; gap: var(--space-3); align-items: baseline; }
+  .lo-alertrow__name { font: 700 17px/24px var(--font-display); color: var(--ink); }
+  .lo-alertrow__controls { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
+  .lo-alertrow__controls .lo-input { flex: 1 1 120px; min-width: 0; }
+</style>
+<script>
+  (function () {
+    var b = document.querySelector("[data-lo-push-enable]"), note = document.querySelector("[data-lo-push-note]");
+    if (!b) return;
+    b.addEventListener("click", function () {
+      if (!window.LOPush || !window.LOPush.available()) {
+        note.hidden = false;
+        note.textContent = "On iPhone, add LottosOnline to your home screen first, then turn alerts on from the app.";
+        return;
+      }
+      window.LOPush.enable().then(function (ok) {
+        if (ok) { location.reload(); return; }
+        note.hidden = false;
+        note.textContent = "Alerts are blocked in this browser's settings for LottosOnline.";
+      });
+    });
+  })();
+</script>
+{% endblock %}

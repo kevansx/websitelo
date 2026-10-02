@@ -49,6 +49,12 @@
         </form>
       {% endif %}
       <div class="lo-pack__done"{% if p.state == 'sealed' %} hidden{% endif %}>
+        {# set the alert at the moment of the gift: already ticked, one tap to undo (lo_alerts.py) #}
+        {% set gift_game = (p.gift or {}).get('game_code') if p.state != 'sealed' else '' %}
+        <label class="lo-check lo-pack__alert" data-pack-alert-row{% if not gift_game %} hidden{% endif %}>
+          <input type="checkbox" checked data-pack-alert data-game="{{ gift_game }}" data-url="{{ url_for('account_alerts_save') }}">
+          <span>Tell me when <span data-card="game_name">{{ stage.card.title if stage.card }}</span> gets big</span>
+        </label>
         <a class="lo-btn lo-btn--lg" href="{{ url_for('account') }}#orders">See my tickets</a>
         {% if overlay %}<button type="button" class="lo-btn lo-btn--secondary" data-pack-close>Done</button>
         {% else %}<a class="lo-btn lo-btn--secondary" href="{{ url_for('account_packs') }}">Done</a>{% endif %}
@@ -57,5 +63,5 @@
     <p class="lo-pack__error" role="alert" hidden>We couldn’t open your gift just now. It is still here: please try again.</p>
   </div>
   <div class="lo-pack__live lo-sr" aria-live="polite"></div>
-  <p class="lo-pack__compliance">18+ only. A gift is a free entry for playing: no cash value. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
+  <p class="lo-pack__compliance">18+ only. Your gift is a free entry in one lottery, chosen at random from a set of lotteries. No cash value. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
 </div>

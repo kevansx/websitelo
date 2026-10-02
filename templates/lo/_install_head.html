@@ -6,4 +6,5 @@
 <meta name="apple-mobile-web-app-title" content="LottosOnline">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="csrf-token" content="{{ csrf_token() }}">
+{% if lo_push.enabled %}<meta name="lo-push-key" content="{{ lo_push.key }}">{% endif %}
 <link rel="stylesheet" href="{{ lo_asset('css/install.css') }}">

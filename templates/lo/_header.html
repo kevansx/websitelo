@@ -55,6 +55,7 @@
     {% if customer %}
       <a href="{{ url_for('account') }}">My account</a>
       <a href="{{ url_for('account_packs') }}">My gift packs</a>
+      <a href="{{ url_for('account_alerts') }}">Jackpot alerts</a>
       <a href="{{ url_for('wallet_add_funds') }}">Deposit</a>
       <a href="{{ url_for('logout') }}">Logout</a>
     {% else %}

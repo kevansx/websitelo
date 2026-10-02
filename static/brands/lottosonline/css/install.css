@@ -49,3 +49,4 @@ html.lo-standalone [data-hide-in-app] { display: none !important; }
 .lo-appcard--done .lo-btn { display: none; }
 @media (max-width: 520px) { .lo-appcard { flex-wrap: wrap; } .lo-appcard .lo-btn { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .lo-install__sheet, .lo-install__scrim { animation: none; } }
+.lo-install[data-claimed="1"] .lo-install__offer { display: none; }

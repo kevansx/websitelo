@@ -58,7 +58,14 @@ The IT team owns Azure Front Door. The origin is this app behind gunicorn (and n
    ```
    15 3 * * * cd /opt/lottosonline-website && set -a && . ./.env && set +a && .venv/bin/flask --app app packs-auto-open
    ```
-5. **Update**: `cd /opt/lottosonline-website && git pull && .venv/bin/pip install -r requirements.txt && sudo systemctl restart lottosonline-website`
+5. **Jackpot alerts (every 30 minutes)**:
+   ```
+   */30 * * * * cd /opt/lottosonline-website && set -a && . ./.env && set +a && .venv/bin/flask --app app jackpot-alerts
+   ```
+   Push needs a VAPID key pair in `.env`: run `.venv/bin/flask --app app push-keys` once and paste the three lines
+   it prints into `.env`. Keep `LO_VAPID_PRIVATE_KEY` secret and never change the pair once customers subscribe
+   (a new pair silently breaks every existing subscription).
+6. **Update**: `cd /opt/lottosonline-website && git pull && .venv/bin/pip install -r requirements.txt && sudo systemctl restart lottosonline-website`
 
 #### What Front Door must do (for the IT team)
 

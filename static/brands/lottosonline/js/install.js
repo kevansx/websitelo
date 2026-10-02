@@ -137,12 +137,34 @@
       if (d && d.ok) {
         store(CLAIM_KEY, "1");
         sheet.setAttribute("data-claimed", "1");
+        setTimeout(offerPush, 2500);
         say(d.already ? "Your free Saturday Lotto ticket is already in your account."
           : d.pending ? "Thanks for adding LottosOnline! Your free Saturday Lotto ticket will appear in your account shortly."
           : "Your free Australia Saturday Lotto ticket is in your account. Good luck!");
       }
     }).catch(function () {});
   }
+
+  // Notifications: asked here only (the installed app, after the ticket), never on a first visit, never again
+  // by ourselves after a "no". The browser prompt follows the customer's tap on "Turn on alerts".
+  function offerPush() {
+    var P = window.LOPush;
+    if (!standalone || !P || !P.available() || P.permission() !== "default" || P.declined()) return;
+    if (sheet.getAttribute("data-logged-in") !== "1" || QUIET.test(path)) return;
+    setMode("push"); sheet.removeAttribute("hidden");
+  }
+  sheet.addEventListener("click", function (e) {
+    if (!e.target.closest || !e.target.closest("[data-lo-push-yes]")) return;
+    window.LOPush.enable().then(function (ok) {
+      close();
+      say(ok ? "Alerts are on. We'll tell you when a jackpot you follow gets big." : "No problem: you can turn alerts on later from your account.");
+    });
+  });
+  sheet.addEventListener("click", function (e) {
+    // "Not now" on the notifications step is a "no": remembered, and not asked again by ourselves
+    if (e.target.closest && e.target.closest("[data-lo-install-later]") && sheet.querySelector('[data-mode="push"]:not([hidden])') && window.LOPush) window.LOPush.decline();
+  }, true);
+  if (standalone && read(CLAIM_KEY) === "1") setTimeout(offerPush, 2500);
 
   if (document.readyState === "complete") { maybeAutoOpen(); claim(); }
   else window.addEventListener("load", function () { maybeAutoOpen(); claim(); });

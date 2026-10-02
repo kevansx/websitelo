@@ -93,7 +93,24 @@ def register(app) -> None:
         # Network only: no caching, so a deploy is never hidden behind stale files.
         js = ("self.addEventListener('install', function () { self.skipWaiting(); });\n"
               "self.addEventListener('activate', function (e) { e.waitUntil(self.clients.claim()); });\n"
-              "self.addEventListener('fetch', function () { /* network only */ });\n")
+              "self.addEventListener('fetch', function () { /* network only */ });\n"
+              # Web push (lo_push.py): show it, and open its link (same site only) when tapped.
+              "self.addEventListener('push', function (e) {\n"
+              "  var d = {}; try { d = e.data ? e.data.json() : {}; } catch (err) { d = { body: e.data && e.data.text() }; }\n"
+              "  e.waitUntil(self.registration.showNotification(d.title || 'LottosOnline', {\n"
+              "    body: d.body || '', tag: d.tag || undefined, data: { url: d.url || '/' },\n"
+              "    icon: '/static/brands/lottosonline/img/app-icon-192.png', badge: '/static/brands/lottosonline/img/app-icon-192.png'\n"
+              "  }));\n"
+              "});\n"
+              "self.addEventListener('notificationclick', function (e) {\n"
+              "  e.notification.close();\n"
+              "  var url = new URL((e.notification.data && e.notification.data.url) || '/', self.location.origin);\n"
+              "  if (url.origin !== self.location.origin) url = new URL('/', self.location.origin);\n"
+              "  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (list) {\n"
+              "    for (var i = 0; i < list.length; i++) { if ('focus' in list[i]) { list[i].navigate(url.href); return list[i].focus(); } }\n"
+              "    return self.clients.openWindow(url.href);\n"
+              "  }));\n"
+              "});\n")
         resp = Response(js, mimetype="application/javascript")
         resp.headers["Cache-Control"] = "no-cache"
         resp.headers["Service-Worker-Allowed"] = "/"

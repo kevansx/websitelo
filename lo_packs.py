@@ -484,7 +484,7 @@ def register(app) -> None:
             return redirect(url_for("pack_page", pack_id=pack_id, error=1))
         if wants_json:
             card = (pack.get("gift") or {}).get("card") or {}
-            return jsonify({"ok": True, "state": pack["state"], "card": card,
+            return jsonify({"ok": True, "state": pack["state"], "card": card, "game_code": (pack.get("gift") or {}).get("game_code"),
                             "announce": f"Your gift: {card.get('sub', '')} on {card.get('title', '')}. {card.get('expiry', '')}."})
         return redirect(url_for("pack_page", pack_id=pack_id))
 
