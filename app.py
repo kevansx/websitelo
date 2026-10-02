@@ -3827,8 +3827,40 @@ def create_app() -> Flask:
             crm_banners = marketing_banners_cached("home")
         except Exception:
             crm_banners = []
+        # What LottosOnline really offers today (plans of 2 Oct 2026): packs, syndicates, the home-screen ticket,
+        # multi-draw savings. Each slide appears only while its offer is actually switched on.
+        import lo_homescreen
+        import lo_members
+        _ball = app.jinja_env.globals["lo_ball"]
+        _games = store_games_cached()
+        _shares = []
+        try:
+            _slug_game = {v: k for k, v in lo_members.SHARE_GAMES.items()}
+            for o in lo_members.offers_for(_games, list(lo_members.SHARE_GAMES)):
+                _l = lo_lotteries.by_game_code(_slug_game[o["slug"]])
+                _shares.append({**o, "ball": _ball(_l) if _l else None})
+        except Exception:
+            _shares = []
+        _saving = 0
+        try:
+            for _g in _games:
+                _k = lo_store.split_products(lo_store.game_products(_g))
+                _b = lo_store.price_cents(_k["base"]) if _k["base"] else None
+                for _t in _k["tiers"]:
+                    _c = lo_store.price_cents(_t)
+                    if _b and _c:
+                        _saving = max(_saving, round((1 - _c / _b) * 100))
+        except Exception:
+            _saving = 0
+        extras = {
+            "pack_img": app.config["LO_ASSET"]("img/packs/premium/03-pack-front.webp"),
+            "share_offers": _shares,
+            "homescreen": lo_homescreen.offer_enabled(),
+            "app_icon": url_for("static", filename="brands/lottosonline/img/app-icon-192.png"),
+            "max_saving_pct": _saving,
+        }
         slides = lo_banners.home_slides(rows, featured, crm_banners, logged_in=bool(get_token()),
-                                        lo_ball=app.jinja_env.globals["lo_ball"])
+                                        lo_ball=_ball, extras=extras)
         return render_template("lo/home.html", rows=rows, slides=slides, page=app.config["LO_LEGACY_PAGES"].get("/"))
 
     @app.get("/lottery-tickets")

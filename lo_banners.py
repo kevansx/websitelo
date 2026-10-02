@@ -21,7 +21,11 @@ THEMES = ("brand", "rollover", "indigo", "night", "magenta", "gold")
 
 
 def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] | None, *, logged_in: bool,
-                lo_ball) -> list[dict]:
+                lo_ball, extras: dict | None = None) -> list[dict]:
+    """extras: what LottosOnline actually offers today (plans of 2 Oct 2026): pack_img (gift packs), share_offers
+    (weekly syndicates, from lo_members.offers_for), homescreen (the free Saturday Lotto line is switched on),
+    app_icon, max_saving_pct (the deepest multi-draw tier). Each slide shows only while its offer is on."""
+    extras = extras or {}
     slides: list[dict] = []
     top = [r for r in featured if r.get("jp") and r["jp"].get("display")]
 
@@ -63,6 +67,43 @@ def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] 
             "small_print": "Terms and Conditions apply.", "small_href": "/terms-and-conditions",
         })
 
+    # gift packs: the pack rip. Wording rules: a gift, never "win", "prize", "jackpot" or "lucky"; random within a
+    # set, and said so; for playing, no cash value.
+    if extras.get("pack_img"):
+        slides.append({
+            "id": "gift-packs", "theme": "magenta", "art": "pack", "image": extras["pack_img"],
+            "kicker": "Gift packs",
+            "title": "Open A Gift With Your Order",
+            "text": "Your first order, your fifth and more come with a gift pack to tear open. Inside is a free entry "
+                    "in one lottery, chosen at random from a set.",
+            "cta_label": "Play Now", "cta_href": "/lottery-tickets",
+            "small_print": "18+. A gift is a free entry for playing: no cash value.", "small_href": None,
+        })
+
+    # weekly syndicate: the cheapest way into the big US draws
+    for o in (extras.get("share_offers") or [])[:1]:
+        slides.append({
+            "id": "syndicate-" + o["slug"], "theme": "gold", "art": "ball", "balls": [o["ball"]] if o.get("ball") else [],
+            "kicker": f"{o['name']} syndicate",
+            "title": f"10 Lines Every Draw For €{o['cents'] / 100:.2f} A Week",
+            "text": f"Join the {o['name']} syndicate: one of 40 shares, 10 lines in every draw. Pause or cancel any time.",
+            "cta_label": "How It Works", "cta_href": o["url"],
+            "small_print": "Each share receives 1/40th of any prize the syndicate's lines win. Renews weekly until cancelled.",
+            "small_href": None,
+        })
+
+    # the free home-screen ticket (under its own approved terms)
+    if extras.get("homescreen") and extras.get("app_icon"):
+        slides.append({
+            "id": "homescreen", "theme": "brand", "art": "phone", "image": extras["app_icon"],
+            "kicker": "Free ticket",
+            "title": "A Free Saturday Lotto Line",
+            "text": "Add LottosOnline to your phone's home screen, open it from the new icon and we'll add a free line "
+                    "in the next Australia Saturday Lotto draw.",
+            "cta_label": "Add To Home Screen", "cta_href": "/home-screen-offer", "cta_install": True,
+            "small_print": "One per customer. Terms apply.", "small_href": "/home-screen-offer",
+        })
+
     # 3. the next big jackpot
     if len(top) > 1:
         lot, jp = top[1]["lottery"], top[1]["jp"]
@@ -74,6 +115,17 @@ def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] 
             "cta_label": f"Play {lot.name}", "cta_href": f"/lottery-tickets/{lot.slug}",
             "countdown_iso": None if jp.get("closed") else jp.get("cutoff_iso"),
             "balls": [lo_ball(lot)],
+        })
+
+    # multi-draw: the tier products, discount locked in the price
+    if extras.get("max_saving_pct"):
+        slides.append({
+            "id": "multi-draw", "theme": "indigo", "art": "balls",
+            "balls": [lo_ball(r["lottery"]) for r in rows[:3]],
+            "kicker": "Play more draws",
+            "title": f"Save Up To {extras['max_saving_pct']}% A Line",
+            "text": "Play the same lines in 4, 8 or 16 draws (or 1, 3 or 5 weeks) and pay less for every draw.",
+            "cta_label": "Choose Your Lottery", "cta_href": "/lottery-tickets",
         })
 
     # 4. lotteries available

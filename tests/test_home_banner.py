@@ -29,3 +29,22 @@ def test_a_crm_offer_becomes_a_slide(anon_client, stub_crm, monkeypatch):
     assert "Double Lines Weekend" in body
     assert "Two lines for the price of one." in body
     assert 'href="/lottery-tickets/euromillions"' in body
+
+
+def test_banner_shows_what_lottosonline_offers():
+    import lo_banners
+    ball = lambda lot: "/b.png"
+    extras = {"pack_img": "/pack.webp", "homescreen": True, "app_icon": "/icon.png", "max_saving_pct": 20,
+              "share_offers": [{"name": "US Powerball", "slug": "us-powerball", "cents": 390, "url": "/syndicates/us-powerball", "ball": "/b.png"}]}
+    slides = lo_banners.home_slides([], [], [], logged_in=False, lo_ball=ball, extras=extras)
+    titles = [s["title"] for s in slides]
+    assert "Open A Gift With Your Order" in titles
+    assert "10 Lines Every Draw For €3.90 A Week" in titles
+    assert "A Free Saturday Lotto Line" in titles
+    assert "Save Up To 20% A Line" in titles
+    pack = next(s for s in slides if s["id"] == "gift-packs")
+    words = (pack["title"] + " " + pack["text"]).lower()
+    assert "random" in words and not any(w in words for w in ("win", "prize", "jackpot", "lucky"))
+    # an offer that is switched off has no slide
+    none = lo_banners.home_slides([], [], [], logged_in=False, lo_ball=ball, extras={})
+    assert not {"gift-packs", "homescreen", "multi-draw"} & {s["id"] for s in none}
