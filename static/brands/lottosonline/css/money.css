@@ -168,7 +168,7 @@ body.lo-engine .formPopup .formPopupHeader p { color: #fff; }
 
 /* cookie notice: a slim LottosOnline strip instead of the old yellow bar */
 body.lo-engine #cookie-prompt { background-color: var(--surface-tag); }
-body.lo-engine #cookie-prompt #cookieContent p { color: #fff; font-size: 13px; }
+body.lo-engine #cookie-prompt #cookieContent p { color: #fff; font-size: 14px; }
 body.lo-engine #cookie-prompt #cookieContent a { color: var(--gold-400); }
 body.lo-engine #cookie-prompt #cookieContent .closeCookieBanner { background: var(--cta-600); border: 0; color: #fff; border-radius: var(--radius-sm); }
 
@@ -212,5 +212,17 @@ body.lo-engine .lotteryOfferPages #main #tickets_section .leOfferTicketState { b
   body.lo-engine .lePages { border-radius: 0; border-left: 0; border-right: 0; box-shadow: none; }
   /* the page gutter the engine left to its dark background */
   body.lo-engine .processOrderForm .processOrderContent, body.lo-engine .orderProcessedContent { padding-left: 16px; padding-right: 16px; box-sizing: border-box; }
-  body.lo-engine #cookie-prompt #cookieContent p { font-size: 12px; line-height: 17px; padding: 8px 12px; }
+  body.lo-engine #cookie-prompt #cookieContent p { font-size: 13px; line-height: 18px; padding: 8px 12px; }
+  /* top-up amounts: two rows of three tiles instead of six crushed into one row */
+  body.lo-engine .addFundsForms ul.fundsTopUpAmounts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0; width: 100%; }
+  body.lo-engine .addFundsForms .fundsTopUpAmounts li.secondaryFormButton,
+  body.lo-engine .addFundsForms .fundsTopUpAmounts li.secondaryFormButton:first-child {
+    float: none; width: auto !important; height: 56px; margin: 0; padding-top: 16px;
+    border-width: 1px !important; border-radius: var(--radius-md) !important; text-align: center;
+  }
+  body.lo-engine .addFundsForms .fundsTopUpAmounts li .addFundsCurrency { font-size: 12px; top: 4px; left: 8px; }
 }
+
+/* legibility: action text and labels at 14px or more */
+body.lo-engine .processOrderContent button.topupConfirmBtn span, body.lo-engine #confirmBetSubmit span { font-size: 14px !important; }
+body.lo-engine .processOrderContent p.leCartItemTags .leCartTag { font-size: 13px; }

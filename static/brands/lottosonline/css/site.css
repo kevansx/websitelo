@@ -36,6 +36,16 @@ body.lo { margin: 0; background: var(--surface-page); font-family: var(--font-bo
   font: 600 15px/22px var(--font-display); }
 .lo-hide-mobile { display: none !important; }
 @media (max-width: 380px) { .lo-site-header .lo-header__logo { height: 22px; } .lo-header__pill { padding: 0 var(--space-3); } }
+/* Phones: logo + Login + the sign-up button must fit beside the menu button (the full "Open Account" label pushed
+   the page sideways on every logged-out page). Screen readers still hear "Open Account". */
+.lo-pill-short { display: none; }
+@media (max-width: 479px) {
+  .lo-site-header .lo-header { gap: var(--space-2); }
+  .lo-site-header .lo-header__logo { height: 22px; }
+  .lo-header__pill { padding: 0 var(--space-3); }
+  .lo-pill-long { display: none; }
+  .lo-pill-short { display: inline; }
+}
 @media (min-width: 1000px) { .lo-site-header .lo-header__logo { height: 35px; } }
 @media (min-width: 640px) { .lo-hide-mobile { display: grid !important; } .lo-header__pill.lo-hide-mobile { display: inline-flex !important; } }
 @media (min-width: 1200px) {
@@ -203,8 +213,8 @@ body.lo { margin: 0; background: var(--surface-page); font-family: var(--font-bo
 .lo-form { display: grid; gap: var(--space-4); }
 .lo-form .lo-input { min-height: 48px; font-size: 16px; }
 .lo-form .lo-input:focus { outline: 2px solid var(--focus-ring); outline-offset: 1px; border-color: var(--surface-brand); }
-.lo-field__label { font-size: 13px; font-weight: 600; color: var(--ink); }
-.lo-field__hint { font-size: 12px; color: var(--ink-muted); }
+.lo-field__label { font-size: 14px; font-weight: 600; color: var(--ink); }
+.lo-field__hint { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
 .lo-field__error { font-size: 13px; color: var(--error-600); }
 .lo-pw { position: relative; }
 .lo-pw .lo-input { padding-right: 72px; }
@@ -234,3 +244,7 @@ body.lo { margin: 0; background: var(--surface-page); font-family: var(--font-bo
 .lo-promo .lo-btn--secondary { color: #fff; box-shadow: inset 0 0 0 2px var(--gold-400); }
 .lo-promo .lo-btn--secondary:hover { background: rgba(255,255,255,.08); }
 select.lo-input { appearance: auto; }
+
+/* page not found */
+.lo-notfound__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
+@media (max-width: 479px) { .lo-notfound__actions .lo-btn { flex: 1 1 100%; } }

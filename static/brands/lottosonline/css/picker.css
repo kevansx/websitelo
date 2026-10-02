@@ -52,7 +52,7 @@
 .lo-card__head h2 { margin: 0; font: 700 16px/22px var(--font-display); }
 .lo-card__step { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--gold-400);
   color: var(--surface-brand-deep); font: 800 13px/1 var(--font-display); }
-.lo-card__hint { flex-basis: 100%; font-size: 12px; color: var(--ink-on-brand-muted); }
+.lo-card__hint { flex-basis: 100%; font-size: 13px; color: var(--ink-on-brand-muted); }
 @media (min-width: 640px) { .lo-card__hint { flex-basis: auto; margin-left: auto; } }
 .lo-card__body { padding: var(--space-4); }
 
@@ -67,7 +67,7 @@
   background: var(--surface-card); color: var(--surface-brand); font: 800 18px/18px var(--font-display); cursor: pointer;
   transition: background .15s ease, color .15s ease, transform .1s ease; }
 @media (min-width: 640px) { .lo-chip { width: 56px; border-radius: 50%; } }
-.lo-chip small { display: block; font: 600 10px/10px var(--font-body); color: var(--ink-muted); }
+.lo-chip small { display: block; font: 600 11px/12px var(--font-body); color: var(--ink-muted); }
 .lo-chip:hover { background: #f6f0fa; }
 .lo-chip:active { transform: scale(.96); }
 .lo-chip[aria-pressed="true"] { background: var(--surface-brand); color: #fff; }
@@ -83,14 +83,14 @@
 .leLineWrapper.lo-editing .lines { border-color: var(--surface-brand); box-shadow: 0 0 0 1px var(--surface-brand) inset; }
 .leLineWrapper #upperTicketSection { display: flex; align-items: center; gap: var(--space-2); padding: 8px var(--space-3); min-height: 52px; cursor: pointer; }
 .leLineWrapper.lo-editing #upperTicketSection { background: #f6f0fa; }
-.lo-linenum { flex: none; width: 18px; font: 700 13px/1 var(--font-display); color: var(--ink-muted); text-align: right; }
+.lo-linenum { flex: none; width: 18px; font: 700 14px/1 var(--font-display); color: var(--ink-muted); text-align: right; }
 #choosenNumber { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; flex: 1 1 auto; min-width: 0; min-height: 32px; }
 #choosenNumber .ticketNumber, #choosenNumber .bonusTicketNumber {
   position: relative; display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; overflow: hidden;
   font: 700 14px/32px var(--font-body); font-variant-numeric: tabular-nums;
   background: var(--surface-sunken); color: var(--ink); border: 1px solid var(--border-control); }
 #choosenNumber .bonusTicketNumber { background: #fff3cf; color: #7a5600; border-color: var(--gold-400); }
-.lo-lineprice { flex: none; margin-left: auto; font: 700 13px/1 var(--font-body); color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.lo-lineprice { flex: none; margin-left: auto; font: 700 14px/1 var(--font-body); color: var(--ink-muted); font-variant-numeric: tabular-nums; }
 #webUpperTicketSection { display: flex; align-items: center; gap: 4px; flex: none; }
 #mobileUpperTicketSection { display: none; }
 .ticketCompleteImage, .ticketIncompleteImage { display: none !important; }
@@ -171,7 +171,7 @@ ul.leNumberGrid.availableBonusNumbersComplete li:not(.selectedNumber) { opacity:
     justify-content: space-between; gap: var(--space-3); padding: 10px 10px 10px var(--space-4); background: var(--surface-card); border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sticky), 0 0 0 1px var(--border-hairline); }
   .lo-stickybar > div { display: grid; }
-  .lo-stickybar__lines { font-size: 12px; color: var(--ink-muted); }
+  .lo-stickybar__lines { font-size: 13px; color: var(--ink-muted); }
   .lo-stickybar__total { font: 800 18px/22px var(--font-display); font-variant-numeric: tabular-nums; }
   .lo-stickybar .lo-btn { min-width: 140px; }
   body.lo-playpage .lo-site-footer { padding-bottom: 84px; }
@@ -198,7 +198,7 @@ ul.leNumberGrid.availableBonusNumbersComplete li:not(.selectedNumber) { opacity:
   /* one clean row per line, as theLotter: the row itself opens the full-screen editor with every action */
   #webUpperTicketSection { display: none; }
   .leLineWrapper #upperTicketSection { gap: 6px; padding: 8px 10px; }
-  .lo-lineprice { font-size: 12px; }
+  .lo-lineprice { font-size: 13px; }
   .lo-linenum { width: 14px; }
   #choosenNumber { gap: 3px; flex-wrap: nowrap; }
   #choosenNumber .ticketNumber, #choosenNumber .bonusTicketNumber { width: 28px; height: 28px; font-size: 12px; line-height: 28px; flex: none; }

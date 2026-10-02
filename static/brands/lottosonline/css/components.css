@@ -249,7 +249,7 @@
   padding: 12px var(--space-3); width: 100%;
 }
 .lo-input::placeholder { color: var(--ink-subtle); }
-.lo-check { display: flex; gap: var(--space-3); align-items: flex-start; font-size: 13px; line-height: 19px; }
+.lo-check { display: flex; gap: var(--space-3); align-items: flex-start; font-size: 14px; line-height: 20px; }
 .lo-check input { width: 22px; height: 22px; flex: none; accent-color: var(--cta-600); margin: 0; }
 
 /* ---------- summary / add-on -------------------------------------------- */

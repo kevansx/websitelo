@@ -274,6 +274,16 @@ def register(app) -> None:
         cur = j.get("currency")
         if amount is None and isinstance(j.get("jackpot"), dict):
             amount, cur = j["jackpot"].get("amount"), j["jackpot"].get("currency")
+        if str(cur or "").upper() != "EUR":
+            for alt in lo_lotteries.EUR_JACKPOT_FEEDS.get(game_code, ()):
+                a = jackpots_by_code().get(alt) or {}
+                a_amount = a.get("jackpot_total")
+                a_cur = a.get("currency")
+                if a_amount is None and isinstance(a.get("jackpot"), dict):
+                    a_amount, a_cur = a["jackpot"].get("amount"), a["jackpot"].get("currency")
+                if a_amount is not None and str(a_cur or "").upper() == "EUR":
+                    amount, cur = a_amount, a_cur
+                    break
         cutoff = j.get("cutoff_at_utc") or j.get("next_draw_utc")
         if cutoff and not str(cutoff).endswith("Z") and "+" not in str(cutoff):
             cutoff = str(cutoff) + "Z"

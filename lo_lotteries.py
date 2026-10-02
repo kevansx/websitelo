@@ -145,6 +145,13 @@ BASE_JACKPOTS: dict[str, float] = {
 }
 
 
+# LottosOnline sells in EUR (the old site's EuroMillions code is "eueur"). The CRM's "euromillions" jackpot feed is
+# the UK one, in GBP; the jackpot shown for it comes from a continental (EUR) feed instead. Draw times are unchanged.
+EUR_JACKPOT_FEEDS = {
+    "euromillions": ("euromillions-es", "euromillions-at", "euromillions-be", "euromillions-fr", "euromillions-ie"),
+}
+
+
 def rise_pct(game_code: str, amount) -> int | None:
     base = BASE_JACKPOTS.get(game_code)
     try:

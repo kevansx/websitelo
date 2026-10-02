@@ -1,18 +1,20 @@
-{% extends "base.html" %}
+{# Page not found: the old LottosOnline wording, in the LottosOnline layout. Served with status 404. #}
+{% extends "lo/base.html" %}
 {% block content %}
-<div class="container">
-	<div id="content_404">
-		<div class="row lePages">
-			<div class="col-xs-12 col-sm-12 col-md-12">
-				<img src="/resources/images/404-page-not-found.png" alt="404 Image - Page Not Found" title="404 - Page Not Found" /> 
-				<p class="sub-heading">
-					Sorry, we can’t find that page! Would a cash prize on the French Lottery make things right?
-				</p>
-				<a class="linkAsButton" href="/lotteries/French-Lotto/10-to-win">
-					Play Now
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Oh No! This Page is Missing.</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap">
+    <article class="lo-panel lo-prose">
+      <p>The page you were looking for appears to have been deleted or misplaced.</p>
+      <p>Not to worry, you can either use the menu navigation above to find what you’re looking for, head back to the
+        homepage or please <a href="/contact-us">contact us</a> should you have spotted the missing page and can point
+        us in the right direction.</p>
+    </article>
+    <div class="lo-notfound__actions">
+      <a class="lo-btn" href="/">Back to the homepage</a>
+      <a class="lo-btn lo-btn--secondary" href="/lottery-tickets">Play lottos</a>
+      <a class="lo-btn lo-btn--secondary" href="/winning-lottery-numbers">Lottery results</a>
+    </div>
+  </div>
+</section>
 {% endblock %}
