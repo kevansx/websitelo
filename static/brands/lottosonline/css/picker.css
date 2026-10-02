@@ -108,6 +108,7 @@ ul.leNumberGrid.availableBonusNumbersComplete li:not(.selectedNumber) { opacity:
   .leLineWrapper.showTicket #upperTicketSection { flex-direction: column; align-items: stretch; position: sticky; top: 0; z-index: 1; }
   .leLineWrapper.showTicket ul.leNumberGrid { grid-template-columns: repeat(7, 1fr); gap: 6px; }
   .leLineWrapper.showTicket ul.leNumberGrid li { min-height: 40px; font-size: 15px; }
+  .leLineWrapper.showTicket .editTicket { display: none; }
   #closeTicketWindow { margin-right: auto; font-size: 26px; line-height: 1; color: var(--ink); text-decoration: none; padding: 0 6px; }
   .leLineWrapper:not(.showTicket) #lowerTicketSection { display: none; }
   .leLineWrapper:not(.showTicket) .lines { cursor: pointer; }
