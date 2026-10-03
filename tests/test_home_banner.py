@@ -38,7 +38,7 @@ def test_banner_shows_what_lottosonline_offers():
               "share_offers": [{"name": "US Powerball", "slug": "us-powerball", "cents": 390, "url": "/syndicates/us-powerball", "ball": "/b.png"}]}
     slides = lo_banners.home_slides([], [], [], logged_in=False, lo_ball=ball, extras=extras)
     titles = [s["title"] for s in slides]
-    assert "Open A Gift With Your Order" in titles
+    assert "Regular Free Gifts With Your Orders" in titles
     assert "10 Lines Every Draw For €3.90 A Week" in titles
     assert "A Free Saturday Lotto Line" in titles
     assert "Save Up To 20% A Line" in titles

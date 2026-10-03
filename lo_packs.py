@@ -9,7 +9,10 @@ granting twice.
     return      second paid order within 14 days of the first
     explorer    first order in a lottery new to this customer (not on the first order: that is first_play)
     long_play   first purchase of any multi-draw tier product
-    regular     5th order, then every 3rd after it
+    surprise    any later order, at random (Joey, 2 Oct 2026: unpredictable rewards keep people going far longer
+                than a fixed "every Nth order" schedule). About 1 order in 4; never two orders in a row; guaranteed
+                after 8 orders without a gift; at most one surprise per 7 days, so buying faster or bigger never
+                earns more; 1 surprise in 4 is a gold (premium) pack. Never tied to spend. Drawn on the server.
   `welcome` (home screen added) is not wired: the home-screen offer has approved terms of its own (one free
   Australia Saturday Lotto line), which a random pack would change.
 * A pack is earned sealed. Opening it (POST /packs/<id>/open, or the nightly auto-open after 14 days) draws the
@@ -37,8 +40,13 @@ import lo_store
 
 # Five live types (brief 2, part 8). welcome stays the home-screen ticket under its own terms; raffle is gone:
 # the CRM cannot grant a raffle and Spanish Raffles is not being created.
-PACK_TYPES = ("first_play", "return", "explorer", "long_play", "regular")
-PREMIUM_TYPES = {"regular"}              # loyalty gets the gold pack; the gift inside is drawn the same way
+PACK_TYPES = ("first_play", "return", "explorer", "long_play", "surprise")
+# surprise packs (variable-ratio): chance per order, guarantee, spacing, cooling-off, share that are gold
+SURPRISE_CHANCE = 0.25
+SURPRISE_GUARANTEE_GAP = 8               # orders since the last gift that make the next order a sure thing
+SURPRISE_MIN_GAP = 2                     # never on the order straight after a gift
+SURPRISE_COOLDOWN = timedelta(days=7)    # harm guard: buying faster never earns more
+SURPRISE_GOLD_CHANCE = 0.25              # the gift inside a gold pack is drawn exactly the same way
 SEALED_DAYS = 14
 RETURN_WINDOW = timedelta(days=14)
 
@@ -95,6 +103,11 @@ def _db() -> sqlite3.Connection:
         customer_id INTEGER PRIMARY KEY, orders_count INTEGER NOT NULL, first_order_at TEXT,
         games_json TEXT NOT NULL, played_raffle INTEGER NOT NULL, played_long INTEGER NOT NULL,
         seen_orders_json TEXT NOT NULL)""")
+    for col in ("last_pack_order INTEGER", "last_surprise_at TEXT"):
+        try:
+            c.execute(f"ALTER TABLE activity ADD COLUMN {col}")
+        except sqlite3.OperationalError:
+            pass                                    # already there
     return c
 
 
@@ -144,10 +157,12 @@ def _activity(c: sqlite3.Connection, customer_id: int) -> dict | None:
 
 def _save_activity(c: sqlite3.Connection, customer_id: int, a: dict) -> None:
     c.execute("""INSERT OR REPLACE INTO activity
-        (customer_id, orders_count, first_order_at, games_json, played_raffle, played_long, seen_orders_json)
-        VALUES (?,?,?,?,?,?,?)""", (customer_id, int(a["orders_count"]), a.get("first_order_at"),
-                                     json.dumps(a["games"]), int(bool(a["played_raffle"])),
-                                     int(bool(a["played_long"])), json.dumps(sorted(a["seen_orders"]))))
+        (customer_id, orders_count, first_order_at, games_json, played_raffle, played_long, seen_orders_json,
+         last_pack_order, last_surprise_at)
+        VALUES (?,?,?,?,?,?,?,?,?)""", (customer_id, int(a["orders_count"]), a.get("first_order_at"),
+                                         json.dumps(a["games"]), int(bool(a["played_raffle"])),
+                                         int(bool(a["played_long"])), json.dumps(sorted(a["seen_orders"])),
+                                         a.get("last_pack_order"), a.get("last_surprise_at")))
 
 
 def history_from_crm(crm: Any, token: str, *, exclude_order_id: Any = None) -> dict:
@@ -210,7 +225,8 @@ def _order_facts(items: list[dict]) -> dict:
     return {"games": games, "multi_draw": multi_game is not None, "multi_game": multi_game}
 
 
-def triggers_for(before: dict, facts: dict, now: datetime) -> list[str]:
+def triggers_for(before: dict, facts: dict, now: datetime, rng: random.Random | None = None) -> list[str]:
+    rng = rng or random.SystemRandom()
     n_before = int(before["orders_count"])
     n_after = n_before + 1
     out: list[str] = []
@@ -224,16 +240,24 @@ def triggers_for(before: dict, facts: dict, now: datetime) -> list[str]:
         out.append("explorer")
     if facts["multi_draw"] and not before["played_long"]:
         out.append("long_play")
-    if n_after == 5 or (n_after > 5 and (n_after - 5) % 3 == 0):
-        out.append("regular")
+    # surprise: only when this order earned nothing else, so a customer never gets two gifts for one order
+    if n_before >= 1 and not out:
+        last_pack = before.get("last_pack_order")
+        gap = n_after - int(last_pack if last_pack is not None else n_before)
+        last_s = _parse(before.get("last_surprise_at"))
+        cooled = last_s is None or now - last_s >= SURPRISE_COOLDOWN
+        if gap >= SURPRISE_MIN_GAP and cooled and (gap >= SURPRISE_GUARANTEE_GAP or rng.random() < SURPRISE_CHANCE):
+            out.append("surprise")
     return out
 
 
-def on_order_placed(*, customer_id: int, order_id: Any, items: list[dict], seed=None) -> list[dict]:
+def on_order_placed(*, customer_id: int, order_id: Any, items: list[dict], seed=None,
+                    rng: random.Random | None = None) -> list[dict]:
     """Record the order and earn its packs. `seed()` returns the history before this order (only called the
     first time this customer is seen). Returns the packs earned, newest first. The same order twice earns
     nothing the second time."""
     now = _now()
+    rng = rng or random.SystemRandom()
     facts = _order_facts(items)
     with _lock, closing(_db()) as c:
         before = _activity(c, customer_id)
@@ -244,7 +268,10 @@ def on_order_placed(*, customer_id: int, order_id: Any, items: list[dict], seed=
                           "played_long": False, "seen_orders": set()}
         if str(order_id) in before["seen_orders"]:
             return []
-        kinds = triggers_for(before, facts, now)
+        # a customer seeded from their history starts the surprise count from now, not from their first order
+        if before.get("last_pack_order") is None:
+            before["last_pack_order"] = int(before["orders_count"])
+        kinds = triggers_for(before, facts, now, rng)
         after = dict(before)
         after["orders_count"] = int(before["orders_count"]) + 1
         after["first_order_at"] = before.get("first_order_at") or _iso(now)
@@ -254,11 +281,16 @@ def on_order_placed(*, customer_id: int, order_id: Any, items: list[dict], seed=
         after["played_raffle"] = False          # raffle packs were dropped (the CRM cannot grant a raffle)
         after["played_long"] = bool(before["played_long"] or facts["multi_draw"])
         after["seen_orders"] = set(before["seen_orders"]) | {str(order_id)}
+        if kinds:
+            after["last_pack_order"] = after["orders_count"]
+        if "surprise" in kinds:
+            after["last_surprise_at"] = _iso(now)
         _save_activity(c, customer_id, after)
         earned = []
         for k in kinds:
             pack = {"pack_id": uuid.uuid4().hex[:16], "customer_id": customer_id, "type": k,
-                    "tier": "premium" if k in PREMIUM_TYPES else "standard", "state": "sealed",
+                    "tier": "premium" if (k == "surprise" and rng.random() < SURPRISE_GOLD_CHANCE) else "standard",
+                    "state": "sealed",
                     "earned_at": _iso(now), "expires_at": _iso(now + timedelta(days=SEALED_DAYS)),
                     "order_id": str(order_id),
                     # long_play's gift is two extra lines on the lottery bought as multi-draw

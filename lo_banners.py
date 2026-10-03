@@ -20,6 +20,14 @@ from __future__ import annotations
 THEMES = ("brand", "rollover", "indigo", "night", "magenta", "gold")
 
 
+def _rollover_text(name: str, rise_pct) -> str:
+    """Dynamic, never a promise (no "likely", no "you could win"): how far the jackpot has climbed."""
+    rise = int(rise_pct or 0)
+    if rise >= 25:
+        return f"{name} is up {rise}% on its starting jackpot and still climbing. Get your lines in before sales close."
+    return f"The {name} jackpot rolls on until someone takes it. Get your lines in before sales close."
+
+
 def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] | None, *, logged_in: bool,
                 lo_ball, extras: dict | None = None) -> list[dict]:
     """extras: what LottosOnline actually offers today (plans of 2 Oct 2026): pack_img (gift packs), share_offers
@@ -47,9 +55,10 @@ def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] 
         slides.append({
             "id": "jackpot-" + lot.slug, "theme": "rollover", "art": "ball",
             "kicker": f"{lot.name} jackpot",
-            "title": "Help Stop The Rollover",
+            "title": "Be The One To Stop The Rollover",
             "highlight": jp["display"],
-            "text": f"Nobody has matched every number yet. Your {lot.name} lines could be the ones that do.",
+            # dynamic, never a promise: no "likely", no "you could win" (wording rules)
+            "text": _rollover_text(lot.name, jp.get("rise_pct")),
             "cta_label": f"Play {lot.name}", "cta_href": f"/lottery-tickets/{lot.slug}",
             "countdown_iso": None if jp.get("closed") else jp.get("cutoff_iso"),
             "balls": [lo_ball(lot)],
@@ -73,9 +82,9 @@ def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] 
         slides.append({
             "id": "gift-packs", "theme": "magenta", "art": "pack", "image": extras["pack_img"],
             "kicker": "Gift packs",
-            "title": "Open A Gift With Your Order",
-            "text": "Your first order, your fifth and more come with a gift pack to tear open. Inside is a free entry "
-                    "in one lottery, chosen at random from a set.",
+            "title": "Regular Free Gifts With Your Orders",
+            "text": "Keep playing and the gift packs keep coming. Tear one open for a free entry in one lottery, "
+                    "chosen at random from a set.",
             "cta_label": "Play Now", "cta_href": "/lottery-tickets",
             "small_print": "18+. A gift is a free entry for playing: no cash value.", "small_href": None,
         })

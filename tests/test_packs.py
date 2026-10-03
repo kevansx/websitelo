@@ -88,15 +88,64 @@ def test_a_two_week_mega_millions_tier_counts_without_weekdays():
 
 
 def test_no_raffle_or_welcome_packs():
-    assert lo_packs.PACK_TYPES == ("first_play", "return", "explorer", "long_play", "regular")
+    assert lo_packs.PACK_TYPES == ("first_play", "return", "explorer", "long_play", "surprise")
     before = blank(orders_count=2, first_order_at="2026-01-01T00:00:00Z", games={"euromillions": 2})
     assert lo_packs.triggers_for(before, lo_packs._order_facts([{"game_code": "raffle-es", "kind": "raffle"}]), NOW) == ["explorer"]
 
 
-@pytest.mark.parametrize("nth,earns", [(4, False), (5, True), (6, False), (7, False), (8, True), (11, True), (12, False)])
-def test_regular_on_the_5th_then_every_3rd(nth, earns):
-    before = blank(orders_count=nth - 1, first_order_at="2026-01-01T00:00:00Z", games={"euromillions": 9})
-    assert ("regular" in lo_packs.triggers_for(before, facts(), NOW)) is earns
+class _Fixed(random.Random):
+    def __init__(self, v):
+        super().__init__(0)
+        self.v = v
+
+    def random(self):
+        return self.v
+
+
+def _regular(n_before, last_pack, last_surprise=None):
+    return blank(orders_count=n_before, first_order_at="2026-01-01T00:00:00Z", games={"euromillions": 9},
+                 last_pack_order=last_pack, last_surprise_at=last_surprise)
+
+
+def test_surprise_is_random_about_one_order_in_four():
+    yes = sum("surprise" in lo_packs.triggers_for(_regular(10, 5), facts(), NOW, _Fixed(v / 100)) for v in range(100))
+    assert yes == 25
+
+
+def test_surprise_is_guaranteed_after_8_orders_without_a_gift():
+    assert lo_packs.triggers_for(_regular(10, 3), facts(), NOW, _Fixed(0.99)) == ["surprise"]      # gap 8
+    assert lo_packs.triggers_for(_regular(10, 4), facts(), NOW, _Fixed(0.99)) == []                # gap 7
+
+
+def test_never_two_gifts_in_a_row():
+    assert lo_packs.triggers_for(_regular(10, 10), facts(), NOW, _Fixed(0.0)) == []
+
+
+def test_at_most_one_surprise_a_week_so_buying_faster_earns_nothing_more():
+    recent = (NOW - timedelta(days=3)).isoformat()
+    assert lo_packs.triggers_for(_regular(10, 1, recent), facts(), NOW, _Fixed(0.0)) == []
+    older = (NOW - timedelta(days=8)).isoformat()
+    assert lo_packs.triggers_for(_regular(10, 1, older), facts(), NOW, _Fixed(0.0)) == ["surprise"]
+
+
+def test_one_gift_per_order_at_most():
+    # a new lottery earns the explorer pack; the surprise is not added on top
+    assert lo_packs.triggers_for(_regular(10, 1), facts(("bonoloto",)), NOW, _Fixed(0.0)) == ["explorer"]
+
+
+def test_over_many_orders_about_one_gift_in_four_and_a_quarter_gold(monkeypatch):
+    clock = [datetime(2026, 1, 1, tzinfo=timezone.utc)]
+    monkeypatch.setattr(lo_packs, "_now", lambda: clock[0])
+    rng = random.Random(7)
+    lo_packs.on_order_placed(customer_id=99, order_id="o0", items=[{"game_code": "euromillions"}], rng=rng)
+    got = []
+    for n in range(1, 401):
+        clock[0] += timedelta(days=8)             # weekly-ish buyer: the cooling-off never bites
+        got += lo_packs.on_order_placed(customer_id=99, order_id=f"o{n}", items=[{"game_code": "euromillions"}], rng=rng)
+    surprises = [p for p in got if p["type"] == "surprise"]
+    assert 70 <= len(surprises) <= 120            # about 1 in 4 of 400 orders (100), with the 8-order guarantee
+    gold = sum(p["tier"] == "premium" for p in surprises)
+    assert 0.1 <= gold / len(surprises) <= 0.4
 
 
 def test_same_order_twice_earns_nothing_the_second_time():
