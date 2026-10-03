@@ -83,8 +83,8 @@ def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] 
             "id": "gift-packs", "theme": "magenta", "art": "pack", "image": extras["pack_img"],
             "kicker": "Gift packs",
             "title": "Regular Free Gifts With Your Orders",
-            "text": "Keep playing and the gift packs keep coming. Tear one open for a free entry in one lottery, "
-                    "chosen at random from a set.",
+            "text": "Your first order unlocks a gift pack, and more drop in at random as you play. Any order could "
+                    "be the one. Rip it open to reveal a free entry. Watch out for the gold ones!",
             "cta_label": "Play Now", "cta_href": "/lottery-tickets",
             "small_print": "18+. A gift is a free entry for playing: no cash value.", "small_href": None,
         })
