@@ -75,6 +75,8 @@ def register(app) -> None:
             "scope": "/",
             "display": "standalone",
             "orientation": "portrait",
+            # lets Android Chrome tell the site it is installed (navigator.getInstalledRelatedApps)
+            "related_applications": [{"platform": "webapp", "url": request.url_root.rstrip("/") + "/manifest.webmanifest"}],
             "background_color": "#582178",
             "theme_color": "#582178",
             "icons": [

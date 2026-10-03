@@ -26,6 +26,8 @@
   var isMobile = isIOS || isAndroid || !isDesktop;
   var standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
   if (standalone) document.documentElement.classList.add("lo-standalone");
+  var INSTALLED = "lo_installed";
+  try { if (standalone) localStorage.setItem(INSTALLED, "1"); } catch (e) {}
 
   var path = location.pathname;
   var QUIET = /^\/(cart|checkout|wallet|create-account|login|forgot-password|reset-password|set-password|verify-email|orders\/\d+\/refund)/;
@@ -68,7 +70,15 @@
     sheet.setAttribute("hidden", "");
     document.documentElement.classList.remove("lo-install-open");
   }
-  function snooze() { store(KEY, String(Date.now() + 7 * 864e5)); close(); }
+  function snooze(days) { store(KEY, String(Date.now() + (days || 7) * 864e5)); close(); }
+  // Any way of closing the box is an answer: x, the backdrop, Escape and "Not now" for 7 days; "Got it" (they
+  // followed the steps, so it is very likely installed) for 30. It never comes back on the very next page.
+  function dismiss() {
+    var m = sheet.getAttribute("data-current");
+    if (m === "push" && window.LOPush) window.LOPush.decline();
+    if (m === "login") { try { sessionStorage.setItem("lo_install_login_seen", "1"); } catch (e) {} close(); return; }
+    snooze(7);
+  }
 
   function say(msg) {
     if (!toast) return;
@@ -90,6 +100,7 @@
   });
   window.addEventListener("appinstalled", function () {
     deferred = null;
+    store(INSTALLED, "1");
     close();
     say(sheet.getAttribute("data-offer") === "1" && sheet.getAttribute("data-claimed") !== "1"
       ? "Added! Open LottosOnline from your home screen to collect your free ticket."
@@ -98,14 +109,20 @@
 
   sheet.addEventListener("click", function (e) {
     var t = e.target;
-    if (t.closest("[data-lo-install-close]")) { close(); return; }
-    if (t.closest("[data-lo-install-later]")) { snooze(); return; }
+    var closer = t.closest("[data-lo-install-close]");
+    if (closer) {
+      // "Got it" under the steps: they have just added it, or know how. Leave them be for 30 days.
+      if (closer.classList.contains("lo-btn")) { snooze(30); return; }
+      dismiss();
+      return;
+    }
+    if (t.closest("[data-lo-install-later]")) { dismiss(); return; }
     if (t.closest("[data-lo-install-go]") && deferred) {
       deferred.prompt();
       deferred.userChoice.then(function (r) { if (r && r.outcome !== "accepted") snooze(); deferred = null; }).catch(function () {});
     }
   });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !sheet.hasAttribute("hidden")) close(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !sheet.hasAttribute("hidden")) dismiss(); });
   document.addEventListener("click", function (e) {
     var b = e.target.closest && e.target.closest("[data-lo-install]");
     if (!b) return;
@@ -116,18 +133,33 @@
   var autoTried = false;
   function maybeAutoOpen() {
     if (autoTried || standalone || QUIET.test(path)) return;
+    if (read(INSTALLED) === "1") return;       // opened from the home-screen icon on this phone before
     var until = parseInt(read(KEY) || "0", 10);
     if (until && Date.now() < until) return;
     if (!isMobile) return;                     // phones and tablets only
     autoTried = true;
-    setTimeout(function () { if (sheet.hasAttribute("hidden")) open(false); }, 1200);
+    // Android Chrome can say whether this site is already installed (manifest related_applications)
+    var check = (navigator.getInstalledRelatedApps ? navigator.getInstalledRelatedApps() : Promise.resolve([]))
+      .catch(function () { return []; });
+    check.then(function (apps) {
+      if (apps && apps.length) { store(INSTALLED, "1"); return; }
+      setTimeout(function () { if (sheet.hasAttribute("hidden")) open(false); }, 1200);
+    });
   }
 
   // running as the installed app: collect the free ticket once
   function claim() {
     if (!standalone || sheet.getAttribute("data-offer") !== "1" || sheet.getAttribute("data-claimed") === "1") return;
     if (read(CLAIM_KEY) === "1") return;
-    if (sheet.getAttribute("data-logged-in") !== "1") { if (!QUIET.test(path)) { setMode("login"); sheet.removeAttribute("hidden"); } return; }
+    if (sheet.getAttribute("data-logged-in") !== "1") {
+      var seen = false;
+      try { seen = sessionStorage.getItem("lo_install_login_seen") === "1"; } catch (e) {}
+      if (!QUIET.test(path) && !seen) {
+        try { sessionStorage.setItem("lo_install_login_seen", "1"); } catch (e) {}
+        setMode("login"); sheet.removeAttribute("hidden");
+      }
+      return;
+    }
     var meta = document.querySelector('meta[name="csrf-token"]');
     fetch("/homescreen/claim", {
       method: "POST", credentials: "same-origin",
