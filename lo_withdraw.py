@@ -112,8 +112,12 @@ def register(app) -> None:
                                 (int(cust["id"]), cust.get("email"), amount, currency, method, details, datetime.now(timezone.utc).isoformat()))
                 c.commit()
                 req_id = cur.lastrowid
-            lo_mail.send(support_email(), f"Withdrawal request W{req_id}: customer {cust['id']}, {lo_mail.eur(amount)}",
-                         f"A customer has asked to withdraw winnings. Nothing has been paid or debited yet.\n\n"
+            lo_mail.send_template(support_email(), "withdrawal_request_staff",
+                         {"reference": f"W{req_id}", "customer_id": cust["id"], "customer_email": cust.get("email"),
+                          "customer_name": f"{cust.get('first_name', '')} {cust.get('last_name', '')}".strip(),
+                          "amount": lo_mail.eur(amount), "balance": lo_mail.eur(available), "method": METHODS[method],
+                          "details": details},
+                         text=f"A customer has asked to withdraw winnings. Nothing has been paid or debited yet.\n\n"
                          f"Request: W{req_id}\nCustomer id: {cust['id']}\nEmail: {cust.get('email')}\n"
                          f"Name: {cust.get('first_name', '')} {cust.get('last_name', '')}\n"
                          f"Amount: {lo_mail.eur(amount)} ({currency})\nWinnings balance at request: {lo_mail.eur(available)}\n"
@@ -121,8 +125,10 @@ def register(app) -> None:
                          "When paid: debit the Winnings bucket on the customer's wallet page in the CRM, with a reason "
                          f"quoting W{req_id}.", kind="withdrawal-request")
             if cust.get("email"):
-                lo_mail.send(cust["email"], f"We've received your withdrawal request for {lo_mail.eur(amount)}",
-                             f"Request received: {lo_mail.eur(amount)} from your winnings (reference W{req_id}).\n\n"
+                lo_mail.send_template(cust["email"], "withdrawal_received",
+                             {"first_name": cust.get("first_name"), "amount": lo_mail.eur(amount), "reference": f"W{req_id}",
+                              "method": METHODS[method], "days": turnaround_days()},
+                             text=f"Request received: {lo_mail.eur(amount)} from your winnings (reference W{req_id}).\n\n"
                              f"We'll pay it within {turnaround_days()} working days. We'll contact you if we need anything else.",
                              kind="withdrawal-received")
             sent = {"id": req_id, "amount": amount}

@@ -1,5 +1,5 @@
 """Customer emails the site sends itself (the CRM does not send these): one sender for memberships, jackpot
-alerts and abandoned checkouts.
+alerts, abandoned checkouts and withdrawals. The designs live in lo_emails.py (send_template).
 
 Sending: SMTP when SMTP_HOST is set (SendGrid: host smtp.sendgrid.net, port 587, user "apikey", password = the
 API key), otherwise the message is written to data/outbox so nothing is lost and nothing is sent by accident.
@@ -40,9 +40,9 @@ def smtp_configured() -> bool:
     return bool((os.getenv("SMTP_HOST") or "").strip())
 
 
-def send(to: str, subject: str, text: str, kind: str = "email") -> str:
-    """Send one plain-text email. Returns "sent" or "outbox"."""
-    body = text.rstrip() + footer()
+def send(to: str, subject: str, text: str, kind: str = "email", html: str | None = None, plain_footer: bool = True) -> str:
+    """Send one email: plain text, plus an HTML part when given. Returns "sent" or "outbox"."""
+    body = text.rstrip() + (footer() if plain_footer else "")
     if smtp_configured() and to:
         try:
             msg = EmailMessage()
@@ -52,6 +52,8 @@ def send(to: str, subject: str, text: str, kind: str = "email") -> str:
             if os.getenv("MAIL_REPLY_TO"):
                 msg["Reply-To"] = os.getenv("MAIL_REPLY_TO")
             msg.set_content(body)
+            if html:
+                msg.add_alternative(html, subtype="html")
             host, port = os.getenv("SMTP_HOST").strip(), int(os.getenv("SMTP_PORT") or 587)
             with smtplib.SMTP(host, port, timeout=20) as s:
                 s.starttls(context=ssl.create_default_context())
@@ -64,8 +66,21 @@ def send(to: str, subject: str, text: str, kind: str = "email") -> str:
     box = outbox()
     box.mkdir(parents=True, exist_ok=True)
     ts = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-    (box / f"{ts}-{kind}-{uuid.uuid4().hex[:6]}.txt").write_text(f"To: {to}\nSubject: {subject}\n\n{body}\n", encoding="utf-8")
+    name = f"{ts}-{kind}-{uuid.uuid4().hex[:6]}"
+    (box / f"{name}.txt").write_text(f"To: {to}\nSubject: {subject}\n\n{body}\n", encoding="utf-8")
+    if html:
+        (box / f"{name}.html").write_text(html, encoding="utf-8")
     return "outbox"
+
+
+def send_template(to: str, key: str, data: dict, *, text: str | None = None, kind: str | None = None) -> str:
+    """Send one of the designed emails (lo_emails.py). text: a hand-written plain-text part; without it the plain
+    text is made from the HTML (which already carries the footer)."""
+    import lo_emails
+    subject, page, auto_text = lo_emails.render(key, data, SITE_URL, os.getenv("LO_ASSET_URL") or SITE_URL)
+    if text is None:
+        return send(to, subject, auto_text, kind=kind or key, html=page, plain_footer=False)
+    return send(to, subject, text, kind=kind or key, html=page)
 
 
 # ------------------------------------------------------------------ "send once" ledger

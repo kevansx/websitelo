@@ -98,6 +98,7 @@ See `env.example`. The ones that matter at launch:
 | `CRM_CACHE_DB_PATH` | `/opt/lottosonline-website/data/crm_cache.sqlite` |
 | `WEBSITE_NOINDEX=1` | Hides the site from search engines. Not needed on `www1.` / `staging.` and other lottosonline.com test hosts: they are hidden automatically. Never set it on www |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` | The email sender for membership, jackpot-alert, withdrawal and cart emails (SendGrid: `smtp.sendgrid.net`, 587, user `apikey`) |
+| `LO_SITE_URL`, `LO_ASSET_URL` | Address used for links in emails (default `https://www.lottosonline.com`) and for the email logo (defaults to `LO_SITE_URL`; set `https://www1.lottosonline.com` until the new site is live on www) |
 | `LO_SUPPORT_EMAIL` | Where withdrawal requests go (default support@lottosonline.com, the help-desk inbox) |
 | `LO_WITHDRAWALS_ON`, `LO_WITHDRAWAL_DAYS` | Switch the withdrawal form on (`1`) and the promised turnaround in working days. Leave off until support's payout process is agreed |
 | `LO_HOMESCREEN_OFFER` | `0` switches the home-screen free-ticket offer off |

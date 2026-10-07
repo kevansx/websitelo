@@ -11890,6 +11890,8 @@ def create_app() -> Flask:
     lo_recover.register(app)
     import lo_withdraw
     lo_withdraw.register(app)
+    import lo_emails
+    lo_emails.register(app)
 
     return app
 

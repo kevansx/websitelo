@@ -114,6 +114,12 @@ def _draw_key(jp: dict) -> str:
     return str(jp.get("draw_date") or jp.get("cutoff_iso") or "")[:10]
 
 
+def _closes_text(jp: dict) -> str | None:
+    import lo_mail
+    at = lo_mail.parse_utc(jp.get("cutoff_iso"))
+    return lo_mail.when(at) if at else None
+
+
 def run_watcher(*, customers: list[int], jackpot: Callable[[str], dict | None], fmt: Callable[[Any, str], str],
                 send: Callable[[list[int], dict], dict]) -> dict:
     """Fire every alert whose jackpot has reached its threshold, once per lottery per draw."""
@@ -144,6 +150,10 @@ def run_watcher(*, customers: list[int], jackpot: Callable[[str], dict | None], 
                 "body": f"The {a['name']} jackpot you follow has passed {fmt(a['threshold'], jp.get('currency') or '')}.",
                 "url": lo_lotteries.play_path(lot) if lot and lot.sells else "/",
                 "tag": f"jackpot-{a['game_code']}-{key}",
+                # for the email version only (lo_emails "jackpot_alert"); never sent to the browser
+                "email_data": {"lottery_name": a["name"], "jackpot": jp.get("display"),
+                               "threshold": fmt(a["threshold"], jp.get("currency") or ""),
+                               "closes_at": _closes_text(jp)},
             })
             sent += int((res or {}).get("sent") or 0)
     return {"fired": fired, "sent": sent}
@@ -222,14 +232,19 @@ def register(app) -> None:
     def deliver(ids: list[int], payload: dict) -> dict:
         """Push first; email second, for customers with no push device who allow marketing email."""
         import lo_mail
+        payload = dict(payload)
+        email_data = payload.pop("email_data", None) or {}
         res = dict(lo_push.send(ids, payload))
         for cid in ids:
             if lo_push.has_subscription(cid):
                 continue
             ct = lo_mail.contact(cid) or {}
             if ct.get("marketing_email") and ct.get("email"):
-                lo_mail.send(ct["email"], payload["title"],
-                             payload["body"] + "\n\nPlay here: " + lo_mail.SITE_URL + payload["url"] +
+                lo_mail.send_template(ct["email"], "jackpot_alert",
+                             {"lottery_name": email_data.get("lottery_name") or payload["title"],
+                              "jackpot": email_data.get("jackpot"), "threshold": email_data.get("threshold"),
+                              "closes_at": email_data.get("closes_at"), "play_url": lo_mail.SITE_URL + payload["url"]},
+                             text=payload["body"] + "\n\nPlay here: " + lo_mail.SITE_URL + payload["url"] +
                              "\n\nTo change or stop these alerts: " + lo_mail.SITE_URL + "/account/alerts",
                              kind="jackpot-alert")
                 res["emailed"] = res.get("emailed", 0) + 1

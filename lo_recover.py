@@ -127,8 +127,10 @@ def run(*, jackpot: Callable[[str], dict | None], resume_url: Callable[[int], st
                 push([cid], {"title": f"Your {name} lines are still in your cart",
                              "body": "Finish your order before the draw closes.", "url": resume_url(cid), "tag": f"cart-{cid}"})
             elif allowed:
-                lo_mail.send(contact["email"], f"Your {name} lines are still in your cart",
-                             "You picked these lines but didn't finish your order:\n\n" + _lines_text(cart) +
+                lo_mail.send_template(contact["email"], "cart_reminder",
+                             {"lottery_name": name, "lines": [ln.strip() for ln in _lines_text(cart).splitlines()],
+                              "closes_at": lo_mail.when(cutoff), "resume_url": resume_url(cid)},
+                             text="You picked these lines but didn't finish your order:\n\n" + _lines_text(cart) +
                              f"\n\nThe next draw closes on {lo_mail.when(cutoff)}.\n\n"
                              "Pick up where you left off, with your lines still in your cart:\n" + resume_url(cid),
                              kind="cart-30m")
@@ -148,8 +150,10 @@ def run(*, jackpot: Callable[[str], dict | None], resume_url: Callable[[int], st
             out["skipped_consent"] += 1
             continue
         jackpot_line = f" The jackpot is {jp['display']}." if (jp or {}).get("display") else ""
-        lo_mail.send(contact["email"], f"{name} closes {lo_mail.when(cutoff)}",
-                     f"Your {name} lines are still waiting in your cart. Ticket sales for the next draw close on "
+        lo_mail.send_template(contact["email"], "cart_last_call",
+                     {"lottery_name": name, "closes_at": lo_mail.when(cutoff), "jackpot": (jp or {}).get("display"),
+                      "resume_url": resume_url(cid)},
+                     text=f"Your {name} lines are still waiting in your cart. Ticket sales for the next draw close on "
                      f"{lo_mail.when(cutoff)}.{jackpot_line}\n\n"
                      "Your cart, with your lines:\n" + resume_url(cid) + "\n\n"
                      "This is the last reminder we'll send about this cart.", kind="cart-24h")

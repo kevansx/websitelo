@@ -56,52 +56,58 @@ def offers_for(games: list[dict], game_codes) -> list[dict]:
 
 
 # ------------------------------------------------------------------ emails (wording after Live Lottos comms.py)
-def mail_joined(to: str, name: str, cents: int, next_at: datetime | None) -> str:
+def _sdata(name: str, cents: int, **more) -> dict:
+    return {"syndicate_name": name, "weekly_price": lo_mail.eur(cents), "lines": LINES_PER_SHARE, "shares": SHARES, **more}
+
+
+def mail_joined(to: str, name: str, cents: int, next_at: datetime | None, first_name: str | None = None) -> str:
     nxt = f" Your next payment of {lo_mail.eur(cents)} is due on {lo_mail.when(next_at)}." if next_at else ""
-    return lo_mail.send(to, f"You're in: {name} syndicate, {lo_mail.eur(cents)} a week",
-                        f"Your {name} syndicate membership is confirmed.\n\n"
-                        f"Your share is {LINES_PER_SHARE} lines in every {name} draw each week, one of {SHARES} shares. "
-                        f"Each share receives 1/{SHARES}th of any prize the syndicate's lines win.\n\n"
-                        f"It costs {lo_mail.eur(cents)} a week, taken from your saved card, and renews every week until you cancel.{nxt}\n\n"
-                        "To pause for a few weeks or cancel, go to " + lo_mail.SITE_URL + "/account/memberships. "
-                        "Cancelling is one tap, free and instant.", kind="member-joined")
+    return lo_mail.send_template(to, "syndicate_joined", _sdata(name, cents, first_name=first_name,
+                                                                next_payment=lo_mail.when(next_at) if next_at else None),
+                                 text=f"Your {name} syndicate membership is confirmed.\n\n"
+                                 f"Your share is {LINES_PER_SHARE} lines in every {name} draw each week, one of {SHARES} shares. "
+                                 f"Each share receives 1/{SHARES}th of any prize the syndicate's lines win.\n\n"
+                                 f"It costs {lo_mail.eur(cents)} a week, taken from your saved card, and renews every week until you cancel.{nxt}\n\n"
+                                 "To pause for a few weeks or cancel, go to " + lo_mail.SITE_URL + "/account/memberships. "
+                                 "Cancelling is one tap, free and instant.", kind="member-joined")
 
 
 def mail_renewal_due(to: str, name: str, cents: int, at: datetime, sub_id: Any) -> str:
-    return lo_mail.send(to, f"Your {name} syndicate renews tomorrow: {lo_mail.eur(cents)}",
-                        f"Your {name} syndicate membership renews on {lo_mail.when(at)}.\n\n"
-                        f"We will take {lo_mail.eur(cents)} from your saved card.\n\n"
-                        "Nothing to do if you are happy to carry on: you stay in every draw.\n\n"
-                        "To cancel, use this link before then (log in, then one tap): "
-                        + lo_mail.SITE_URL + f"/account/memberships?cancel={sub_id}\n"
-                        "To pause for a few weeks instead: " + lo_mail.SITE_URL + "/account/memberships",
-                        kind="member-renewal-due")
+    cancel_url = lo_mail.SITE_URL + f"/account/memberships?cancel={sub_id}"
+    return lo_mail.send_template(to, "syndicate_renewal_due", _sdata(name, cents, renews_at=lo_mail.when(at), cancel_url=cancel_url),
+                                 text=f"Your {name} syndicate membership renews on {lo_mail.when(at)}.\n\n"
+                                 f"We will take {lo_mail.eur(cents)} from your saved card.\n\n"
+                                 "Nothing to do if you are happy to carry on: you stay in every draw.\n\n"
+                                 "To cancel, use this link before then (log in, then one tap): " + cancel_url + "\n"
+                                 "To pause for a few weeks instead: " + lo_mail.SITE_URL + "/account/memberships",
+                                 kind="member-renewal-due")
 
 
 def mail_charged(to: str, name: str, cents: int, next_at: datetime | None) -> str:
     nxt = f"\n\nYour next payment is due on {lo_mail.when(next_at)}." if next_at else ""
-    return lo_mail.send(to, f"Payment received: {lo_mail.eur(cents)} for your {name} syndicate",
-                        f"We have taken {lo_mail.eur(cents)} for your {name} syndicate membership. You are in this week's "
-                        "draws, and your lines will appear in your account before each draw." + nxt,
-                        kind="member-charged")
+    return lo_mail.send_template(to, "syndicate_payment_received",
+                                 _sdata(name, cents, next_payment=lo_mail.when(next_at) if next_at else None),
+                                 text=f"We have taken {lo_mail.eur(cents)} for your {name} syndicate membership. You are in this week's "
+                                 "draws, and your lines will appear in your account before each draw." + nxt,
+                                 kind="member-charged")
 
 
 def mail_charge_failed(to: str, name: str, cents: int, reason: str | None) -> str:
     why = f" The bank's message was: {reason}." if reason else ""
-    return lo_mail.send(to, f"We could not take your {name} syndicate payment",
-                        f"Your weekly payment of {lo_mail.eur(cents)} for your {name} syndicate did not go through.{why}\n\n"
-                        "You are not in the draws for this week until a payment succeeds. To carry on, add or update your "
-                        "card here: " + lo_mail.SITE_URL + "/wallet/add-funds\n\n"
-                        "If you meant to stop, you do not need to do anything: no further payment will be taken without a working card. "
-                        "You can also cancel here: " + lo_mail.SITE_URL + "/account/memberships",
-                        kind="member-charge-failed")
+    return lo_mail.send_template(to, "syndicate_payment_failed", _sdata(name, cents, reason=reason),
+                                 text=f"Your weekly payment of {lo_mail.eur(cents)} for your {name} syndicate did not go through.{why}\n\n"
+                                 "You are not in the draws for this week until a payment succeeds. To carry on, add or update your "
+                                 "card here: " + lo_mail.SITE_URL + "/wallet/add-funds\n\n"
+                                 "If you meant to stop, you do not need to do anything: no further payment will be taken without a working card. "
+                                 "You can also cancel here: " + lo_mail.SITE_URL + "/account/memberships",
+                                 kind="member-charge-failed")
 
 
 def mail_cancelled(to: str, name: str) -> str:
-    return lo_mail.send(to, f"Your {name} syndicate membership is cancelled",
-                        f"Your {name} syndicate membership is cancelled. Nothing more will be taken.\n\n"
-                        "Any draws you have already paid for still count, and any winnings go to your account as usual.",
-                        kind="member-cancelled")
+    return lo_mail.send_template(to, "syndicate_cancelled", {"syndicate_name": name},
+                                 text=f"Your {name} syndicate membership is cancelled. Nothing more will be taken.\n\n"
+                                 "Any draws you have already paid for still count, and any winnings go to your account as usual.",
+                                 kind="member-cancelled")
 
 
 OK_STATUSES = {"succeeded", "success", "captured", "paid", "completed", "approved"}
@@ -272,7 +278,8 @@ def register(app) -> None:
             return redirect(url_for("syndicate_page", slug=slug) + "#join")
         sub = placed.get("subscription") if isinstance(placed.get("subscription"), dict) else {}
         if email:
-            mail_joined(email, lot.name, cents, lo_mail.parse_utc(sub.get("next_charge_at")))
+            who = session.get("customer") if isinstance(session.get("customer"), dict) else {}
+            mail_joined(email, lot.name, cents, lo_mail.parse_utc(sub.get("next_charge_at")), first_name=who.get("first_name"))
         return redirect(url_for("account_memberships", joined=sub.get("id") or 1))
 
     @app.get("/account/memberships")
