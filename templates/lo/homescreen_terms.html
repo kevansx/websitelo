@@ -1,11 +1,49 @@
-{# Offer terms for the home-screen free ticket (approved 2 October 2026). #}
+{# The home-screen free ticket: what it is, how to get it on iPhone and Android, and the offer terms (approved
+   2 October 2026, unchanged below). The banner's "Add To Home Screen" button lands here on desktop; on phones it
+   opens the install sheet. #}
 {% extends "lo/base.html" %}
 {% block content %}
-<section class="lo-pagehead"><div class="lo-wrap"><h1>Home Screen Offer: Terms</h1></div></section>
+{% set jp = lo_jackpot('sat-lotto-au') %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Get A Free Saturday Lotto Line</h1></div></section>
 <section class="lo-section">
-  <div class="lo-wrap">
+  <div class="lo-wrap lo-stack" style="max-width:760px">
+
+    <div class="lo-panel lo-hsoffer">
+      <img src="{{ url_for('static', filename='brands/lottosonline/img/app-icon-192.png') }}" alt="" width="72" height="72">
+      <div>
+        <p class="lo-hsoffer__lead">Add LottosOnline to your phone's home screen and we'll put a free line in the next
+          <strong>Australia Saturday Lotto</strong> draw.</p>
+        {% if jp and jp.display %}<p class="lo-hsoffer__jp">Next jackpot <strong>{{ jp.display }}</strong>{% if jp.cutoff_iso and not jp.closed %} &middot; closes in <span class="lo-countdown" data-until="{{ jp.cutoff_iso }}">&nbsp;</span>{% endif %}</p>{% endif %}
+        <p class="lo-muted" style="margin:0">Plus one-tap access to your tickets, results and jackpots.</p>
+      </div>
+    </div>
+
+    <div class="lo-panel">
+      <h2 class="display-2" style="margin-top:0">How to get it</h2>
+      <div class="lo-hssteps">
+        <div>
+          <p class="lo-hssteps__os">iPhone &amp; iPad</p>
+          <ol>
+            <li>Open lottosonline.com in Safari.</li>
+            <li>Tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>.</li>
+            <li>Open LottosOnline from the new icon and log in.</li>
+          </ol>
+        </div>
+        <div>
+          <p class="lo-hssteps__os">Android</p>
+          <ol>
+            <li>Open lottosonline.com in Chrome.</li>
+            <li>Tap <strong>Add to home screen</strong> (or menu &#8942; &rarr; <strong>Install app</strong>).</li>
+            <li>Open LottosOnline from the new icon and log in.</li>
+          </ol>
+        </div>
+      </div>
+      <p style="margin:var(--space-3) 0 0">Your free line is added to your account the moment you open the app logged in. You'll see a confirmation on screen.</p>
+      <button type="button" class="lo-btn lo-btn--lg lo-hsoffer__go" data-lo-install data-hide-in-app>Add To Home Screen</button>
+    </div>
+
     <article class="lo-panel lo-prose">
-      <p>Add LottosOnline to your phone's home screen and receive one free line in the next Australia Saturday Lotto draw.</p>
+      <h2 class="display-2" style="margin-top:0">Offer terms</h2>
       <ol>
         <li>The offer is open to LottosOnline account holders aged 18 or over whose account is open and in good standing.</li>
         <li>To qualify, add LottosOnline to the home screen of your phone or tablet, then open LottosOnline from the new home-screen icon while logged in to your account.</li>
@@ -16,8 +54,23 @@
         <li>We may change or end this offer at any time. Entries already added to accounts are not affected.</li>
         <li>Our <a href="/terms-and-conditions">Terms and Conditions</a> also apply.</li>
       </ol>
-      <p>Operated by Marvicap Limited. Please play responsibly.</p>
+      <p>Operated by Marvicap Limited. 18+ only. Please play responsibly.</p>
     </article>
   </div>
 </section>
+<style>
+  .lo-hsoffer { display: flex; gap: var(--space-4); align-items: flex-start; background: var(--surface-brand); color: var(--ink-on-brand); border: 0; }
+  .lo-hsoffer img { border-radius: 16px; flex: none; }
+  .lo-hsoffer__lead { margin: 0 0 var(--space-2); font: 600 18px/26px var(--font-body); }
+  .lo-hsoffer__jp { margin: 0 0 var(--space-2); color: var(--gold-400); }
+  .lo-hsoffer .lo-countdown, .lo-hsoffer .lo-countdown * { color: #fff; font-weight: 700; }
+  .lo-hsoffer .lo-muted { color: var(--ink-on-brand-muted); }
+  .lo-hssteps { display: grid; gap: var(--space-4); }
+  @media (min-width: 640px) { .lo-hssteps { grid-template-columns: 1fr 1fr; } }
+  .lo-hssteps__os { margin: 0 0 var(--space-1); font: 700 16px/22px var(--font-display); color: var(--surface-brand); }
+  .lo-hssteps ol { margin: 0; padding-left: 1.2em; }
+  .lo-hssteps li { margin-bottom: var(--space-1); }
+  .lo-hsoffer__go { margin-top: var(--space-4); }
+  @media (hover: hover) and (pointer: fine) { .lo-hsoffer__go { display: none; } }
+</style>
 {% endblock %}

@@ -107,10 +107,9 @@ def home_slides(rows: list[dict], featured: list[dict], crm_banners: list[dict] 
             "id": "homescreen", "theme": "brand", "art": "phone", "image": extras["app_icon"],
             "kicker": "Free ticket",
             "title": "A Free Saturday Lotto Line",
-            "text": "Add LottosOnline to your phone's home screen, open it from the new icon and we'll add a free line "
-                    "in the next Australia Saturday Lotto draw.",
+            "text": "Add us to your phone's home screen and it's yours. Takes ten seconds.",
             "cta_label": "Add To Home Screen", "cta_href": "/home-screen-offer", "cta_install": True,
-            "small_print": "One per customer. Terms apply.", "small_href": "/home-screen-offer",
+            "small_print": "How it works and terms", "small_href": "/home-screen-offer",
         })
 
     # 3. the next big jackpot
