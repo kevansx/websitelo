@@ -143,6 +143,19 @@ def install() -> None:
             raise CRMError("CRM HTTP 404: not found", status_code=404)
         return {"game": g}
 
+    # A new account starts empty, as a real one does, so the cart's pay-by-card step can be seen locally;
+    # signing in again puts the demo wallet back.
+    def _set_wallet(cents):
+        wallet["wallet"].update({"balance_cents": cents, "added_funds_cents": cents})
+
+    def auth_login(self, *a, **k):
+        _set_wallet(5000)
+        return {"token": "demo-token", "customer": DEMO_CUSTOMER}
+
+    def auth_register(self, *a, **k):
+        _set_wallet(0)
+        return {"token": "demo-token", "customer": DEMO_CUSTOMER}
+
     answers = {
         "health": {"ok": True},
         "countries": {"countries": [{"iso2": c, "name": n, "active": 1} for c, n in (
@@ -152,8 +165,6 @@ def install() -> None:
         "store_games": {"games": games},
         "store_products": {"products": products},
         "bundle": {"bundle": None},
-        "auth_login": {"token": "demo-token", "customer": DEMO_CUSTOMER},
-        "auth_register": {"token": "demo-token", "customer": DEMO_CUSTOMER},
         "auth_me": {"customer": DEMO_CUSTOMER},
         "customer_me": {"customer": DEMO_CUSTOMER},
         "customer_update": {"customer": DEMO_CUSTOMER},
@@ -227,6 +238,8 @@ def install() -> None:
         if hasattr(CRMClient, name):
             setattr(CRMClient, name, make(payload))
     CRMClient.store_game = store_game
+    CRMClient.auth_login = auth_login
+    CRMClient.auth_register = auth_register
 
     import itertools
     import lo_store

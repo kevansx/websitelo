@@ -141,7 +141,7 @@ def _asks_for_more_money(body: str) -> bool:
     wallet balance", so this matches the instruction that closes it instead of
     the wording of the sum.
     """
-    return "add-funds?next=" in body or "Use the payment button" in body
+    return 'class="leCartCardPay"' in body
 
 
 # --- the order gets placed ---

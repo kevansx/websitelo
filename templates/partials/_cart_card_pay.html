@@ -1,0 +1,49 @@
+{# The cart takes the card payment for the order itself: the button starts the
+   payment for what the order is short by, and after it the order is placed
+   automatically (/checkout/after-topup). No Add Funds page, no amounts to pick.
+   Country and address are asked for here only when we do not hold them, because
+   some processors refuse to open a payment page without them.
+
+   Expects: form_id, button_id, button_class, cart_currency, topup_amount_cents,
+   pay_shortfall_cents, cart_edit_order_url, pay_needs_country, pay_needs_address,
+   pay_country_options. #}
+{% set pay_cents = topup_amount_cents or 0 %}
+{% set left_over_cents = pay_cents - (pay_shortfall_cents or 0) if (pay_shortfall_cents or 0) > 0 else 0 %}
+<form method="post" action="{{ url_for('wallet_add_funds_post') }}" id="{{ form_id }}" class="leCartCardPay">
+  <input type="hidden" name="amount" value="{{ '%.2f'|format(pay_cents / 100) }}">
+  <input type="hidden" name="next" value="{{ url_for('checkout_after_topup') }}">
+  <input type="hidden" name="edit_order_url" value="{{ cart_edit_order_url or '' }}">
+  <input type="hidden" name="return_to" value="cart">
+
+  {% if pay_needs_country %}
+    <div class="leCartPayField">
+      <label for="cartPayCountry">Country you're paying from</label>
+      <input class="lo-input" type="text" name="country" id="cartPayCountry" list="cartPayCountryList"
+             placeholder="Country (e.g. India)" autocomplete="country-name" required>
+      <datalist id="cartPayCountryList">
+        {% for c in (pay_country_options or []) %}{% if c.name and c.iso2 %}<option value="{{ c.name }}"></option>{% endif %}{% endfor %}
+      </datalist>
+    </div>
+  {% endif %}
+  {% if pay_needs_address %}
+    <div class="leCartPayField">
+      <label for="cartPayStreet">Billing address</label>
+      <p class="leCartPayHint">Your bank needs this to approve the payment.</p>
+      <input class="lo-input" type="text" name="billing_street" id="cartPayStreet" placeholder="Street address" autocomplete="address-line1" required>
+      <input class="lo-input" type="text" name="billing_city" id="cartPayCity" placeholder="City" autocomplete="address-level2" required>
+      <input class="lo-input" type="text" name="billing_state" id="cartPayState" placeholder="State or region (optional)" autocomplete="address-level1">
+      <input class="lo-input" type="text" name="billing_postcode" id="cartPayPostcode" placeholder="Postcode" autocomplete="postal-code" required>
+    </div>
+  {% endif %}
+
+  <button type="submit" id="{{ button_id }}" class="{{ button_class }}">
+    Pay {{ cart_currency }} {{ '%.2f'|format(pay_cents / 100) }} by Card<br>
+    <span>and place your order</span>
+  </button>
+  {% if left_over_cents > 0 %}
+    <p class="leCartPayHint">
+      The minimum card payment is {{ cart_currency }} 5.00.
+      The {{ cart_currency }} {{ '%.2f'|format(left_over_cents / 100) }} left over stays in your account for your next order.
+    </p>
+  {% endif %}
+</form>

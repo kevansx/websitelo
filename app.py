@@ -4163,11 +4163,15 @@ def create_app() -> Flask:
                     "game_name": (request.form.get("game_name") or "").strip(),
                     "line_edit_item_idx": (request.form.get("line_edit_item_idx") or "").strip(),
                     "line_edit_line_idx": (request.form.get("line_edit_line_idx") or "").strip(),
+                    # Without these a multi-draw ticket comes back from sign-in as a
+                    # one-draw ticket at the multi-draw price.
+                    "ticket_mode": (request.form.get("ticket_mode") or "").strip(),
+                    "draw_weeks": (request.form.get("draw_weeks") or "").strip(),
                     "ts": int(time.time()),
                 }
             except Exception:
                 pass
-            flash("Please sign in before adding tickets to your cart.", "warning")
+            flash("Please sign in or open a free account to finish your order.", "warning")
             # Don't redirect back to this POST-only route.
             return redirect(url_for("login", next=url_for("cart")))
 
@@ -5787,7 +5791,7 @@ def create_app() -> Flask:
                         f"this {money}{required_cents / 100:.2f} order. You can use "
                         f"{money}{wins_cover_cents / 100:.2f} of your "
                         f"{money}{funding['available_wins_cents'] / 100:.2f} winnings for the remainder, "
-                        "or add funds instead.",
+                        "or pay by card instead.",
                         "warning",
                     )
                     topup_amount_cents = max(500, short_without_wins)
@@ -5824,17 +5828,19 @@ def create_app() -> Flask:
                             f"({money}{funding['spendable_cents'] / 100:.2f}) and winnings "
                             f"({money}{funding['available_wins_cents'] / 100:.2f}) together are "
                             f"{money}{short_with_wins / 100:.2f} short. "
-                            "Use the payment button below to add funds and continue checkout.",
+                            "Pay the rest by card below and your order is placed.",
                             "warning",
                         )
-                    else:
+                    elif funding["spendable_cents"] > 0:
                         flash(
                             f"This order needs {money}{required_cents / 100:.2f} and your added funds are "
                             f"{money}{funding['spendable_cents'] / 100:.2f}, "
                             f"{money}{short_without_wins / 100:.2f} short. "
-                            "Use the payment button below to add funds and continue checkout.",
+                            "Pay the rest by card below and your order is placed.",
                             "warning",
                         )
+                    # An empty account is the ordinary first order, not a
+                    # problem: the button already says what it will charge.
                     topup_needed = True
                     topup_amount_cents = needed_cents
                     topup_cta_url = url_for(
@@ -5891,6 +5897,9 @@ def create_app() -> Flask:
                 "cart is showing bundle %s at its locked price with no CRM quote; checkout is closed",
                 session.get("checkout_bundle_slug"),
             )
+        # The cart takes the card payment itself, so anything the payment step
+        # needs that we do not hold yet is asked for here, under the button.
+        pay_form = _card_payment_form_needs() if (topup_needed or wins_authorization_needed) else {}
         return render_template(
             "cart.html",
             items=cart_view_items,
@@ -5923,6 +5932,12 @@ def create_app() -> Flask:
             wins_cover_cents=wins_cover_cents,
             cart_funding=cart_funding,
             open_item_idx=open_item_idx,
+            pay_needs_country=bool(pay_form.get("needs_country")),
+            pay_needs_address=bool(pay_form.get("needs_address")),
+            pay_country_options=pay_form.get("country_options") or [],
+            # What the order is short by, before the minimum card payment is
+            # applied, so the cart can say what is left over in the account.
+            pay_shortfall_cents=int((cart_funding or {}).get("shortfall_without_wins_cents") or 0),
         )
 
     @app.post("/cart/apply-promo")
@@ -6464,7 +6479,7 @@ def create_app() -> Flask:
                         f"Your added funds ({sym}{added_bal / 100:.2f}) do not cover this "
                         f"{sym}{req / 100:.2f} order. You can use "
                         f"{sym}{max(0, req - added_bal) / 100:.2f} of your "
-                        f"{sym}{wins_bal / 100:.2f} winnings for the remainder, or add funds instead.",
+                        f"{sym}{wins_bal / 100:.2f} winnings for the remainder, or pay by card instead.",
                         "warning",
                     )
                     return redirect(url_for("cart"))
@@ -7909,45 +7924,70 @@ def create_app() -> Flask:
             if verified is True or bool(verified_at):
                 session["email_verified_hint"] = True
         flash("Signed in.", "success")
-
-        # If the user attempted to add tickets while logged out, complete that now.
-        pending = session.pop("pending_cart_add", None)
-        if isinstance(pending, dict):
-            try:
-                product_code = (pending.get("product_code") or "").strip()
-                lines_json = (pending.get("lines_json") or "").strip()
-                options_json = (pending.get("options_json") or "").strip()
-                pending_game_code = _safe_game_code(pending.get("game_code"))
-                pending_game_name = (pending.get("game_name") or "").strip()
-                pending_edit_order_url = (pending.get("edit_order_url") or "").strip()
-                if product_code:
-                    lines = _parse_lines_json(lines_json)
-                    options = json.loads(options_json) if options_json else {}
-                    if isinstance(lines, list) and isinstance(options, dict):
-                        cart = session.get("cart_items", [])
-                        if not isinstance(cart, list):
-                            cart = []
-                        cart.append(
-                            {
-                                "kind": "single",
-                                "product_code": product_code,
-                                "lines": lines,
-                                "options": options,
-                                "game_code": pending_game_code or None,
-                                "game_name": pending_game_name or None,
-                            }
-                        )
-                        session["cart_items"] = cart
-                        session["cart_edit_order_url"] = _resolve_edit_order_url(pending_edit_order_url)
-                        if pending_game_code:
-                            session["cart_last_game_code"] = pending_game_code
-                        flash("Added your selected tickets to the cart.", "success")
-                        return redirect(url_for("cart"))
-            except Exception:
-                # Ignore and continue with the normal redirect.
-                pass
-
+        if _complete_pending_cart_add():
+            return redirect(url_for("cart"))
         return redirect(next_url)
+
+    def _complete_pending_cart_add() -> bool:
+        """
+        Puts the ticket a signed-out customer picked into their cart, once they
+        have signed in or opened an account. True when it did.
+
+        Login, registration and the set-password shortcut all end here, so a
+        customer who chose numbers, pressed Play and then made an account lands
+        on the cart with that ticket in it rather than on their account page.
+        The same checks as /cart/add apply: the form was posted signed-out and
+        is no more trustworthy for having waited.
+        """
+        pending = session.pop("pending_cart_add", None)
+        if not isinstance(pending, dict):
+            return False
+        try:
+            product_code = (pending.get("product_code") or "").strip()
+            if not product_code:
+                return False
+            lines = [
+                ln for ln in _parse_lines_json((pending.get("lines_json") or "").strip()) if _line_has_any_selection(ln)
+            ]
+            options_json = (pending.get("options_json") or "").strip()
+            options = json.loads(options_json) if options_json else {}
+            if not lines or not isinstance(options, dict):
+                return False
+            game_code = _safe_game_code(pending.get("game_code"))
+            if _line_count_error(product_code, game_code, len(lines)):
+                return False
+            ticket_mode = (pending.get("ticket_mode") or "standard").strip().lower()
+            draw_weeks = (pending.get("draw_weeks") or "").strip() or None
+            if lo_store.cart_item_error(_guard_product(product_code), ticket_mode, draw_weeks):
+                app.logger.warning("pending cart add refused by the cart guard: %s (mode=%s)", product_code, ticket_mode)
+                return False
+            item: dict[str, Any] = {
+                "kind": "single",
+                "product_code": product_code,
+                "lines": lines,
+                # Add-ons are off for this brand, as at /cart/add.
+                "options": {k: v for k, v in options.items() if str(k).startswith("_")},
+                "game_code": game_code or None,
+                "game_name": (pending.get("game_name") or "").strip()[:120] or None,
+                "ticket_mode": ticket_mode,
+            }
+            if ticket_mode == "multi_draw" and draw_weeks:
+                item["draw_weeks"] = int(draw_weeks)
+        except Exception as e:  # noqa: BLE001 - a lost ticket must not cost them the sign-in
+            app.logger.warning("pending cart add could not be completed: %s", type(e).__name__)
+            return False
+        cart = session.get("cart_items", [])
+        if not isinstance(cart, list):
+            cart = []
+        cart.append(item)
+        session["cart_items"] = cart
+        session["cart_edit_order_url"] = _resolve_edit_order_url((pending.get("edit_order_url") or "").strip())
+        if game_code:
+            session["cart_last_game_code"] = game_code
+        session.pop("checkout_quote_id", None)
+        session["cart_force_purchase_topup"] = True
+        flash("Your tickets are in your cart.", "success")
+        return True
 
     # --- keeping scripted sign-ups out ---
     #
@@ -8544,6 +8584,8 @@ def create_app() -> Flask:
             customer_id = (data or {}).get("customer_id")
             customer = {"id": customer_id} if customer_id is not None else {}
         session["customer"] = customer
+        if _complete_pending_cart_add():
+            return redirect(url_for("cart"))
         return redirect(next_url)
 
     @app.post("/create-account")
@@ -8905,6 +8947,10 @@ def create_app() -> Flask:
             pass
         session["email_verified_hint"] = False
         flash("Account created.", "success")
+        # A ticket picked before they had an account comes first, wherever the
+        # link to this form pointed: they opened an account to buy it.
+        if _complete_pending_cart_add():
+            return redirect(url_for("cart"))
         return redirect(next_url or url_for("account"))
 
     # --- Customer support sessions: staff viewing the site as a customer ---
@@ -9575,6 +9621,33 @@ def create_app() -> Flask:
         )
 
     # --- Wallet ---
+    def _card_payment_form_needs() -> dict[str, Any]:
+        """
+        What a card payment form must ask for before the payment can start.
+
+        Amount only, otherwise. Which payment methods this customer gets is the
+        CRM's decision, made when the intent is created, so there is nothing
+        else to ask for yet and no reason to guess at it in advance. Used by the
+        cart, which takes the payment for an order, and by Add Funds.
+        """
+        countries_for_form: list[dict[str, Any]] = []
+        needs_country = not _routing_country()
+        # A hosted-only processor never shows the card form, so the form that
+        # starts the payment is the only place a customer without an address
+        # can still give us one.
+        needs_address = not _billing_address_on_file() and not isinstance(session.get("topup_address"), dict)
+        if needs_country:
+            # Processor Rules match on country and fall through to "No Match"
+            # when it is blank, so a customer we have no country for is asked
+            # once, here, rather than being routed on a guess.
+            try:
+                countries_for_form = [
+                    c for c in get_cache().get_countries(active_only=True, include_blocked=False) if isinstance(c, dict)
+                ]
+            except Exception:
+                countries_for_form = []
+        return {"needs_country": needs_country, "needs_address": needs_address, "country_options": countries_for_form}
+
     @app.get("/wallet/add-funds")
     def wallet_add_funds():
         token = require_login()
@@ -9627,24 +9700,10 @@ def create_app() -> Flask:
             # the header and in the cart, and there is one function that says
             # what that is.
             balance_cents_val = _wallet_spendable_cents(w)
-        # Amount only. Which payment methods this customer gets is the CRM's
-        # decision, made when the intent is created, so there is nothing to ask
-        # for here yet and no reason to guess at it in advance.
-        countries_for_form: list[dict[str, Any]] = []
-        needs_country = not _routing_country()
-        # A hosted-only processor never shows the card form, so this is the only
-        # screen where a customer without an address can still give us one.
-        needs_address = not _billing_address_on_file() and not isinstance(session.get("topup_address"), dict)
-        if needs_country:
-            # Processor Rules match on country and fall through to "No Match"
-            # when it is blank, so a customer we have no country for is asked
-            # once, here, rather than being routed on a guess.
-            try:
-                countries_for_form = [
-                    c for c in get_cache().get_countries(active_only=True, include_blocked=False) if isinstance(c, dict)
-                ]
-            except Exception:
-                countries_for_form = []
+        pay_form = _card_payment_form_needs()
+        needs_country = pay_form["needs_country"]
+        needs_address = pay_form["needs_address"]
+        countries_for_form = pay_form["country_options"]
         if purchase_mode:
             _pending_checkout_set(
                 source=str(pending_ctx.get("source") or "wallet_add_funds"),
@@ -9678,13 +9737,23 @@ def create_app() -> Flask:
         raw = (request.form.get("amount") or "").strip()
         next_url = (request.form.get("next") or "").strip()
         edit_order_url = _resolve_edit_order_url((request.form.get("edit_order_url") or "").strip())
+        # The cart's "Pay by card" button posts here directly. Anything that
+        # stops the payment starting sends that customer back to their cart,
+        # where the button and the fields are, never to the Add Funds page.
+        from_cart = (request.form.get("return_to") or "") == "cart" and next_url == url_for("checkout_after_topup")
+
+        def _back_to_form(**args: Any):
+            if from_cart:
+                return redirect(url_for("cart"))
+            return redirect(url_for("wallet_add_funds", **args))
+
         try:
             amt = float(raw)
         except Exception:
             amt = 0.0
         if amt < 5.0:
             flash("Minimum top up is 5.00.", "error")
-            return redirect(url_for("wallet_add_funds"))
+            return _back_to_form()
         amount_cents = int(round(amt * 100))
 
         # The customer's country decides which processor the CRM routes to, and
@@ -9708,7 +9777,7 @@ def create_app() -> Flask:
                 # pay at all. "No Match" exists for exactly this.
                 session["topup_country_asked"] = True
                 flash("Please tell us which country you're paying from.", "error")
-                return redirect(url_for("wallet_add_funds", next=next_url or None, amount_cents=str(amount_cents)))
+                return _back_to_form(next=next_url or None, amount_cents=str(amount_cents))
             if not routing_country:
                 app.logger.warning("wallet topup routing country unresolved; letting the CRM No Match rule decide")
         session.pop("topup_country_asked", None)
@@ -9729,7 +9798,7 @@ def create_app() -> Flask:
                 address_payload = _topup_address_payload(request.form, routing_country)
                 if not address_payload:
                     flash("Please give us your address so we can take the payment.", "error")
-                    return redirect(url_for("wallet_add_funds", next=next_url or None, amount_cents=str(amount_cents)))
+                    return _back_to_form(next=next_url or None, amount_cents=str(amount_cents))
                 session["topup_address"] = address_payload
 
         # Default return: wallet tab.
@@ -9847,10 +9916,10 @@ def create_app() -> Flask:
                     }
                     continue
                 flash(_friendly_crm_error(e), "error")
-                return redirect(url_for("wallet_add_funds"))
+                return _back_to_form()
         if not isinstance(init, dict):
             flash("We couldn't start your payment. Please try again.", "error")
-            return redirect(url_for("wallet_add_funds"))
+            return _back_to_form()
 
         routing_info = _topup_routing(init)
         if routing_info and routing_info.get("session_id"):
@@ -9876,8 +9945,8 @@ def create_app() -> Flask:
         if (mode == "options" and isinstance(init.get("options"), dict)) or mode == "direct_card":
             intent_id = _extract_intent_id(init)
             if not intent_id:
-                flash("CRM did not return intent id.", "error")
-                return redirect(url_for("wallet_add_funds"))
+                flash("We couldn't start your payment. Please try again.", "error")
+                return _back_to_form()
             # With Processor Rules enabled the CRM selects the processor;
             # routing.processor is authoritative over any local override.
             used_processor = str(

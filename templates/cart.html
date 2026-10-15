@@ -936,26 +936,13 @@
               <span>Uses {{ cart_currency }} {{ '%.2f'|format((wins_cover_cents or 0) / 100) }} of your winnings</span>
             </button>
           </form>
-          <form method="get" action="{{ url_for('wallet_add_funds') }}" class="leCartWinsAddFunds">
-            <input type="hidden" name="next" value="{{ url_for('checkout_after_topup') }}">
-            <input type="hidden" name="amount_cents" value="{{ topup_amount_cents or 0 }}">
-            <input type="hidden" name="required_cents" value="{{ cart_total_cents or 0 }}">
-            <input type="hidden" name="edit_order_url" value="{{ cart_edit_order_url or '' }}">
-            <button type="submit" class="secondaryFormButton" id="addFundsInsteadSubmit">
-              Add Funds Instead
-            </button>
-          </form>
+          {% with form_id="leCartWinsCardPay", button_id="addFundsInsteadSubmit", button_class="secondaryFormButton" %}
+            {% include "partials/_cart_card_pay.html" %}
+          {% endwith %}
         {% elif topup_needed and topup_cta_url %}
-          <form method="get" action="{{ url_for('wallet_add_funds') }}" id="confirmBetForm">
-            <input type="hidden" name="next" value="{{ url_for('checkout_after_topup') }}">
-            <input type="hidden" name="amount_cents" value="{{ topup_amount_cents or 0 }}">
-            <input type="hidden" name="required_cents" value="{{ cart_total_cents or 0 }}">
-            <input type="hidden" name="edit_order_url" value="{{ cart_edit_order_url or '' }}">
-            <button type="submit" id="confirmBetSubmit" class="topupConfirmBtn">
-              Add Funds to Continue<br>
-              <span>Funds Required: {{ cart_currency }} {{ '%.2f'|format((topup_amount_cents or 0) / 100) }}</span>
-            </button>
-          </form>
+          {% with form_id="confirmBetForm", button_id="confirmBetSubmit", button_class="topupConfirmBtn" %}
+            {% include "partials/_cart_card_pay.html" %}
+          {% endwith %}
         {% else %}
           <form method="post" action="{{ url_for('checkout_submit') }}" id="confirmBetForm">
             <button type="submit" id="confirmBetSubmit">

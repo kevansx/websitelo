@@ -209,8 +209,8 @@ def test_her_cart_also_offers_to_add_funds_instead(client, offer, quote, wallet,
     customers are saving a win and would rather pay.
     """
     body = _cart(client).data.decode("utf-8")
-    assert "Add Funds Instead" in body
-    assert "add-funds" in body
+    assert "Pay USD 5.00 by Card" in body
+    assert 'name="return_to" value="cart"' in body
 
 
 def test_choosing_to_use_winnings_places_the_order(client, offer, quote, wallet, submits):
@@ -273,7 +273,7 @@ def test_a_cart_beyond_both_pots_says_insufficient_and_offers_add_funds(
     """
     quote["total_cents"] = 2000
     body = _cart(client).data.decode("utf-8")
-    assert "Add Funds to Continue" in body
+    assert "by Card" in body
     assert "Use Winnings and Confirm Order" not in body
 
 
@@ -300,8 +300,8 @@ def test_an_empty_wallet_is_told_plainly_and_without_mentioning_winnings(
     wallet["added_cents"] = 0
     wallet["wins_cents"] = 0
     body = _cart(client).data.decode("utf-8")
-    assert "Add Funds to Continue" in body
-    assert "This order needs USD 5.80 and your added funds are USD 0.00" in body
+    assert "by Card" in body
+    assert "Pay USD 5.80 by Card" in body
     assert "and winnings" not in body
 
 
@@ -436,7 +436,7 @@ def test_a_402_that_winnings_cannot_fix_still_says_insufficient(
     _cart(client)
     client.post("/checkout", data={})
     body = client.get("/cart").data.decode("utf-8")
-    assert "Add Funds to Continue" in body
+    assert "by Card" in body
 
 
 def test_the_402_is_logged_with_both_pots_and_the_flag_that_was_sent(

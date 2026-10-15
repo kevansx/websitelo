@@ -28,7 +28,9 @@
     </div>
     <aside class="lo-panel lo-authside">
       <h2>Or...</h2>
-      <a class="lo-btn lo-btn--secondary lo-btn--block" href="/create-account">Open Free Account</a>
+      {# Carries `next`, so a customer who pressed Play before having an account
+         goes from sign-up straight back to their order. #}
+      <a class="lo-btn lo-btn--secondary lo-btn--block" href="{{ url_for('register', next=next) if next else '/create-account' }}">Open Free Account</a>
       <p>It's easy! Enter your favourite lottery today. Qualify for discounts and special offers.</p>
     </aside>
   </div>
