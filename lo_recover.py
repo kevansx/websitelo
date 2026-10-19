@@ -197,12 +197,13 @@ def register(app) -> None:
 
     @app.before_request
     def _remember_contact():
-        # once per session per customer: the address and marketing-email choice the scheduled emails need
+        # once per session per customer: the address, country and marketing-email choice the scheduled emails need
+        # (the flag's name changed when the country was added, so every session records it once more)
         c = session.get("customer") if isinstance(session.get("customer"), dict) else None
-        if c and c.get("id") is not None and session.get("lo_contact_saved") != c.get("id"):
+        if c and c.get("id") is not None and session.get("lo_contact_saved_v2") != c.get("id"):
             try:
                 lo_mail.remember_contact(c)
-                session["lo_contact_saved"] = c.get("id")
+                session["lo_contact_saved_v2"] = c.get("id")
             except Exception:
                 pass
 

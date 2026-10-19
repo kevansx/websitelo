@@ -65,11 +65,14 @@ The IT team owns Azure Front Door. The origin is this app behind gunicorn (and n
    Push needs a VAPID key pair in `.env`: run `.venv/bin/flask --app app push-keys` once and paste the three lines
    it prints into `.env`. Keep `LO_VAPID_PRIVATE_KEY` secret and never change the pair once customers subscribe
    (a new pair silently breaks every existing subscription).
-6. **Memberships and cart reminders**: two more jobs in the same crontab:
+6. **Memberships, cart reminders and the sign-up journey**: three more jobs in the same crontab:
    ```
    5 * * * * cd /opt/lottosonline-website && set -a && . ./.env && set +a && .venv/bin/flask --app app membership-emails
    */10 * * * * cd /opt/lottosonline-website && set -a && . ./.env && set +a && .venv/bin/flask --app app abandoned-checkout
+   20 * * * * cd /opt/lottosonline-website && set -a && . ./.env && set +a && .venv/bin/flask --app app journey-emails
    ```
+   `journey-emails` (lo_journey.py) sends the first-order nudges, the day-2 email and the gift-pack reminders. The
+   welcome, order confirmation and funds-added emails need no job: the site sends them as they happen (lo_txmail.py).
    Emails go out over SMTP when `SMTP_HOST` is set (see Settings); until then every email is written to
    `data/outbox/` instead, so nothing is sent by accident and nothing is lost.
 7. **Update**: `cd /opt/lottosonline-website && git pull && .venv/bin/pip install -r requirements.txt && sudo systemctl restart lottosonline-website`

@@ -179,9 +179,23 @@ def register(app) -> None:
             claims[str(cid)] = rec
             _save(claims)
         if rec["status"] == "granted":
+            _free_line_email()
             return jsonify({"ok": True})
         app.logger.warning("homescreen claim pending for customer %s: %s", cid, rec.get("error"))
         return jsonify({"ok": True, "pending": True})
+
+    def _free_line_email() -> None:
+        """'Your free Saturday Lotto line is in': a service email confirming what was put in their account."""
+        import lo_mail
+        c = session.get("customer") if isinstance(session.get("customer"), dict) else {}
+        email = str(c.get("email") or "").strip()
+        try:
+            if email and lo_mail.once(f"homescreen-{c.get('id')}"):
+                lo_mail.send_template(email, "homescreen_free_line",
+                                      {"first_name": c.get("first_name"), "draw_date": None, "jackpot": None},
+                                      country=lo_mail.customer_country(c))
+        except Exception as e:  # noqa: BLE001 - the line is granted either way
+            app.logger.info("homescreen email not sent: %s", type(e).__name__)
 
     @app.get("/home-screen-offer")
     def homescreen_offer_terms():

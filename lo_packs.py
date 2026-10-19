@@ -401,18 +401,25 @@ def open_pack(pack_id: str, *, customer_id: int | None, crm: Any, games: list[di
         return _row(c.execute("SELECT * FROM packs WHERE pack_id=?", (pack_id,)).fetchone())
 
 
-def auto_open_expired(*, crm: Any, games: list[dict]) -> dict:
-    """Nightly: a pack left sealed for 14 days opens itself and the gift is granted anyway."""
+def auto_open_expired(*, crm: Any, games: list[dict], on_opened: Any = None) -> dict:
+    """Nightly: a pack left sealed for 14 days opens itself and the gift is granted anyway. on_opened(pack) is
+    told about each one (lo_journey sends "We opened your gift pack")."""
     now = _iso(_now())
     with closing(_db()) as c:
         ids = [r[0] for r in c.execute("SELECT pack_id FROM packs WHERE state='sealed' AND expires_at <= ?", (now,))]
     done, failed = 0, 0
     for pid in ids:
         try:
-            open_pack(pid, customer_id=None, crm=crm, games=games, auto=True)
+            pack = open_pack(pid, customer_id=None, crm=crm, games=games, auto=True)
             done += 1
         except PackError:
             failed += 1
+            continue
+        if on_opened:
+            try:
+                on_opened(pack)
+            except Exception:  # noqa: BLE001 - the gift is granted; the email is extra
+                pass
     return {"opened": done, "failed": failed}
 
 
@@ -541,4 +548,5 @@ def register(app) -> None:
     @app.cli.command("packs-auto-open")
     def packs_auto_open_cmd():
         """Nightly: open packs left sealed for 14 days and grant their gifts."""
-        print(auto_open_expired(crm=_engine()["get_crm"](), games=_games()))
+        import lo_journey
+        print(auto_open_expired(crm=_engine()["get_crm"](), games=_games(), on_opened=lo_journey.pack_opened_email))

@@ -452,10 +452,11 @@ email(
 # ---------- Gift packs and offers
 email(
     "pack_waiting", group="Gift packs and offers", name="Gift pack waiting",
-    subject="{{#if is_gold}}Your gold gift pack is waiting{{else}}Your gift pack is waiting{{/if}}",
+    subject="{{#if final}}Still sealed: {{/if}}{{#if is_gold}}Your gold gift pack is waiting{{else}}Your gift pack is waiting{{/if}}",
     preheader="Rip it open to reveal a free entry.",
-    audience="marketing", sender=CONF, sent_by="Site",
-    trigger="A gift pack has been sealed for 3 days (packs open themselves after 14).",
+    audience="marketing", sender=CONF, sent_by="Site (lo_journey.py, hourly journey-emails job)",
+    trigger="A gift pack still sealed 3 and 7 days after it was earned, and once more on day 10 (final) if the customer "
+            "has not ordered since. Packs open themselves on day 14. Marketing consent only.",
     body=h1("{{#if is_gold}}You've got a gold gift pack{{else}}You've got a gift pack{{/if}} to open")
     + p("Hi {{#if first_name}}{{first_name}}{{else}}there{{/if}}, a gift pack is waiting in your account. Rip it open to reveal a free entry.")
     + pack_image("is_gold")
@@ -477,6 +478,54 @@ email(
     + button("See My Tickets", "{{site_url}}/orders")
     + GIFT_SMALL_PRINT,
     sample={"first_name": "Sam", "gift_title": "A free US Powerball line", "gift_detail": "Quick pick, in the Sat 24 Oct 2026 draw."})
+
+# ---------- The sign-up journey (Plans: onboarding plan, section 6; pack rewards, section 4)
+# No reward for signing up: 81% of sign-ups never pay, and a gift for registering goes to them. The gift pack comes
+# with the first paid order, so the nudges point at that order. Then one message on day 2, about the draw they are in.
+email(
+    "first_order_nudge", group="Sign-up journey", name="First order nudge",
+    subject="{{#if final}}Your first gift pack is still waiting for you{{else}}Your first order comes with a gift pack{{/if}}",
+    preheader="Pick your numbers. A gift pack opens on screen when you pay.",
+    audience="marketing", sender=CONF, sent_by="Site (lo_journey.py, hourly journey-emails job)",
+    trigger="An account with no paid order, 1 day after sign-up, and once more (final) on day 5. Stops the moment "
+            "they order. Marketing consent only.",
+    body=h1("{{#if final}}Your gift pack is still waiting{{else}}Ready for your first draw{{#if first_name}}, {{first_name}}{{/if}}?{{/if}}")
+    + p("Pick your numbers on any lottery and place your first order. A gift pack opens on screen as soon as it's "
+        "paid, with a free entry inside.")
+    + "{{#if lottery_name}}" + panel(
+        panel_title("{{lottery_name}}")
+        + "{{#if jackpot}}" + small("Jackpot") + big("{{jackpot}}") + "{{/if}}"
+        + "{{#if closes_at}}" + panel_text("Ticket sales close {{closes_at}}.") + "{{/if}}"
+        + button("Play {{lottery_name}}", "{{play_url}}")) + "{{/if}}"
+    + button("See All Lotteries", "{{site_url}}/lottery-tickets", BRAND)
+    + GIFT_SMALL_PRINT,
+    sample={"first_name": "Sam", "final": False, "lottery_name": "US Powerball", "jackpot": "$312 Million",
+            "closes_at": "Saturday 10 October at 22:00 (UTC)", "play_url": PROD_URL + "/lottery-tickets/us-powerball"})
+
+email(
+    "first_draw_day2", group="Sign-up journey", name="Day 2: the draw you're in",
+    subject="You're in the {{lottery_name}} draw{{#if draw_date}} on {{draw_date}}{{/if}}",
+    preheader="{{#if pack_url}}Your gift pack is still waiting to be opened.{{else}}Your entries are booked.{{/if}}",
+    audience="service", sender=CONF, sent_by="Site (lo_journey.py, hourly journey-emails job)",
+    trigger="The day after a customer's first paid order, once. Only while the draw is still to come.",
+    body=h1("You're in the {{lottery_name}} draw")
+    + p("Hi {{#if first_name}}{{first_name}}{{else}}there{{/if}}, your entries are booked"
+        "{{#if draw_date}} for the draw on <strong>{{draw_date}}</strong>{{/if}}. A scan of each ticket appears in your "
+        "account before the draw.")
+    + "{{#if jackpot}}" + panel(small("Jackpot") + big("{{jackpot}}")) + "{{/if}}"
+    + "{{#if pack_url}}" + panel(
+        panel_title("Your gift pack is still sealed")
+        + panel_text("You earned it with your first order. Rip it open to reveal a free entry.")
+        + pack_image("pack_is_gold")
+        + button("Open My Gift Pack", "{{pack_url}}", BRAND), GOLD_100) + "{{/if}}"
+    + "{{#if gift_title}}" + panel(
+        panel_title("Also in your account: {{gift_title}}")
+        + "{{#if gift_detail}}" + panel_text("{{gift_detail}}") + "{{/if}}", GOLD_100) + "{{/if}}"
+    + button("See My Tickets", "{{site_url}}/orders")
+    + GIFT_SMALL_PRINT,
+    sample={"first_name": "Sam", "lottery_name": "US Powerball", "draw_date": "Sat 10 Oct 2026",
+            "jackpot": "$312 Million", "pack_url": PROD_URL + "/packs/SAMPLE", "pack_is_gold": False,
+            "gift_title": None, "gift_detail": None})
 
 email(
     "homescreen_free_line", group="Gift packs and offers", name="Free Saturday Lotto line added",
@@ -660,7 +709,7 @@ email(
     sample={"lottery_name": "EuroMillions", "jackpot": "€150 Million", "threshold": "€100 Million",
             "closes_at": "Fri 9 Oct 2026 at 18:30 (UTC)", "play_url": PROD_URL + "/lottery-tickets/euromillions"})
 
-GROUPS = ("Account", "Orders and money", "Gift packs and offers", "Refer a friend", "Syndicates", "Reminders and alerts")
+GROUPS = ("Account", "Sign-up journey", "Orders and money", "Gift packs and offers", "Refer a friend", "Syndicates", "Reminders and alerts")
 
 # ------------------------------------------------------------------ building and rendering
 

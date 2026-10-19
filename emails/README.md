@@ -51,6 +51,28 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **Sent by:** CRM (the site calls its password-reset API)
 - **Data:** `email`, `expires_text`, `first_name`, `reset_url`
 
+## Sign-up journey
+
+### First order nudge (`first_order_nudge`)
+
+- **Subject:** `{{#if final}}Your first gift pack is still waiting for you{{else}}Your first order comes with a gift pack{{/if}}`
+- **Preheader:** Pick your numbers. A gift pack opens on screen when you pay.
+- **From:** confirmation@lottosonline.com
+- **Who gets it:** Marketing consent only
+- **When:** An account with no paid order, 1 day after sign-up, and once more (final) on day 5. Stops the moment they order. Marketing consent only.
+- **Sent by:** Site (lo_journey.py, hourly journey-emails job)
+- **Data:** `closes_at`, `final`, `first_name`, `jackpot`, `lottery_name`, `play_url`, `unsubscribe`
+
+### Day 2: the draw you're in (`first_draw_day2`)
+
+- **Subject:** `You're in the {{lottery_name}} draw{{#if draw_date}} on {{draw_date}}{{/if}}`
+- **Preheader:** {{#if pack_url}}Your gift pack is still waiting to be opened.{{else}}Your entries are booked.{{/if}}
+- **From:** confirmation@lottosonline.com
+- **Who gets it:** Service (every customer)
+- **When:** The day after a customer's first paid order, once. Only while the draw is still to come.
+- **Sent by:** Site (lo_journey.py, hourly journey-emails job)
+- **Data:** `draw_date`, `first_name`, `gift_detail`, `gift_title`, `jackpot`, `lottery_name`, `pack_is_gold`, `pack_url`
+
 ## Orders and money
 
 ### Order confirmation (`order_confirmation`)
@@ -127,13 +149,13 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 
 ### Gift pack waiting (`pack_waiting`)
 
-- **Subject:** `{{#if is_gold}}Your gold gift pack is waiting{{else}}Your gift pack is waiting{{/if}}`
+- **Subject:** `{{#if final}}Still sealed: {{/if}}{{#if is_gold}}Your gold gift pack is waiting{{else}}Your gift pack is waiting{{/if}}`
 - **Preheader:** Rip it open to reveal a free entry.
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Marketing consent only
-- **When:** A gift pack has been sealed for 3 days (packs open themselves after 14).
-- **Sent by:** Site
-- **Data:** `first_name`, `is_gold`, `opens_on`, `pack_url`, `unsubscribe`
+- **When:** A gift pack still sealed 3 and 7 days after it was earned, and once more on day 10 (final) if the customer has not ordered since. Packs open themselves on day 14. Marketing consent only.
+- **Sent by:** Site (lo_journey.py, hourly journey-emails job)
+- **Data:** `final`, `first_name`, `is_gold`, `opens_on`, `pack_url`, `unsubscribe`
 
 ### Gift pack opened for you (`pack_opened`)
 

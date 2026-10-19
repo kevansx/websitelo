@@ -73,9 +73,38 @@ def send(to: str, subject: str, text: str, kind: str = "email", html: str | None
     return "outbox"
 
 
-def send_template(to: str, key: str, data: dict, *, text: str | None = None, kind: str | None = None) -> str:
+# Joey's standing rule: never email customers in Denmark, on any brand or kind of send. Enforced here, in the one
+# function every customer email goes through, rather than trusted to each caller. Whether Danish customers get
+# service emails (order confirmation, password reset) is still his decision; until he says so, they get none.
+BLOCKED_COUNTRIES = frozenset({"DK"})
+
+
+def customer_country(customer: dict | None) -> str:
+    """The ISO-2 country on a CRM customer record, or "" when it carries none."""
+    customer = customer or {}
+    address = customer.get("address") if isinstance(customer.get("address"), dict) else {}
+    for candidate in (customer.get("country"), address.get("country_iso2"), address.get("country")):
+        iso = str(candidate or "").strip().upper()
+        if len(iso) == 2 and iso.isalpha():
+            return iso
+    return ""
+
+
+def blocked(to: str, country: str | None = None) -> bool:
+    """True when this address must not be emailed: the country given, or the one remembered for the address."""
+    iso = (country or "").strip().upper()
+    if not iso and to:
+        iso = str((contact_by_email(to) or {}).get("country") or "").upper()
+    return iso in BLOCKED_COUNTRIES
+
+
+def send_template(to: str, key: str, data: dict, *, text: str | None = None, kind: str | None = None,
+                  country: str | None = None) -> str:
     """Send one of the designed emails (lo_emails.py). text: a hand-written plain-text part; without it the plain
-    text is made from the HTML (which already carries the footer)."""
+    text is made from the HTML (which already carries the footer). country: the customer's, when the caller has the
+    record; otherwise the one remembered for the address. Returns "sent", "outbox" or "blocked"."""
+    if blocked(to, country):
+        return "blocked"
     import lo_emails
     subject, page, auto_text = lo_emails.render(key, data, SITE_URL, os.getenv("LO_ASSET_URL") or SITE_URL)
     if text is None:
@@ -144,6 +173,9 @@ def _contacts_db():
     c.row_factory = sqlite3.Row
     c.execute("""CREATE TABLE IF NOT EXISTS contacts (customer_id INTEGER PRIMARY KEY, email TEXT, marketing_email INTEGER NOT NULL,
                  updated_at TEXT NOT NULL)""")
+    # added 19 Oct 2026 for the Denmark rule; older databases gain the column in place
+    if "country" not in {r[1] for r in c.execute("PRAGMA table_info(contacts)")}:
+        c.execute("ALTER TABLE contacts ADD COLUMN country TEXT")
     return c
 
 
@@ -165,8 +197,9 @@ def remember_contact(customer: dict) -> None:
         return
     email = str((customer or {}).get("email") or "").strip()
     with closing(_contacts_db()) as c:
-        c.execute("INSERT OR REPLACE INTO contacts VALUES (?,?,?,?)",
-                  (cid, email, int(marketing_allowed(customer)), datetime.now(timezone.utc).isoformat()))
+        c.execute("INSERT OR REPLACE INTO contacts (customer_id, email, marketing_email, updated_at, country) VALUES (?,?,?,?,?)",
+                  (cid, email, int(marketing_allowed(customer)), datetime.now(timezone.utc).isoformat(),
+                   customer_country(customer) or None))
         c.commit()
 
 
@@ -177,7 +210,17 @@ def contact(customer_id: int) -> dict | None:
     return dict(r) if r else None
 
 
-def marketing_contacts() -> list[dict]:
+def contact_by_email(email: str) -> dict | None:
     from contextlib import closing
     with closing(_contacts_db()) as c:
-        return [dict(r) for r in c.execute("SELECT * FROM contacts WHERE marketing_email=1 AND email != ''")]
+        r = c.execute("SELECT * FROM contacts WHERE lower(email)=lower(?) ORDER BY updated_at DESC",
+                      (str(email or "").strip(),)).fetchone()
+    return dict(r) if r else None
+
+
+def marketing_contacts() -> list[dict]:
+    """Customers who allow marketing email, Danish accounts left out."""
+    from contextlib import closing
+    with closing(_contacts_db()) as c:
+        rows = [dict(r) for r in c.execute("SELECT * FROM contacts WHERE marketing_email=1 AND email != ''")]
+    return [r for r in rows if str(r.get("country") or "").upper() not in BLOCKED_COUNTRIES]

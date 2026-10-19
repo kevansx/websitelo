@@ -6201,6 +6201,40 @@ def create_app() -> Flask:
         flash("Line updated.", "success")
         return redirect(url_for("cart", open_item_idx=item_idx))
 
+    def _after_order_emails(token: str | None, order_id: Any, items: list[dict]) -> None:
+        """
+        The order confirmation (the customer's proof of purchase) and the
+        sign-up journey's note of the order. Called once the CRM has accepted the
+        order and the gift packs have been worked out. Never raises.
+
+        The CRM's own copy of the order is read for its total and draw dates;
+        when it cannot be read the email still goes, built from the cart.
+        """
+        import lo_journey
+        import lo_packs
+        import lo_txmail
+
+        customer = session.get("customer") if isinstance(session.get("customer"), dict) else {}
+        if order_id is None or not customer:
+            return
+        order: dict[str, Any] = {}
+        try:
+            got = get_crm().order(token, int(order_id)) if token else None
+            order = got.get("order") if isinstance(got, dict) and isinstance(got.get("order"), dict) else {}
+        except Exception as e:  # noqa: BLE001
+            app.logger.info("order %s not read back for its email: %s", order_id, type(e).__name__)
+        pack = None
+        try:
+            just = session.get("lo_pack_just_earned")
+            pack = lo_packs.get_pack(just, customer.get("id")) if just else None
+        except Exception:
+            pack = None
+        lo_txmail.send_order_confirmation(customer, order_id=order_id, items=items, order=order, pack=pack)
+        try:
+            lo_journey.on_order(customer, order_id=order_id, items=items, order=order)
+        except Exception as e:  # noqa: BLE001
+            app.logger.warning("journey: order %s not recorded: %s", order_id, type(e).__name__)
+
     @app.post("/checkout")
     def checkout_submit():
         token = require_login()
@@ -6557,6 +6591,7 @@ def create_app() -> Flask:
         _after = app.config.get("LO_PACKS_AFTER_CHECKOUT")
         if _after:
             _after(token=token, order_id=order_id, items=items)
+        _after_order_emails(token, order_id, items)
         # Abandoned-checkout reminders stop the moment an order completes (lo_recover.py).
         try:
             _cust = session.get("customer") if isinstance(session.get("customer"), dict) else {}
@@ -8588,6 +8623,42 @@ def create_app() -> Flask:
             return redirect(url_for("cart"))
         return redirect(next_url)
 
+    def _after_signup(customer: dict[str, Any], payload: dict[str, Any], *, marketing: bool) -> None:
+        """
+        Everything a new account sets off, none of which may cost the customer
+        the account: their marketing choice saved to the CRM, the welcome email,
+        and the start of the sign-up journey (lo_journey.py).
+
+        The sign-up form has always asked "Yes, I want reminders and promotions"
+        and nothing ever saved the answer, so a customer who ticked it was held as
+        one who had not. It is saved the way the account preferences page saves it.
+        """
+        customer = dict(customer or {})
+        for k in ("email", "first_name", "last_name", "country"):
+            if not customer.get(k) and payload.get(k):
+                customer[k] = payload[k]
+        if marketing:
+            customer["notification"] = {**(customer.get("notification") or {}), "is_allow_marketing_email": True}
+            try:
+                get_crm().customer_update(session.get("crm_token"), {"notification": {
+                    "is_allow_email": True, "is_allow_marketing_email": True,
+                    "is_allow_sms": True, "is_allow_marketing_sms": False, "is_allow_phone_call": False,
+                }})
+            except Exception as e:  # noqa: BLE001 - the account exists either way
+                app.logger.warning("sign-up marketing choice not saved to the CRM: %s", type(e).__name__)
+            session["customer"] = {**(session.get("customer") or {}), "notification": customer["notification"]}
+        try:
+            import lo_homescreen
+            import lo_journey
+            import lo_mail
+            import lo_txmail
+
+            lo_mail.remember_contact(customer)
+            lo_txmail.send_welcome(customer, homescreen_offer=lo_homescreen.offer_enabled())
+            lo_journey.on_registered(customer)
+        except Exception as e:  # noqa: BLE001
+            app.logger.warning("sign-up emails not started: %s", type(e).__name__)
+
     @app.post("/create-account")
     def register_post():
         selected_currency = (request.form.get("currency") or "").strip().upper() or "EUR"
@@ -8946,6 +9017,8 @@ def create_app() -> Flask:
         except CRMError:
             pass
         session["email_verified_hint"] = False
+        _after_signup(data.get("customer") if isinstance(data.get("customer"), dict) else {}, payload,
+                      marketing=bool(request.form.get("marketing_opt_in")))
         flash("Account created.", "success")
         # A ticket picked before they had an account comes first, wherever the
         # link to this form pointed: they opened an account to buy it.
@@ -11079,7 +11152,37 @@ def create_app() -> Flask:
             )
             return redirect(next_url)
 
+        _deposit_email(intent_id, pending_ctx)
         return render_template("wallet_topup_success.html", next=next_url, intent_id=intent_id)
+
+    def _deposit_email(intent_id: str, pending_ctx: dict[str, Any]) -> None:
+        """
+        "Funds added" (old site: deposit_confirmation2), for a top-up made on
+        its own. A top-up that paid for an order never reaches here: the order
+        confirmation covers it. This page can be opened by anyone with the URL,
+        so the CRM is asked whether the payment really succeeded first.
+        """
+        import lo_txmail
+
+        token = get_token()
+        customer = session.get("customer") if isinstance(session.get("customer"), dict) else {}
+        if not (token and intent_id and customer):
+            return
+        try:
+            st = get_crm().wallet_topup_status(token, intent_id)
+            if not isinstance(st, dict) or _topup_status_bucket(None, st) != "success":
+                return
+            intent = st.get("intent") if isinstance(st.get("intent"), dict) else st
+            amount = intent.get("amount_cents") if isinstance(intent, dict) else None
+            if amount is None:
+                amount = pending_ctx.get("amount_cents")
+            wallet = (get_crm().wallet(token) or {}).get("wallet") or {}
+            lo_txmail.send_deposit_confirmation(
+                customer, reference=intent_id, amount_cents=amount,
+                currency=str(wallet.get("currency") or (intent or {}).get("currency") or "EUR"),
+                balance_cents=_wallet_spendable_cents(wallet) if wallet else None)
+        except Exception as e:  # noqa: BLE001 - the money is in; the email is a courtesy
+            app.logger.info("deposit email for %s not sent: %s", intent_id, type(e).__name__)
 
     @app.get("/wallet/topup/failed")
     def wallet_payment_failed():
@@ -11961,6 +12064,8 @@ def create_app() -> Flask:
     lo_withdraw.register(app)
     import lo_emails
     lo_emails.register(app)
+    import lo_journey
+    lo_journey.register(app)
 
     return app
 
