@@ -39,6 +39,14 @@ def test_the_login_page_open_account_button_keeps_the_order(anon_client, stub_cr
     assert 'href="/create-account?next=/cart"' in body
 
 
+def test_the_sign_up_page_does_not_advertise_spin_to_win(anon_client, stub_crm):
+    """No longer offered, and "win" / "prizes" break the wording rules (Joey, 19 Oct 2026)."""
+    body = anon_client.get("/create-account").get_data(as_text=True)
+    assert "Spin to Win" not in body
+    assert "Amazing Prizes" not in body
+    assert "/spin-to-win" not in body
+
+
 def test_a_new_account_lands_on_the_cart_with_the_ticket_in_it(anon_client, stub_crm):
     anon_client.post("/cart/add", data=VALID_ADD)
     resp = anon_client.post("/create-account", data={**NEW_ACCOUNT, "next": "/cart"})
