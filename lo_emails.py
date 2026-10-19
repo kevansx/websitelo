@@ -319,7 +319,7 @@ email(
     + SET_PASSWORD + REFER_A_FRIEND,
     sample={"first_name": "Sam", "order_ref": "LO-1048213", "order_date": "Wed 7 Oct 2026", "total": "€17.50",
             "payment_method": "Visa ending 4242", "balance_used": None, "descriptor": "LOTTOSONLINE.COM",
-            "is_renewal": False, "pack_url": PROD_URL + "/account/packs/SAMPLE", "pack_is_gold": False,
+            "is_renewal": False, "pack_url": PROD_URL + "/packs/SAMPLE", "pack_is_gold": False,
             "set_password_url": None, "referral_url": PROD_URL + "/account/refer",
             "items": [
                 {"lottery_name": "US Powerball", "draws_text": "1 draw: Sat 10 Oct 2026", "price": "€7.00",
@@ -463,7 +463,7 @@ email(
     + button("Open My Gift Pack", "{{pack_url}}", BRAND)
     + small("Not opened by {{opens_on}}? It opens itself, and the free entry is still yours.")
     + GIFT_SMALL_PRINT,
-    sample={"first_name": "Sam", "is_gold": True, "pack_url": PROD_URL + "/account/packs/SAMPLE", "opens_on": "Wed 21 Oct 2026"})
+    sample={"first_name": "Sam", "is_gold": True, "pack_url": PROD_URL + "/packs/SAMPLE", "opens_on": "Wed 21 Oct 2026"})
 
 email(
     "pack_opened", group="Gift packs and offers", name="Gift pack opened for you",
@@ -583,7 +583,7 @@ email(
                                                   + ';font-weight:700;">Your link</a>')) + "{{/if}}"
     + GIFT_SMALL_PRINT,
     sample={"is_referrer": True, "first_name": "Sam", "friend_first_name": "Alex", "referrer_first_name": "Sam",
-            "pack_url": PROD_URL + "/account/packs/SAMPLE", "referral_url": PROD_URL + "/account/refer"})
+            "pack_url": PROD_URL + "/packs/SAMPLE", "referral_url": PROD_URL + "/account/refer"})
 
 # ---------- Syndicates (lo_members.py)
 MEMBERSHIPS = "{{site_url}}/account/memberships"
