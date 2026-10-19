@@ -120,10 +120,37 @@ def test_past_due_shows_update_your_card(client, crm):
 
 
 # ------------------------------------------------------------------ emails
-def test_renewal_reminder_receipt_and_failures_are_sent_once():
+def _due(now, **more):
+    return {"id": 1, "status": "active", "email": "a@example.com", "product_code": "LO-USPOW-W", "next_amount_cents": 390,
+            "next_charge_at": (now + timedelta(hours=20)).strftime("%Y-%m-%dT%H:%M:%SZ"), **more}
+
+
+def _runs(rows, now):
+    class C:
+        def subscriptions_due(self, **k):
+            return {"subscriptions": rows}
+    return lo_members.run_emails(C(), now)
+
+
+def test_an_ordinary_weekly_charge_sends_no_reminder():
+    """Joey, 19 Oct 2026: the weekly receipt is enough; no 'renews tomorrow' before every charge."""
     now = datetime(2026, 10, 8, 12, tzinfo=timezone.utc)
-    due = {"id": 1, "status": "active", "email": "a@example.com", "product_code": "LO-USPOW-W", "next_amount_cents": 390,
-           "next_charge_at": (now + timedelta(hours=20)).strftime("%Y-%m-%dT%H:%M:%SZ")}
+    last = (now - timedelta(days=6, hours=4)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    out = _runs([_due(now, last_charge_at=last, last_charge_amount_cents=390)], now)
+    assert out["renewal_due"] == 0 and _outbox() == []
+
+
+def test_a_price_change_is_announced_the_day_before():
+    now = datetime(2026, 10, 8, 12, tzinfo=timezone.utc)
+    last = (now - timedelta(days=6, hours=4)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    _runs([_due(now, last_charge_at=last, last_charge_amount_cents=350)], now)
+    assert any("price changes tomorrow: €3.90" in m and "from €3.50 to €3.90" in m for m in _outbox())
+
+
+def test_renewal_reminder_receipt_and_failures_are_sent_once():
+    """The first charge after a pause is announced; failures follow up after 2 days."""
+    now = datetime(2026, 10, 8, 12, tzinfo=timezone.utc)
+    due = _due(now, last_charge_at=(now - timedelta(days=20)).strftime("%Y-%m-%dT%H:%M:%SZ"), last_charge_amount_cents=390)
     failed = {"id": 2, "status": "past_due", "email": "b@example.com", "product_code": "LO-EUEUR-W", "next_amount_cents": 295,
               "last_charge_id": "c9", "last_charge_status": "declined", "last_charge_at": (now - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")}
 
@@ -138,7 +165,7 @@ def test_renewal_reminder_receipt_and_failures_are_sent_once():
     assert (again["renewal_due"], again["charge_failed"]) == (0, 0)
     assert later["charge_failed"] == 1                       # the 2-day reminder
     mails = _outbox()
-    assert any("renews tomorrow: €3.90" in m and "/account/memberships?cancel=1" in m for m in mails)
+    assert any("starts again tomorrow: €3.90" in m and "/account/memberships?cancel=1" in m for m in mails)
     assert any("could not take your EuroMillions syndicate payment" in m for m in mails)
 
 

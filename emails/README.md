@@ -28,7 +28,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** Account created (old site: welcome2).
-- **Sent by:** Site or CRM
+- **Sent by:** CRM, from its own event
 - **Data:** `email`, `first_name`, `homescreen_offer`, `set_password_url`
 
 ### Confirm email address (`verify_email`)
@@ -38,7 +38,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** Account created, or the customer asks for a new link. Not on the old site.
-- **Sent by:** CRM (the site calls its email-verification API)
+- **Sent by:** CRM, from its own event
 - **Data:** `email`, `first_name`, `verify_url`
 
 ### Password reset (`password_reset`)
@@ -48,7 +48,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** reminder@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** The customer asks to reset their password (old site: reset_password2).
-- **Sent by:** CRM (the site calls its password-reset API)
+- **Sent by:** CRM, from its own event
 - **Data:** `email`, `expires_text`, `first_name`, `reset_url`
 
 ## Sign-up journey
@@ -60,7 +60,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Marketing consent only
 - **When:** An account with no paid order, 1 day after sign-up, and once more (final) on day 5. Stops the moment they order. Marketing consent only.
-- **Sent by:** Site (lo_journey.py, hourly journey-emails job)
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `closes_at`, `final`, `first_name`, `jackpot`, `lottery_name`, `play_url`, `unsubscribe`
 
 ### Day 2: the draw you're in (`first_draw_day2`)
@@ -70,7 +70,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** The day after a customer's first paid order, once. Only while the draw is still to come.
-- **Sent by:** Site (lo_journey.py, hourly journey-emails job)
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `draw_date`, `first_name`, `gift_detail`, `gift_title`, `jackpot`, `lottery_name`, `pack_is_gold`, `pack_url`
 
 ## Orders and money
@@ -82,7 +82,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** An order is paid (old site: order_confirmation2). One template covers the old variants: no password set (set_password_url), automatic renewal (is_renewal), referred customer (referral_url not passed).
-- **Sent by:** Site or CRM
+- **Sent by:** CRM, from its own event
 - **Data:** `balance_used`, `descriptor`, `first_name`, `is_renewal`, `items`, `order_date`, `order_ref`, `pack_is_gold`, `pack_url`, `payment_method`, `referral_url`, `set_password_url`, `total`
 
 ### Funds added (`deposit_confirmation`)
@@ -92,7 +92,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** A top-up to the account balance succeeds (old site: deposit_confirmation2).
-- **Sent by:** Site or CRM
+- **Sent by:** CRM, from its own event
 - **Data:** `amount`, `balance`, `continue_url`, `deposit_date`, `deposit_ref`, `descriptor`, `first_name`, `payment_method`
 
 ### Draw results (`results`)
@@ -102,7 +102,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** After each draw, to every customer with an entry in it (old site: result_email2, and result_email2lead when no password is set).
-- **Sent by:** Site (needs draw results from the CRM) or CRM
+- **Sent by:** CRM, from its own event
 - **Data:** `bonus_label`, `draw_date`, `first_name`, `jackpot_status`, `lines`, `lottery_name`, `next_draw_date`, `next_jackpot`, `play_url`, `referral_url`, `set_password_url`, `total_won`, `winning_balls`, `won`
 
 ### Winnings added (`winnings_paid`)
@@ -112,7 +112,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** Winnings are credited to the customer's winnings balance (old site: deposit_winnings_confirmation).
-- **Sent by:** Site (checks ticket statuses after each draw) or CRM
+- **Sent by:** CRM, from its own event
 - **Data:** `amount`, `claim_note`, `draw_date`, `first_name`, `lottery_name`, `reference`, `winnings_balance`
 
 ### Withdrawal request received (`withdrawal_received`)
@@ -122,7 +122,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** The customer asks to withdraw winnings at /account/withdraw.
-- **Sent by:** Site (lo_withdraw.py), sent today
+- **Sent by:** CRM, from its own event
 - **Data:** `amount`, `days`, `first_name`, `method`, `reference`
 
 ### Withdrawal paid (`withdrawal_paid`)
@@ -132,7 +132,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** The team pays a withdrawal. Nothing sends this automatically yet: payouts are made by hand.
-- **Sent by:** Team (send by hand when the payment is made) or CRM
+- **Sent by:** CRM, from its own event
 - **Data:** `amount`, `first_name`, `method`, `paid_date`, `reference`
 
 ### Withdrawal request (to the team) (`withdrawal_request_staff`)
@@ -142,7 +142,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Internal (team)
 - **When:** A customer asks to withdraw winnings. Goes to the support address.
-- **Sent by:** Site (lo_withdraw.py), sent today
+- **Sent by:** CRM, from its own event
 - **Data:** `amount`, `balance`, `customer_email`, `customer_id`, `customer_name`, `details`, `method`, `reference`
 
 ## Gift packs and offers
@@ -154,7 +154,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Marketing consent only
 - **When:** A gift pack still sealed 3 and 7 days after it was earned, and once more on day 10 (final) if the customer has not ordered since. Packs open themselves on day 14. Marketing consent only.
-- **Sent by:** Site (lo_journey.py, hourly journey-emails job)
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `final`, `first_name`, `is_gold`, `opens_on`, `pack_url`, `unsubscribe`
 
 ### Gift pack opened for you (`pack_opened`)
@@ -164,7 +164,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** A gift pack left sealed for 14 days opens itself.
-- **Sent by:** Site (nightly packs-auto-open job)
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `first_name`, `gift_detail`, `gift_title`
 
 ### Free Saturday Lotto line added (`homescreen_free_line`)
@@ -174,7 +174,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** The customer opens LottosOnline from their home screen while logged in, and the free line is granted.
-- **Sent by:** Site (lo_homescreen.py, when the line is granted)
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `draw_date`, `first_name`, `jackpot`
 
 ## Refer a friend
@@ -186,7 +186,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** Account created through a friend's referral link (old site: welcome2referfriend).
-- **Sent by:** Site or CRM
+- **Sent by:** CRM, once the referral scheme is approved
 - **Data:** `first_name`, `referrer_first_name`, `set_password_url`
 
 ### Invitation from a friend (`refer_friend_invite`)
@@ -196,7 +196,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Sent to a friend at a customer's request
 - **When:** A customer sends their referral link to a friend by email (old site: refer_friend_invite).
-- **Sent by:** Site, when a customer enters a friend's email
+- **Sent by:** CRM, once the referral scheme is approved
 - **Data:** `invite_url`, `message`, `referrer_first_name`
 
 ### Friend reward (`referral_reward`)
@@ -206,7 +206,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** A referred friend's first paid order. Sent to both: the referrer (is_referrer) and the friend.
-- **Sent by:** Site
+- **Sent by:** CRM, once the referral scheme is approved
 - **Data:** `first_name`, `friend_first_name`, `is_referrer`, `pack_is_gold`, `pack_url`, `referral_url`, `referrer_first_name`
 
 ## Syndicates
@@ -218,18 +218,18 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** The customer joins a weekly syndicate.
-- **Sent by:** Site (lo_members.py), sent today
+- **Sent by:** CRM, from its own event
 - **Data:** `first_name`, `lines`, `next_payment`, `shares`, `syndicate_name`, `weekly_price`
 
-### Syndicate renews tomorrow (`syndicate_renewal_due`)
+### Syndicate restarts or changes price tomorrow (`syndicate_renewal_due`)
 
-- **Subject:** `Your {{syndicate_name}} syndicate renews tomorrow: {{weekly_price}}`
+- **Subject:** `{{#if old_price}}Your {{syndicate_name}} syndicate price changes tomorrow: {{weekly_price}}{{else}}Your {{syndicate_name}} syndicate starts again tomorrow: {{weekly_price}}{{/if}}`
 - **Preheader:** Nothing to do if you're happy to carry on.
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
-- **When:** The day before each weekly payment.
-- **Sent by:** Site (lo_members.py), sent today
-- **Data:** `cancel_url`, `first_name`, `renews_at`, `syndicate_name`, `weekly_price`
+- **When:** Only when something changes, the day before the charge: the first charge after a pause, or a new weekly price (old_price). Not every week: the weekly payment-received email is the receipt.
+- **Sent by:** CRM, from its own event
+- **Data:** `cancel_url`, `first_name`, `old_price`, `renews_at`, `syndicate_name`, `weekly_price`
 
 ### Syndicate payment received (`syndicate_payment_received`)
 
@@ -237,8 +237,8 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **Preheader:** You're in this week's draws.
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
-- **When:** A weekly syndicate payment succeeds.
-- **Sent by:** Site (lo_members.py), sent today
+- **When:** A weekly syndicate payment succeeds. The weekly receipt: it replaces the old site's repeat-order confirmation.
+- **Sent by:** CRM, from its own event
 - **Data:** `first_name`, `next_payment`, `syndicate_name`, `weekly_price`
 
 ### Syndicate payment failed (`syndicate_payment_failed`)
@@ -248,7 +248,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** A weekly syndicate payment fails.
-- **Sent by:** Site (lo_members.py), sent today (day 0 and day 3)
+- **Sent by:** CRM, from its own event
 - **Data:** `first_name`, `reason`, `syndicate_name`, `weekly_price`
 
 ### Syndicate cancelled (`syndicate_cancelled`)
@@ -258,7 +258,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** The customer cancels, or the membership ends.
-- **Sent by:** Site (lo_members.py), sent today
+- **Sent by:** CRM, from its own event
 - **Data:** `first_name`, `syndicate_name`
 
 ## Reminders and alerts
@@ -270,7 +270,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Marketing consent only
 - **When:** 30 minutes after a logged-in customer leaves lines in the cart (no push device).
-- **Sent by:** Site (lo_recover.py), sent today
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `closes_at`, `first_name`, `lines`, `lottery_name`, `resume_url`, `unsubscribe`
 
 ### Last call for the cart (`cart_last_call`)
@@ -280,7 +280,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Marketing consent only
 - **When:** 24 hours after the first reminder, if the draw is still open. The last one for that cart.
-- **Sent by:** Site (lo_recover.py), sent today
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `closes_at`, `first_name`, `jackpot`, `lottery_name`, `resume_url`, `unsubscribe`
 
 ### Jackpot alert (`jackpot_alert`)
@@ -290,5 +290,5 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** alert@lottosonline.com
 - **Who gets it:** Marketing consent only
 - **When:** A jackpot the customer follows passes their chosen amount (push first; email if no push device).
-- **Sent by:** Site (lo_alerts.py, every 30 minutes), sent today
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `closes_at`, `jackpot`, `lottery_name`, `play_url`, `threshold`, `unsubscribe`

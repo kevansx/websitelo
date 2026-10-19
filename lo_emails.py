@@ -606,18 +606,21 @@ email(
             "next_payment": "Wed 14 Oct 2026 at 09:00 (UTC)"})
 
 email(
-    "syndicate_renewal_due", group="Syndicates", name="Syndicate renews tomorrow",
-    subject="Your {{syndicate_name}} syndicate renews tomorrow: {{weekly_price}}",
+    "syndicate_renewal_due", group="Syndicates", name="Syndicate restarts or changes price tomorrow",
+    subject="{{#if old_price}}Your {{syndicate_name}} syndicate price changes tomorrow: {{weekly_price}}{{else}}Your {{syndicate_name}} syndicate starts again tomorrow: {{weekly_price}}{{/if}}",
     preheader="Nothing to do if you're happy to carry on.",
-    audience="service", sender=CONF, sent_by="Site (lo_members.py), sent today",
-    trigger="The day before each weekly payment.",
-    body=h1("Your syndicate renews tomorrow")
-    + p("Hi {{#if first_name}}{{first_name}}{{else}}there{{/if}}, your {{syndicate_name}} syndicate membership renews on {{renews_at}}. We'll take "
-        "{{weekly_price}} from your saved card.")
+    audience="service", sender=CONF, sent_by="CRM",
+    trigger="Only when something changes, the day before the charge: the first charge after a pause, or a new weekly price "
+            "(old_price). Not every week: the weekly payment-received email is the receipt.",
+    body=h1("{{#if old_price}}Your syndicate price changes tomorrow{{else}}Your syndicate starts again tomorrow{{/if}}")
+    + p("Hi {{#if first_name}}{{first_name}}{{else}}there{{/if}}, "
+        "{{#if old_price}}the weekly price of your {{syndicate_name}} syndicate changes from {{old_price}} to {{weekly_price}}. "
+        "The new price is taken on {{renews_at}}.{{else}}your {{syndicate_name}} syndicate pause is over. Your membership "
+        "starts again on {{renews_at}}, when we'll take {{weekly_price}} from your saved card.{{/if}}")
     + p("Nothing to do if you're happy to carry on: you stay in every draw.")
     + button("Pause Or Cancel", MEMBERSHIPS, BRAND)
     + small('To cancel before then, log in and tap once: <a href="{{cancel_url}}" style="color:' + MUTED + ';">cancel this membership</a>.'),
-    sample={"first_name": "Sam", "syndicate_name": "US Powerball", "weekly_price": "€3.90",
+    sample={"first_name": "Sam", "syndicate_name": "US Powerball", "weekly_price": "€3.90", "old_price": None,
             "renews_at": "Wed 14 Oct 2026 at 09:00 (UTC)", "cancel_url": PROD_URL + "/account/memberships?cancel=12"})
 
 email(
@@ -625,7 +628,7 @@ email(
     subject="Payment received: {{weekly_price}} for your {{syndicate_name}} syndicate",
     preheader="You're in this week's draws.",
     audience="service", sender=CONF, sent_by="Site (lo_members.py), sent today",
-    trigger="A weekly syndicate payment succeeds.",
+    trigger="A weekly syndicate payment succeeds. The weekly receipt: it replaces the old site's repeat-order confirmation.",
     body=h1("Payment received")
     + p("Hi {{#if first_name}}{{first_name}}{{else}}there{{/if}}, we've taken {{weekly_price}} for your {{syndicate_name}} syndicate. You're in this week's "
         "draws, and your lines appear in your account before each draw.")
@@ -708,6 +711,15 @@ email(
             + ';">Change or stop these alerts</a>.'),
     sample={"lottery_name": "EuroMillions", "jackpot": "€150 Million", "threshold": "€100 Million",
             "closes_at": "Fri 9 Oct 2026 at 18:30 (UTC)", "play_url": PROD_URL + "/lottery-tickets/euromillions"})
+
+# Joey, 19 Oct 2026: every email is held in and sent by the CRM (CRM ask "Lottos Online emails (import and
+# triggers)"). The website triggers these eight by posting an email_requested event; the CRM triggers the rest itself.
+WEBSITE_EVENTS = ("first_order_nudge", "first_draw_day2", "pack_waiting", "pack_opened", "homescreen_free_line",
+                  "cart_reminder", "cart_last_call", "jackpot_alert")
+WAITING = ("welcome_friend", "refer_friend_invite", "referral_reward")
+for _key, _e in E.items():
+    _e["sent_by"] = ("CRM, when the website posts an email_requested event" if _key in WEBSITE_EVENTS else
+                     "CRM, once the referral scheme is approved" if _key in WAITING else "CRM, from its own event")
 
 GROUPS = ("Account", "Sign-up journey", "Orders and money", "Gift packs and offers", "Refer a friend", "Syndicates", "Reminders and alerts")
 

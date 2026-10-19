@@ -72,10 +72,34 @@ def mail_joined(to: str, name: str, cents: int, next_at: datetime | None, first_
                                  "Cancelling is one tap, free and instant.", kind="member-joined")
 
 
-def mail_renewal_due(to: str, name: str, cents: int, at: datetime, sub_id: Any) -> str:
+def renewal_notice_reason(s: dict, at: datetime) -> str | None:
+    """
+    Why a customer is told about tomorrow's charge, or None when nothing has changed (Joey, 19 Oct 2026: no reminder
+    before every weekly charge; the weekly payment-received email is the receipt).
+    "price": the next charge differs from the last one. "pause": the first charge after a pause (more than 8 days
+    since the last charge, on a weekly membership).
+    """
+    last_cents, next_cents = s.get("last_charge_amount_cents"), s.get("next_amount_cents")
+    try:
+        if last_cents is not None and next_cents is not None and int(last_cents) != int(next_cents):
+            return "price"
+    except (TypeError, ValueError):
+        pass
+    last_at = lo_mail.parse_utc(s.get("last_charge_at"))
+    if last_at and at - last_at > timedelta(days=8):
+        return "pause"
+    return None
+
+
+def mail_renewal_due(to: str, name: str, cents: int, at: datetime, sub_id: Any, old_cents: int | None = None) -> str:
     cancel_url = lo_mail.SITE_URL + f"/account/memberships?cancel={sub_id}"
-    return lo_mail.send_template(to, "syndicate_renewal_due", _sdata(name, cents, renews_at=lo_mail.when(at), cancel_url=cancel_url),
-                                 text=f"Your {name} syndicate membership renews on {lo_mail.when(at)}.\n\n"
+    data = _sdata(name, cents, renews_at=lo_mail.when(at), cancel_url=cancel_url,
+                  old_price=lo_mail.eur(old_cents) if old_cents is not None else None)
+    lead = (f"The weekly price of your {name} syndicate changes from {lo_mail.eur(old_cents)} to {lo_mail.eur(cents)}, "
+            f"taken on {lo_mail.when(at)}." if old_cents is not None else
+            f"Your {name} syndicate pause is over. Your membership starts again on {lo_mail.when(at)}.")
+    return lo_mail.send_template(to, "syndicate_renewal_due", data,
+                                 text=lead + "\n\n"
                                  f"We will take {lo_mail.eur(cents)} from your saved card.\n\n"
                                  "Nothing to do if you are happy to carry on: you stay in every draw.\n\n"
                                  "To cancel, use this link before then (log in, then one tap): " + cancel_url + "\n"
@@ -143,8 +167,12 @@ def run_emails(client: Any, now: datetime | None = None) -> dict:
         at = lo_mail.parse_utc(s.get("next_charge_at"))
         if str(s.get("status")) != "active" or not s.get("email") or not at or not (now < at <= now + timedelta(hours=26)):
             continue
+        reason = renewal_notice_reason(s, at)
+        if reason is None:
+            continue                                # an ordinary weekly charge: the receipt follows it
         if lo_mail.once(f"member-renewal:{s.get('id')}:{at.date().isoformat()}", now):
-            mail_renewal_due(s["email"], _name(s), int(s.get("next_amount_cents") or 0), at, s.get("id"))
+            mail_renewal_due(s["email"], _name(s), int(s.get("next_amount_cents") or 0), at, s.get("id"),
+                             old_cents=int(s["last_charge_amount_cents"]) if reason == "price" else None)
             out["renewal_due"] += 1
     try:
         recent = _rows(client.subscriptions_due(next_charge_after=iso(now - timedelta(days=8)),
