@@ -36,8 +36,10 @@ NUDGE_GIVE_UP = timedelta(days=8)                      # a stage this late is sk
 DAY2_AFTER = timedelta(hours=20)                       # "the next day", whatever time they ordered
 DAY2_GIVE_UP = timedelta(days=4)
 PACK_STAGES = (3, 7, 10)                               # days sealed; 10 is the last, and only if no order since
-# The lotteries a nudge features, in order: the first with an open draw and a jackpot on the feed.
-NUDGE_LOTTERIES = ("powerball", "megamillions", "euromillions-at", "eurojackpot")
+# The lottery a nudge features (Joey, 19 Oct 2026): the one they came for, when its draw is open; otherwise the biggest
+# jackpot that day across every lottery we sell. Jackpots are compared in euros with these approximate rates, the
+# same comparison-only figures the site's own "highest jackpot" pick uses.
+APPROX_TO_EUR = {"EUR": 1.0, "USD": 0.92, "GBP": 1.17, "AUD": 0.61, "CAD": 0.68, "NZD": 0.56}
 
 
 def _now() -> datetime:
@@ -61,21 +63,24 @@ def _db() -> sqlite3.Connection:
     c.execute("CREATE TABLE IF NOT EXISTS last_orders (customer_id INTEGER PRIMARY KEY, ordered_at TEXT NOT NULL)")
     c.execute("CREATE TABLE IF NOT EXISTS pack_mail (pack_id TEXT NOT NULL, stage INTEGER NOT NULL, at TEXT NOT NULL, "
               "PRIMARY KEY (pack_id, stage))")
+    if "game_code" not in {r[1] for r in c.execute("PRAGMA table_info(signups)")}:
+        c.execute("ALTER TABLE signups ADD COLUMN game_code TEXT")      # the lottery they came for (19 Oct 2026)
     return c
 
 
 # ------------------------------------------------------------------ what happened
-def on_registered(customer: dict, now: datetime | None = None) -> None:
+def on_registered(customer: dict, now: datetime | None = None, game_code: str | None = None) -> None:
+    """game_code: the lottery they came for (the ticket they pressed Play on, their cart, or the last play page)."""
     try:
         cid = int((customer or {}).get("id"))
     except (TypeError, ValueError):
         return
     with closing(_db()) as c:
-        c.execute("INSERT OR IGNORE INTO signups (customer_id, email, first_name, country, marketing, registered_at) "
-                  "VALUES (?,?,?,?,?,?)",
+        c.execute("INSERT OR IGNORE INTO signups (customer_id, email, first_name, country, marketing, registered_at, "
+                  "game_code) VALUES (?,?,?,?,?,?,?)",
                   (cid, str(customer.get("email") or "").strip(), lo_txmail.first_name(customer),
                    lo_mail.customer_country(customer) or None, int(lo_mail.marketing_allowed(customer)),
-                   _iso(now or _now())))
+                   _iso(now or _now()), game_code or None))
         c.commit()
 
 
@@ -113,16 +118,36 @@ def _consent(cid: int, fallback: bool) -> tuple[str, bool]:
     return str(ct.get("email") or ""), bool(ct.get("marketing_email")) if ct else fallback
 
 
-def _featured(jackpot: Callable[[str], dict | None], now: datetime) -> dict:
-    for code in NUDGE_LOTTERIES:
-        jp = jackpot(code) or {}
-        cutoff = lo_mail.parse_utc(jp.get("cutoff_iso"))
-        if jp.get("display") and cutoff and cutoff > now and not jp.get("closed"):
-            lot = lo_lotteries.by_game_code(code)
-            if lot:
-                return {"lottery_name": lot.name, "jackpot": jp["display"], "closes_at": lo_mail.when(cutoff),
-                        "play_url": lo_mail.SITE_URL + lo_lotteries.play_path(lot)}
-    return {}
+def _open_draw(code: str, jackpot: Callable[[str], dict | None], now: datetime) -> tuple[Any, dict, datetime] | None:
+    """The lottery, its jackpot feed and its cut-off, when it is on sale with a draw still open."""
+    lot = lo_lotteries.by_game_code(code or "")
+    if not lot or not lot.sells:
+        return None
+    jp = jackpot(code) or {}
+    cutoff = lo_mail.parse_utc(jp.get("cutoff_iso"))
+    if jp.get("display") and cutoff and cutoff > now and not jp.get("closed"):
+        return lot, jp, cutoff
+    return None
+
+
+def _in_eur(jp: dict) -> float:
+    try:
+        return float(jp.get("amount") or 0) * APPROX_TO_EUR.get(str(jp.get("currency") or "EUR").upper(), 0.0)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def _featured(jackpot: Callable[[str], dict | None], now: datetime, came_for: str | None = None) -> dict:
+    """The lottery they came for if its draw is open, otherwise today's biggest jackpot (in euros)."""
+    pick = _open_draw(came_for, jackpot, now) if came_for else None
+    if pick is None:
+        open_draws = [d for d in (_open_draw(l.game_code, jackpot, now) for l in lo_lotteries.LOTTERIES) if d]
+        pick = max(open_draws, key=lambda d: _in_eur(d[1]), default=None)
+    if pick is None:
+        return {}
+    lot, jp, cutoff = pick
+    return {"lottery_name": lot.name, "jackpot": jp["display"], "closes_at": lo_mail.when(cutoff),
+            "play_url": lo_mail.SITE_URL + lo_lotteries.play_path(lot)}
 
 
 def _nudges(now: datetime, jackpot: Callable[[str], dict | None], out: dict) -> None:
@@ -146,7 +171,7 @@ def _nudges(now: datetime, jackpot: Callable[[str], dict | None], out: dict) -> 
         if not (allowed and email):
             out["skipped_consent"] += 1
             continue
-        data = {"first_name": r["first_name"], "final": stage == 2, **_featured(jackpot, now)}
+        data = {"first_name": r["first_name"], "final": stage == 2, **_featured(jackpot, now, r.get("game_code"))}
         if lo_mail.send_template(email, "first_order_nudge", data, country=r["country"], kind=f"nudge-{stage}") != "blocked":
             out["nudges"] += 1
 

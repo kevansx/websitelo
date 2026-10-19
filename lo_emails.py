@@ -489,7 +489,9 @@ email(
     preheader="Pick your numbers. A gift pack opens on screen when you pay.",
     audience="marketing", sender=CONF, sent_by="Site (lo_journey.py, hourly journey-emails job)",
     trigger="An account with no paid order, 1 day after sign-up, and once more (final) on day 5. Stops the moment "
-            "they order. Marketing consent only.",
+            "they order. Marketing consent only. Features the lottery they came for (the ticket they pressed Play on, "
+            "their cart, or the last play page they viewed) while its draw is open; otherwise the biggest jackpot "
+            "that day, in euros.",
     body=h1("{{#if final}}Your gift pack is still waiting{{else}}Ready for your first draw{{#if first_name}}, {{first_name}}{{/if}}?{{/if}}")
     + p("Pick your numbers on any lottery and place your first order. A gift pack opens on screen as soon as it's "
         "paid. Rip it open for one of the many great welcome gifts. No two packs are the same, and later ones can even be gold.")

@@ -153,6 +153,45 @@ def test_the_nudge_features_an_open_draw():
     assert "€300 Million" in _outbox()[0] and "US Powerball" in _outbox()[0]
 
 
+def _feed(**jackpots):
+    """{game_code: (amount, currency)}, every draw open for three more days."""
+    cutoff = (NOW + timedelta(days=3)).isoformat()
+    return lambda code: ({"display": f"{jackpots[code][1]} {jackpots[code][0]:,}", "amount": jackpots[code][0],
+                          "currency": jackpots[code][1], "cutoff_iso": cutoff} if code in jackpots else None)
+
+
+def test_the_nudge_features_the_lottery_they_came_for():
+    lo_mail.remember_contact(NEW)
+    lo_journey.on_registered(NEW, now=NOW, game_code="bonoloto")
+    feed = _feed(bonoloto=(900_000, "EUR"), powerball=(312_000_000, "USD"))
+    lo_journey.run(jackpot=feed, now=NOW + timedelta(days=1, hours=1))
+    assert "BonoLoto" in _outbox()[0] and "US Powerball" not in _outbox()[0]
+
+
+def test_otherwise_the_biggest_jackpot_in_euros():
+    """€150M beats $120M (about €110M), and both beat a small one listed first."""
+    lo_mail.remember_contact(NEW)
+    lo_journey.on_registered(NEW, now=NOW)
+    feed = _feed(powerball=(120_000_000, "USD"), megamillions=(90_000_000, "USD"), eurojackpot=(150_000_000, "EUR"))
+    lo_journey.run(jackpot=feed, now=NOW + timedelta(days=1, hours=1))
+    assert "EuroJackpot" in _outbox()[0]
+
+
+def test_a_lottery_they_came_for_with_no_open_draw_falls_back_to_the_biggest():
+    lo_mail.remember_contact(NEW)
+    lo_journey.on_registered(NEW, now=NOW, game_code="bonoloto")
+    lo_journey.run(jackpot=_feed(powerball=(312_000_000, "USD")), now=NOW + timedelta(days=1, hours=1))
+    assert "US Powerball" in _outbox()[0]
+
+
+def test_viewing_a_play_page_is_remembered_at_sign_up(anon_client, stub_crm):
+    anon_client.get("/lottery-tickets/bonoloto")
+    anon_client.post("/create-account", data=ACCOUNT_FORM)
+    import sqlite3
+    with sqlite3.connect(lo_mail._data_dir() / "journey.sqlite") as c:
+        assert c.execute("SELECT game_code FROM signups").fetchone()[0] == "bonoloto"
+
+
 # ------------------------------------------------------------------ the journey: day 2
 def _first_order(draw_in: timedelta):
     lo_mail.remember_contact(NEW)

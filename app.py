@@ -3901,6 +3901,8 @@ def create_app() -> Flask:
     def play(game_code: str):
         # Legacy-like "edit your order" fallback target.
         session["last_play_url"] = request.path
+        # The lottery they came for: a new account's first-order nudge features it (lo_journey.py).
+        session["lo_last_viewed_game"] = game_code
         try:
             resp = get_crm().store_game(game_code)
         except CRMError:
@@ -8655,7 +8657,12 @@ def create_app() -> Flask:
 
             lo_mail.remember_contact(customer)
             lo_txmail.send_welcome(customer, homescreen_offer=lo_homescreen.offer_enabled())
-            lo_journey.on_registered(customer)
+            # The lottery they came for, most telling first: the ticket they pressed Play on before signing up, the
+            # one in their cart, the last play page they looked at.
+            pending = session.get("pending_cart_add") if isinstance(session.get("pending_cart_add"), dict) else {}
+            came_for = next((str(c) for c in (pending.get("game_code"), session.get("cart_last_game_code"),
+                                                session.get("lo_last_viewed_game")) if c), None)
+            lo_journey.on_registered(customer, game_code=_safe_game_code(came_for) if came_for else None)
         except Exception as e:  # noqa: BLE001
             app.logger.warning("sign-up emails not started: %s", type(e).__name__)
 

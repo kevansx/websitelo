@@ -59,7 +59,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **Preheader:** Pick your numbers. A gift pack opens on screen when you pay.
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Marketing consent only
-- **When:** An account with no paid order, 1 day after sign-up, and once more (final) on day 5. Stops the moment they order. Marketing consent only.
+- **When:** An account with no paid order, 1 day after sign-up, and once more (final) on day 5. Stops the moment they order. Marketing consent only. Features the lottery they came for (the ticket they pressed Play on, their cart, or the last play page they viewed) while its draw is open; otherwise the biggest jackpot that day, in euros.
 - **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `closes_at`, `final`, `first_name`, `jackpot`, `lottery_name`, `play_url`, `unsubscribe`
 
