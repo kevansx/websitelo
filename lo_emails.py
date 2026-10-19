@@ -222,7 +222,7 @@ email(
     + SET_PASSWORD
     + panel(panel_title("Your first order comes with a gift pack")
             + panel_text("Place your first order and a gift pack opens on screen. Rip it open for one of the many great "
-                         "welcome gifts. No two packs are the same, and some are even gold."))
+                         "welcome gifts. No two packs are the same, and later ones can even be gold."))
     + "{{#if homescreen_offer}}" + panel(
         panel_title("Plus a free Saturday Lotto line")
         + panel_text('Add LottosOnline to your phone\'s home screen and open it from the new icon while logged in. We\'ll '
@@ -492,7 +492,7 @@ email(
             "they order. Marketing consent only.",
     body=h1("{{#if final}}Your gift pack is still waiting{{else}}Ready for your first draw{{#if first_name}}, {{first_name}}{{/if}}?{{/if}}")
     + p("Pick your numbers on any lottery and place your first order. A gift pack opens on screen as soon as it's "
-        "paid. Rip it open for one of the many great welcome gifts. No two packs are the same, and some are even gold.")
+        "paid. Rip it open for one of the many great welcome gifts. No two packs are the same, and later ones can even be gold.")
     + "{{#if lottery_name}}" + panel(
         panel_title("{{lottery_name}}")
         + "{{#if jackpot}}" + small("Jackpot") + big("{{jackpot}}") + "{{/if}}"
