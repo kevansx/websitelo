@@ -56,7 +56,9 @@ def small(text: str) -> str:
 
 def button(label: str, href: str, color: str = CTA) -> str:
     return (
-        '<table role="presentation" cellpadding="0" cellspacing="0" border="0" class="lo-btn" style="margin:22px 0 18px;">'
+        # centred, every button in every email (align for Outlook, auto margins for everything else)
+        '<table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" class="lo-btn" '
+        'style="margin:22px auto 18px;">'
         f'<tr><td align="center" bgcolor="{color}" style="border-radius:999px;">'
         f'<a href="{href}" target="_blank" style="display:inline-block;padding:14px 30px;font:700 16px/20px {FONT};'
         f'color:#ffffff;text-decoration:none;border-radius:999px;">{label}</a></td></tr></table>')
