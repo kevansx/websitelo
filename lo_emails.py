@@ -728,13 +728,17 @@ email(
             "closes_at": "Fri 9 Oct 2026 at 18:30 (UTC)", "play_url": PROD_URL + "/lottery-tickets/euromillions"})
 
 # Joey, 19 Oct 2026: every email is held in and sent by the CRM (CRM ask "Lottos Online emails (import and
-# triggers)"). The website triggers these eight by posting an email_requested event; the CRM triggers the rest itself.
+# triggers)"). The website triggers these ten by posting an email_requested event; the CRM triggers the rest itself.
+# Withdrawals are handled by hand (Joey, 20 Oct 2026): the website takes the request and the team pays it, so the two
+# request emails are website events and "withdrawal paid" is sent by the team when they pay.
 WEBSITE_EVENTS = ("first_order_nudge", "first_draw_day2", "pack_waiting", "pack_opened", "homescreen_free_line",
-                  "cart_reminder", "cart_last_call", "jackpot_alert")
+                  "cart_reminder", "cart_last_call", "jackpot_alert", "withdrawal_received", "withdrawal_request_staff")
 WAITING = ("welcome_friend", "refer_friend_invite", "referral_reward")
+BY_HAND = ("withdrawal_paid",)
 for _key, _e in E.items():
     _e["sent_by"] = ("CRM, when the website posts an email_requested event" if _key in WEBSITE_EVENTS else
-                     "CRM, once the referral scheme is approved" if _key in WAITING else "CRM, from its own event")
+                     "CRM, once the referral scheme is approved" if _key in WAITING else
+                     "The team, by hand from the CRM, when they pay" if _key in BY_HAND else "CRM, from its own event")
 
 GROUPS = ("Account", "Sign-up journey", "Orders and money", "Gift packs and offers", "Refer a friend", "Syndicates", "Reminders and alerts")
 

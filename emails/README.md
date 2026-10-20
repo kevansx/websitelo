@@ -122,7 +122,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** The customer asks to withdraw winnings at /account/withdraw.
-- **Sent by:** CRM, from its own event
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `amount`, `days`, `first_name`, `method`, `reference`
 
 ### Withdrawal paid (`withdrawal_paid`)
@@ -132,7 +132,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** The team pays a withdrawal. Nothing sends this automatically yet: payouts are made by hand.
-- **Sent by:** CRM, from its own event
+- **Sent by:** The team, by hand from the CRM, when they pay
 - **Data:** `amount`, `first_name`, `method`, `paid_date`, `reference`
 
 ### Withdrawal request (to the team) (`withdrawal_request_staff`)
@@ -142,7 +142,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Internal (team)
 - **When:** A customer asks to withdraw winnings. Goes to the support address.
-- **Sent by:** CRM, from its own event
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `amount`, `balance`, `customer_email`, `customer_id`, `customer_name`, `details`, `method`, `reference`
 
 ## Gift packs and offers
