@@ -6246,6 +6246,14 @@ def create_app() -> Flask:
         except Exception:
             pack = None
         lo_txmail.send_order_confirmation(customer, order_id=order_id, items=items, order=order, pack=pack)
+        # A referred friend's first order of €5 or more: a gift pack each (lo_referral.py).
+        try:
+            import lo_referral
+            # the CRM's own total; if it could not be read the referral simply waits for the next order
+            lo_referral.on_order(int(customer["id"]), order_id=order_id, total_cents=order.get("total_cents"),
+                                 currency=order.get("currency") or customer.get("currency"))
+        except Exception as e:  # noqa: BLE001 - the order is placed; the reward can be approved by hand
+            app.logger.warning("referral: order %s not evaluated: %s", order_id, type(e).__name__)
         try:
             lo_journey.on_order(customer, order_id=order_id, items=items, order=order)
         except Exception as e:  # noqa: BLE001
@@ -8670,7 +8678,17 @@ def create_app() -> Flask:
             import lo_txmail
 
             lo_mail.remember_contact(customer)
-            lo_txmail.send_welcome(customer, homescreen_offer=lo_homescreen.offer_enabled())
+            # Joined through a friend's link (lo_referral.py): their own welcome email, not the ordinary one.
+            referral = None
+            code = lo_referral_pending_code()
+            if code:
+                import lo_referral
+                referral = lo_referral.on_signup(customer, code, request.remote_addr)
+                session.pop("lo_ref", None)
+            if referral:
+                lo_txmail.send_welcome_friend(customer, referrer_first_name=lo_referral._first_name(referral["referrer_id"]))
+            else:
+                lo_txmail.send_welcome(customer, homescreen_offer=lo_homescreen.offer_enabled())
             # The lottery they came for, most telling first: the ticket they pressed Play on before signing up, the
             # one in their cart, the last play page they looked at.
             pending = session.get("pending_cart_add") if isinstance(session.get("pending_cart_add"), dict) else {}
@@ -8679,6 +8697,10 @@ def create_app() -> Flask:
             lo_journey.on_registered(customer, game_code=_safe_game_code(came_for) if came_for else None)
         except Exception as e:  # noqa: BLE001
             app.logger.warning("sign-up emails not started: %s", type(e).__name__)
+
+    def lo_referral_pending_code() -> str | None:
+        hook = (app.config.get("LO_REFERRAL") or {}).get("pending_code")
+        return hook(session) if hook else None
 
     @app.post("/create-account")
     def register_post():
@@ -12087,6 +12109,8 @@ def create_app() -> Flask:
     lo_emails.register(app)
     import lo_journey
     lo_journey.register(app)
+    import lo_referral
+    lo_referral.register(app)
 
     return app
 

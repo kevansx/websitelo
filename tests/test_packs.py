@@ -88,7 +88,8 @@ def test_a_two_week_mega_millions_tier_counts_without_weekdays():
 
 
 def test_no_raffle_or_welcome_packs():
-    assert lo_packs.PACK_TYPES == ("first_play", "return", "explorer", "long_play", "surprise")
+    # friend (refer a friend, 20 Oct 2026) is granted by lo_referral, never by an order's own triggers
+    assert lo_packs.PACK_TYPES == ("first_play", "return", "explorer", "long_play", "surprise", "friend")
     before = blank(orders_count=2, first_order_at="2026-01-01T00:00:00Z", games={"euromillions": 2})
     assert lo_packs.triggers_for(before, lo_packs._order_facts([{"game_code": "raffle-es", "kind": "raffle"}]), NOW) == ["explorer"]
 

@@ -123,7 +123,7 @@ SET_PASSWORD = (
 REFER_A_FRIEND = (
     "{{#if referral_url}}" + panel(
         panel_title("Share LottosOnline with a friend")
-        + panel_text('Send a friend your link. When they place their first order, you each get a gift pack with a free '
+        + panel_text('Send a friend your link. When they place a first order of €5 or more, you each get a gift pack with a free '
                      'entry inside. <a href="{{referral_url}}" style="color:' + BRAND + ';font-weight:700;">Get your link</a>'))
     + "{{/if}}")
 
@@ -249,7 +249,7 @@ email(
         "official tickets and a scan of every ticket in your account.")
     + SET_PASSWORD
     + panel(panel_title("Your first order: a gift pack for you and {{referrer_first_name}}")
-            + panel_text("When you place your first order, you each get a gift pack with a free entry inside. "
+            + panel_text("When you place your first order of €5 or more, you each get a gift pack with a free entry inside. "
                          "That's on top of the gift pack every first order brings."), GOLD_100)
     + button("Play Now", "{{site_url}}/lottery-tickets")
     + GIFT_SMALL_PRINT,
@@ -561,13 +561,13 @@ email(
         "every ticket, and no commission on winnings.")
     + "{{#if message}}" + panel(panel_text('"{{message}}"') + small("{{referrer_first_name}}")) + "{{/if}}"
     + panel(panel_title("A gift pack each")
-            + panel_text("Open your free account with this link. When you place your first order, you and "
+            + panel_text("Open your free account with this link. When you place your first order of €5 or more, you and "
                          "{{referrer_first_name}} each get a gift pack with a free entry inside."), GOLD_100)
     + button("Open My Free Account", "{{invite_url}}")
     + small("18+ only. A gift is a free entry for playing: it has no cash value. "
             '<a href="{{site_url}}/terms-and-conditions" style="color:' + MUTED + ';">Terms apply</a>.'),
     sample={"referrer_first_name": "Sam", "message": "Fancy a go at the Powerball with me?",
-            "invite_url": PROD_URL + "/create-account?ref=SAM123"})
+            "invite_url": PROD_URL + "/r/SAMK7Q2"})
 
 email(
     "referral_reward", group="Refer a friend", name="Friend reward",
@@ -732,8 +732,9 @@ email(
 # Withdrawals are handled by hand (Joey, 20 Oct 2026): the website takes the request and the team pays it, so the two
 # request emails are website events and "withdrawal paid" is sent by the team when they pay.
 WEBSITE_EVENTS = ("first_order_nudge", "first_draw_day2", "pack_waiting", "pack_opened", "homescreen_free_line",
-                  "cart_reminder", "cart_last_call", "jackpot_alert", "withdrawal_received", "withdrawal_request_staff")
-WAITING = ("welcome_friend", "refer_friend_invite", "referral_reward")
+                  "cart_reminder", "cart_last_call", "jackpot_alert", "withdrawal_received", "withdrawal_request_staff",
+                  "welcome_friend", "refer_friend_invite", "referral_reward")   # refer a friend: approved 20 Oct 2026
+WAITING: tuple = ()
 BY_HAND = ("withdrawal_paid",)
 for _key, _e in E.items():
     _e["sent_by"] = ("CRM, when the website posts an email_requested event" if _key in WEBSITE_EVENTS else

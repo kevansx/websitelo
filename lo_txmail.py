@@ -142,6 +142,22 @@ def send_welcome(customer: dict, *, homescreen_offer: bool = False, set_password
         return "failed"
 
 
+def send_welcome_friend(customer: dict, *, referrer_first_name: str | None) -> str:
+    """Account created through a friend's link (old site: welcome2referfriend). Sent instead of the welcome."""
+    try:
+        email = str((customer or {}).get("email") or "").strip()
+        cid = (customer or {}).get("id")
+        if not email or not lo_mail.once(f"welcome-{cid if cid is not None else email.lower()}"):
+            return "skipped"
+        return lo_mail.send_template(email, "welcome_friend", {
+            "first_name": first_name(customer), "referrer_first_name": referrer_first_name or "Your friend",
+            "set_password_url": None,
+        }, country=lo_mail.customer_country(customer))
+    except Exception as e:  # noqa: BLE001
+        _log.warning("welcome (friend) email not sent: %s", type(e).__name__)
+        return "failed"
+
+
 def send_order_confirmation(customer: dict, *, order_id: Any, items: list[dict], order: dict | None = None,
                             total_cents: Any = None, currency: str | None = None, pack: dict | None = None,
                             descriptor: str | None = None, set_password_url: str | None = None,
@@ -167,8 +183,8 @@ def send_order_confirmation(customer: dict, *, order_id: Any, items: list[dict],
             "is_renewal": bool(is_renewal),
             "items": order_items(items, order),
             "set_password_url": set_password_url,
-            # the refer-a-friend block waits for the scheme itself (open decision 6)
-            "referral_url": None,
+            # refer a friend (lo_referral.py): the "share with a friend" panel, for customers who allow marketing
+            "referral_url": f"{_site()}/account/refer" if lo_mail.marketing_allowed(customer) else None,
             "pack_url": None,
             "pack_is_gold": False,
         }

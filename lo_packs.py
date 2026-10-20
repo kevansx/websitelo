@@ -40,7 +40,9 @@ import lo_store
 
 # Five live types (brief 2, part 8). welcome stays the home-screen ticket under its own terms; raffle is gone:
 # the CRM cannot grant a raffle and Spanish Raffles is not being created.
-PACK_TYPES = ("first_play", "return", "explorer", "long_play", "surprise")
+PACK_TYPES = ("first_play", "return", "explorer", "long_play", "surprise", "friend")
+# friend: refer a friend (lo_referral.py, 20 Oct 2026), one each when a referred friend's first order of €5 or more
+# goes through. Granted by grant_pack, never by an order's own triggers.
 # surprise packs (variable-ratio): chance per order, guarantee, spacing, cooling-off, share that are gold
 SURPRISE_CHANCE = 0.25
 SURPRISE_GUARANTEE_GAP = 8               # orders since the last gift that make the next order a sure thing
@@ -303,6 +305,25 @@ def on_order_placed(*, customer_id: int, order_id: Any, items: list[dict], seed=
             earned.append(pack)
         c.commit()
     return earned
+
+
+def grant_pack(*, customer_id: int, kind: str, key: str, order_id: Any = None) -> dict:
+    """A sealed pack given for something other than the customer's own order (refer a friend). `key` makes it
+    once-only: the same key twice returns the first pack and grants nothing more."""
+    assert kind in PACK_TYPES
+    pack_id = uuid.uuid5(uuid.NAMESPACE_URL, f"lo-pack:{kind}:{key}").hex[:16]
+    now = _now()
+    with _lock, closing(_db()) as c:
+        existing = _row(c.execute("SELECT * FROM packs WHERE pack_id=?", (pack_id,)).fetchone())
+        if existing:
+            return existing
+        c.execute("""INSERT INTO packs (pack_id, customer_id, type, tier, state, earned_at, expires_at, gift_json,
+                     idempotency_key, order_id) VALUES (?,?,?,?,?,?,?,?,?,?)""",
+                  (pack_id, int(customer_id), kind, "standard", "sealed", _iso(now),
+                   _iso(now + timedelta(days=SEALED_DAYS)), None, f"pack-{pack_id}",
+                   str(order_id) if order_id is not None else None))
+        c.commit()
+        return _row(c.execute("SELECT * FROM packs WHERE pack_id=?", (pack_id,)).fetchone())
 
 
 # ------------------------------------------------------------------ the gift

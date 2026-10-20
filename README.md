@@ -73,6 +73,9 @@ The IT team owns Azure Front Door. The origin is this app behind gunicorn (and n
    ```
    `journey-emails` (lo_journey.py) sends the first-order nudges, the day-2 email and the gift-pack reminders. The
    welcome, order confirmation and funds-added emails need no job: the site sends them as they happen (lo_txmail.py).
+   **Refer a friend** (lo_referral.py) needs no job either. Referrals the abuse checks hold back wait for the team:
+   `.venv/bin/flask --app app referrals-held` lists them, `referral-approve <friend id>` pays both gift packs,
+   `referral-refuse <friend id>` closes one without a reward.
    Emails go out over SMTP when `SMTP_HOST` is set (see Settings); until then every email is written to
    `data/outbox/` instead, so nothing is sent by accident and nothing is lost.
 7. **Update**: `cd /opt/lottosonline-website && git pull && .venv/bin/pip install -r requirements.txt && sudo systemctl restart lottosonline-website`

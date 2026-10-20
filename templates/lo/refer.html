@@ -1,0 +1,76 @@
+{# Refer a friend (lo_referral.py): the customer's link, an email-a-friend box and the friends who joined. #}
+{% extends "lo/base.html" %}
+{% block content %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Refer a friend</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap lo-stack" style="max-width:640px">
+    {% with messages = get_flashed_messages(with_categories=true) %}{% for cat, m in messages %}
+      <p class="lo-flash lo-flash--{{ 'error' if cat in ('error', 'danger', 'warning') else 'success' }}">{{ m }}</p>
+    {% endfor %}{% endwith %}
+
+    <div class="lo-panel lo-stack">
+      <p style="margin:0"><strong>A gift pack for you and a friend.</strong> Share your link. When your friend opens a free
+        account with it and places a first order of €5 or more, you each get a gift pack with a free entry inside.</p>
+      <div class="lo-field">
+        <label class="lo-field__label" for="referLink">Your link</label>
+        <input class="lo-input" id="referLink" value="{{ link }}" readonly>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button class="lo-btn" type="button" id="referCopy">Copy link</button>
+        <a class="lo-btn lo-btn--secondary" id="referWhatsApp" target="_blank" rel="noopener"
+           href="https://wa.me/?text={{ ('Join me on LottosOnline: ' ~ link)|urlencode }}">Share on WhatsApp</a>
+        <button class="lo-btn lo-btn--secondary" type="button" id="referShare" hidden>Share</button>
+      </div>
+    </div>
+
+    <form class="lo-panel lo-stack" method="post" action="{{ url_for('account_refer_invite') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <p style="margin:0"><strong>Or email a friend</strong></p>
+      <div class="lo-field">
+        <label class="lo-field__label" for="referEmail">Their email address</label>
+        <input class="lo-input" type="email" id="referEmail" name="email" required autocomplete="off">
+      </div>
+      <div class="lo-field">
+        <label class="lo-field__label" for="referMessage">A message (optional)</label>
+        <textarea class="lo-input" id="referMessage" name="message" rows="2" maxlength="300"
+                  placeholder="Fancy a go at the Powerball with me?"></textarea>
+      </div>
+      <button class="lo-btn">Send invitation</button>
+    </form>
+
+    <div class="lo-panel">
+      <p style="margin:0 0 8px"><strong>Friends who joined</strong>{% if rewarded %} · {{ rewarded }} gift pack{{ '' if rewarded == 1 else 's' }} earned{% endif %}</p>
+      {% if friends %}
+        <ul style="margin:0;padding-left:18px">
+          {% for f in friends %}
+            <li>{{ f.friend_first_name or 'A friend' }}:
+              {% if f.status == 'rewarded' %}gift packs sent{% elif f.status == 'held' %}being checked by our team{% else %}waiting for their first order of €5 or more{% endif %}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="lo-muted" style="margin:0">No friends have joined with your link yet.</p>
+      {% endif %}
+    </div>
+
+    <p class="legal">18+ only. A gift is a free entry for playing: it has no cash value. Your friend must be new to
+      LottosOnline and open their account with your link. <a href="{{ url_for('account') }}#setLimitsDropdown">Set limits and play responsibly</a>.</p>
+  </div>
+</section>
+<script>
+(function () {
+  var input = document.getElementById('referLink'), copy = document.getElementById('referCopy');
+  copy.addEventListener('click', function () {
+    var done = function () { copy.textContent = 'Copied'; setTimeout(function () { copy.textContent = 'Copy link'; }, 2000); };
+    if (navigator.clipboard) { navigator.clipboard.writeText(input.value).then(done, function () { input.select(); }); }
+    else { input.select(); }
+  });
+  var share = document.getElementById('referShare');
+  if (navigator.share) {
+    share.hidden = false;
+    share.addEventListener('click', function () {
+      navigator.share({ title: 'LottosOnline', text: 'Join me on LottosOnline', url: input.value }).catch(function () {});
+    });
+  }
+})();
+</script>
+{% endblock %}

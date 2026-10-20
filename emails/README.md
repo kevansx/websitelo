@@ -186,7 +186,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** Account created through a friend's referral link (old site: welcome2referfriend).
-- **Sent by:** CRM, once the referral scheme is approved
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `first_name`, `referrer_first_name`, `set_password_url`
 
 ### Invitation from a friend (`refer_friend_invite`)
@@ -196,7 +196,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Sent to a friend at a customer's request
 - **When:** A customer sends their referral link to a friend by email (old site: refer_friend_invite).
-- **Sent by:** CRM, once the referral scheme is approved
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `invite_url`, `message`, `referrer_first_name`
 
 ### Friend reward (`referral_reward`)
@@ -206,7 +206,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
 - **When:** A referred friend's first paid order. Sent to both: the referrer (is_referrer) and the friend.
-- **Sent by:** CRM, once the referral scheme is approved
+- **Sent by:** CRM, when the website posts an email_requested event
 - **Data:** `first_name`, `friend_first_name`, `is_referrer`, `pack_is_gold`, `pack_url`, `referral_url`, `referrer_first_name`
 
 ## Syndicates
