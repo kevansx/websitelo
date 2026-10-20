@@ -670,7 +670,11 @@ email(
     sample={"first_name": "Sam", "syndicate_name": "US Powerball"})
 
 # ---------- Reminders and alerts (marketing consent only)
-CART_LINES = ("{{#each lines}}" f'<p style="margin:0 0 6px;font:400 15px/22px {FONT};color:{INK};">{{{{this}}}}</p>' "{{/each}}")
+# The lines they picked, drawn as balls the way the order confirmation and results emails draw them.
+CART_LINES = ("{{#each items}}"
+              f'<p style="margin:0 0 8px;font:700 16px/22px {FONT};color:{INK};">{{{{lottery_name}}}}</p>'
+              "{{#each lines}}<div>" + balls("balls") + "</div>{{/each}}"
+              "{{/each}}")
 
 email(
     "cart_reminder", group="Reminders and alerts", name="Lines left in the cart",
@@ -683,7 +687,10 @@ email(
     + panel(CART_LINES)
     + "{{#if closes_at}}" + p("The next draw closes on <strong>{{closes_at}}</strong>.") + "{{/if}}"
     + button("Finish My Order", "{{resume_url}}"),
-    sample={"first_name": "Sam", "lottery_name": "EuroMillions", "lines": ["EuroMillions: 3 17 22 38 49 + 2 11"],
+    sample={"first_name": "Sam", "lottery_name": "EuroMillions",
+            "items": [{"lottery_name": "EuroMillions", "lines": [
+                {"balls": [{"n": n} for n in (3, 17, 22, 38, 49)] + [{"n": 2, "bonus": True}, {"n": 11, "bonus": True}]},
+                {"balls": [{"n": n} for n in (5, 9, 30, 41, 44)] + [{"n": 4, "bonus": True}, {"n": 8, "bonus": True}]}]}],
             "closes_at": "Fri 9 Oct 2026 at 18:30 (UTC)", "resume_url": PROD_URL + "/cart/resume/SAMPLE"})
 
 email(

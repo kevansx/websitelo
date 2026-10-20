@@ -271,7 +271,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **Who gets it:** Marketing consent only
 - **When:** 30 minutes after a logged-in customer leaves lines in the cart (no push device).
 - **Sent by:** CRM, when the website posts an email_requested event
-- **Data:** `closes_at`, `first_name`, `lines`, `lottery_name`, `resume_url`, `unsubscribe`
+- **Data:** `closes_at`, `first_name`, `items`, `lottery_name`, `resume_url`, `unsubscribe`
 
 ### Last call for the cart (`cart_last_call`)
 

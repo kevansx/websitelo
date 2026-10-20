@@ -127,8 +127,10 @@ def run(*, jackpot: Callable[[str], dict | None], resume_url: Callable[[int], st
                 push([cid], {"title": f"Your {name} lines are still in your cart",
                              "body": "Finish your order before the draw closes.", "url": resume_url(cid), "tag": f"cart-{cid}"})
             elif allowed:
+                import lo_txmail
                 lo_mail.send_template(contact["email"], "cart_reminder",
-                             {"lottery_name": name, "lines": [ln.strip() for ln in _lines_text(cart).splitlines()],
+                             {"lottery_name": name,
+                              "items": [{"lottery_name": i["lottery_name"], "lines": i["lines"]} for i in lo_txmail.order_items(cart)],
                               "closes_at": lo_mail.when(cutoff), "resume_url": resume_url(cid)},
                              text="You picked these lines but didn't finish your order:\n\n" + _lines_text(cart) +
                              f"\n\nThe next draw closes on {lo_mail.when(cutoff)}.\n\n"
