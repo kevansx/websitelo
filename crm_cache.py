@@ -382,6 +382,14 @@ class CRMCache:
                         )
             conn.commit()
 
+    def draw_results_summary(self) -> dict[str, dict[str, Any]]:
+        """Per game: how many draw results are stored and the latest draw date (for /health/crm)."""
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT game_code, COUNT(*) AS n, MAX(draw_date) AS latest FROM draw_results GROUP BY game_code"
+            ).fetchall()
+        return {r["game_code"]: {"count": int(r["n"]), "latest": r["latest"]} for r in rows}
+
     def get_draw_results_for_game(self, game_code: str, *, limit: int = 50) -> list[dict[str, Any]]:
         with self._connect() as conn:
             rows = conn.execute(

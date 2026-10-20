@@ -26,6 +26,21 @@ def test_health(anon_client):
     assert resp.get_json()["ok"] is True
 
 
+def test_the_status_page_shows_how_many_results_are_held(tmp_path):
+    """The draw-results probe fetches 5 rows as a connection test; its count was read as "the CRM has 5 results".
+    The status page now also shows what the site actually holds, per game."""
+    from crm_cache import CacheConfig
+    cache = CRMCache(CacheConfig(db_path=str(tmp_path / "cache.sqlite"), brand="lottosonline"))
+    cache.init_db()
+    cache.upsert_draw_results_page([
+        {"id": "1", "game_code": "powerball", "draw_date": "2026-10-14", "status": "completed", "numbers": {"main": [1]}},
+        {"id": "2", "game_code": "powerball", "draw_date": "2026-10-17", "status": "completed", "numbers": {"main": [2]}},
+        {"id": "3", "game_code": "bonoloto", "draw_date": "2026-10-20", "status": "completed", "numbers": {"main": [3]}},
+    ], include_prize_tiers=False)
+    summary = cache.draw_results_summary()
+    assert summary == {"powerball": {"count": 2, "latest": "2026-10-17"}, "bonoloto": {"count": 1, "latest": "2026-10-20"}}
+
+
 def test_home_renders(anon_client, stub_crm):
     resp = anon_client.get("/")
     assert resp.status_code == 200

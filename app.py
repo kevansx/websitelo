@@ -3809,6 +3809,13 @@ def create_app() -> Flask:
             cached = len(get_cache().get_cached_jackpots())
         except Exception:
             cached = None
+        # What the site holds, per game. The draw_results probe below is a 5-row connection test and its count is
+        # always 5 at most; this is the real number (it was misread as "the CRM has 5 results").
+        try:
+            per_game = get_cache().draw_results_summary()
+            results_cached = {"total": sum(v["count"] for v in per_game.values()), "games": len(per_game), "by_game": per_game}
+        except Exception:
+            results_cached = None
         body = {
             "cache_only": _crm_cache_only_mode(),
             "sync_enabled": os.environ.get("CRM_SYNC_ENABLE", "0").strip() == "1",
@@ -3817,7 +3824,8 @@ def create_app() -> Flask:
             "jackpots_all": probe("/api/v1/jackpots"),
             "jackpots_cached": cached,
             "store_games": probe("/api/v1/store/games", key="games"),
-            "draw_results": probe("/api/v1/draw-results", {"limit": 5, "status": "completed"}, key="draws"),
+            "draw_results_probe": probe("/api/v1/draw-results", {"limit": 5, "status": "completed"}, key="draws"),
+            "draw_results_cached": results_cached,
         }
         _crm_health_memo.update(at=_t.time(), body=body)
         return body, 200
