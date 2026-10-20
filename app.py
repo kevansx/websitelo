@@ -2247,6 +2247,9 @@ def create_app() -> Flask:
 
         return not_impl
 
+    # Countries LottosOnline never serves, whatever the env or the CRM says (see _env_blocked_countries).
+    ALWAYS_BLOCKED_COUNTRIES = frozenset({"DK"})
+
     def _parse_iso2_list(raw: str | None) -> set[str]:
         if not raw:
             return set()
@@ -2301,8 +2304,11 @@ def create_app() -> Flask:
 
         This exists so a country can be cut off with an env change and a restart
         — no CRM edit, no deploy, no waiting on the countries sync.
+
+        Denmark is always on it (Joey, 20 Oct 2026): LottosOnline does not serve
+        Danish customers at all, and sends them no email of any kind.
         """
-        return _parse_iso2_list(os.environ.get("WEBSITE_BLOCKED_COUNTRIES_ISO2"))
+        return _parse_iso2_list(os.environ.get("WEBSITE_BLOCKED_COUNTRIES_ISO2")) | ALWAYS_BLOCKED_COUNTRIES
 
     # The CRM returns this wording on a 403; the site says the same thing when
     # it stops the submit itself, so a customer sees one message either way.

@@ -53,6 +53,13 @@ def test_nothing_is_blocked_by_default(anon_client, stub_crm):
     assert resp.status_code == 200
 
 
+def test_denmark_is_always_blocked(anon_client, stub_crm):
+    """Joey, 20 Oct 2026: no Danish customers at all, with no setting needed on the server."""
+    resp = anon_client.get("/", headers={TRUSTED: "DK"})
+    assert resp.status_code == 403
+    assert BLOCKED_TEXT in resp.get_data(as_text=True)
+
+
 def test_a_country_on_the_env_list_cannot_browse(anon_client, stub_crm, block_malta):
     resp = anon_client.get("/", headers={TRUSTED: "MT"})
 
