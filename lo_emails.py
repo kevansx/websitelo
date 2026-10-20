@@ -98,11 +98,14 @@ def big(value: str, color: str = BRAND) -> str:
 
 
 # A ball: {n, bonus, hit}. Main numbers on lavender, bonus numbers on purple, matched numbers gold.
+# 30px plus a 1px outline = 32px. Plain balls are white with a purple outline, so they show on the lavender panels
+# as well as on white; matched (gold) and bonus (purple) balls get an outline in their own colour.
 BALL = (
-    '<span style="display:inline-block;width:32px;height:32px;margin:0 4px 6px 0;border-radius:16px;text-align:center;'
-    f'font:700 14px/32px {FONT};'
-    '{{#if hit}}background:' + GOLD + ';color:' + INK + ';'
-    '{{else}}{{#if bonus}}background:' + BRAND + ';color:#ffffff;{{else}}background:' + SUNKEN + ';color:' + INK + ';{{/if}}{{/if}}'
+    '<span style="display:inline-block;width:30px;height:30px;margin:0 4px 6px 0;border-radius:16px;text-align:center;'
+    f'font:700 14px/30px {FONT};'
+    '{{#if hit}}background:' + GOLD + ';border:1px solid ' + GOLD + ';color:' + INK + ';'
+    '{{else}}{{#if bonus}}background:' + BRAND + ';border:1px solid ' + BRAND + ';color:#ffffff;'
+    '{{else}}background:#ffffff;border:1px solid ' + BRAND + ';color:' + INK + ';{{/if}}{{/if}}'
     '">{{n}}</span>')
 
 

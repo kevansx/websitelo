@@ -82,7 +82,9 @@ def test_results_show_matches_and_the_bonus_ball():
     page = lo_emails.render("results", lo_emails.E["results"]["sample"], "https://x")[1]
     assert "Congratulations, you&#x27;ve won €4.00!" in page or "Congratulations, you've won €4.00!" in page
     assert page.count("background:#fdbc00") == 3            # three matched numbers in gold
-    assert "background:#582178;color:#ffffff" in page        # the Powerball
+    assert "background:#582178;border:1px solid #582178;color:#ffffff" in page   # the Powerball
+    # plain numbers: white with a purple outline, so they show on the lavender panels too
+    assert "background:#ffffff;border:1px solid #582178;color:#1d1324" in page
 
 
 def test_order_confirmation_variants():
