@@ -88,10 +88,15 @@
 
         <input type="hidden" name="birthdate" id="birthdate" value="{{ prefill_birthdate or '' }}">
 
+        {# Marketing consent (lo_optin.py, wording 2026-10-21 v1): unticked, separate from the terms, and not asked in
+           the UAE or Saudi Arabia until counsel advises. #}
+        {% if (g.geo_country or '')|upper not in ('AE', 'SA') %}
         <label class="lo-check">
           <input type="checkbox" name="marketing_opt_in">
-          <span><strong>Reminders and Promotions</strong><br>Yes, I want reminders and promotions</span>
+          <span><strong>Jackpot news and members' offers</strong><br>Yes, send me jackpot news and members' offers by email.
+            I'll get a welcome gift pack after my first order. Optional: you can change this at any time.</span>
         </label>
+        {% endif %}
         <label class="lo-check">
           <input type="checkbox" name="accept_terms" required>
           <span>I confirm that I am over 18 years of age. By registering, you agree to LottosOnline.com's <a class="lo-link" href="/privacy-policy" target="_blank">Privacy Policy</a> and <a class="lo-link" href="/terms-and-conditions" target="_blank">Terms &amp; Conditions</a>.</span>

@@ -6259,6 +6259,12 @@ def create_app() -> Flask:
             lo_journey.on_order(customer, order_id=order_id, items=items, order=order)
         except Exception as e:  # noqa: BLE001
             app.logger.warning("journey: order %s not recorded: %s", order_id, type(e).__name__)
+        # Opted in at sign-up: the welcome gift pack now the first order is paid (lo_optin.py).
+        try:
+            import lo_optin
+            lo_optin.on_order(customer)
+        except Exception as e:  # noqa: BLE001
+            app.logger.warning("opt-in gift: order %s not evaluated: %s", order_id, type(e).__name__)
 
     @app.post("/checkout")
     def checkout_submit():
@@ -8671,6 +8677,17 @@ def create_app() -> Flask:
                 }})
             except Exception as e:  # noqa: BLE001 - the account exists either way
                 app.logger.warning("sign-up marketing choice not saved to the CRM: %s", type(e).__name__)
+            else:
+                # Opted in at sign-up: the welcome gift pack comes with the first paid order (lo_optin.py). Not in
+                # the UAE, Saudi Arabia or Denmark, by account country or where they signed up from.
+                try:
+                    import lo_mail
+                    import lo_optin
+                    if not ({lo_mail.customer_country(customer), str(getattr(g, "geo_country", "") or "").upper()}
+                            & lo_optin.NOT_ASKED) and customer.get("id") is not None:
+                        lo_optin.record(int(customer["id"]), "signup")
+                except Exception as e:  # noqa: BLE001
+                    app.logger.warning("sign-up opt-in not recorded: %s", type(e).__name__)
             session["customer"] = {**(session.get("customer") or {}), "notification": customer["notification"]}
         try:
             import lo_homescreen
@@ -12122,6 +12139,8 @@ def create_app() -> Flask:
     lo_journey.register(app)
     import lo_referral
     lo_referral.register(app)
+    import lo_optin
+    lo_optin.register(app)
 
     return app
 

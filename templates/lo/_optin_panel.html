@@ -1,0 +1,20 @@
+{# Join the list, on the order page (lo_optin.py). Shown only to signed-in customers without marketing consent, not
+   asked before, and not in the UAE, Saudi Arabia or Denmark. Wording version 2026-10-21 v1: change lo_optin.WORDING
+   when this copy changes, so each consent records what the customer saw. #}
+{% if lo_optin_pack %}
+  <div class="lo-panel lo-optin lo-optin--done">
+    <p class="lo-optin__title">Your welcome gift pack is waiting</p>
+    <p class="lo-optin__text">Thanks for joining the list. Rip it open to reveal a free entry.</p>
+    <a class="lo-btn" href="/packs/{{ lo_optin_pack }}">Open my gift pack</a>
+  </div>
+{% elif lo_optin_offer %}
+  <form class="lo-panel lo-optin" method="post" action="{{ url_for('join_list') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="back" value="{{ request.path }}">
+    <p class="lo-optin__title">Be first to know when jackpots roll over</p>
+    <p class="lo-optin__text">Join the LottosOnline list for rollover news, members' offers and a birthday gift.
+      We'll add a welcome gift pack to your account as a thank-you.</p>
+    <button class="lo-btn" id="joinListButton">Yes, count me in</button>
+    <p class="lo-optin__small">Optional. You can leave the list at any time from your account or any email. 18+.</p>
+  </form>
+{% endif %}

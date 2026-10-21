@@ -13,6 +13,8 @@ granting twice.
                 than a fixed "every Nth order" schedule). About 1 order in 4; never two orders in a row; guaranteed
                 after 8 orders without a gift; at most one surprise per 7 days, so buying faster or bigger never
                 earns more; 1 surprise in 4 is a gold (premium) pack. Never tied to spend. Drawn on the server.
+  Granted outside an order (grant_pack): `friend` (refer a friend, lo_referral.py) and `welcome_list` (joined the
+  marketing list, after a paid order, lo_optin.py).
   `welcome` (home screen added) is not wired: the home-screen offer has approved terms of its own (one free
   Australia Saturday Lotto line), which a random pack would change.
 * A pack is earned sealed. Opening it (POST /packs/<id>/open, or the nightly auto-open after 14 days) draws the
@@ -40,9 +42,10 @@ import lo_store
 
 # Five live types (brief 2, part 8). welcome stays the home-screen ticket under its own terms; raffle is gone:
 # the CRM cannot grant a raffle and Spanish Raffles is not being created.
-PACK_TYPES = ("first_play", "return", "explorer", "long_play", "surprise", "friend")
+PACK_TYPES = ("first_play", "return", "explorer", "long_play", "surprise", "friend", "welcome_list")
 # friend: refer a friend (lo_referral.py, 20 Oct 2026), one each when a referred friend's first order of €5 or more
-# goes through. Granted by grant_pack, never by an order's own triggers.
+# goes through. welcome_list: joining the marketing list (lo_optin.py, 21 Oct 2026), once per customer, after a paid
+# order. Both are granted by grant_pack, never by an order's own triggers.
 # surprise packs (variable-ratio): chance per order, guarantee, spacing, cooling-off, share that are gold
 SURPRISE_CHANCE = 0.25
 SURPRISE_GUARANTEE_GAP = 8               # orders since the last gift that make the next order a sure thing

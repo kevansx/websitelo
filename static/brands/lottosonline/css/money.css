@@ -179,6 +179,12 @@ body.lo-engine .leUpsellTitle { color: var(--ink); }
 body.lo-engine .leUpsellHint, body.lo-engine .leUpsellDescription { color: var(--ink-muted); }
 body.lo-engine .leCartFunding { background-color: var(--surface-sunken); color: var(--ink); }
 body.lo-engine .leCartWinsChoice { background-color: var(--gold-100); color: var(--ink); }
+/* join the list, on the order page (lo_optin.py) */
+body.lo-engine .lo-optin { margin: 0 0 20px; padding: 18px 20px; border-radius: var(--radius-lg); background-color: var(--gold-100);
+  color: var(--ink); text-align: left; display: grid; gap: 10px; justify-items: start; }
+body.lo-engine .lo-optin__title { margin: 0; font: 700 18px/24px var(--font-display); color: var(--ink); }
+body.lo-engine .lo-optin__text { margin: 0; font-size: 15px; line-height: 22px; color: var(--ink); }
+body.lo-engine .lo-optin__small { margin: 0; font-size: 13px; color: var(--ink-muted); }
 /* the cart's own card payment: country and address, only when we do not hold them */
 body.lo-engine .leCartCardPay .leCartPayField { margin: 0 0 14px; text-align: left; }
 body.lo-engine .leCartCardPay .leCartPayField label { display: block; margin: 0 0 6px; font-weight: 600; color: var(--ink); }

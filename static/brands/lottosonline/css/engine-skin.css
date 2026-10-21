@@ -11,7 +11,7 @@ body.lo-engine input[type="submit"], body.lo-engine .primaryFormButton, body.lo-
   background: var(--cta-600); border-color: var(--cta-600); color: #fff; border-radius: var(--radius-md); font-family: var(--font-display); font-weight: 700; }
 body.lo-engine input[type="submit"]:hover, body.lo-engine .primaryFormButton:hover { background: var(--cta-700); }
 body.lo-engine .secondaryFormButton { border-radius: var(--radius-md); font-family: var(--font-display); font-weight: 700; }
-body.lo-engine a.tertiaryLink, body.lo-engine .lePages a:not(.primaryFormButton):not(.secondaryFormButton) { color: var(--surface-brand-raised); }
+body.lo-engine a.tertiaryLink, body.lo-engine .lePages a:not(.primaryFormButton):not(.secondaryFormButton):not(.lo-btn) { color: var(--surface-brand-raised); }
 body.lo-engine input[type="text"], body.lo-engine input[type="email"], body.lo-engine input[type="tel"], body.lo-engine input[type="password"],
 body.lo-engine input[type="number"], body.lo-engine select, body.lo-engine textarea { border-radius: var(--radius-md); font-family: var(--font-body); }
 /* the LottosOnline header/footer must not inherit Bootstrap 3's base styles */
