@@ -6251,7 +6251,8 @@ def create_app() -> Flask:
             import lo_referral
             # the CRM's own total; if it could not be read the referral simply waits for the next order
             lo_referral.on_order(int(customer["id"]), order_id=order_id, total_cents=order.get("total_cents"),
-                                 currency=order.get("currency") or customer.get("currency"))
+                                 currency=order.get("currency") or customer.get("currency"),
+                                 card_seen_elsewhere=order.get("card_seen_on_other_accounts"))
         except Exception as e:  # noqa: BLE001 - the order is placed; the reward can be approved by hand
             app.logger.warning("referral: order %s not evaluated: %s", order_id, type(e).__name__)
         try:
@@ -8831,6 +8832,16 @@ def create_app() -> Flask:
             payload["acquisition_source_code"] = mkt["src"]
         if mkt.get("cmp"):
             payload["acquisition_campaign_code"] = mkt["cmp"]
+        # Refer a friend: the CRM records who referred whom (CRM reply, 21 Oct 2026: field referrer_customer_id,
+        # same brand only, an unknown id is ignored). Not sent when the friend is using the referrer's own address.
+        ref_code = lo_referral_pending_code()
+        if ref_code:
+            import lo_mail
+            import lo_referral
+            referrer_id = lo_referral.referrer_for_code(ref_code)
+            ref_email = str((lo_mail.contact(referrer_id) or {}).get("email") or "") if referrer_id else ""
+            if referrer_id and not (ref_email and lo_referral.normal_email(ref_email) == lo_referral.normal_email(payload["email"])):
+                payload["referrer_customer_id"] = referrer_id
 
         # Counted here rather than at the top of the handler so that it measures
         # accounts being created, not forms being corrected.

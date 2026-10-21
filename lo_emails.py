@@ -282,6 +282,23 @@ email(
     sample={"first_name": "Sam", "email": "sam@example.com", "expires_text": "60 minutes",
             "reset_url": PROD_URL + "/reset-password?token=SAMPLE"})
 
+email(
+    "password_changed", group="Account", name="Password changed",
+    subject="Your LottosOnline password has been changed",
+    preheader="If this wasn't you, tell us straight away.",
+    audience="service", sender="reminder@lottosonline.com", sent_by="CRM, from its own event",
+    trigger="A customer's password is changed: after a reset, or from their account (the CRM's account.password_changed).",
+    body=h1("Your password has been changed")
+    + p("Hi {{#if first_name}}{{first_name}}{{else}}there{{/if}}, the password for your LottosOnline account ({{email}}) "
+        "was changed{{#if changed_at}} on {{changed_at}}{{/if}}.")
+    + p("If that was you, there's nothing more to do.")
+    + panel(panel_title("Wasn't you?")
+            + panel_text("Reset your password now to lock anyone else out, then email us at "
+                         '<a href="mailto:support@lottosonline.com" style="color:' + BRAND + ';">support@lottosonline.com</a>.'),
+            ERR_100)
+    + button("Reset My Password", "{{site_url}}/forgot-password", BRAND),
+    sample={"first_name": "Sam", "email": "sam@example.com", "changed_at": "Wednesday 21 October at 14:05 (UTC)"})
+
 # ---------- Orders and money
 ORDER_ITEMS = (
     "{{#each items}}"
@@ -860,14 +877,17 @@ def index_page(prefix: str = "preview/") -> str:
             f"<h1>LottosOnline emails</h1><p>{len(E)} emails, shown with sample data.</p>" + "".join(cards) + "</body></html>")
 
 
-def export(out_dir, preview_asset_url: str | None = None) -> list[str]:
-    """preview_asset_url: where the previews load images from (www1 until the new site is live on www)."""
+def export(out_dir, preview_asset_url: str | None = None, site_variables: bool = False) -> list[str]:
+    """preview_asset_url: where the previews load images from (www1 until the new site is live on www).
+    site_variables: leave {{site_url}} and {{asset_url}} in the templates for the sender to fill (the CRM fills both
+    from the brand's website.base_url, so one setting moves every link from www1 to www at the switch-over);
+    otherwise https://www.lottosonline.com is written in."""
     from pathlib import Path
     out = Path(out_dir)
     (out / "html").mkdir(parents=True, exist_ok=True)
     (out / "preview").mkdir(parents=True, exist_ok=True)
     for key in E:
-        (out / "html" / f"{key}.html").write_text(source(key, PROD_URL), encoding="utf-8")
+        (out / "html" / f"{key}.html").write_text(source(key, None if site_variables else PROD_URL), encoding="utf-8")
         _, page, _ = render(key, E[key]["sample"], PROD_URL, preview_asset_url)
         (out / "preview" / f"{key}.html").write_text(page, encoding="utf-8")
     (out / "index.html").write_text(index_page(), encoding="utf-8")

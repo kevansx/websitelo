@@ -51,6 +51,16 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 - **Sent by:** CRM, from its own event
 - **Data:** `email`, `expires_text`, `first_name`, `reset_url`
 
+### Password changed (`password_changed`)
+
+- **Subject:** `Your LottosOnline password has been changed`
+- **Preheader:** If this wasn't you, tell us straight away.
+- **From:** reminder@lottosonline.com
+- **Who gets it:** Service (every customer)
+- **When:** A customer's password is changed: after a reset, or from their account (the CRM's account.password_changed).
+- **Sent by:** CRM, from its own event
+- **Data:** `changed_at`, `email`, `first_name`
+
 ## Sign-up journey
 
 ### First order nudge (`first_order_nudge`)

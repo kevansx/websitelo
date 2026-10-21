@@ -138,6 +138,26 @@ def test_no_cap_but_a_burst_is_held():
                                 now=NOW + timedelta(days=8)) == "rewarded"
 
 
+def test_a_card_already_used_on_another_account_holds_the_referral():
+    """The CRM's card_seen_on_other_accounts (BIN plus last 4). Only true holds; null means no card, no signal."""
+    f = _signed_up(1)
+    assert lo_referral.on_order(f["id"], order_id=2, total_cents=900, currency="EUR",
+                                card_seen_elsewhere=True, now=NOW) == "held"
+    g = _signed_up(2)
+    assert lo_referral.on_order(g["id"], order_id=3, total_cents=900, currency="EUR",
+                                card_seen_elsewhere=None, now=NOW) == "rewarded"
+
+
+def test_sign_up_through_a_link_tells_the_crm_who_referred(anon_client, stub_crm, monkeypatch):
+    from crm_api import CRMClient
+    sent = {}
+    original = CRMClient.auth_register
+    monkeypatch.setattr(CRMClient, "auth_register", lambda self, payload: sent.update(payload) or original(self, payload))
+    anon_client.get(f"/r/{_referrer_code()}")
+    anon_client.post("/create-account", data=ACCOUNT_FORM)
+    assert sent.get("referrer_customer_id") == REFERRER["id"]
+
+
 def test_a_refused_referral_never_pays():
     f = _signed_up()
     assert lo_referral.refuse(f["id"])

@@ -167,9 +167,11 @@ def _in_eur(cents: Any, currency: str | None) -> float:
 
 
 def on_order(friend_id: int, *, order_id: Any, total_cents: Any, currency: str | None,
-             now: datetime | None = None) -> str:
+             card_seen_elsewhere: bool | None = None, now: datetime | None = None) -> str:
     """A paid order by someone who may be a referred friend. Returns what happened: none, too_small, held,
-    rewarded or already."""
+    rewarded or already. card_seen_elsewhere: the CRM's card_seen_on_other_accounts on the order (CRM reply,
+    21 Oct 2026: BIN plus last 4 matched another LottosOnline account). Only True holds the referral: None means the
+    order wasn't paid by card, which says nothing either way."""
     now = now or _now()
     r = get(friend_id)
     if not r or r["status"] == "refused":
@@ -180,6 +182,12 @@ def on_order(friend_id: int, *, order_id: Any, total_cents: Any, currency: str |
         return "held"
     if _in_eur(total_cents, currency) < MIN_ORDER_EUR_CENTS:
         return "too_small"
+    if card_seen_elsewhere is True:
+        with closing(_db()) as c:
+            c.execute("UPDATE referrals SET status='held', reason=?, order_id=? WHERE friend_id=?",
+                      ("paid with a card already used on another account", str(order_id), int(friend_id)))
+            c.commit()
+        return "held"
     limit, window = VELOCITY
     with closing(_db()) as c:
         recent = c.execute("SELECT COUNT(*) FROM referrals WHERE referrer_id=? AND status='rewarded' AND rewarded_at >= ?",
