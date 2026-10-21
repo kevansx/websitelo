@@ -433,14 +433,18 @@ email(
 email(
     "withdrawal_received", group="Orders and money", name="Withdrawal request received",
     subject="We've received your withdrawal request for {{amount}}",
-    preheader="Reference {{reference}}. We'll pay it within {{days}} working days.",
+    preheader="Reference {{reference}}. We'll process it in the coming days.",
     audience="service", sender=CONF, sent_by="Site (lo_withdraw.py), sent today",
-    trigger="The customer asks to withdraw winnings at /account/withdraw.",
-    body=h1("Withdrawal request received")
-    + p("Hi {{#if first_name}}{{first_name}}{{else}}there{{/if}}, we've received your request to withdraw {{amount}} from your winnings.")
+    trigger="The customer asks to withdraw winnings at /account/withdraw. Withdrawals are handled by hand, so the email "
+            "promises no number of days (Joey, 21 Oct 2026).",
+    body=h1("We've received your withdrawal request")
+    + p("Hi {{#if first_name}}{{first_name}}{{else}}there{{/if}}, thank you. We've received your request to withdraw "
+        "{{amount}} from your winnings.")
     + rows([("Reference", "{{reference}}"), ("Amount", "{{amount}}"), ("Paid by", "#if method {{method}}")])
-    + p("We'll pay it within {{days}} working days and contact you if we need anything else."),
-    sample={"first_name": "Sam", "amount": "€120.00", "reference": "W17", "method": "Bank transfer", "days": 5})
+    + p("Our team will process your request in the coming days, and a member of our team will be in touch with you "
+        "soon. If we need anything else from you, we'll ask.")
+    + small("Please keep your reference ({{reference}}) if you contact us about this request."),
+    sample={"first_name": "Sam", "amount": "€120.00", "reference": "W17", "method": "Bank transfer"})
 
 email(
     "withdrawal_paid", group="Orders and money", name="Withdrawal paid",

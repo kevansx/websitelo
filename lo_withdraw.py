@@ -6,9 +6,10 @@
   data/withdrawals.sqlite. It does NOT move money.
 * Support pays the customer, then an agent with wallet-adjust permission debits the Winnings bucket on the
   customer's wallet page in the CRM, with a reason.
-* The customer sees "Request received - we'll pay it within N working days" (LO_WITHDRAWAL_DAYS).
-* Switched off until the business decides how support pays and the promised turnaround: LO_WITHDRAWALS_ON=1 and
-  LO_WITHDRAWAL_DAYS set. Off, the page shows the balance and how to contact support.
+* The customer sees "Request received: our team will process it in the coming days and be in touch soon". No number
+  of days is promised: withdrawals are handled by hand (Joey, 21 Oct 2026).
+* Switched off until the business switches it on: LO_WITHDRAWALS_ON=1. Off, the page shows the balance and how to
+  contact support.
 """
 from __future__ import annotations
 
@@ -24,15 +25,7 @@ METHODS = {"bank": "Bank transfer", "other": "Another way (tell us below)"}
 
 
 def enabled() -> bool:
-    return os.environ.get("LO_WITHDRAWALS_ON", "0").strip() == "1" and bool(turnaround_days())
-
-
-def turnaround_days() -> int | None:
-    try:
-        n = int(os.environ.get("LO_WITHDRAWAL_DAYS", "").strip())
-        return n if n > 0 else None
-    except ValueError:
-        return None
+    return os.environ.get("LO_WITHDRAWALS_ON", "0").strip() == "1"
 
 
 def support_email() -> str:
@@ -127,11 +120,12 @@ def register(app) -> None:
             if cust.get("email"):
                 lo_mail.send_template(cust["email"], "withdrawal_received",
                              {"first_name": cust.get("first_name"), "amount": lo_mail.eur(amount), "reference": f"W{req_id}",
-                              "method": METHODS[method], "days": turnaround_days()},
-                             text=f"Request received: {lo_mail.eur(amount)} from your winnings (reference W{req_id}).\n\n"
-                             f"We'll pay it within {turnaround_days()} working days. We'll contact you if we need anything else.",
+                              "method": METHODS[method]},
+                             text=f"We've received your request to withdraw {lo_mail.eur(amount)} from your winnings "
+                             f"(reference W{req_id}).\n\nOur team will process your request in the coming days, and a "
+                             "member of our team will be in touch with you soon. If we need anything else from you, we'll ask.",
                              kind="withdrawal-received")
             sent = {"id": req_id, "amount": amount}
         return render_template("lo/withdraw.html", available=available, currency=currency, on=enabled(),
-                               days=turnaround_days(), methods=METHODS, sent=sent, min_cents=MIN_CENTS,
+                               methods=METHODS, sent=sent, min_cents=MIN_CENTS,
                                support=support_email(), noindex="noindex, nofollow")

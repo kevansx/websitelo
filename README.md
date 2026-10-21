@@ -106,6 +106,6 @@ See `env.example`. The ones that matter at launch:
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` | The email sender for membership, jackpot-alert, withdrawal and cart emails (SendGrid: `smtp.sendgrid.net`, 587, user `apikey`) |
 | `LO_SITE_URL`, `LO_ASSET_URL` | Address used for links in emails (default `https://www.lottosonline.com`) and for the email logo (defaults to `LO_SITE_URL`; set `https://www1.lottosonline.com` until the new site is live on www) |
 | `LO_SUPPORT_EMAIL` | Where withdrawal requests go (default support@lottosonline.com, the help-desk inbox) |
-| `LO_WITHDRAWALS_ON`, `LO_WITHDRAWAL_DAYS` | Switch the withdrawal form on (`1`) and the promised turnaround in working days. Leave off until support's payout process is agreed |
+| `LO_WITHDRAWALS_ON` | Switch the withdrawal form on (`1`). Withdrawals are handled by hand; the customer is told the team will process the request in the coming days |
 | `LO_HOMESCREEN_OFFER` | `0` switches the home-screen free-ticket offer off |
 | `LO_HOMESCREEN_PRODUCT_CODE` | The CRM product for the free Australia Saturday Lotto line (auto-detected if blank) |

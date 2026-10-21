@@ -51,23 +51,23 @@ def test_withdrawals_are_off_until_the_business_decides(client, winnings):
 
 
 def test_a_request_emails_support_and_moves_no_money(client, winnings, monkeypatch):
+    """Handled by hand (Joey, 21 Oct 2026): no number of days is promised, and none is needed to switch it on."""
     monkeypatch.setenv("LO_WITHDRAWALS_ON", "1")
-    monkeypatch.setenv("LO_WITHDRAWAL_DAYS", "5")
+    monkeypatch.delenv("LO_WITHDRAWAL_DAYS", raising=False)
     calls = []
     monkeypatch.setattr(CRMClient, "_request", lambda self, m, path, *a, **k: calls.append((m, path)) or {})
     r = client.post("/account/withdraw", data={"csrf_token": _csrf(client), "amount": "30.00", "method": "bank",
                                                 "details": "J Smith, IE00BANK0000000000"})
     html = r.get_data(as_text=True)
-    assert "Request received." in html and "within 5 working days" in html
+    assert "Request received." in html and "in the coming days" in html and "working days" not in html
     mails = _outbox()
     assert any(m.startswith("To: support@lottosonline.com") and "Amount: €30.00" in m and "Customer id: 1" in m for m in mails)
-    assert any("We'll pay it within 5 working days" in m for m in mails)
+    assert any("a member of our team will be in touch with you soon" in m for m in mails)
     assert not [c for c in calls if c[0] in ("POST", "PATCH", "PUT")]        # nothing debited or paid by the site
 
 
 def test_cannot_withdraw_more_than_the_winnings(client, winnings, monkeypatch):
     monkeypatch.setenv("LO_WITHDRAWALS_ON", "1")
-    monkeypatch.setenv("LO_WITHDRAWAL_DAYS", "5")
     client.post("/account/withdraw", data={"csrf_token": _csrf(client), "amount": "50", "method": "bank", "details": "x"})
     assert _outbox() == []
 

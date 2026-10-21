@@ -15,7 +15,7 @@
 
     {% if sent %}
       <div class="lo-panel">
-        <p style="margin:0"><strong>Request received.</strong> We'll pay {{ '€%.2f'|format(sent.amount / 100) }} within {{ days }} working days (reference W{{ sent.id }}). We've emailed you a copy.</p>
+        <p style="margin:0"><strong>Request received.</strong> We've received your request to withdraw {{ '€%.2f'|format(sent.amount / 100) }} (reference W{{ sent.id }}). Our team will process it in the coming days, and a member of our team will be in touch with you soon. We've emailed you a copy.</p>
       </div>
     {% elif not on %}
       <div class="lo-panel">
@@ -38,7 +38,7 @@
           <label class="lo-field__label" for="details">Payment details</label>
           <textarea class="lo-input" id="details" name="details" rows="4" required placeholder="For a bank transfer: account holder's name, IBAN (or account number) and bank"></textarea>
         </div>
-        <p class="lo-muted" style="margin:0">Our support team pays withdrawals by hand. We'll pay within {{ days }} working days and may contact you to check details.</p>
+        <p class="lo-muted" style="margin:0">Our team handles every withdrawal personally. We'll process your request in the coming days and may contact you to check details.</p>
         <button class="lo-btn lo-btn--lg">Request withdrawal</button>
       </form>
     {% endif %}

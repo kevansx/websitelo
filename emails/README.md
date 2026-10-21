@@ -128,12 +128,12 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 ### Withdrawal request received (`withdrawal_received`)
 
 - **Subject:** `We've received your withdrawal request for {{amount}}`
-- **Preheader:** Reference {{reference}}. We'll pay it within {{days}} working days.
+- **Preheader:** Reference {{reference}}. We'll process it in the coming days.
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
-- **When:** The customer asks to withdraw winnings at /account/withdraw.
+- **When:** The customer asks to withdraw winnings at /account/withdraw. Withdrawals are handled by hand, so the email promises no number of days (Joey, 21 Oct 2026).
 - **Sent by:** CRM, when the website posts an email_requested event
-- **Data:** `amount`, `days`, `first_name`, `method`, `reference`
+- **Data:** `amount`, `first_name`, `method`, `reference`
 
 ### Withdrawal paid (`withdrawal_paid`)
 

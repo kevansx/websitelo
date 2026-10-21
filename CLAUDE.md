@@ -73,7 +73,7 @@ The owner is Joey. His words: "profitable, significant revenue, excellent SEO, w
   `POST /api/v1/marketing/incentives/grant-free-ticket` (idempotency `pack-<id>`). Constants at the top of the file.
 - `lo_push.py` web push (VAPID; never rotate keys), `lo_alerts.py` jackpot alerts (push first, email second).
 - `lo_members.py` weekly syndicates (LO-USPOW-W €3.90, LO-USMEG-W €5.00, LO-EUEUR-W €2.95).
-- `lo_withdraw.py` withdrawal requests to support (off unless `LO_WITHDRAWALS_ON=1` and `LO_WITHDRAWAL_DAYS`).
+- `lo_withdraw.py` withdrawal requests to support (off unless `LO_WITHDRAWALS_ON=1`; no promised turnaround).
 - `lo_recover.py` abandoned-checkout reminders (30 min, 24 h). `lo_mail.py` the one email sender (SMTP or
   `data/outbox`), `send_template()` for designed emails. `lo_emails.py` all 24 email designs (SendGrid Handlebars),
   `lo_hbs.py` the renderer.
