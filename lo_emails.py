@@ -416,7 +416,7 @@ email(
 
 email(
     "winnings_paid", group="Orders and money", name="Winnings added",
-    subject="LottosOnline winnings: {{amount}} added to your account",
+    subject="Good news: your LottosOnline winnings are in",  # no amount in the subject (Joey, 22 Oct 2026)
     preheader="Your winnings are in your account.",
     audience="service", sender=CONF, sent_by="Site (checks ticket statuses after each draw) or CRM",
     trigger="Winnings are credited to the customer's winnings balance (old site: deposit_winnings_confirmation).",

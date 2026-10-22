@@ -117,7 +117,7 @@ The site sends the ones marked "sent today" itself, from the same source. When t
 
 ### Winnings added (`winnings_paid`)
 
-- **Subject:** `LottosOnline winnings: {{amount}} added to your account`
+- **Subject:** `Good news: your LottosOnline winnings are in`
 - **Preheader:** Your winnings are in your account.
 - **From:** confirmation@lottosonline.com
 - **Who gets it:** Service (every customer)
