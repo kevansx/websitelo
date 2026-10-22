@@ -101,7 +101,7 @@ def big(value: str, color: str = BRAND) -> str:
 # 30px plus a 1px outline = 32px. Plain balls are white with a purple outline, so they show on the lavender panels
 # as well as on white; matched (gold) and bonus (purple) balls get an outline in their own colour.
 BALL = (
-    '<span style="display:inline-block;width:30px;height:30px;margin:0 4px 6px 0;border-radius:16px;text-align:center;'
+    '<span class="lo-ball" style="display:inline-block;width:30px;height:30px;margin:0 4px 6px 0;border-radius:16px;text-align:center;'
     f'font:700 14px/30px {FONT};'
     '{{#if hit}}background:' + GOLD + ';border:1px solid ' + GOLD + ';color:' + INK + ';'
     '{{else}}{{#if bonus}}background:' + BRAND + ';border:1px solid ' + BRAND + ';color:#ffffff;'
@@ -110,7 +110,8 @@ BALL = (
 
 
 def balls(path: str) -> str:
-    return "{{#each " + path + "}}" + BALL + "{{/each}}"
+    # One row of numbers never wraps (Joey, 22 Oct 2026): on phones the balls shrink to fit 8 in a row instead.
+    return '<div class="lo-balls" style="white-space:nowrap;">{{#each ' + path + "}}" + BALL + "{{/each}}</div>"
 
 
 SET_PASSWORD = (
@@ -155,6 +156,15 @@ LAYOUT = """<!doctype html>
     .lo-card { padding:26px 18px !important; }
     .lo-h1 { font-size:23px !important; line-height:29px !important; }
     .lo-btn, .lo-btn td, .lo-btn a { width:100% !important; display:block !important; box-sizing:border-box; }
+    .lo-ball { width:26px !important; height:26px !important; margin:0 3px 4px 0 !important;
+      font-size:13px !important; line-height:26px !important; }
+    .lo-res-balls, .lo-res-prize { display:block !important; width:auto !important; text-align:left !important; }
+    .lo-res-balls { padding:10px 0 0 !important; border-bottom:0 !important; }
+    .lo-res-prize { padding:0 0 10px !important; }
+  }
+  @media (max-width:360px) {
+    .lo-ball { width:23px !important; height:23px !important; margin:0 2px 4px 0 !important;
+      font-size:12px !important; line-height:23px !important; }
   }
 </style>
 </head>
@@ -371,8 +381,8 @@ email(
 
 RESULT_LINES = (
     "{{#each lines}}"
-    f'<tr><td style="padding:10px 0;border-bottom:1px solid {HAIR};">' + balls("balls") + "</td>"
-    f'<td align="right" style="padding:10px 0;border-bottom:1px solid {HAIR};font:700 14px/20px {FONT};'
+    f'<tr><td class="lo-res-balls" style="padding:10px 0;border-bottom:1px solid {HAIR};">' + balls("balls") + "</td>"
+    f'<td class="lo-res-prize" align="right" style="padding:10px 0;border-bottom:1px solid {HAIR};font:700 14px/20px {FONT};'
     'color:{{#if prize}}' + OK_700 + '{{else}}' + MUTED + '{{/if}};white-space:nowrap;">'
     "{{#if prize}}{{prize}}{{else}}{{matched}}{{/if}}</td></tr>"
     "{{/each}}")
