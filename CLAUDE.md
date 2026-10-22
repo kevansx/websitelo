@@ -17,9 +17,8 @@ The owner is Joey. His words: "profitable, significant revenue, excellent SEO, w
 - Project folder: `C:\work\lottosonline-rebuild\` with `legacy\` (old PHP code, read-only reference), `inventory\`
   (live crawl, URL contract, Search Console exports), `crm-setup\` (CRM product request and the CRM team's reply),
   `design\pack-handover\` (gift-pack design, storyboard.md is authoritative), `tools\` (contract builder/checker).
-- Lottos Online documents: `W:\work\lottosonline-rebuild\documents\` (`Plans\` and `CRM asks\`). Joey's earlier plans
-  and briefs (2 to 14 Oct) are in Joey's own documents folder: ask Joey for them. **Read the relevant Plans docs before
-  building any feature.**
+- Lottos Online documents: `W:\work\lottosonline-rebuild\documents\` (`Plans\` and `CRM asks\`), all of them from
+  14 Sep 2026 on. **Read the relevant Plans docs before building any feature.**
 - Staging: https://www1.lottosonline.com (auto-noindex). Status page: https://www1.lottosonline.com/health/crm.
   www.lottosonline.com is still the OLD PHP site until the IT team switches Azure Front Door over.
 
