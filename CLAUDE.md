@@ -1,7 +1,7 @@
 # LottosOnline website: instructions for Claude
 
 Read this first, every session. The full handover (history, decisions, open items) is
-`W:\Documents\Peritia Play\Important documents\Plans\2026-10-14 Lottos Online - Handover to a new Claude session.md`.
+`W:\Desktop\claude transition\Lottos Online Site Build\2026-10-14 Lottos Online - Handover to a new Claude session.md`.
 
 ## What this is
 
@@ -17,8 +17,9 @@ The owner is Joey. His words: "profitable, significant revenue, excellent SEO, w
 - Project folder: `C:\work\lottosonline-rebuild\` with `legacy\` (old PHP code, read-only reference), `inventory\`
   (live crawl, URL contract, Search Console exports), `crm-setup\` (CRM product request and the CRM team's reply),
   `design\pack-handover\` (gift-pack design, storyboard.md is authoritative), `tools\` (contract builder/checker).
-- Joey's plans and briefs: `W:\Documents\Peritia Play\Important documents\Plans\` (files named `2026-10-0x Lottos Online - ...`).
-  CRM asks: `...\Important documents\CRM asks\`. **Read the relevant Plans docs before building any feature.**
+- Lottos Online documents: `W:\work\lottosonline-rebuild\documents\` (`Plans\` and `CRM asks\`). Joey's earlier plans
+  and briefs (2 to 14 Oct) are in Joey's own documents folder: ask Joey for them. **Read the relevant Plans docs before
+  building any feature.**
 - Staging: https://www1.lottosonline.com (auto-noindex). Status page: https://www1.lottosonline.com/health/crm.
   www.lottosonline.com is still the OLD PHP site until the IT team switches Azure Front Door over.
 
@@ -36,9 +37,8 @@ The owner is Joey. His words: "profitable, significant revenue, excellent SEO, w
 1. Finish a piece of work, run the full test suite, check it in the local preview (screenshots for visual changes).
 2. Commit with a plain-English message ending in the Co-Authored-By line, then **Claude pushes** to `kevansx/websitelo`
    `main` from this PC (HTTPS; the PC's credential is jevansxje-gif, a collaborator; never git@ URLs).
-3. Give Joey ONE command for **PuTTY (www1 server)**:
-   `cd /opt/lottosonline-website && git pull && sudo systemctl restart lottosonline-website`
-   Add `.venv/bin/pip install -r requirements.txt && ` before the restart only when requirements.txt changed.
+3. Confirm the push reached GitHub (`git ls-remote origin refs/heads/main` matches `git rev-parse HEAD`). Joey pulls
+   to the server himself: never give him PuTTY or server commands (Joey, 19 Oct). Say when requirements.txt changed.
 4. Joey says "it is live on www1". Then check www1 yourself (curl the pages, /health/crm) before reporting.
 5. Production (www) is cut over by the IT team via Azure Front Door; never touch DNS or Front Door.
 
@@ -48,8 +48,9 @@ The owner is Joey. His words: "profitable, significant revenue, excellent SEO, w
   **Browser**, no "if you haven't yet" asides, no alternative paths, and say what output he should see.
 - End every finished task with a **Verify** checklist: concrete action + expected result.
 - Always give full absolute Windows paths for documents (clickable links break for him).
-- Finished documents go to `W:\Documents\Peritia Play\Important documents\` (Plans / CRM asks / Lawyer /
-  Processor - Clarity Global) with dated, plain-English names.
+- Finished Lottos Online documents go to `W:\work\lottosonline-rebuild\documents\` (`Plans\`, `CRM asks\`) with dated,
+  plain-English names. Never save them in another business's or project's folder, and never write the name of Joey's
+  company or any of Joey's own folder paths into this repo, the launch board, or anything the CRM or IT teams see.
 - Fix things on our side whenever possible. Anything for the CRM team goes in ONE complete list, only true blockers,
   never a trickle of asks. Check www1 and /health/crm before claiming something is outstanding.
 - Recreate competitors' layouts and animation, never their wording (grep for their phrases before reporting).
