@@ -442,7 +442,7 @@ def test_a_bundle_spanning_lotteries_names_each_one_instead_of_picking_a_headlin
     body = anon_client.get("/offer/mixed").get_data(as_text=True)
 
     assert "US$207 Million" in body
-    assert "\u20ac41,300,000" in body
+    assert "\u20ac41.3 Million" in body
     assert 'id="bannerJackpotAmount"' not in body
 
 
