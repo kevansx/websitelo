@@ -31,6 +31,8 @@
  "/create-account-friend.php": "/",
  "/decline_cart": "/login",
  "/decline_cart.php": "/login",
+ "/direct-opt-in": "/login",
+ "/direct-opt-in.php": "/login",
  "/logout": "/",
  "/logout.php": "/",
  "/my-account/account-disabled": "/login",

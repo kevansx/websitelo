@@ -414,7 +414,7 @@ def test_a_single_lottery_offer_leads_with_that_lotterys_jackpot(anon_client, se
 
     body = anon_client.get("/offer/PB_Welcome2").get_data(as_text=True)
 
-    assert "$207,000,000" in body
+    assert "US$207 Million" in body
     assert 'data-remaining="8000"' in body
 
 
@@ -441,7 +441,7 @@ def test_a_bundle_spanning_lotteries_names_each_one_instead_of_picking_a_headlin
 
     body = anon_client.get("/offer/mixed").get_data(as_text=True)
 
-    assert "$207,000,000" in body
+    assert "US$207 Million" in body
     assert "\u20ac41,300,000" in body
     assert 'id="bannerJackpotAmount"' not in body
 
@@ -1223,7 +1223,7 @@ def test_an_ordinary_offer_banner_still_leads_with_its_jackpot(anon_client, serv
 
     assert "leOfferHeroSyndicate" not in body
     assert 'id="bannerJackpotAmount"' in body
-    assert "$207,000,000" in body
+    assert "US$207 Million" in body
 
 
 def test_a_share_is_counted_as_a_share_in_the_offer_headline(anon_client, serve_syndicate_bundle):

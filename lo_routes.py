@@ -353,6 +353,34 @@ def register(app) -> None:
     app.jinja_env.globals["lo_featured_rows"] = featured_rows
 
     # ------------------------------------------------------------------ redirects + affiliates
+    # Affiliates first. A before_request that answers stops the ones after it, so with the redirect first an old
+    # link such as /package?id=...&a=8003&c=15646 redirected and the affiliate lost the customer. The cookie is
+    # set on the redirect itself by the after_request below.
+    @app.before_request
+    def _lo_affiliate_capture():
+        a = (request.args.get("a") or "").strip()
+        b = (request.args.get("b") or "").strip()
+        c = (request.args.get("c") or "").strip()
+        f = (request.args.get("f") or "").strip()
+        clid = (request.args.get("clid") or request.args.get("v") or "").strip()
+        if ((a and c) or f) and all(_AFF_VALUE.match(x) for x in (a, b, c, f)):
+            g.lo_set_aff_cookie = f"{a}-{b}-{c}-{f}"
+        else:
+            cookie = request.cookies.get(AFF_COOKIE) or ""
+            parts = (cookie.split("-") + ["", "", "", ""])[:4]
+            a, b, c, f = parts
+        mkt = session.get("mkt", {}) if isinstance(session.get("mkt", {}), dict) else {}
+        changed = False
+        if a and mkt.get("intent") != "lifecycle" and not mkt.get("src"):
+            mkt["src"], changed = a[:64], True
+        if c and not mkt.get("cmp"):
+            mkt["cmp"], changed = c[:64], True
+        if clid and _AFF_VALUE.match(clid):
+            mkt["tid"], changed = clid[:64], True
+            session["voluum_click_id"] = clid[:128]
+        if changed:
+            session["mkt"] = mkt
+
     @app.before_request
     def _lo_legacy_redirect():
         # The tables describe what the OLD site did at a path. Where the new site has its own page at that
@@ -384,31 +412,6 @@ def register(app) -> None:
                 return redirect(url_for("login", next=url_for("account")), code=302)
             return redirect(tmp, code=302)
         return None
-
-    @app.before_request
-    def _lo_affiliate_capture():
-        a = (request.args.get("a") or "").strip()
-        b = (request.args.get("b") or "").strip()
-        c = (request.args.get("c") or "").strip()
-        f = (request.args.get("f") or "").strip()
-        clid = (request.args.get("clid") or request.args.get("v") or "").strip()
-        if ((a and c) or f) and all(_AFF_VALUE.match(x) for x in (a, b, c, f)):
-            g.lo_set_aff_cookie = f"{a}-{b}-{c}-{f}"
-        else:
-            cookie = request.cookies.get(AFF_COOKIE) or ""
-            parts = (cookie.split("-") + ["", "", "", ""])[:4]
-            a, b, c, f = parts
-        mkt = session.get("mkt", {}) if isinstance(session.get("mkt", {}), dict) else {}
-        changed = False
-        if a and mkt.get("intent") != "lifecycle" and not mkt.get("src"):
-            mkt["src"], changed = a[:64], True
-        if c and not mkt.get("cmp"):
-            mkt["cmp"], changed = c[:64], True
-        if clid and _AFF_VALUE.match(clid):
-            mkt["tid"], changed = clid[:64], True
-            session["voluum_click_id"] = clid[:128]
-        if changed:
-            session["mkt"] = mkt
 
     @app.before_request
     def _lo_clean_play_urls():

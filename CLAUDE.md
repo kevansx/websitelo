@@ -27,9 +27,9 @@ The owner is Joey. His words: "profitable, significant revenue, excellent SEO, w
 - Local preview: launch entry `lottosonline`, port 8010 (`python app.py`). Without a CRM key: `CRM_FAKE=1` and
   `WEBSITE_ENV=local` in `.env` (`fake_crm.py`, refuses to run anywhere else; its test login is in its docstring).
   `SESSION_COOKIE_SECURE=0` in the local `.env` lets a phone on the LAN log in (http://10.0.0.202:8010).
-- Tests: `python -m pytest -q` (744 passing on 14 Oct 2026). Run them before every commit.
+- Tests: `python -m pytest -q` (851 passing on 5 Nov 2026). Run them before every commit.
 - Email previews (local only): http://localhost:8010/dev/emails. Export the email files: `flask --app app emails-export emails`.
-- URL contract: `python ..\tools\check_contract.py --app` (2,489 of 2,495 pass; the 6 wait on Joey's decisions B1 to B3).
+- URL contract: `python ..\tools\check_contract.py --app` (all 2,495 pass, 5 Nov 2026).
 
 ## Release cadence
 

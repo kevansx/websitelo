@@ -237,6 +237,17 @@ def install() -> None:
     for name, payload in answers.items():
         if hasattr(CRMClient, name):
             setattr(CRMClient, name, make(payload))
+
+    # A Marketing Module offer to look at locally: http://localhost:8010/offer/demo_offer
+    def bundle(self, bundle_slug, *a, **k):
+        if str(bundle_slug).lower() != "demo_offer":
+            raise CRMError("CRM HTTP 404: bundle not found", status_code=404)
+        return {"bundle": {"bundle_slug": "demo_offer", "title": "Try Powerball for less",
+                           "contents_description": "2 Powerball lines for just €5.00!",
+                           "locked_price_base_cents": 500, "base_currency": "EUR",
+                           "items": [{"product_code": "LO-USPOW", "quantity": 2}]}}
+
+    CRMClient.bundle = bundle
     CRMClient.store_game = store_game
     CRMClient.auth_login = auth_login
     CRMClient.auth_register = auth_register

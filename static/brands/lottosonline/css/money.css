@@ -217,6 +217,27 @@ body.lo-engine .lotteryOfferPages .leOfferSummaryLabel { color: var(--ink-muted)
 body.lo-engine .lotteryOfferPages .leOfferTicketSchedule, body.lo-engine .lotteryOfferPages .leOfferSyndicateSchedule,
 body.lo-engine .lotteryOfferPages #leOfferStatus { color: var(--accent-700); }
 body.lo-engine .lotteryOfferPages #main #tickets_section .leOfferTicketState { background-color: var(--surface-sunken); color: var(--ink-muted); }
+/* the masthead stays on the brand's purple, so everything on it is light */
+body.lo-engine .lotteryOfferPages .leOfferMasthead .leOfferEyebrow, body.lo-engine .lotteryOfferPages .leOfferMasthead .leOfferTitle,
+body.lo-engine .lotteryOfferPages .leOfferMasthead .leOfferBlurb, body.lo-engine .lotteryOfferPages .leOfferMasthead .leOfferPriceLabel {
+  color: var(--ink-on-brand);
+}
+/* the single-lottery banner: laid out in a row, not by the engine's fixed positions built for a shorter figure */
+body.lo-engine .lotteryOfferPages #lotteryBanner.leOfferHero { height: auto; min-height: 0; max-height: none; background-size: cover; }
+body.lo-engine .lotteryOfferPages .leOfferHero #bannerContent {
+  position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--space-3); height: auto; padding: var(--space-3) var(--space-4);
+}
+body.lo-engine .lotteryOfferPages .leOfferHero .lotteryBannerBall, body.lo-engine .lotteryOfferPages .leOfferHero .bannerHeader,
+body.lo-engine .lotteryOfferPages .leOfferHero .bannerTimeToDraw {
+  position: static; inset: auto; width: auto; height: auto; margin: 0; transform: none;
+}
+body.lo-engine .lotteryOfferPages .leOfferHero .lotteryBannerBall img { display: block; width: 88px; height: auto; }
+body.lo-engine .lotteryOfferPages .leOfferHero .bannerHeader { flex: 1 1 200px; text-align: center; }
+body.lo-engine .lotteryOfferPages .leOfferHero .bannerHeader p { margin: 0; }
+body.lo-engine .lotteryOfferPages .leOfferHero #bannerJackpotAmount { font-size: clamp(26px, 4vw, 40px); line-height: 1.15; white-space: nowrap; }
+body.lo-engine .lotteryOfferPages .leOfferHero #drawCounterReact { position: static; width: auto; height: auto; margin: 0; padding: 6px 12px; }
+body.lo-engine .lotteryOfferPages .leOfferHero .bannerEighteenPlus { position: absolute; right: 8px; bottom: 4px; }
 
 /* ---------- phones ---------- */
 @media (max-width: 767px) {

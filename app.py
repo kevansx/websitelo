@@ -6280,6 +6280,11 @@ def create_app() -> Flask:
         for _it in items:
             if not isinstance(_it, dict) or _it.get("kind", "single") != "single":
                 continue
+            # A Marketing Module offer is a fixed set marketing chose, built from the bundle at /offer/<slug>/start,
+            # and the CRM re-prices and checks it against the bundle at submit. The play page's minimum lines don't
+            # apply: "1 Powerball line for EUR 2.50" would otherwise be refused at the last step.
+            if _it.get("from_offer") and session.get("checkout_bundle_slug"):
+                continue
             _err = lo_store.cart_item_error(_guard_product(_it.get("product_code")), _it.get("ticket_mode"), _it.get("draw_weeks"))
             _lines = _it.get("lines") if isinstance(_it.get("lines"), list) else []
             if not _err and _lines and len(_lines) < lo_store.min_lines(_it.get("product_code")):
@@ -7676,8 +7681,10 @@ def create_app() -> Flask:
             currency = jackpot.get("currency") or nested.get("currency")
             display = None
             if currency and amount is not None:
+                # The brand's own style where it has one ("US$440 Million"): nine digits don't fit the banner.
+                brand_format = app.jinja_env.globals.get("lo_fmt_jackpot")
                 try:
-                    display = f"{_currency_symbol(str(currency))}{float(amount):,.0f}"
+                    display = brand_format(amount, str(currency)) if brand_format else f"{_currency_symbol(str(currency))}{float(amount):,.0f}"
                 except Exception:
                     display = None
             try:
@@ -7878,6 +7885,7 @@ def create_app() -> Flask:
                     "product_code": code,
                     "lines": [line],
                     "options": {},
+                    "from_offer": True,
                     "game_code": ticket.get("game_code"),
                     "game_name": ticket.get("game_name"),
                 }
