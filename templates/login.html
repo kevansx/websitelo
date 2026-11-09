@@ -9,7 +9,7 @@
 <section class="lo-section">
   <div class="lo-wrap lo-authgrid">
     <div class="lo-panel">
-      <form id="signInForm" class="lo-form" method="post" action="{{ url_for('login_post') }}" novalidate>
+      <form id="signInForm" class="lo-form" method="post" action="{{ url_for('login_post') }}" autocomplete="off" novalidate>
         <input type="hidden" name="next" value="{{ next or '' }}">
         <div class="lo-field">
           <label class="lo-field__label" for="signInEmail">Email</label>
@@ -18,7 +18,7 @@
         <div class="lo-field">
           <label class="lo-field__label" for="signInPassword">Password</label>
           <div class="lo-pw">
-            <input class="lo-input" type="password" name="password" id="signInPassword" autocomplete="current-password" required>
+            <input class="lo-input" type="password" name="password" id="signInPassword" autocomplete="off" required>
             <button class="lo-pw__toggle" type="button" data-pw-toggle="signInPassword" aria-label="Show password" aria-pressed="false">Show</button>
           </div>
         </div>

@@ -428,7 +428,23 @@ def register(app) -> None:
         if val:
             host = (request.host or "").split(":")[0]
             domain = AFF_COOKIE_DOMAIN if host.endswith("lottosonline.com") else None
-            resp.set_cookie(AFF_COOKIE, val, max_age=AFF_MAX_AGE, path="/", domain=domain, samesite="Lax")
+            # Only the server reads it, so HttpOnly; Secure wherever the session cookie is (PCI scan, Nov 2026).
+            resp.set_cookie(AFF_COOKIE, val, max_age=AFF_MAX_AGE, path="/", domain=domain, samesite="Lax",
+                            secure=bool(app.config.get("SESSION_COOKIE_SECURE")), httponly=True)
+        return resp
+
+    @app.post("/cookie-consent")
+    def lo_cookie_consent():
+        """Remember that the cookie banner was accepted.
+
+        The banner set this cookie from JavaScript, which can't mark a cookie HttpOnly, and the PCI scan of the
+        sister site failed it for that (Nov 2026). The page learns it was accepted from base.html, which reads it
+        on the server, so no script needs to read it.
+        """
+        resp = Response("", status=204)
+        resp.set_cookie("cookiePrompt", "on", max_age=24 * 60 * 60, path="/",
+                        secure=bool(app.config.get("SESSION_COOKIE_SECURE")), httponly=True, samesite="Lax")
+        resp.headers["Cache-Control"] = "no-store"
         return resp
 
     # ------------------------------------------------------------------ lottery information pages

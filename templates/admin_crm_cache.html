@@ -98,12 +98,12 @@
         <div style="font-size:12px; opacity:0.85; margin-bottom:8px;">
           Pulls latest LottosOnline code on this server. The GitHub key is write-only and encrypted at rest.
         </div>
-        <form method="post">
+        <form method="post" autocomplete="off">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <input type="hidden" name="action" value="github_pull">
           <div class="form-group">
             <label>Github key</label>
-            <input class="form-control" type="password" name="github_key" value="" placeholder="Paste GitHub Personal Access Token">
+            <input class="form-control" type="password" autocomplete="off" name="github_key" value="" placeholder="Paste GitHub Personal Access Token">
           </div>
           <div style="font-size:12px; opacity:0.85; margin-bottom:8px;">
             User: <code>{{ github_user }}</code><br>

@@ -23,7 +23,7 @@
       {% endif %}
       <p class="lo-flash lo-flash--error" id="registerCountryBlocked" role="alert"{% if not registration_blocked %} hidden{% endif %}>{{ registration_blocked_message }}</p>
 
-      <form id="leRegisterForm" class="lo-form" action="{{ url_for('register_post') }}" method="post" autocomplete="on" novalidate>
+      <form id="leRegisterForm" class="lo-form" action="{{ url_for('register_post') }}" method="post" autocomplete="off" novalidate>
         {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
         <input type="hidden" name="form_token" value="{{ signup_form_token }}">
         <input type="hidden" name="currency" value="EUR">
@@ -55,7 +55,7 @@
         <div class="lo-field">
           <label class="lo-field__label" for="registerPassword">Password *</label>
           <div class="lo-pw">
-            <input class="lo-input" type="password" name="password" id="registerPassword" autocomplete="new-password" minlength="6" required aria-describedby="registerPasswordHint">
+            <input class="lo-input" type="password" name="password" id="registerPassword" autocomplete="off" minlength="6" required aria-describedby="registerPasswordHint">
             <button class="lo-pw__toggle" type="button" data-pw-toggle="registerPassword" aria-label="Show password" aria-pressed="false">Show</button>
           </div>
           <span class="lo-field__hint" id="registerPasswordHint">At least 6 characters.</span>

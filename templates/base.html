@@ -80,7 +80,7 @@
     <script defer src="/resources/js/numberControl.js"></script>
     <script defer src="/resources/js/numberControlPromo.js"></script>
   {% endif %}
-  <script defer src="/resources/js/index.js"></script>
+  <script defer src="{{ lo_engine_asset('js/index.js') }}"></script>
   <script defer src="/resources/js/account.js"></script>
   <script defer src="/resources/js/googleAddress.js"></script>
   {% if not no_analytics %}
@@ -110,7 +110,7 @@
   {{ tags.body_open_tags() }}
 
   {# Legacy cookie banner is injected by /resources/js/index.js before this anchor. #}
-  <div id="cookieWarning" style="display:none;"></div>
+  <div id="cookieWarning" style="display:none;" data-accepted="{{ '1' if request.cookies.get('cookiePrompt') == 'on' else '0' }}"></div>
 
   <div class="LEBGColor"></div>
   {# Legacy React session timer expects this hidden node with elapsed seconds in data-drawdate. #}

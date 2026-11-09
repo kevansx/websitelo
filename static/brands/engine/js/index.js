@@ -69,10 +69,21 @@ $(".addressCity").on('change',function(){
 });
 
 var cookiePromptTest = false;
+// Set when the customer presses Ok, so a page restored from the back/forward
+// cache does not show the banner again from its stale server-rendered flag.
+var cookiePromptAccepted = false;
+
+// The cookiePrompt cookie is HttpOnly (PCI scan, Nov 2026), so script cannot
+// read it. The server reads it and says so on #cookieWarning.
+function cookiePromptIsAccepted() {
+	if (cookiePromptAccepted) return true;
+	var anchor = document.getElementById("cookieWarning");
+	return !!(anchor && anchor.getAttribute("data-accepted") === "1");
+}
 
 function maybeShowCookiePrompt() {
 	// If user already accepted, ensure it's gone.
-	if (!cookiePromptTest && checkCookie("cookiePrompt") === "on") {
+	if (!cookiePromptTest && cookiePromptIsAccepted()) {
 		$("#cookie-prompt").remove();
 		return;
 	}
@@ -86,7 +97,7 @@ function maybeShowCookiePrompt() {
 }
 
 $(function () {
-	if (cookiePromptTest || checkCookie("cookiePrompt") !== "on") {
+	if (cookiePromptTest || !cookiePromptIsAccepted()) {
 		maybeShowCookiePrompt();
 		// Some browsers restore pages from memory or do a fast repaint; ensure the banner "sticks"
 		// unless the cookie has been set.
@@ -97,7 +108,7 @@ $(function () {
 // Handle bfcache restores / SPA-like fast navigations.
 try {
 	window.addEventListener("pageshow", function () {
-		if (cookiePromptTest || checkCookie("cookiePrompt") !== "on") {
+		if (cookiePromptTest || !cookiePromptIsAccepted()) {
 			maybeShowCookiePrompt();
 		}
 	});
@@ -108,15 +119,20 @@ function closeCookiePrompt(e) {
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
 	if (!cookiePromptTest) {
-		createCookie("cookiePrompt", "on", 1);
+		cookiePromptAccepted = true;
+		// The server sets the cookie so it can be HttpOnly and Secure.
+		try {
+			fetch("/cookie-consent", { method: "POST", credentials: "same-origin", keepalive: true });
+		} catch (err) {
+			$.post("/cookie-consent");
+		}
 	}
 	$("#cookie-prompt").remove();
 	$(".navbar-default .container-fluid").css("top","0");
 }
 
-// Note: JavaScript cannot set HttpOnly cookies (this is a browser security feature).
-// This function is used for non-sensitive preference cookies (e.g., cookiePrompt).
-// HttpOnly cookies can only be set server-side and are used for sensitive session data.
+// JavaScript cannot set HttpOnly cookies, and the PCI scan fails any cookie set
+// here. Nothing on the site uses this any more; set cookies from the server.
 function createCookie(name, value, days) {
 	if (days) {
 		var date = new Date();
