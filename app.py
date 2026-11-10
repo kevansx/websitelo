@@ -1725,6 +1725,29 @@ def create_app() -> Flask:
         except CRMError:
             pass
 
+    def _card_expiry(month_raw: Any, year_raw: Any) -> tuple[str, str, str]:
+        """
+        A card's expiry as the processors want it - `MM` and `YYYY` - or an
+        error to show the customer.
+
+        The card form sent what was typed or autofilled, so "2" and "27" could
+        reach the CRM. On Lotto Express, which runs the same engine, Worldpay
+        refused those charges with "Invalid year : 30 Usage: yyyy" (Nov 2026,
+        nine customers). An expired card is caught here rather than declined by
+        the bank.
+        """
+        month = re.sub(r"\D", "", str(month_raw or ""))
+        year = re.sub(r"\D", "", str(year_raw or ""))
+        if len(year) == 2:
+            year = f"20{year}"
+        if not month or len(year) != 4 or not 1 <= int(month) <= 12:
+            return "", "", "Please enter the card's expiry month and year."
+        month = f"{int(month):02d}"
+        now = datetime.now(timezone.utc)
+        if (int(year), int(month)) < (now.year, now.month):
+            return "", "", "This card has expired. Please check the expiry date or use another card."
+        return month, year, ""
+
     def _friendly_crm_error(e: Exception, *, context: str | None = None) -> str:
         """
         Customer-friendly error messaging for CRM outages / upstream HTML error pages.
@@ -10724,6 +10747,10 @@ def create_app() -> Flask:
             cvv = (request.form.get("cvv") or "").strip()
             if not card_number or not exp_month or not exp_year or not cardholder_name or not cvv:
                 flash("Please complete all card fields.", "error")
+                return redirect(pay_url)
+            exp_month, exp_year, expiry_error = _card_expiry(exp_month, exp_year)
+            if expiry_error:
+                flash(expiry_error, "error")
                 return redirect(pay_url)
             save_card = str(request.form.get("save_card") or "").strip() in {"1", "true", "on", "yes"}
             label = (request.form.get("card_label") or "").strip() or None
