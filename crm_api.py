@@ -334,7 +334,7 @@ class CRMClient:
     # is also why every one of these calls has to be made from the server: the
     # key would be readable by anyone if the browser made them.
 
-    def wallet_topup_email_link_context(self, link_token: str) -> Any:
+    def wallet_topup_email_link_context(self, link_token: str, client_ip: str | None = None) -> Any:
         """
         What an emailed payment link is for, without starting anything.
 
@@ -342,12 +342,18 @@ class CRMClient:
         a short-lived session the moment they are contacted, so opening the
         email must not contact them - the customer may read the mail hours
         before paying, and the session would be dead by the time they clicked.
+
+        `client_ip` is the payer's public IPv4. The CRM requires it on
+        payment-link calls (API of 4 Nov 2026) and records it on the intent.
         """
+        body: dict[str, Any] = {"token": str(link_token)}
+        if client_ip:
+            body["client_ip"] = client_ip
         return self._request(
             "POST",
             "/api/v1/wallet/topup/email-link/context",
             service_key=True,
-            json={"token": str(link_token)},
+            json=body,
         )
 
     def wallet_topup_email_link_hpp_start(self, payload: dict[str, Any]) -> Any:

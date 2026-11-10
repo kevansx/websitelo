@@ -10340,16 +10340,31 @@ def create_app() -> Flask:
             )
         )
 
+    def _payment_link_client_ip() -> str | None:
+        """
+        The payer's public IPv4, or nothing.
+
+        The CRM requires it on payment-link calls (API of 4 Nov 2026) and records
+        it on the intent. It wants a public IPv4 only, so anything else (IPv6, a
+        private address from a test box) is left out and the CRM falls back to
+        the brand's configured address.
+        """
+        try:
+            ip = ip_address((_client_ip() or "").strip())
+        except ValueError:
+            return None
+        return str(ip) if ip.version == 4 and ip.is_global else None
+
     def _log_email_link_crm_error(step: str, e: Exception, *secrets: Any) -> None:
         """
         One line in the log when the CRM refuses a payment-link call.
 
         The customer sees a generic page and production has no debug routes, so
         this line is the only record of why. `client_ipv4` is the IPv4 sent as
-        `client_ip`; this site sends none yet, so it reads `-`. `ip_seen` is what
-        the site detected, or `v6` for IPv6. The 4 Nov 2026 API requires
-        `client_ip` on these calls, and its absence is the suspected cause of the
-        same failures on Winnow (Nov 2026). The CRM's message is cut to one line
+        `client_ip`, or `-` when there was none to send. `ip_seen` is what the
+        site detected, or `v6` for IPv6. The 4 Nov 2026 API requires `client_ip`
+        on these calls, and its absence is the suspected cause of the same
+        failures on Winnow (Nov 2026). The CRM's message is cut to one line
         of 300 characters, with the link token, anything the customer typed and
         anything shaped like a card number taken out.
         """
@@ -10368,7 +10383,7 @@ def create_app() -> Flask:
                 "email_link_crm_error step=%s status=%s client_ipv4=%s ip_seen=%s err=%s",
                 step,
                 getattr(e, "status_code", None) or "-",
-                "-",
+                _payment_link_client_ip() or "-",
                 "v6" if ":" in seen else (seen or "-"),
                 " ".join(message.split())[:300] or "-",
             )
@@ -10378,7 +10393,7 @@ def create_app() -> Flask:
     def _payment_link_context_or_page(token: str):
         """The link's context, or the page to show instead."""
         try:
-            return get_crm().wallet_topup_email_link_context(token), None
+            return get_crm().wallet_topup_email_link_context(token, _payment_link_client_ip()), None
         except CRMError as e:
             _log_email_link_crm_error("context", e, token)
             status = getattr(e, "status_code", None)
@@ -10462,6 +10477,9 @@ def create_app() -> Flask:
             },
         }
         payload.update(values)
+        client_ip = _payment_link_client_ip()
+        if client_ip:
+            payload["client_ip"] = client_ip
 
         try:
             resp = get_crm().wallet_topup_email_link_hpp_start(payload)

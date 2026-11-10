@@ -5,9 +5,10 @@ When the CRM refused a payment-link call, the customer saw a generic page and
 the CRM's reason was lost, because production has no debug routes. Each
 refusal of the context or hosted-start call now writes one
 `email_link_crm_error` warning. It gives the step, the CRM's status and
-message, and the IP the site saw. `client_ipv4` reads `-` because this site
-does not send `client_ip` yet. The 4 Nov API requires it, and its absence was
-the suspected cause of the same failures on Winnow (Nov 2026).
+message, the public IPv4 sent as `client_ip` (or `-` if there was none), and
+the IP the site saw. The 4 Nov API requires `client_ip`, and its absence for
+IPv6 customers was the suspected cause of the same failures on Winnow
+(Nov 2026).
 
 The link token and anything the customer typed must never reach that line.
 """
@@ -49,7 +50,7 @@ def test_a_refused_hosted_start_is_logged(link, calls, monkeypatch, caplog):  # 
         link.post(PAY_URL, data={"rfc": RFC, "curp": CURP}, headers={"X-Forwarded-For": "86.48.8.213"})
 
     assert _lines(caplog) == [
-        "email_link_crm_error step=hpp_start status=403 client_ipv4=- ip_seen=86.48.8.213 "
+        "email_link_crm_error step=hpp_start status=403 client_ipv4=86.48.8.213 ip_seen=86.48.8.213 "
         "err=hosted checkout is not allowed"
     ]
 

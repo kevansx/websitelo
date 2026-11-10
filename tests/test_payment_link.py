@@ -111,7 +111,7 @@ def test_a_provider_that_asks_for_nothing_gets_no_form(anon_client, stub_crm, mo
     monkeypatch.setattr(
         CRMClient,
         "wallet_topup_email_link_context",
-        lambda self, t: {"intent": {"id": 7, "status": "pending", "amount_cents": 5000, "currency": "USD"}},
+        lambda self, t, client_ip=None: {"intent": {"id": 7, "status": "pending", "amount_cents": 5000, "currency": "USD"}},
     )
     anon_client.get(f"{PAY_URL}?token={TOKEN}")
 
@@ -129,7 +129,7 @@ def test_a_dead_link_says_so_where_it_was_clicked(anon_client, stub_crm, monkeyp
     monkeypatch.setattr(
         CRMClient,
         "wallet_topup_email_link_context",
-        lambda self, t: (_ for _ in ()).throw(CRMError("CRM HTTP 404: not found", status_code=404)),
+        lambda self, t, client_ip=None: (_ for _ in ()).throw(CRMError("CRM HTTP 404: not found", status_code=404)),
     )
 
     resp = anon_client.get(f"{PAY_URL}?token={TOKEN}", follow_redirects=True)
@@ -264,7 +264,7 @@ def test_the_token_is_not_logged_either(anon_client, stub_crm, monkeypatch, capl
     monkeypatch.setattr(
         CRMClient,
         "wallet_topup_email_link_context",
-        lambda self, t: (_ for _ in ()).throw(
+        lambda self, t, client_ip=None: (_ for _ in ()).throw(
             CRMError(f"CRM HTTP 401: bad token {t}", status_code=401, payload={"error": f"bad token {t}"})
         ),
     )
