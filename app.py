@@ -10340,11 +10340,47 @@ def create_app() -> Flask:
             )
         )
 
+    def _log_email_link_crm_error(step: str, e: Exception, *secrets: Any) -> None:
+        """
+        One line in the log when the CRM refuses a payment-link call.
+
+        The customer sees a generic page and production has no debug routes, so
+        this line is the only record of why. `client_ipv4` is the IPv4 sent as
+        `client_ip`; this site sends none yet, so it reads `-`. `ip_seen` is what
+        the site detected, or `v6` for IPv6. The 4 Nov 2026 API requires
+        `client_ip` on these calls, and its absence is the suspected cause of the
+        same failures on Winnow (Nov 2026). The CRM's message is cut to one line
+        of 300 characters, with the link token, anything the customer typed and
+        anything shaped like a card number taken out.
+        """
+        try:
+            seen = str(_client_ip() or "").strip()
+            payload = getattr(e, "payload", None)
+            said = ""
+            if isinstance(payload, dict):
+                said = next(
+                    (str(payload[k]) for k in ("error", "message", "detail") if str(payload.get(k) or "").strip()), ""
+                )
+            raw = said or re.sub(r"^CRM HTTP \d+:\s*", "", str(e or ""))
+            message = _payment_link_scrub(raw, *(str(s) for s in secrets if s))
+            message = re.sub(r"\d{12,19}", "[redacted]", message)
+            app.logger.warning(
+                "email_link_crm_error step=%s status=%s client_ipv4=%s ip_seen=%s err=%s",
+                step,
+                getattr(e, "status_code", None) or "-",
+                "-",
+                "v6" if ":" in seen else (seen or "-"),
+                " ".join(message.split())[:300] or "-",
+            )
+        except Exception:
+            pass
+
     def _payment_link_context_or_page(token: str):
         """The link's context, or the page to show instead."""
         try:
             return get_crm().wallet_topup_email_link_context(token), None
         except CRMError as e:
+            _log_email_link_crm_error("context", e, token)
             status = getattr(e, "status_code", None)
             app.logger.warning(
                 "payment link context refused: status=%s body=%s",
@@ -10430,6 +10466,7 @@ def create_app() -> Flask:
         try:
             resp = get_crm().wallet_topup_email_link_hpp_start(payload)
         except CRMError as e:
+            _log_email_link_crm_error("hpp_start", e, token, *values.values())
             app.logger.warning(
                 "payment link start refused: status=%s body=%s",
                 getattr(e, "status_code", None),
