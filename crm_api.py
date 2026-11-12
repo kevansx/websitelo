@@ -4,6 +4,7 @@ import json as jsonlib
 import os
 from dataclasses import dataclass
 from typing import Any
+from urllib.parse import quote
 
 import requests
 
@@ -68,8 +69,12 @@ class CRMClient:
         params: dict[str, Any] | None = None,
         json: Any | None = None,
         timeout_seconds: int | None = None,
+        extra_headers: dict[str, str] | None = None,
     ) -> Any:
         url = f"{self.cfg.base_url}{path}"
+        headers = self._headers(service_key=service_key, token=token)
+        if extra_headers:
+            headers.update({k: v for k, v in extra_headers.items() if v})
         debug_quotes = (os.environ.get("CRM_QUOTE_DEBUG", "").strip() == "1")
         is_checkout_quote = method.upper() == "POST" and path == "/api/v1/checkout/quote"
         if debug_quotes and is_checkout_quote:
@@ -81,7 +86,7 @@ class CRMClient:
         r = self.session.request(
             method,
             url,
-            headers=self._headers(service_key=service_key, token=token),
+            headers=headers,
             params=params,
             json=json,
             timeout=int(timeout_seconds) if timeout_seconds is not None else self.cfg.timeout_seconds,
@@ -354,6 +359,78 @@ class CRMClient:
             "/api/v1/wallet/topup/email-link/context",
             service_key=True,
             json=body,
+        )
+
+    # --- Custom offer links (spec v2, section 5) ---
+    # Server to server only, with the service key. Every call carries the page
+    # load's X-Request-Id and the customer's own IP and browser, never ours.
+    def custom_offer_get(
+        self,
+        code: str,
+        view: str,
+        request_id: str,
+        client_ip: str | None,
+        user_agent: str | None,
+        accept_language: str | None,
+    ) -> Any:
+        """5.1: the offer and its latest payment attempt. `view` is page, done or poll."""
+        params = {"view": view}
+        for k, v in (("client_ip", client_ip), ("user_agent", user_agent), ("accept_language", accept_language)):
+            if v:
+                params[k] = v
+        return self._request(
+            "GET",
+            f"/api/v1/custom-offers/{quote(str(code), safe='')}",
+            service_key=True,
+            params=params,
+            timeout_seconds=10,
+            extra_headers={"X-Request-Id": request_id},
+        )
+
+    def custom_offer_pay(
+        self,
+        code: str,
+        return_url: str,
+        request_id: str,
+        client_ip: str | None,
+        user_agent: str | None,
+        accept_language: str | None,
+    ) -> Any:
+        """5.2: start the payment. Answers what the existing wallet top-up answers, under `next`."""
+        body: dict[str, Any] = {"return_url": return_url}
+        for k, v in (("client_ip", client_ip), ("user_agent", user_agent), ("accept_language", accept_language)):
+            if v:
+                body[k] = v
+        return self._request(
+            "POST",
+            f"/api/v1/custom-offers/{quote(str(code), safe='')}/pay",
+            service_key=True,
+            json=body,
+            timeout_seconds=25,
+            extra_headers={"X-Request-Id": request_id},
+        )
+
+    def custom_offer_events(
+        self,
+        code: str,
+        request_id: str,
+        client_ip: str | None,
+        user_agent: str | None,
+        events: list[dict[str, Any]],
+    ) -> Any:
+        """5.4: record page events, at most 50 a call. The CRM always answers quickly."""
+        body: dict[str, Any] = {"request_id": request_id, "events": list(events)[:50]}
+        if client_ip:
+            body["client_ip"] = client_ip
+        if user_agent:
+            body["user_agent"] = user_agent
+        return self._request(
+            "POST",
+            f"/api/v1/custom-offers/{quote(str(code), safe='')}/events",
+            service_key=True,
+            json=body,
+            timeout_seconds=5,
+            extra_headers={"X-Request-Id": request_id},
         )
 
     def wallet_topup_email_link_hpp_start(self, payload: dict[str, Any]) -> Any:

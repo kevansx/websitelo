@@ -74,6 +74,9 @@ The owner is Joey. His words: "profitable, significant revenue, excellent SEO, w
 - `lo_push.py` web push (VAPID; never rotate keys), `lo_alerts.py` jackpot alerts (push first, email second).
 - `lo_members.py` weekly syndicates (LO-USPOW-W €3.90, LO-USMEG-W €5.00, LO-EUEUR-W €2.95).
 - `lo_withdraw.py` withdrawal requests to support (off unless `LO_WITHDRAWALS_ON=1`; no promised turnaround).
+- `lo_custom_offers.py` custom offer links `/o/<code>`, `/done`, `/t` (spec: `docs/custom-offer-links-spec.md`, v2;
+  off unless `CUSTOM_OFFERS_ENABLED=1`). Standalone template `templates/lo/custom_offer.html`; pays through the
+  payment link's `_hosted_start_redirect`; demo codes in `fake_crm.FakeCustomOffers`.
 - `lo_recover.py` abandoned-checkout reminders (30 min, 24 h). `lo_mail.py` the one email sender (SMTP or
   `data/outbox`), `send_template()` for designed emails. `lo_emails.py` all 24 email designs (SendGrid Handlebars),
   `lo_hbs.py` the renderer.

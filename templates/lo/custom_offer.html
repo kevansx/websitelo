@@ -1,0 +1,179 @@
+<!doctype html>
+{#- Custom offer links (lo_custom_offers.py). Deliberately standalone: it must not extend the site's
+    base layout, so no analytics, push prompt, banner, chat or home-screen prompt can load here, and no
+    third-party request can carry the code. System fonts only; one first-party inline script. -#}
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>{% if state == 'offer' %}Your offer | {% elif state == 'paid' %}Payment received | {% endif %}Lottos Online</title>
+<link rel="icon" href="/static/brands/lottosonline/img/favicon.ico">
+<style>
+:root{--brand:#582178;--brand-deep:#3e1456;--ink:#1d1324;--muted:#5f5468;--page:#f7f5fa;--card:#fff;--line:#e4dcec;--ok:#1d7a46;--bad:#a3261d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
+.top{background:var(--brand);padding:14px 16px;text-align:center}
+.top img{height:30px;width:auto;display:inline-block}
+main{max-width:480px;margin:0 auto;padding:20px 16px 32px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:0 1px 2px rgba(29,19,36,.05)}
+h1{font-size:20px;line-height:1.3;margin:0 0 12px}
+.desc{font-size:17px;margin:0 0 16px;white-space:pre-line}
+.amount{font-size:40px;font-weight:700;letter-spacing:-.5px;margin:4px 0 2px;color:var(--brand-deep)}
+.small{font-size:14px;color:var(--muted);margin:8px 0}
+.btn{display:block;width:100%;border:0;border-radius:10px;background:var(--brand);color:#fff;font:inherit;font-size:18px;font-weight:700;padding:15px 16px;margin:18px 0 6px;cursor:pointer;text-align:center;text-decoration:none}
+.btn[disabled]{opacity:.7;cursor:wait}
+.alert{border-radius:10px;padding:12px 14px;margin:0 0 16px;background:#fbeceb;color:var(--bad);font-size:15px}
+.good{color:var(--ok)}
+.linkish{background:none;border:0;padding:0;font:inherit;font-size:14px;color:var(--brand);text-decoration:underline;cursor:pointer}
+.contact{font-size:14px;color:var(--muted);margin:18px 0 0;border-top:1px solid var(--line);padding-top:14px}
+.contact a{color:var(--brand)}
+.ref{font-size:13px;color:var(--muted);margin:10px 0 0}
+.foot{font-size:12px;color:var(--muted);text-align:center;margin:18px 0 0}
+.spin{width:34px;height:34px;border:4px solid var(--line);border-top-color:var(--brand);border-radius:50%;margin:6px auto 14px;animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body data-state="{{ state }}">
+<header class="top"><img src="/static/brands/lottosonline/img/logo-on-dark.webp" alt="Lottos Online" width="197" height="30"></header>
+<main>
+<div class="card">
+{%- macro contact_line() -%}
+<p class="contact">Questions? Call <a href="tel:{{ contact.phone|replace(' ', '') }}">{{ contact.phone }}</a>
+{%- if contact.whatsapp %}, WhatsApp <a href="https://wa.me/{{ contact.whatsapp|replace('+', '')|replace(' ', '') }}" rel="noreferrer">{{ contact.whatsapp }}</a>{% endif %}
+ or email <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>.</p>
+{%- endmacro -%}
+{%- macro call_me(label='Ask us to call you') -%}
+{% if code %}<form class="callme" method="post" action="/o/{{ code }}/call"><input type="hidden" name="rid" value="{{ rid }}"><input type="hidden" name="state" value="{{ state }}"><button type="submit" class="linkish">{{ label }}</button></form>
+<p class="small good called" hidden>Thanks, we'll call you shortly.</p>{% endif %}
+{%- endmacro -%}
+
+{% if state == 'offer' %}
+  {% if error %}<p class="alert" role="alert">{{ error }} <span class="ref">Reference: {{ ref }}</span></p>{% endif %}
+  <h1>Hi{% if first_name %} {{ first_name }}{% endif %}, here is the offer we discussed</h1>
+  <p class="desc">{{ offer.description }}</p>
+  <p class="amount">{{ amount }}</p>
+  {% if charge %}<p class="small">Your card will be charged {{ charge }}.</p>{% endif %}
+  <form id="payform" method="post" action="/o/{{ code }}/pay">
+    <input type="hidden" name="rid" value="{{ rid }}">
+    <button id="paybtn" class="btn" type="submit">Pay {{ amount }}</button>
+  </form>
+  {% if offer.statement_descriptor %}<p class="small">This will show on your statement as {{ offer.statement_descriptor }}.</p>{% endif %}
+  <p class="small">Paying adds {{ amount }} to your Lottos Online account; your agent will place your tickets.</p>
+  {{ contact_line() }}
+  {{ call_me() }}
+
+{% elif state == 'paid' %}
+  <h1 class="good">Payment received, thank you.</h1>
+  <p>Your agent will confirm your tickets shortly.</p>
+  {{ contact_line() }}
+
+{% elif state == 'checking' %}
+  <div id="checking"><div class="spin" aria-hidden="true"></div>
+  <h1 style="text-align:center">Checking your payment with your bank…</h1>
+  <p class="small" style="text-align:center">This usually takes a few seconds. Please keep this page open.</p></div>
+  <div id="ok" hidden><h1 class="good">Payment received, thank you.</h1><p>Your agent will confirm your tickets shortly.</p></div>
+  <div id="fail" hidden><p class="alert" role="alert"><span id="failmsg"></span></p>
+    <p id="notcharged">{{ not_charged }}</p>
+    <a id="retry" class="btn" href="/o/{{ code }}" hidden>Try again</a></div>
+  <div id="slow" hidden><h1>Your bank hasn't confirmed yet.</h1><p>We'll let you know as soon as it's confirmed.</p></div>
+  {{ contact_line() }}
+  <div id="callwrap" hidden>{{ call_me() }}</div>
+  <p class="ref">Reference: {{ ref }}</p>
+
+{% elif state == 'failed' %}
+  <p class="alert" role="alert">{{ message or "Your payment didn't go through." }}</p>
+  {% if not_charged not in (message or '') %}<p>{{ not_charged }}</p>{% endif %}
+  {% if can_retry %}<a class="btn" href="/o/{{ code }}">Try again</a>{{ call_me() }}{% else %}{{ call_me() }}{% endif %}
+  {{ contact_line() }}
+  <p class="ref">Reference: {{ ref }}</p>
+
+{% elif state == 'not_completed' %}
+  <h1>Your payment wasn't completed.</h1>
+  <p>{{ not_charged }}</p>
+  <a class="btn" href="/o/{{ code }}">Try again</a>
+  {{ call_me() }}
+  {{ contact_line() }}
+  <p class="ref">Reference: {{ ref }}</p>
+
+{% elif state == 'unavailable' %}
+  <h1>This offer is no longer available.</h1>
+  <p>Please contact us and we'll send you a new one.</p>
+  {{ contact_line() }}
+  {{ call_me() }}
+
+{% elif state == 'called' %}
+  <h1 class="good">Thanks, we'll call you shortly.</h1>
+  {{ contact_line() }}
+
+{% elif state == 'handover' %}
+  <h1 style="text-align:center">Connecting to secure payment…</h1>
+  <form id="handover" method="{{ form.method or 'post' }}" action="{{ form.action_url }}">
+    {% for k, v in (form.form_fields or {}).items() %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endfor %}
+    <noscript><button class="btn" type="submit">Continue to payment</button></noscript>
+  </form>
+
+{% else %}{# error #}
+  <h1>{{ error or "Sorry, we couldn't load this offer right now." }}</h1>
+  {% if not error %}<p>Please try again in a minute.</p>{% endif %}
+  {{ contact_line() }}
+  {{ call_me() }}
+  <p class="ref">Reference: {{ ref }}</p>
+{% endif %}
+</div>
+<p class="foot">18+ · Please play responsibly.</p>
+</main>
+{% if code %}
+<script>
+(function(){
+"use strict";
+var U="/o/{{ code }}/t",R="{{ rid }}",S=document.body.getAttribute("data-state"),q=[],errs=0,shown=0,last=S;
+function now(){try{return Math.round(performance.now());}catch(e){return 0;}}
+function ev(n,d){if(q.length<50)q.push({event:n,at:new Date().toISOString(),detail:d||{}});}
+function send(){if(!q.length)return;var b=JSON.stringify({request_id:R,events:q.splice(0,50)});
+ try{if(navigator.sendBeacon&&navigator.sendBeacon(U,new Blob([b],{type:"text/plain"})))return;}catch(e){}
+ try{fetch(U,{method:"POST",body:b,keepalive:true,credentials:"omit",headers:{"Content-Type":"text/plain"}});}catch(e){}}
+window.addEventListener("error",function(e){if(errs>=5)return;errs++;
+ ev("js_error",{message:String(e.message||"").slice(0,200),source:String(e.filename||"").split(/[?#]/)[0].slice(0,200),line:e.lineno||0});send();});
+window.addEventListener("unhandledrejection",function(e){if(errs>=5)return;errs++;
+ var r=e&&e.reason;ev("js_error",{message:String((r&&r.message)||r||"").slice(0,200),source:"promise",line:0});send();});
+function info(){var u=navigator.userAgent||"",d={};
+ d.in_app=/WhatsApp/i.test(u)?"WhatsApp":/Instagram/i.test(u)?"Instagram":/FBAN|FBAV|FB_IAB/i.test(u)?"Facebook":/musical_ly|TikTok|Bytedance/i.test(u)?"TikTok":"none";
+ d.os=/Android/i.test(u)?"Android":/iPhone|iPad|iPod/i.test(u)?"iOS":/Windows/i.test(u)?"Windows":/Mac OS X/i.test(u)?"macOS":/Linux/i.test(u)?"Linux":"other";
+ var m=u.match(/(SamsungBrowser|Edg|OPR|Firefox|FxiOS|CriOS|Chrome|Version)\/([\d.]+)/);
+ d.browser=m?({Edg:"Edge",OPR:"Opera",FxiOS:"Firefox",CriOS:"Chrome",Version:"Safari"}[m[1]]||m[1])+" "+m[2].split(".")[0]:"other";
+ d.viewport=(window.innerWidth||0)+"x"+(window.innerHeight||0);d.language=navigator.language||"";
+ try{d.timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch(e){d.timezone="";}
+ var c=navigator.connection||navigator.mozConnection||navigator.webkitConnection;d.connection=c&&c.effectiveType?c.effectiveType:"unknown";
+ d.cookies=!!navigator.cookieEnabled;d.ms=now();
+ try{var p=performance.getEntriesByType("paint");for(var i=0;i<p.length;i++)if(p[i].name==="first-contentful-paint")d.ms=Math.round(p[i].startTime);}catch(e){}
+ return d;}
+try{ev("page_rendered",info());send();shown=now();}catch(e){}
+var pf=document.getElementById("payform"),pb=document.getElementById("paybtn");
+if(pf&&pb){pf.addEventListener("submit",function(e){if(pb.disabled){e.preventDefault();return;}
+ pb.disabled=true;pb.textContent="Connecting to secure payment…";last="pay_clicked";ev("pay_clicked",{ms:now()-shown});send();});}
+var forms=document.querySelectorAll("form.callme");
+for(var i=0;i<forms.length;i++){(function(f){f.addEventListener("submit",function(e){
+ var b=JSON.stringify({request_id:R,events:[{event:"callback_requested",at:new Date().toISOString(),detail:{state:last}}]});
+ var sent=false;try{sent=!!(navigator.sendBeacon&&navigator.sendBeacon(U,new Blob([b],{type:"text/plain"})));}catch(x){}
+ if(!sent)return;e.preventDefault();f.hidden=true;var t=f.nextElementSibling;if(t)t.hidden=false;});})(forms[i]);}
+window.addEventListener("pagehide",function(){ev("left_page",{last_state:last});send();});
+var ho=document.getElementById("handover");if(ho){setTimeout(function(){ho.submit();},50);}
+if(S==="checking"){var n=0,max={{ (poll_for_seconds // poll_seconds)|int }};
+ function show(id){var el=document.getElementById(id);if(el)el.hidden=false;var c=document.getElementById("checking");if(c)c.hidden=true;}
+ function poll(){n++;fetch("/o/{{ code }}/status?rid="+encodeURIComponent(R),{credentials:"omit",cache:"no-store"})
+  .then(function(r){return r.json();}).then(function(j){var s=j&&j.state;
+   if(s==="succeeded"){last="paid";show("ok");return;}
+   if(s==="declined"||s==="failed_technical"){last="declined";document.getElementById("failmsg").textContent=j.message||"Your payment didn't go through.";
+    if(j.message&&j.message.indexOf("{{ not_charged }}")>=0)document.getElementById("notcharged").hidden=true;
+    if(j.can_retry)document.getElementById("retry").hidden=false;show("fail");document.getElementById("callwrap").hidden=false;return;}
+   if(n<max)setTimeout(poll,{{ poll_seconds * 1000 }});else{last="still_checking";show("slow");document.getElementById("callwrap").hidden=false;}})
+  .catch(function(){if(n<max)setTimeout(poll,{{ poll_seconds * 1000 }});else{show("slow");document.getElementById("callwrap").hidden=false;}});}
+ setTimeout(poll,{{ poll_seconds * 1000 }});}
+})();
+</script>
+{% endif %}
+</body>
+</html>

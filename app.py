@@ -12206,6 +12206,10 @@ def create_app() -> Flask:
         "store_games_cached": store_games_cached,
         "jackpots_live_or_cache": _get_jackpots_live_or_cache,
         "get_crm": get_crm,
+        # Custom offer links hand over to a payment exactly as the emailed payment link does.
+        "client_ip": _client_ip,
+        "payment_link_client_ip": _payment_link_client_ip,
+        "hosted_start_redirect": _hosted_start_redirect,
     }
     import lo_routes
     lo_routes.register(app)
@@ -12231,6 +12235,8 @@ def create_app() -> Flask:
     lo_referral.register(app)
     import lo_optin
     lo_optin.register(app)
+    import lo_custom_offers
+    lo_custom_offers.register(app)
 
     return app
 

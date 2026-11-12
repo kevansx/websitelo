@@ -116,6 +116,124 @@ def _game(lot) -> dict:
             "single_products": [base, *tier_products], "single_product": base, "syndicate_products": subs}
 
 
+class FakeCustomOffers:
+    """
+    The three custom-offer endpoints (spec v2, 5.1, 5.2 and 5.4), answered from memory.
+
+    One demo code per state the pages handle, so each can be opened locally at
+    http://localhost:8010/o/<code> and the test suite can walk the same states. Paying an
+    open offer "goes to the processor" by returning straight to the done page, where the
+    payment is in progress for two polls and then succeeds.
+    """
+
+    OPEN = "demoOpenOffer000000001"
+    OPEN_FX = "demoOpenFxOffer0000002"
+    PAID = "demoPaidOffer000000003"
+    EXPIRED = "demoExpiredOffer000004"
+    CANCELLED = "demoCancelledOffer0005"
+    DECLINED = "demoDeclinedOffer00006"
+    TECH_FAIL = "demoTechFailOffer00007"
+    REFUSED = "demoRefusedOffer000008"
+    SLOW = "demoSlowCrmOffer000009"
+    FORM_POST = "demoFormPostOffer00010"
+
+    MESSAGES = {
+        "insufficient_funds": "Your bank declined the payment because of insufficient funds. You have not been charged.",
+        "technical": "Something went wrong connecting to the payment provider. You have not been charged. "
+                     "Please try again in a minute.",
+    }
+
+    def __init__(self) -> None:
+        def offer(status="open", amount=15000, currency="USD", charge=None, payment=None):
+            return {"status": status, "amount_cents": amount, "currency": currency,
+                    "charge": charge or {"amount_cents": amount, "currency": currency}, "payment": payment}
+
+        none = {"state": "none", "category": None, "customer_message": None, "can_retry": True}
+        self.offers: dict[str, dict] = {
+            self.OPEN: offer(payment=dict(none)),
+            self.OPEN_FX: offer(amount=10000, currency="EUR", charge={"amount_cents": 11650, "currency": "USD"},
+                                payment=dict(none)),
+            self.PAID: offer(status="paid", payment={"state": "succeeded", "category": None,
+                                                     "customer_message": None, "can_retry": False}),
+            self.EXPIRED: offer(status="expired", payment=dict(none)),
+            self.CANCELLED: offer(status="cancelled", payment=dict(none)),
+            self.DECLINED: offer(payment={"state": "declined", "category": "insufficient_funds",
+                                          "customer_message": self.MESSAGES["insufficient_funds"], "can_retry": True}),
+            self.TECH_FAIL: offer(payment={"state": "failed_technical", "category": "technical",
+                                           "customer_message": self.MESSAGES["technical"], "can_retry": False}),
+            self.REFUSED: offer(payment=dict(none)),
+            self.FORM_POST: offer(payment=dict(none)),
+        }
+        self.polls: dict[str, int] = {}
+        self.calls: list[tuple[str, dict]] = []
+        self.events: list[dict] = []
+        self.unreachable = False
+
+    def _check(self, code: str) -> dict:
+        import requests
+        from crm_api import CRMError
+
+        if self.unreachable or code == self.SLOW:
+            raise requests.Timeout("fake CRM: timed out")
+        found = self.offers.get(code)
+        if found is None:
+            raise CRMError("CRM HTTP 404: not found", status_code=404, payload={"ok": False})
+        return found
+
+    def get(self, code, view, request_id, client_ip, user_agent, accept_language):
+        self.calls.append(("get", {"code": code, "view": view, "request_id": request_id, "client_ip": client_ip,
+                                   "user_agent": user_agent, "accept_language": accept_language}))
+        o = self._check(code)
+        pay = o.get("payment") or {}
+        if view in ("done", "poll") and pay.get("state") == "in_progress":
+            self.polls[code] = self.polls.get(code, 0) + 1
+            if self.polls[code] > 2:
+                pay.update(state="succeeded", can_retry=False)
+                o["status"] = "paid"
+        return {"ok": True, "status": o["status"], "description": "Powerball, 10 lines for the next 4 draws",
+                "amount_cents": o["amount_cents"], "currency": o["currency"], "charge": dict(o["charge"]),
+                "statement_descriptor": "LOTTOSONLINE.COM", "first_name": "Ahmed",
+                "expires_at": "2026-11-15T14:00:00Z", "payment": dict(pay) if pay else None}
+
+    def pay(self, code, return_url, request_id, client_ip, user_agent, accept_language):
+        self.calls.append(("pay", {"code": code, "return_url": return_url, "request_id": request_id,
+                                   "client_ip": client_ip, "user_agent": user_agent,
+                                   "accept_language": accept_language}))
+        o = self._check(code)
+        if o["status"] == "paid":
+            return {"ok": False, "error": "This offer has already been paid. Thank you!"}
+        if o["status"] != "open":
+            return {"ok": False, "error": "This offer is no longer available."}
+        if code == self.REFUSED:
+            return {"ok": False, "error": "We can't take a payment from your country with this offer. "
+                                          "Please ask us to call you."}
+        if code == self.FORM_POST:
+            return {"ok": True, "next": {"mode": "hpp_redirect", "redirect": {
+                "action_url": return_url, "method": "get", "form_fields": {"fake": "1"}}}}
+        o["payment"] = {"state": "in_progress", "category": None, "customer_message": None, "can_retry": False}
+        self.polls[code] = 0
+        return {"ok": True, "next": {"mode": "hpp_redirect", "intent_id": 4242, "redirect_url": return_url}}
+
+    def record(self, code, request_id, client_ip, user_agent, events):
+        import requests
+
+        if self.unreachable:
+            raise requests.ConnectionError("fake CRM: unreachable")
+        self.calls.append(("events", {"code": code, "request_id": request_id, "client_ip": client_ip,
+                                      "user_agent": user_agent}))
+        self.events.extend({"code": code, **e} for e in events)
+        return {"ok": True}
+
+    def patch(self, setattr_) -> "FakeCustomOffers":
+        """Put this store behind CRMClient, with `setattr` or a pytest monkeypatch's `setattr`."""
+        from crm_api import CRMClient
+
+        setattr_(CRMClient, "custom_offer_get", lambda _s, *a, **k: self.get(*a, **k))
+        setattr_(CRMClient, "custom_offer_pay", lambda _s, *a, **k: self.pay(*a, **k))
+        setattr_(CRMClient, "custom_offer_events", lambda _s, *a, **k: self.record(*a, **k))
+        return self
+
+
 def enabled() -> bool:
     import sys
     # Never under the test suite: the tests stub the CRM themselves and a local .env must not override them.
@@ -248,6 +366,8 @@ def install() -> None:
                            "items": [{"product_code": "LO-USPOW", "quantity": 2}]}}
 
     CRMClient.bundle = bundle
+    # Custom offer links: http://localhost:8010/o/demoOpenOffer000000001 (other states: FakeCustomOffers)
+    FakeCustomOffers().patch(setattr)
     CRMClient.store_game = store_game
     CRMClient.auth_login = auth_login
     CRMClient.auth_register = auth_register
