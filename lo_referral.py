@@ -220,7 +220,8 @@ def _reward(friend_id: int, order_id: Any, now: datetime) -> None:
                 "friend_first_name": r["friend_first_name"] or "Your friend", "referrer_first_name": ref_name or "your friend",
                 "is_referrer": is_referrer, "pack_url": f"{lo_mail.SITE_URL}/packs/{pack['pack_id']}",
                 "pack_is_gold": False, "referral_url": f"{lo_mail.SITE_URL}/account/refer",
-            }, kind="referral-reward")
+            }, kind="referral-reward", customer_id=r["referrer_id"] if is_referrer else friend_id,
+                unique=f"{friend_id}-{'referrer' if is_referrer else 'friend'}")
 
 
 def approve(friend_id: int, now: datetime | None = None) -> bool:
@@ -274,7 +275,7 @@ def invite(customer_id: int, first_name: str | None, email: str, message: str | 
     lo_mail.send_template(email, "refer_friend_invite", {
         "referrer_first_name": (first_name or "A friend").strip(), "invite_url": link_for(customer_id, first_name),
         "message": (str(message or "").strip()[:300] or None),
-    }, kind="referral-invite")
+    }, kind="referral-invite", customer_id=customer_id, unique=f"{int(customer_id)}-{now.strftime('%Y%m%d%H%M%S%f')}")
     return "sent"
 
 

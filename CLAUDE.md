@@ -77,6 +77,9 @@ The owner is Joey. His words: "profitable, significant revenue, excellent SEO, w
 - `lo_custom_offers.py` custom offer links `/o/<code>`, `/done`, `/t` (spec: `docs/custom-offer-links-spec.md`, v2;
   off unless `CUSTOM_OFFERS_ENABLED=1`). Standalone template `templates/lo/custom_offer.html`; pays through the
   payment link's `_hosted_start_redirect`; demo codes in `fake_crm.FakeCustomOffers`.
+- `lo_crm_emails.py` the 13 emails moving off the site (plan 18 Nov 2026): off unless `LO_EMAILS_VIA_CRM=1`; then
+  11 are posted as `email_requested` events via `lo_mail.send_template` and the CRM's two are skipped. Test fire
+  `/account/email-test-fire` on test hosts for `LO_TEST_CUSTOMER_IDS` only.
 - `lo_recover.py` abandoned-checkout reminders (30 min, 24 h). `lo_mail.py` the one email sender (SMTP or
   `data/outbox`), `send_template()` for designed emails. `lo_emails.py` all 24 email designs (SendGrid Handlebars),
   `lo_hbs.py` the renderer.

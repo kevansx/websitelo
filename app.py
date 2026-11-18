@@ -12237,6 +12237,8 @@ def create_app() -> Flask:
     lo_optin.register(app)
     import lo_custom_offers
     lo_custom_offers.register(app)
+    import lo_crm_emails
+    lo_crm_emails.register(app)
 
     return app
 

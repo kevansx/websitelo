@@ -147,6 +147,9 @@ def send_welcome_friend(customer: dict, *, referrer_first_name: str | None) -> s
     try:
         email = str((customer or {}).get("email") or "").strip()
         cid = (customer or {}).get("id")
+        import lo_crm_emails
+        if lo_crm_emails.handles("welcome_friend"):
+            return "crm"                         # the CRM sends it from the registration (plan section 2B)
         if not email or not lo_mail.once(f"welcome-{cid if cid is not None else email.lower()}"):
             return "skipped"
         return lo_mail.send_template(email, "welcome_friend", {

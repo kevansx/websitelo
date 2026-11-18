@@ -99,10 +99,22 @@ def blocked(to: str, country: str | None = None) -> bool:
 
 
 def send_template(to: str, key: str, data: dict, *, text: str | None = None, kind: str | None = None,
-                  country: str | None = None) -> str:
+                  country: str | None = None, customer_id: Any = None, unique: str | None = None) -> str:
     """Send one of the designed emails (lo_emails.py). text: a hand-written plain-text part; without it the plain
     text is made from the HTML (which already carries the footer). country: the customer's, when the caller has the
-    record; otherwise the one remembered for the address. Returns "sent", "outbox" or "blocked"."""
+    record; otherwise the one remembered for the address. Returns "sent", "outbox" or "blocked".
+
+    With LO_EMAILS_VIA_CRM on, the 13 emails of the 18 Nov plan are no longer the website's (lo_crm_emails.py): the
+    11 it posts return "requested", "queued" or "duplicate", with customer_id and unique making the event_id. The two
+    the CRM sends from its own events return "crm", and nothing is sent or posted."""
+    import lo_crm_emails
+    if lo_crm_emails.handles(key):
+        if key in lo_crm_emails.CRM_OWN:
+            return "crm"
+        # Denmark: never asked for a Danish customer. The staff copy goes to the team, whatever the country.
+        if key != "withdrawal_request_staff" and blocked(to, country):
+            return "blocked"
+        return lo_crm_emails.request(key, data, customer_id=customer_id, unique=unique, to=to)
     if blocked(to, country):
         return "blocked"
     import lo_emails

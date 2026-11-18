@@ -116,7 +116,7 @@ def register(app) -> None:
                          f"Amount: {lo_mail.eur(amount)} ({currency})\nWinnings balance at request: {lo_mail.eur(available)}\n"
                          f"Pay by: {METHODS[method]}\nDetails:\n{details}\n\n"
                          "When paid: debit the Winnings bucket on the customer's wallet page in the CRM, with a reason "
-                         f"quoting W{req_id}.", kind="withdrawal-request")
+                         f"quoting W{req_id}.", kind="withdrawal-request", customer_id=cust["id"], unique=f"W{req_id}")
             if cust.get("email"):
                 lo_mail.send_template(cust["email"], "withdrawal_received",
                              {"first_name": cust.get("first_name"), "amount": lo_mail.eur(amount), "reference": f"W{req_id}",
@@ -124,7 +124,7 @@ def register(app) -> None:
                              text=f"We've received your request to withdraw {lo_mail.eur(amount)} from your winnings "
                              f"(reference W{req_id}).\n\nOur team will process your request in the coming days, and a "
                              "member of our team will be in touch with you soon. If we need anything else from you, we'll ask.",
-                             kind="withdrawal-received")
+                             kind="withdrawal-received", customer_id=cust["id"], unique=f"W{req_id}")
             sent = {"id": req_id, "amount": amount}
         return render_template("lo/withdraw.html", available=available, currency=currency, on=enabled(),
                                methods=METHODS, sent=sent, min_cents=MIN_CENTS,

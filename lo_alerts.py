@@ -246,7 +246,8 @@ def register(app) -> None:
                               "closes_at": email_data.get("closes_at"), "play_url": lo_mail.SITE_URL + payload["url"]},
                              text=payload["body"] + "\n\nPlay here: " + lo_mail.SITE_URL + payload["url"] +
                              "\n\nTo change or stop these alerts: " + lo_mail.SITE_URL + "/account/alerts",
-                             kind="jackpot-alert")
+                             kind="jackpot-alert", customer_id=cid,
+                             unique=f"{cid}-{payload.get('tag') or payload['url']}")
                 res["emailed"] = res.get("emailed", 0) + 1
         return res
 

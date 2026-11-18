@@ -1,0 +1,35 @@
+{# Email test fire (lo_crm_emails.py): www1, test accounts only. Each button runs the real job for this account. #}
+{% extends "lo/base.html" %}
+{% block content %}
+<section class="lo-pagehead"><div class="lo-wrap"><h1>Email test fire</h1></div></section>
+<section class="lo-section">
+  <div class="lo-wrap lo-stack" style="max-width:720px">
+    <p class="lo-muted">Test account {{ customer_id }}. Each button moves this account's own timer back and runs the real job for this account alone, so it posts the event the real timer would, now.</p>
+    {% if result %}
+      <div class="lo-panel">
+        <p style="margin:0"><strong>{{ result.name }}</strong></p>
+        {% if result.out.error %}<p style="margin:8px 0 0">{{ result.out.error }}</p>
+        {% else %}<pre style="margin:8px 0 0;white-space:pre-wrap">{{ result.out | tojson }}</pre>{% endif %}
+      </div>
+    {% endif %}
+    <form class="lo-panel lo-stack" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      {% for key, label in fires.items() %}
+        <button class="lo-btn lo-btn--secondary" type="submit" name="fire" value="{{ key }}">{{ label }}</button>
+      {% endfor %}
+    </form>
+    <div class="lo-panel">
+      <p style="margin:0 0 8px"><strong>Events posted for this account</strong></p>
+      {% if recent %}
+        <table style="width:100%;font-size:14px">
+          <tr><th align="left">Template</th><th align="left">event_id</th><th align="left">Posted</th></tr>
+          {% for r in recent %}
+            <tr><td>{{ r.template }}</td><td style="word-break:break-all">{{ r.event_id }}</td>
+                <td>{{ r.posted_at or ('not yet: ' ~ (r.last_error or 'waiting')) }}</td></tr>
+          {% endfor %}
+        </table>
+      {% else %}<p class="lo-muted" style="margin:0">None yet.</p>{% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

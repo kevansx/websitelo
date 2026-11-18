@@ -150,11 +150,13 @@ def _featured(jackpot: Callable[[str], dict | None], now: datetime, came_for: st
             "play_url": lo_mail.SITE_URL + lo_lotteries.play_path(lot)}
 
 
-def _nudges(now: datetime, jackpot: Callable[[str], dict | None], out: dict) -> None:
+def _nudges(now: datetime, jackpot: Callable[[str], dict | None], out: dict, only: int | None = None) -> None:
     with closing(_db()) as c:
         rows = [dict(r) for r in c.execute("SELECT * FROM signups WHERE first_order_at IS NULL AND nudge2_at IS NULL")]
     for r in rows:
         cid = int(r["customer_id"])
+        if only is not None and cid != only:
+            continue
         age = now - (lo_mail.parse_utc(r["registered_at"]) or now)
         stage = 2 if age >= NUDGE_AFTER[1] else 1 if age >= NUDGE_AFTER[0] else 0
         if stage == 0 or (stage == 1 and r["nudge1_at"]):
@@ -172,7 +174,8 @@ def _nudges(now: datetime, jackpot: Callable[[str], dict | None], out: dict) -> 
             out["skipped_consent"] += 1
             continue
         data = {"first_name": r["first_name"], "final": stage == 2, **_featured(jackpot, now, r.get("game_code"))}
-        if lo_mail.send_template(email, "first_order_nudge", data, country=r["country"], kind=f"nudge-{stage}") != "blocked":
+        if lo_mail.send_template(email, "first_order_nudge", data, country=r["country"], kind=f"nudge-{stage}",
+                                  customer_id=cid, unique=f"{cid}-day{NUDGE_AFTER[stage - 1].days}") != "blocked":
             out["nudges"] += 1
 
 
@@ -183,11 +186,13 @@ def _pack_for_order(cid: int, order_id: str) -> dict | None:
     return None
 
 
-def _day2(now: datetime, jackpot: Callable[[str], dict | None], out: dict) -> None:
+def _day2(now: datetime, jackpot: Callable[[str], dict | None], out: dict, only: int | None = None) -> None:
     with closing(_db()) as c:
         rows = [dict(r) for r in c.execute("SELECT * FROM first_orders WHERE day2_at IS NULL")]
     for r in rows:
         cid = int(r["customer_id"])
+        if only is not None and cid != only:
+            continue
         age = now - (lo_mail.parse_utc(r["ordered_at"]) or now)
         if age < DAY2_AFTER:
             continue
@@ -222,14 +227,17 @@ def _day2(now: datetime, jackpot: Callable[[str], dict | None], out: dict) -> No
             card = pack["gift"]["card"]
             data["gift_title"] = f"{card.get('sub')} on {card.get('title')}".strip()
             data["gift_detail"] = card.get("expiry")
-        if lo_mail.send_template(email, "first_draw_day2", data, country=(s["country"] if s else None)) != "blocked":
+        if lo_mail.send_template(email, "first_draw_day2", data, country=(s["country"] if s else None),
+                                  customer_id=cid, unique=f"{cid}-{r['order_id']}") != "blocked":
             out["day2"] += 1
 
 
-def _pack_reminders(now: datetime, out: dict) -> None:
+def _pack_reminders(now: datetime, out: dict, only: int | None = None) -> None:
     with closing(lo_packs._db()) as pc:
         packs = [lo_packs._row(r) for r in pc.execute("SELECT * FROM packs WHERE state='sealed'")]
     for p in packs:
+        if only is not None and int(p["customer_id"]) != only:
+            continue
         earned = lo_mail.parse_utc(p["earned_at"])
         expires = lo_mail.parse_utc(p["expires_at"])
         if not earned or (expires and expires <= now):
@@ -260,7 +268,7 @@ def _pack_reminders(now: datetime, out: dict) -> None:
             "first_name": None, "is_gold": p.get("tier") == "premium", "final": stage == PACK_STAGES[-1],
             "pack_url": f"{lo_mail.SITE_URL}/packs/{p['pack_id']}",
             "opens_on": lo_txmail.day(expires) if expires else None,
-        }, kind=f"pack-day{stage}") != "blocked":
+        }, kind=f"pack-day{stage}", customer_id=p["customer_id"], unique=f"{p['pack_id']}-day{stage}") != "blocked":
             out["pack_reminders"] += 1
 
 
@@ -274,17 +282,18 @@ def pack_opened_email(pack: dict) -> str:
         return lo_mail.send_template(ct["email"], "pack_opened", {
             "first_name": None, "gift_title": f"{card.get('sub', 'A free entry')} on {card.get('title', 'a lottery')}",
             "gift_detail": card.get("expiry"),
-        })
+        }, customer_id=pack["customer_id"], unique=str(pack["pack_id"]))
     except Exception:  # noqa: BLE001 - the gift is granted either way
         return "failed"
 
 
-def run(*, jackpot: Callable[[str], dict | None], now: datetime | None = None) -> dict:
+def run(*, jackpot: Callable[[str], dict | None], now: datetime | None = None, customer_id: int | None = None) -> dict:
     now = now or _now()
     out = {"nudges": 0, "day2": 0, "pack_reminders": 0, "skipped_consent": 0, "skipped_late": 0, "skipped_ordered": 0}
-    _nudges(now, jackpot, out)
-    _day2(now, jackpot, out)
-    _pack_reminders(now, out)
+    only = int(customer_id) if customer_id is not None else None   # a test fire: one test account only
+    _nudges(now, jackpot, out, only)
+    _day2(now, jackpot, out, only)
+    _pack_reminders(now, out, only)
     return out
 
 
@@ -301,3 +310,6 @@ def register(app) -> None:
         """Hourly: first-order nudges, the day-2 email and gift-pack reminders (see lo_journey.py)."""
         with app.test_request_context("/"):
             print(json.dumps(run(jackpot=app.jinja_env.globals["lo_jackpot"])))
+            import lo_crm_emails
+            if lo_crm_emails.switched_on():      # email requests the CRM did not take last time, same event_id
+                print(json.dumps({"crm_email_requests": lo_crm_emails.retry_pending()}))

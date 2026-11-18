@@ -425,12 +425,13 @@ def open_pack(pack_id: str, *, customer_id: int | None, crm: Any, games: list[di
         return _row(c.execute("SELECT * FROM packs WHERE pack_id=?", (pack_id,)).fetchone())
 
 
-def auto_open_expired(*, crm: Any, games: list[dict], on_opened: Any = None) -> dict:
+def auto_open_expired(*, crm: Any, games: list[dict], on_opened: Any = None, customer_id: int | None = None) -> dict:
     """Nightly: a pack left sealed for 14 days opens itself and the gift is granted anyway. on_opened(pack) is
     told about each one (lo_journey sends "We opened your gift pack")."""
     now = _iso(_now())
     with closing(_db()) as c:
-        ids = [r[0] for r in c.execute("SELECT pack_id FROM packs WHERE state='sealed' AND expires_at <= ?", (now,))]
+        ids = [r[0] for r in c.execute("SELECT pack_id, customer_id FROM packs WHERE state='sealed' AND expires_at <= ?", (now,))
+               if customer_id is None or int(r[1]) == int(customer_id)]
     done, failed = 0, 0
     for pid in ids:
         try:
@@ -568,6 +569,7 @@ def register(app) -> None:
             app.logger.warning("packs: order %s not evaluated: %s", order_id, e)
 
     app.config["LO_PACKS_AFTER_CHECKOUT"] = after_checkout
+    app.config["LO_PACKS_GAMES"] = _games
 
     @app.cli.command("packs-auto-open")
     def packs_auto_open_cmd():

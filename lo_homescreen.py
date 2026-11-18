@@ -190,6 +190,9 @@ def register(app) -> None:
         c = session.get("customer") if isinstance(session.get("customer"), dict) else {}
         email = str(c.get("email") or "").strip()
         try:
+            import lo_crm_emails
+            if lo_crm_emails.handles("homescreen_free_line"):
+                return                           # the CRM sends it from grant-free-ticket (plan section 2B)
             if email and lo_mail.once(f"homescreen-{c.get('id')}"):
                 lo_mail.send_template(email, "homescreen_free_line",
                                       {"first_name": c.get("first_name"), "draw_date": None, "jackpot": None},

@@ -97,13 +97,15 @@ def _lines_text(cart: list[dict]) -> str:
 
 
 def run(*, jackpot: Callable[[str], dict | None], resume_url: Callable[[int], str], push: Callable[[list[int], dict], dict],
-        has_push: Callable[[int], bool], now: datetime | None = None) -> dict:
+        has_push: Callable[[int], bool], now: datetime | None = None, customer_id: int | None = None) -> dict:
     now = now or _now()
     out = {"first": 0, "second": 0, "skipped_closed": 0, "skipped_consent": 0}
     with closing(_db()) as c:
         rows = [dict(r) for r in c.execute("SELECT * FROM carts WHERE completed_at IS NULL AND second_sent_at IS NULL")]
     for r in rows:
         cid = int(r["customer_id"])
+        if customer_id is not None and cid != int(customer_id):
+            continue                            # a test fire runs the job for one test account only
         cart = json.loads(r["cart_json"])
         last = _parse(r["last_seen_at"]) or now
         contact = lo_mail.contact(cid) or {}
@@ -135,7 +137,7 @@ def run(*, jackpot: Callable[[str], dict | None], resume_url: Callable[[int], st
                              text="You picked these lines but didn't finish your order:\n\n" + _lines_text(cart) +
                              f"\n\nThe next draw closes on {lo_mail.when(cutoff)}.\n\n"
                              "Pick up where you left off, with your lines still in your cart:\n" + resume_url(cid),
-                             kind="cart-30m")
+                             kind="cart-30m", customer_id=cid, unique=f"{cid}-{_stamp(r['last_seen_at'])}-30m")
             else:
                 out["skipped_consent"] += 1
             _mark(cid, "first_sent_at", now)
@@ -158,9 +160,15 @@ def run(*, jackpot: Callable[[str], dict | None], resume_url: Callable[[int], st
                      text=f"Your {name} lines are still waiting in your cart. Ticket sales for the next draw close on "
                      f"{lo_mail.when(cutoff)}.{jackpot_line}\n\n"
                      "Your cart, with your lines:\n" + resume_url(cid) + "\n\n"
-                     "This is the last reminder we'll send about this cart.", kind="cart-24h")
+                     "This is the last reminder we'll send about this cart.", kind="cart-24h",
+                     customer_id=cid, unique=f"{cid}-{_stamp(r['last_seen_at'])}-24h")
         out["second"] += 1
     return out
+
+
+def _stamp(raw) -> str:
+    """The cart's last-seen time as digits: one reminder of each kind per cart visit, in the event_id."""
+    return "".join(ch for ch in str(raw or "") if ch.isdigit())[:14] or "0"
 
 
 def _mark(cid: int, field: str, now: datetime) -> None:
@@ -222,6 +230,7 @@ def register(app) -> None:
         return resp
 
     app.config["LO_RECOVER_COMPLETED"] = order_completed
+    app.config["LO_RECOVER_RESUME_URL"] = resume_url
 
     @app.cli.command("abandoned-checkout")
     def abandoned_checkout_cmd():
